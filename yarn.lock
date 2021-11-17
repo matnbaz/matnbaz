@@ -1180,6 +1180,18 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@exonest/graphql-connections@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@exonest/graphql-connections/-/graphql-connections-0.0.0.tgz#bb2af208818673c3940bb20088b4f9174a4a0bd7"
+  integrity sha512-ka5PlgCgvvs5tW7NU6liemVIiYSFFNwovjhl+XUEkclVToTt4PKxjkjOX5hHtOyoskhwrMQIk0hvT3CrqMLolA==
+  dependencies:
+    "@nestjs/common" "^8.2.0"
+    "@nestjs/core" "^8.2.1"
+    "@nestjs/graphql" "^9.1.1"
+    apollo-server-core "^3.5.0"
+    graphql "15.7.0"
+    reflect-metadata "^0.1.13"
+
 "@graphql-tools/merge@6.2.5":
   version "6.2.5"
   resolved "https://registry.yarnpkg.com/@graphql-tools/merge/-/merge-6.2.5.tgz#a03d6711f2a468b8de97c0fe9092469280ca66c9"
@@ -1526,6 +1538,16 @@
     tslib "2.2.0"
     uuid "8.3.2"
 
+"@nestjs/common@^8.2.0":
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-8.2.1.tgz#2067d7dda6d1741f0dbffbef7a771851704fd2eb"
+  integrity sha512-xtcvRm46hyLVacMEfGJq4byFVkkP/xo255Em1T6BISyqJe2Cf2eCHSVOwxElDCIlonpGwrJhWosGgyOUgWk1iw==
+  dependencies:
+    axios "0.24.0"
+    iterare "1.2.1"
+    tslib "2.3.1"
+    uuid "8.3.2"
+
 "@nestjs/core@^7.0.0":
   version "7.6.18"
   resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.6.18.tgz#36448f0ae7f7d08f032e1e7e53b4a4c82ae844d7"
@@ -1537,6 +1559,19 @@
     object-hash "2.1.1"
     path-to-regexp "3.2.0"
     tslib "2.2.0"
+    uuid "8.3.2"
+
+"@nestjs/core@^8.2.1":
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-8.2.1.tgz#dd9540ade8cc13e274e0dbf4d54ece288fde5cae"
+  integrity sha512-5JyCBd+gDkl32Xa7ZRp2cvLR/elPSE/T4egtMFvSwQJDhek+djp9jaVq5PYvsBgaCr/HSHHrLIQ72nnDRLTisQ==
+  dependencies:
+    "@nuxtjs/opencollective" "0.3.2"
+    fast-safe-stringify "2.1.1"
+    iterare "1.2.1"
+    object-hash "2.2.0"
+    path-to-regexp "3.2.0"
+    tslib "2.3.1"
     uuid "8.3.2"
 
 "@nestjs/graphql@^9.1.1":
@@ -3476,6 +3511,13 @@ axios@0.21.1:
   integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
   dependencies:
     follow-redirects "^1.10.0"
+
+axios@0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
+  integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
+  dependencies:
+    follow-redirects "^1.14.4"
 
 axobject-query@^2.2.0:
   version "2.2.0"
@@ -5872,6 +5914,11 @@ fast-safe-stringify@2.0.7:
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.0.7.tgz#124aa885899261f68aedb42a7c080de9da608743"
   integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
+fast-safe-stringify@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.1.1.tgz#c406a83b6e70d9e35ce3b30a81141df30aeba884"
+  integrity sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==
+
 fastq@^1.6.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.13.0.tgz#616760f88a7526bdfc596b7cab8c18938c36b98c"
@@ -6008,7 +6055,7 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.4.tgz#28d9969ea90661b5134259f312ab6aa7929ac5e2"
   integrity sha512-8/sOawo8tJ4QOBX8YlQBMxL8+RLZfxMQOif9o0KUKTNTjMYElWPE0r/m5VNFxTRd0NSw8qSy8dajrwX4RYI1Hw==
 
-follow-redirects@^1.0.0, follow-redirects@^1.10.0:
+follow-redirects@^1.0.0, follow-redirects@^1.10.0, follow-redirects@^1.14.4:
   version "1.14.5"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.5.tgz#f09a5848981d3c772b5392309778523f8d85c381"
   integrity sha512-wtphSXy7d4/OR+MvIFbCVBDzZ5520qV8XfPklSN5QtxuMUJZ+b0Wnst1e1lCDocfzuCkHqj8k0FpZqO+UIaKNA==
@@ -8551,7 +8598,7 @@ object-hash@2.1.1:
   resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.1.1.tgz#9447d0279b4fcf80cff3259bf66a1dc73afabe09"
   integrity sha512-VOJmgmS+7wvXf8CjbQmimtCnEx3IAoLxI3fp2fbWehxrWBcAQFbk+vcwb6vzR0VZv/eNCJ/27j151ZTwqW/JeQ==
 
-object-hash@^2.2.0:
+object-hash@2.2.0, object-hash@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.2.0.tgz#5ad518581eefc443bd763472b8ff2e9c2c0d54a5"
   integrity sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==

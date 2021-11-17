@@ -12,6 +12,7 @@ type Owner {
   id: Float!
   login: String!
   nodeId: String!
+  repositories: RepositoryConnection!
   siteAdmin: Boolean!
   type: OwnerType!
 }
@@ -25,10 +26,27 @@ enum OwnerType {
   User
 }
 
+"""Information about pagination in a connection."""
+type PageInfo {
+  """The cursor of the last edge in the connection."""
+  endCursor: String
+
+  """Indicates if there are more pages to fetch."""
+  hasNextPage: Boolean!
+
+  """Indicates if there are any pages prior to the current page."""
+  hasPreviousPage: Boolean!
+
+  """The cursor of the first edge in the connection."""
+  startCursor: String
+}
+
 type Query {
   owner(id: Float!): Owner!
+  ownerByLogin(login: String!): Owner!
   repository(id: Float!): Repository!
-  topic(id: Float!): Topic!
+  topic(name: String!): Topic!
+  topicById(id: Float!): Topic!
 }
 
 type Repository {
@@ -53,16 +71,37 @@ type Repository {
   name: String!
   nodeId: String!
   openIssuesCount: Float!
+  owner: Owner!
   ownerId: Float!
   pushedAt: DateTime!
   score: Float!
   size: Float!
   stargazerscount: Float!
+  topics: [Topic!]!
   updatedAt: DateTime!
   watchersCount: Float!
+}
+
+type RepositoryConnection {
+  """A list of edges"""
+  edges: [RepositoryEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A Repository edge."""
+type RepositoryEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of RepositoryEdge."""
+  node: Repository!
 }
 
 type Topic {
   id: Float!
   name: String!
+  repositories: RepositoryConnection!
+  repositoriesCount: Int!
 }
