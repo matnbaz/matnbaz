@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@devoxa/prisma-relay-cursor-connection": "^2.0.3",
     "@exonest/graphql-connections": "^0.0.0",
     "@headlessui/react": "^1.4.2",
     "@nestjs/common": "^7.0.0",

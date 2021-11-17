@@ -1165,6 +1165,11 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
+"@devoxa/prisma-relay-cursor-connection@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@devoxa/prisma-relay-cursor-connection/-/prisma-relay-cursor-connection-2.0.3.tgz#f50fe6e83da6478427a2d2b6c3f0cbcd07668860"
+  integrity sha512-eHAYAsr6Wii/c+Q0E5niI4rRtrrmMRx3XbsJXSBK8JyXr8eN4VhshhLWyh/xMD4vaPgBvzfFqRuOeNlMxfX6lQ==
+
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.3.tgz#9e42981ef035beb3dd49add17acb96e8ff6f394c"

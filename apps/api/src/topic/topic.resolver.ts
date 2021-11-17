@@ -1,3 +1,4 @@
+import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
 import {
   Args,
@@ -35,8 +36,18 @@ export class TopicResolver {
   }
 
   @ResolveField(() => RepositoryConnection)
-  repositories(@Args() pagination: PaginationArgs, @Parent() topic: P.Topic) {
-    throw Error('Not implemented yet.');
+  repositories(@Args() pagination: PaginationArgs, @Parent() { id }: P.Topic) {
+    return findManyCursorConnection(
+      ({ cursor, ...args }) =>
+        this.prisma.repository.findMany({
+          where: { topics: { every: { id } } },
+          cursor: { nodeId: cursor.id },
+          ...args,
+        }),
+      () =>
+        this.prisma.repository.count({ where: { topics: { every: { id } } } }),
+      pagination
+    );
   }
 
   @ResolveField(() => Int)
