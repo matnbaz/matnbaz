@@ -12,18 +12,20 @@ datasource db {
 
 model Topic {
   id           Int          @id @default(autoincrement())
-  name         String
+  name         String       @unique
   Repositories Repository[]
 }
 
 model Repository {
   id              Int      @id
+  nodeId          String   @unique
   homePage        String
   size            Int
   stargazerscount Int
   watchersCount   Int
   forksCount      Int
   openIssuesCount Int
+  score           Int
   language        String
   hasIssues       Boolean
   hasProjects     Boolean
@@ -36,11 +38,9 @@ model Repository {
   allowForking    Boolean
   isTemplate      Boolean
   defaultBranch   String
-  score           Int
   createdAt       DateTime
   updatedAt       DateTime
   pushedAt        DateTime
-  nodeId          String
   name            String
   description     String
   isFork          Boolean
@@ -51,8 +51,8 @@ model Repository {
 
 model Owner {
   id           Int          @id
-  login        String
-  nodeId       String
+  login        String       @unique
+  nodeId       String       @unique
   gravatarId   String
   type         OwnerType
   siteAdmin    Boolean
