@@ -12,6 +12,7 @@ datasource db {
 
 model Topic {
   id           Int          @id @default(autoincrement())
+  name         String
   Repositories Repository[]
 }
 
