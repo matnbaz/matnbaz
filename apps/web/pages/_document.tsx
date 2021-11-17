@@ -21,7 +21,7 @@ class AppDocument extends Document {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css"
         />
-        <body>
+        <body className="bg-gray-50 dark:bg-gray-900">
           <Main />
           <NextScript />
         </body>
