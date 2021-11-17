@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Topic {
+  id           Int          @id @default(autoincrement())
+  Repositories Repository[]
+}
+
+model Repository {
+  id              Int      @id
+  homePage        String
+  size            Int
+  stargazerscount Int
+  watchersCount   Int
+  forksCount      Int
+  openIssuesCount Int
+  language        String
+  hasIssues       Boolean
+  hasProjects     Boolean
+  hasWiki         Boolean
+  hasPages        Boolean
+  mirrorUrl       String?
+  archived        Boolean
+  disabled        Boolean
+  license         String
+  allowForking    Boolean
+  isTemplate      Boolean
+  defaultBranch   String
+  score           Int
+  createdAt       DateTime
+  updatedAt       DateTime
+  pushedAt        DateTime
+  nodeId          String
+  name            String
+  description     String
+  isFork          Boolean
+  owner           Owner    @relation(fields: [ownerId], references: [id])
+  ownerId         Int
+  topics          Topic[]
+}
+
+model Owner {
+  id           Int          @id
+  login        String
+  nodeId       String
+  gravatarId   String
+  type         OwnerType
+  siteAdmin    Boolean
+  Repositories Repository[]
+}
+
+enum OwnerType {
+  User
+  Organization
+}
