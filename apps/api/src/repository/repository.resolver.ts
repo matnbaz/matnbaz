@@ -100,4 +100,22 @@ export class RepositoryResolver {
       color: languageInfo?.color || null,
     };
   }
+
+  @ResolveField(() => String, { nullable: true })
+  limitedDescription(@Parent() { description }: P.Repository) {
+    if (!description) return null;
+
+    const maxLength = 256;
+
+    // trim the string to the maximum length
+    let trimmedString = description.substr(0, maxLength);
+
+    // re-trim if we are in the middle of a word so it wo-...
+    trimmedString = trimmedString.substr(
+      0,
+      Math.min(trimmedString.length, trimmedString.lastIndexOf(' '))
+    );
+
+    return trimmedString;
+  }
 }

@@ -93,6 +93,7 @@ type Repository {
   isTemplate: Boolean!
   language: Language
   licenseId: String!
+  limitedDescription: String
   mirrorUrl: String
   name: String!
   nodeId: String!
