@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ScheduleModule } from '@nestjs/schedule';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
+import { ExtractorGhModule } from '../extractor-gh/extractor-gh.module';
 import { OwnerModule } from '../owner/owner.module';
 import { RepositoryModule } from '../repository/repository.module';
 import { TopicModule } from '../topic/topic.module';
@@ -17,6 +19,9 @@ import { AppService } from './app.service';
       autoSchemaFile: join(process.cwd(), 'apps/api/src/schema.gql'),
       sortSchema: true,
     }),
+    ScheduleModule.forRoot(),
+    ExtractorGhModule,
+    // GraphQL:
     RepositoryModule,
     TopicModule,
     OwnerModule,

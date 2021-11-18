@@ -10,23 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Topic {
-  id           Int          @id @default(autoincrement())
-  name         String       @unique
-  Repositories Repository[]
-}
-
 model Repository {
-  id              Int      @id
-  nodeId          String   @unique
-  homePage        String
+  id              String       @id @default(cuid())
+  platform        PlatformType
+  platformId      Int
+  nodeId          String       @unique
+  homePage        String?
   size            Int
   stargazerscount Int
   watchersCount   Int
   forksCount      Int
   openIssuesCount Int
   score           Int
-  language        String
+  language        String?
   hasIssues       Boolean
   hasProjects     Boolean
   hasWiki         Boolean
@@ -34,32 +30,66 @@ model Repository {
   mirrorUrl       String?
   archived        Boolean
   disabled        Boolean
-  license         String
   allowForking    Boolean
   isTemplate      Boolean
   defaultBranch   String
   createdAt       DateTime
   updatedAt       DateTime
   pushedAt        DateTime
+  extractedAt     DateTime     @default(now())
+  recordUpdatedAt DateTime     @updatedAt
   name            String
-  description     String
+  description     String?
   isFork          Boolean
-  owner           Owner    @relation(fields: [ownerId], references: [id])
-  ownerId         Int
-  topics          Topic[]
+  Owner           Owner        @relation(fields: [ownerId], references: [id])
+  ownerId         String
+  License         License?     @relation(fields: [licenseId], references: [id])
+  licenseId       String?
+  Topics          Topic[]
+
+  @@unique([platform, platformId])
+  @@index([language])
+}
+
+model License {
+  id           String       @id @default(cuid())
+  key          String       @unique
+  nodeId       String       @unique
+  name         String
+  spdxId       String
+  Repositories Repository[]
+}
+
+model Topic {
+  id           String       @id @default(cuid())
+  name         String       @unique
+  Repositories Repository[]
+  createdAt    DateTime     @default(now())
 }
 
 model Owner {
-  id           Int          @id
-  login        String       @unique
-  nodeId       String       @unique
-  gravatarId   String
-  type         OwnerType
-  siteAdmin    Boolean
-  Repositories Repository[]
+  id              String       @id @default(cuid())
+  platform        PlatformType
+  platformId      Int
+  login           String       @unique
+  nodeId          String       @unique
+  gravatarId      String
+  type            OwnerType
+  siteAdmin       Boolean
+  Repositories    Repository[]
+  extractedAt     DateTime     @default(now())
+  recordUpdatedAt DateTime     @updatedAt
+
+  @@unique([platform, platformId])
 }
 
 enum OwnerType {
   User
   Organization
+}
+
+enum PlatformType {
+  GitHub
+  GitLab
+  BitBucket
 }

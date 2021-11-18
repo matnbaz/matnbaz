@@ -10,8 +10,8 @@ import { Owner } from '../models/owner.model';
 export class OwnerResolver {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Query(() => Owner)
-  owner(@Args('id') id: number) {
+  @Query(() => Owner, { nullable: true })
+  owner(@Args('id') id: string) {
     return this.prisma.owner.findUnique({
       where: {
         id,
@@ -19,7 +19,14 @@ export class OwnerResolver {
     });
   }
 
-  @Query(() => Owner)
+  @Query(() => Owner, { nullable: true })
+  ownerGithub(@Args('id') id: number) {
+    return this.prisma.owner.findUnique({
+      where: { platform_platformId: { platform: 'GitHub', platformId: id } },
+    });
+  }
+
+  @Query(() => Owner, { nullable: true })
   ownerByLogin(@Args('login') login: string) {
     return this.prisma.owner.findUnique({
       where: {
@@ -31,10 +38,9 @@ export class OwnerResolver {
   @ResolveField(() => RepositoryConnection)
   repositories(@Args() pagination: PaginationArgs, @Parent() { id }: P.Owner) {
     return findManyCursorConnection(
-      ({ cursor, ...args }) =>
+      ({ ...args }) =>
         this.prisma.repository.findMany({
           where: { ownerId: id },
-          cursor: { nodeId: cursor.id },
           ...args,
         }),
       () => this.prisma.repository.count({ where: { ownerId: id } }),

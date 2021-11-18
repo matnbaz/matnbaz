@@ -17,8 +17,8 @@ import { Topic } from '../models/topic.model';
 export class TopicResolver {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Query(() => Topic)
-  topicById(@Args('id') id: number) {
+  @Query(() => Topic, { nullable: true })
+  topicById(@Args('id') id: string) {
     return this.prisma.topic.findUnique({
       where: {
         id,
@@ -26,7 +26,7 @@ export class TopicResolver {
     });
   }
 
-  @Query(() => Topic)
+  @Query(() => Topic, { nullable: true })
   topic(@Args('name') name: string) {
     return this.prisma.topic.findUnique({
       where: {
@@ -40,12 +40,12 @@ export class TopicResolver {
     return findManyCursorConnection(
       ({ cursor, ...args }) =>
         this.prisma.repository.findMany({
-          where: { topics: { every: { id } } },
+          where: { Topics: { every: { id } } },
           cursor: { nodeId: cursor.id },
           ...args,
         }),
       () =>
-        this.prisma.repository.count({ where: { topics: { every: { id } } } }),
+        this.prisma.repository.count({ where: { Topics: { every: { id } } } }),
       pagination
     );
   }
