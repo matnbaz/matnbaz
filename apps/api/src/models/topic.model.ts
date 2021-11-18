@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Topic implements P.Topic {
-  id: number;
+  id: string;
   name: string;
+  createdAt: Date;
 }

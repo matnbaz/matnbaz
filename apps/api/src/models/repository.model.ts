@@ -1,34 +1,41 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import * as P from '@prisma/client';
-import { ObjectType } from '@nestjs/graphql';
+import { registerPlatformTypeEnum } from './enums/platform-type.enum';
+import { Language } from './language.model';
 
+registerPlatformTypeEnum();
 @ObjectType()
-export class Repository implements P.Repository {
-  id: number;
-  homePage: string;
+export class Repository {
+  id: string;
+  platformId: number;
+  nodeId: string;
+  homePage?: string;
   size: number;
   stargazerscount: number;
   watchersCount: number;
   forksCount: number;
   openIssuesCount: number;
-  language: string;
+  score: number;
   hasIssues: boolean;
   hasProjects: boolean;
   hasWiki: boolean;
   hasPages: boolean;
-  mirrorUrl: string;
+  mirrorUrl?: string;
   archived: boolean;
   disabled: boolean;
-  license: string;
   allowForking: boolean;
   isTemplate: boolean;
   defaultBranch: string;
-  score: number;
   createdAt: Date;
   updatedAt: Date;
   pushedAt: Date;
-  nodeId: string;
+  extractedAt: Date;
+  recordUpdatedAt: Date;
   name: string;
-  description: string;
+  description?: string;
   isFork: boolean;
-  ownerId: number;
+  ownerId: string;
+  licenseId: string;
+  @Field(() => P.PlatformType)
+  platform: P.PlatformType;
 }

@@ -7,11 +7,20 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Language {
+  color: String
+  name: String!
+}
+
 type Owner {
+  extractedAt: DateTime!
   gravatarId: String!
-  id: Float!
+  id: String!
   login: String!
   nodeId: String!
+  platform: PlatformType!
+  platformId: Float!
+  recordUpdatedAt: DateTime!
   repositories: RepositoryConnection!
   siteAdmin: Boolean!
   type: OwnerType!
@@ -41,12 +50,27 @@ type PageInfo {
   startCursor: String
 }
 
+"""A repository owner could any of these types."""
+enum PlatformType {
+  """https://bitbucket.com"""
+  BitBucket
+
+  """https://github.com"""
+  GitHub
+
+  """https://gitlab.com"""
+  GitLab
+}
+
 type Query {
-  owner(id: Float!): Owner!
-  ownerByLogin(login: String!): Owner!
-  repository(id: Float!): Repository!
-  topic(name: String!): Topic!
-  topicById(id: Float!): Topic!
+  owner(id: String!): Owner
+  ownerByLogin(login: String!): Owner
+  ownerGithub(id: Float!): Owner
+  repositories: RepositoryConnection!
+  repositoryById(id: String!): Repository
+  repositoryGithub(id: Float!): Repository
+  topic(name: String!): Topic
+  topicById(id: String!): Topic
 }
 
 type Repository {
@@ -54,26 +78,30 @@ type Repository {
   archived: Boolean!
   createdAt: DateTime!
   defaultBranch: String!
-  description: String!
+  description: String
   disabled: Boolean!
+  extractedAt: DateTime!
   forksCount: Float!
   hasIssues: Boolean!
   hasPages: Boolean!
   hasProjects: Boolean!
   hasWiki: Boolean!
-  homePage: String!
-  id: Float!
+  homePage: String
+  id: String!
   isFork: Boolean!
   isTemplate: Boolean!
-  language: String!
-  license: String!
-  mirrorUrl: String!
+  language: Language
+  licenseId: String!
+  mirrorUrl: String
   name: String!
   nodeId: String!
   openIssuesCount: Float!
-  owner: Owner!
-  ownerId: Float!
+  owner: Owner
+  ownerId: String!
+  platform: PlatformType!
+  platformId: Float!
   pushedAt: DateTime!
+  recordUpdatedAt: DateTime!
   score: Float!
   size: Float!
   stargazerscount: Float!
@@ -100,7 +128,8 @@ type RepositoryEdge {
 }
 
 type Topic {
-  id: Float!
+  createdAt: DateTime!
+  id: String!
   name: String!
   repositories: RepositoryConnection!
   repositoriesCount: Int!
