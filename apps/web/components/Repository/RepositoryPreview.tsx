@@ -13,9 +13,14 @@ const RepositoryPreview = () => {
   ];
   return (
     <Card>
-      <div className="flex space-x-3 space-x-reverse self-end justify-end">
+      {/* Github Logo */}
+      {/* <img
+        className="w-4 h-4 absolute opacity-50"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
+      /> */}
+      <div className="flex space-x-3 space-x-reverse">
         <div className="flex flex-col space-y-2 h-full items-end w-full">
-          <h1 className="text-2xl font-semibold text-blue-600 dark:text-blue-400">
+          <h1 className="text-2xl text-blue-600 dark:text-blue-400">
             facebook/react
           </h1>
 
@@ -32,13 +37,23 @@ const RepositoryPreview = () => {
           className="w-16 h-16 rounded-lg m-auto"
         />
       </div>
-      <div className="flex space-x-6 space-x-reverse justify-end mt-4">
-        {statistics.map((statistic) => (
-          <div className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end">
-            <span>{statistic.value.toLocaleString('fa')}</span>
-            <statistic.icon className="w-5 h-5 m-auto" />
-          </div>
-        ))}
+      <div className="flex justify-between mt-4 items-center">
+        <div className="flex items-center">
+          <span className="pr-2.5 pl-1.5 py-1.5 text-sm">Javascript</span>
+          <div className="bg-yellow-500 rounded-full w-2 h-2" />
+        </div>
+
+        <div className="flex space-x-6 space-x-reverse">
+          {statistics.map((statistic) => (
+            <div
+              key={statistic.name}
+              className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end"
+            >
+              <span>{statistic.value.toLocaleString('fa')}</span>
+              <statistic.icon className="w-5 h-5 m-auto" />
+            </div>
+          ))}
+        </div>
       </div>
     </Card>
   );

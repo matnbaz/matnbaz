@@ -8,7 +8,7 @@ const Card = ({ children, className, ...props }: ICardProps) => {
   return (
     <div
       {...props}
-      className={`px-5 py-4 rounded-xl bg-gray-100 dark:bg-gray-800 ${
+      className={`px-5 py-4 rounded-xl bg-gray-200 dark:bg-gray-800 ${
         className || ''
       }`}
     >

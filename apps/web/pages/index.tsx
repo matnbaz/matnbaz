@@ -11,11 +11,24 @@ import RepositoryPreview from '../components/Repository/RepositoryPreview';
 export function Index() {
   const { theme, setTheme } = useTheme();
   return (
-    <div className="px-8 py-3 grid grid-cols-2 gap-2">
-      <RepositoryPreview />
-      <Button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-        toggle
-      </Button>
+    <div className="p-6 grid grid-cols-4 gap-6">
+      <div>
+        <Card>
+          <Button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+            toggle
+          </Button>
+        </Card>
+      </div>
+      <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6 col-span-4 md:col-span-3">
+        <RepositoryPreview />
+        <RepositoryPreview />
+        <RepositoryPreview />
+        <RepositoryPreview />
+        <RepositoryPreview />
+        <RepositoryPreview />
+        <RepositoryPreview />
+        <RepositoryPreview />
+      </div>
     </div>
   );
 }
