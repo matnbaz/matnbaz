@@ -3,7 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
-import { ExtractorGhModule } from '../extractor-gh/extractor-gh.module';
+import { OperatorGhModule } from '../operator-gh/operator-gh.module';
 import { OwnerModule } from '../owner/owner.module';
 import { RepositoryModule } from '../repository/repository.module';
 import { TopicModule } from '../topic/topic.module';
@@ -20,7 +20,7 @@ import { AppService } from './app.service';
       sortSchema: true,
     }),
     ScheduleModule.forRoot(),
-    ExtractorGhModule,
+    OperatorGhModule,
     // GraphQL:
     RepositoryModule,
     TopicModule,

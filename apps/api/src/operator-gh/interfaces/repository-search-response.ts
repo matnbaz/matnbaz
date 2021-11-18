@@ -1,4 +1,4 @@
-export interface IRepositorySearchResponse {
+export interface IPaginatedRepositories {
   total_count: number;
   incomplete_results: boolean;
   items: IRepositoryItem[];
