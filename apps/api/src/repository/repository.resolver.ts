@@ -52,6 +52,18 @@ export class RepositoryResolver {
       .Owner();
   }
 
+  @ResolveField(() => String)
+  async fullName(@Parent() { id, name }: P.Repository) {
+    const owner = await this.prisma.repository
+      .findUnique({
+        where: { id },
+        select: { id: true },
+      })
+      .Owner();
+
+    return `${owner.login}/${name}`;
+  }
+
   @ResolveField(() => [Topic])
   topics(@Parent() { id }: P.Repository) {
     return this.prisma.repository
