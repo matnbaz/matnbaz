@@ -27,13 +27,18 @@ export function Index() {
             <RepositoryPreviewSkeletonLoader />
             <RepositoryPreviewSkeletonLoader />
           </>
-        ) : (
+        ) : data.repositories.edges.length > 0 ? (
           data.repositories.edges.map((data) => (
             <RepositoryPreview
               key={data.node.fullName}
               repository={data.node}
             />
           ))
+        ) : (
+          <div>
+            <h1 className="text-2xl font-semibold mb-4">نتیجه ای یافت نشد.</h1>
+            <span>هیچ نتیجه ای با فیلتر های وارد شده یافت نشد.</span>
+          </div>
         )}
       </div>
     </div>
