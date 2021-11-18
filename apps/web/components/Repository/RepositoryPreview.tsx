@@ -1,11 +1,15 @@
+import { GetRepositoriesQuery } from 'apps/web/graphql-types';
 import {
   AiOutlineBranches,
   AiOutlineExclamationCircle,
   AiOutlineStar,
 } from 'react-icons/ai';
 import Card from '../UI/Card';
-// TODO: types
-const RepositoryPreview = ({ repository }) => {
+
+interface IRepositoryPreviewProps {
+  repository: GetRepositoriesQuery['repositories']['edges'][0]['node'];
+}
+const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
   const statistics = [
     {
       name: 'تعداد مشکلات',

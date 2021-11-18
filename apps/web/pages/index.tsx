@@ -3,6 +3,7 @@ import { useTheme } from 'next-themes';
 import Card from '../components/UI/Card';
 import RepositoryPreview from '../components/Repository/RepositoryPreview';
 import { gql, useQuery } from '@apollo/client';
+import { useGetRepositoriesQuery } from '../graphql-types';
 
 const GET_REPOSITORIES = gql`
   query GetRepositories {
@@ -34,7 +35,7 @@ const GET_REPOSITORIES = gql`
 
 export function Index() {
   const { theme, setTheme } = useTheme();
-  const { loading, error, data } = useQuery(GET_REPOSITORIES);
+  const { loading, error, data } = useGetRepositoriesQuery();
   if (loading) return <span>TODO HANDLE LOADING</span>;
   return (
     <div className="p-6 grid grid-cols-4 gap-6">
