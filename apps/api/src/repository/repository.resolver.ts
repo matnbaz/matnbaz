@@ -107,6 +107,9 @@ export class RepositoryResolver {
 
     const maxLength = 256;
 
+    // return the original description if the length is less than max length
+    if (description.length <= maxLength) return description;
+
     // trim the string to the maximum length
     let trimmedString = description.substr(0, maxLength);
 

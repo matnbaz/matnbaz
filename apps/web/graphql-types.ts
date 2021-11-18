@@ -137,6 +137,7 @@ export type Repository = {
   isTemplate: Scalars['Boolean'];
   language?: Maybe<Language>;
   licenseId: Scalars['String'];
+  limitedDescription?: Maybe<Scalars['String']>;
   mirrorUrl?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   nodeId: Scalars['String'];
@@ -184,7 +185,7 @@ export type Topic = {
 export type GetRepositoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', fullName: string, description?: string | null | undefined, stargazerscount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, platformId: number } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
+export type GetRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', fullName: string, limitedDescription?: string | null | undefined, stargazerscount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, platformId: number } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
 
 
 export const GetRepositoriesDocument = gql`
@@ -193,7 +194,7 @@ export const GetRepositoriesDocument = gql`
     edges {
       node {
         fullName
-        description
+        limitedDescription
         stargazerscount
         forksCount
         openIssuesCount
