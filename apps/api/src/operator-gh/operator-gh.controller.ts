@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { OperatorGhScheduler } from './operator-gh.scheduler';
 
-@Controller('extractor/gh')
+@Controller('operator/gh')
 export class OperatorGhController {
   constructor(private readonly scheduler: OperatorGhScheduler) {}
 
