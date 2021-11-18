@@ -17,7 +17,8 @@ export class OperatorGhService {
     let page = 1;
     const repos: IRepositoryItem[] = [];
 
-    for (let finished = false; !finished; ) {
+    let finished = false;
+    while (!finished) {
       try {
         const response = await axios.get<
           unknown,
@@ -30,9 +31,6 @@ export class OperatorGhService {
             sort: 'stars',
           },
         });
-        repos.push(...response.data.items);
-        console.log(response.data.items.map((r) => r.stargazers_count));
-        console.log(`Current page: ${page}`);
 
         page++;
 
@@ -44,8 +42,7 @@ export class OperatorGhService {
           finished = true;
         }
       } catch (e) {
-        console.log('Rate limited. will wait for a bit and try again...');
-        console.log('error details: ', e.response.data);
+        // Rate limited. will wait for a bit and try again...
         await timeout(10000);
       }
     }
@@ -76,7 +73,7 @@ export class OperatorGhService {
           siteAdmin: owner.site_admin,
         },
       });
-      console.log(`Discovered (probably) Iranian maintainer: ${owner.login}`);
+      // Discovered (probably) Iranian maintainer: ${owner.login}
     }
   }
 
@@ -175,9 +172,7 @@ export class OperatorGhService {
         update: repoData,
       });
 
-      console.log(
-        `Discovered (probably) Iranian repository: ${repo.full_name}`
-      );
+      // Extracted/updated (probably) Iranian repository: ${repo.full_name}
     }
   }
 }
