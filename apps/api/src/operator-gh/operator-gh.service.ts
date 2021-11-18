@@ -1,12 +1,12 @@
-import { Prisma, Owner } from '@prisma/client';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { Owner, Prisma } from '@prisma/client';
 import axios from 'axios';
 import { PrismaService } from 'nestjs-prisma';
-import {
-  IRepositoryItem,
-  IPaginatedRepositories,
-} from './interfaces/repository-search-response';
 import { timeout } from '../utils/timeout';
+import {
+  IPaginatedRepositories,
+  IRepositoryItem,
+} from './interfaces/repository-search-response';
 
 const MINIMUM_STARS = 3;
 @Injectable()
@@ -37,12 +37,16 @@ export class OperatorGhService {
         if (
           repos.length >= response.data.total_count || // Last page
           repos.length >= 1000 || // GitHub's limitation
-          repos[repos.length].stargazers_count < MINIMUM_STARS // Low-star repos
+          repos[repos.length - 1]?.stargazers_count < MINIMUM_STARS // Low-star repos
         ) {
           finished = true;
         }
       } catch (e) {
-        // Rate limited. will wait for a bit and try again...
+        if (e.response?.status === 403) {
+          Logger.warn('Rate limited. will wait for a bit and try again...');
+        } else {
+          Logger.warn(`Discovery failed. will wait for a bit and try again...`);
+        }
         await timeout(10000);
       }
     }
@@ -73,7 +77,7 @@ export class OperatorGhService {
           siteAdmin: owner.site_admin,
         },
       });
-      // Discovered (probably) Iranian maintainer: ${owner.login}
+      Logger.warn(`Discovered (probably) Iranian maintainer: ${owner.login}`);
     }
   }
 
@@ -90,89 +94,101 @@ export class OperatorGhService {
   }
 
   private async extractReposFromOwner(owner: Owner) {
-    const response = await axios.get<unknown, { data: IPaginatedRepositories }>(
-      `https://api.github.com/users/${owner.platformId}/repositories`,
-      {
+    try {
+      const response = await axios.get<
+        unknown,
+        { data: IPaginatedRepositories }
+      >(`https://api.github.com/users/${owner.login}/repos`, {
         params: {
           per_page: 100,
           sort: 'stars',
         },
-      }
-    );
-
-    const repos = response.data.items;
-
-    for (const { owner, topics, license, ...repo } of repos) {
-      if (repo.stargazers_count < MINIMUM_STARS) break;
-
-      const repoData: Prisma.XOR<
-        Prisma.RepositoryCreateInput,
-        Prisma.RepositoryUncheckedCreateInput
-      > = {
-        platformId: repo.id,
-        platform: 'GitHub',
-        allowForking: repo.allow_forking,
-        archived: repo.archived,
-        createdAt: repo.created_at,
-        defaultBranch: repo.default_branch,
-        description: repo.description,
-        disabled: repo.disabled,
-        forksCount: repo.forks_count,
-        hasIssues: repo.has_issues,
-        hasPages: repo.has_pages,
-        hasProjects: repo.has_projects,
-        hasWiki: repo.has_wiki,
-        homePage: repo.homepage,
-        isFork: repo.fork,
-        isTemplate: repo.is_template,
-        language: repo.language,
-        name: repo.name,
-        nodeId: repo.node_id,
-        openIssuesCount: repo.open_issues_count,
-        pushedAt: repo.pushed_at,
-        score: repo.score,
-        size: repo.size,
-        stargazerscount: repo.stargazers_count,
-        updatedAt: repo.updated_at,
-        watchersCount: repo.watchers_count,
-        mirrorUrl: repo.mirror_url,
-        Topics: {
-          connectOrCreate: topics.map((topicName) => ({
-            where: { name: topicName },
-            create: { name: topicName },
-          })),
-        },
-        License: license
-          ? {
-              connectOrCreate: {
-                where: {
-                  key: license.key,
-                },
-                create: {
-                  key: license.key,
-                  name: license.name,
-                  nodeId: license.node_id,
-                  spdxId: license.spdx_id,
-                },
-              },
-            }
-          : undefined,
-        Owner: {
-          connect: {
-            platform_platformId: { platform: 'GitHub', platformId: owner.id },
-          },
-        },
-      };
-
-      await this.prisma.repository.upsert({
-        where: {
-          platform_platformId: { platformId: repo.id, platform: 'GitHub' },
-        },
-        create: repoData,
-        update: repoData,
       });
 
-      // Extracted/updated (probably) Iranian repository: ${repo.full_name}
+      const repos = response.data.items;
+
+      for (const { owner, topics, license, ...repo } of repos) {
+        if (repo.stargazers_count < MINIMUM_STARS) break;
+
+        const repoData: Prisma.XOR<
+          Prisma.RepositoryCreateInput,
+          Prisma.RepositoryUncheckedCreateInput
+        > = {
+          platformId: repo.id,
+          platform: 'GitHub',
+          allowForking: repo.allow_forking,
+          archived: repo.archived,
+          createdAt: repo.created_at,
+          defaultBranch: repo.default_branch,
+          description: repo.description,
+          disabled: repo.disabled,
+          forksCount: repo.forks_count,
+          hasIssues: repo.has_issues,
+          hasPages: repo.has_pages,
+          hasProjects: repo.has_projects,
+          hasWiki: repo.has_wiki,
+          homePage: repo.homepage,
+          isFork: repo.fork,
+          isTemplate: repo.is_template,
+          language: repo.language,
+          name: repo.name,
+          nodeId: repo.node_id,
+          openIssuesCount: repo.open_issues_count,
+          pushedAt: repo.pushed_at,
+          score: repo.score,
+          size: repo.size,
+          stargazerscount: repo.stargazers_count,
+          updatedAt: repo.updated_at,
+          watchersCount: repo.watchers_count,
+          mirrorUrl: repo.mirror_url,
+          Topics: {
+            connectOrCreate: topics.map((topicName) => ({
+              where: { name: topicName },
+              create: { name: topicName },
+            })),
+          },
+          License: license
+            ? {
+                connectOrCreate: {
+                  where: {
+                    key: license.key,
+                  },
+                  create: {
+                    key: license.key,
+                    name: license.name,
+                    nodeId: license.node_id,
+                    spdxId: license.spdx_id,
+                  },
+                },
+              }
+            : undefined,
+          Owner: {
+            connect: {
+              platform_platformId: { platform: 'GitHub', platformId: owner.id },
+            },
+          },
+        };
+
+        await this.prisma.repository.upsert({
+          where: {
+            platform_platformId: { platformId: repo.id, platform: 'GitHub' },
+          },
+          create: repoData,
+          update: repoData,
+        });
+
+        Logger.warn(
+          `Extracted/updated (probably) Iranian repository: ${repo.full_name}`
+        );
+      }
+    } catch (e) {
+      if (e.response?.status === 403) {
+        Logger.warn('Rate limited. will wait for a bit and try again...');
+        await timeout(10000);
+        await this.extractReposFromOwner(owner);
+      } else {
+        Logger.warn(`Extraction failed for ${owner.login}`);
+      }
     }
   }
 }
