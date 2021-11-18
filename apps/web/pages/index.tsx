@@ -18,6 +18,7 @@ export function Index() {
         </Card>
       </div>
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6 col-span-4 md:col-span-3">
+        <RepositoryPreviewSkeletonLoader />
         {loading ? (
           <>
             <RepositoryPreviewSkeletonLoader />

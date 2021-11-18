@@ -19,7 +19,7 @@ const SkeletonLoaderShape = ({
 }: ISkeletonShapeProps) => {
   return (
     <div
-      className={`bg-gray-300 dark:bg-gray-600 ${ShapeClasses[shape]} ${
+      className={`bg-gray-300 dark:bg-gray-700 ${ShapeClasses[shape]} ${
         styles.shimmer
       } ${className || ''}`}
       style={{ width, height }}
