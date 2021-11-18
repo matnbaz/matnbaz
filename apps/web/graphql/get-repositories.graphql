@@ -1,0 +1,25 @@
+query GetRepositories {
+  repositories {
+    edges {
+      node {
+        fullName
+        description
+        stargazerscount
+        forksCount
+        openIssuesCount
+        language {
+          name
+          color
+        }
+        owner {
+          type
+          platformId
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
