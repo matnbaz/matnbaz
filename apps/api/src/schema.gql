@@ -26,27 +26,43 @@ type Owner {
   type: OwnerType!
 }
 
-"""A repository owner could any of these types."""
+"""
+A repository owner could any of these types.
+"""
 enum OwnerType {
-  """Owner is an organization."""
+  """
+  Owner is an organization.
+  """
   Organization
 
-  """Owner is a user."""
+  """
+  Owner is a user.
+  """
   User
 }
 
-"""Information about pagination in a connection."""
+"""
+Information about pagination in a connection.
+"""
 type PageInfo {
-  """The cursor of the last edge in the connection."""
+  """
+  The cursor of the last edge in the connection.
+  """
   endCursor: String
 
-  """Indicates if there are more pages to fetch."""
+  """
+  Indicates if there are more pages to fetch.
+  """
   hasNextPage: Boolean!
 
-  """Indicates if there are any pages prior to the current page."""
+  """
+  Indicates if there are any pages prior to the current page.
+  """
   hasPreviousPage: Boolean!
 
-  """The cursor of the first edge in the connection."""
+  """
+  The cursor of the first edge in the connection.
+  """
   startCursor: String
 }
 
@@ -111,19 +127,29 @@ type Repository {
 }
 
 type RepositoryConnection {
-  """A list of edges"""
+  """
+  A list of edges
+  """
   edges: [RepositoryEdge!]
 
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 }
 
-"""A Repository edge."""
+"""
+A Repository edge.
+"""
 type RepositoryEdge {
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
 
-  """The item at the end of RepositoryEdge."""
+  """
+  The item at the end of RepositoryEdge.
+  """
   node: Repository!
 }
 
