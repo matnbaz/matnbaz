@@ -116,6 +116,6 @@ export class RepositoryResolver {
       Math.min(trimmedString.length, trimmedString.lastIndexOf(' '))
     );
 
-    return trimmedString;
+    return trimmedString.length > 0 ? trimmedString + '...' : null;
   }
 }
