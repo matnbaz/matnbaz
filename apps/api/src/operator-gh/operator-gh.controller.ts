@@ -1,16 +1,21 @@
 import { Controller, Get } from '@nestjs/common';
-import { OperatorGhService } from './operator-gh.service';
+import { OperatorGhScheduler } from './operator-gh.scheduler';
 
 @Controller('extractor/gh')
 export class OperatorGhController {
-  constructor(private readonly extractor: OperatorGhService) {}
+  constructor(private readonly scheduler: OperatorGhScheduler) {}
+
+  @Get('discover')
+  async discover() {
+    if (process.env.NODE_ENV === 'development') {
+      await this.scheduler.discover();
+    }
+  }
 
   @Get('extract')
   async extract() {
     if (process.env.NODE_ENV === 'development') {
-      await this.extractor.discoverOwners('iran');
-
-      await this.extractor.extractReposFromOwners();
+      await this.scheduler.extractAndUpdate();
     }
   }
 }
