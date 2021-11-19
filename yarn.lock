@@ -1256,10 +1256,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@exonest/graphql-connections@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@exonest/graphql-connections/-/graphql-connections-0.0.2.tgz#31c408a20eb3851e09ac95d3aadf391f8f6beab6"
-  integrity sha512-D+AJZufV1d7yeuKvShcCVMBll8HKZyGfjvfKePdRGfoZEXtpDdmeayL68XZoxIK0GkaT4hocGtHp2p1z8lqVDw==
+"@exonest/graphql-connections@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@exonest/graphql-connections/-/graphql-connections-0.0.3.tgz#fb9de9bd73a2e1fd0f53911b8c09d17cf4d205e8"
+  integrity sha512-fqVXEleAn9Alq+e/aTY/QudiVgaYzGRYhSQZ+mIaFXgFyrnm2mUn7BYk9oYAUFcaqKOiNM2CELeUDxv8kNs8ig==
   dependencies:
     "@nestjs/common" "^8.2.0"
     "@nestjs/core" "^8.2.1"
