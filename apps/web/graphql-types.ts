@@ -2,16 +2,10 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-const defaultOptions = {};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -44,12 +38,20 @@ export type Owner = {
   type: OwnerType;
 };
 
+
+export type OwnerRepositoriesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
 /** A repository owner could any of these types. */
 export enum OwnerType {
   /** Owner is an organization. */
   Organization = 'Organization',
   /** Owner is a user. */
-  User = 'User',
+  User = 'User'
 }
 
 /** Information about pagination in a connection. */
@@ -72,7 +74,7 @@ export enum PlatformType {
   /** https://github.com */
   GitHub = 'GitHub',
   /** https://gitlab.com */
-  GitLab = 'GitLab',
+  GitLab = 'GitLab'
 }
 
 export type Query = {
@@ -87,29 +89,44 @@ export type Query = {
   topicById?: Maybe<Topic>;
 };
 
+
 export type QueryOwnerArgs = {
   id: Scalars['String'];
 };
+
 
 export type QueryOwnerByLoginArgs = {
   login: Scalars['String'];
 };
 
+
 export type QueryOwnerGithubArgs = {
   id: Scalars['Float'];
 };
+
+
+export type QueryRepositoriesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
 
 export type QueryRepositoryByIdArgs = {
   id: Scalars['String'];
 };
 
+
 export type QueryRepositoryGithubArgs = {
   id: Scalars['Float'];
 };
 
+
 export type QueryTopicArgs = {
   name: Scalars['String'];
 };
+
 
 export type QueryTopicByIdArgs = {
   id: Scalars['String'];
@@ -147,7 +164,7 @@ export type Repository = {
   platformId: Scalars['Float'];
   pushedAt: Scalars['DateTime'];
   recordUpdatedAt: Scalars['DateTime'];
-  score: Scalars['Float'];
+  score?: Maybe<Scalars['Float']>;
   size: Scalars['Float'];
   stargazersCount: Scalars['Float'];
   topics: Array<Topic>;
@@ -181,73 +198,49 @@ export type Topic = {
   repositoriesCount: Scalars['Int'];
 };
 
-export type GetRepositoriesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetRepositoriesQuery = {
-  __typename?: 'Query';
-  repositories: {
-    __typename?: 'RepositoryConnection';
-    edges?:
-      | Array<{
-          __typename?: 'RepositoryEdge';
-          node: {
-            __typename?: 'Repository';
-            fullName: string;
-            limitedDescription?: string | null | undefined;
-            stargazersCount: number;
-            forksCount: number;
-            openIssuesCount: number;
-            language?:
-              | {
-                  __typename?: 'Language';
-                  name: string;
-                  color?: string | null | undefined;
-                }
-              | null
-              | undefined;
-            owner?:
-              | { __typename?: 'Owner'; type: OwnerType; platformId: number }
-              | null
-              | undefined;
-          };
-        }>
-      | null
-      | undefined;
-    pageInfo: {
-      __typename?: 'PageInfo';
-      hasNextPage: boolean;
-      endCursor?: string | null | undefined;
-    };
-  };
+export type TopicRepositoriesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
+export type GetRepositoriesQueryVariables = Exact<{
+  after?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', fullName: string, limitedDescription?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, platformId: number } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
+
+
 export const GetRepositoriesDocument = gql`
-  query GetRepositories {
-    repositories {
-      edges {
-        node {
-          fullName
-          limitedDescription
-          stargazersCount
-          forksCount
-          openIssuesCount
-          language {
-            name
-            color
-          }
-          owner {
-            type
-            platformId
-          }
+    query GetRepositories($after: String) {
+  repositories(first: 8, after: $after) {
+    edges {
+      node {
+        fullName
+        limitedDescription
+        stargazersCount
+        forksCount
+        openIssuesCount
+        language {
+          name
+          color
+        }
+        owner {
+          type
+          platformId
         }
       }
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetRepositoriesQuery__
@@ -261,40 +254,18 @@ export const GetRepositoriesDocument = gql`
  * @example
  * const { data, loading, error } = useGetRepositoriesQuery({
  *   variables: {
+ *      after: // value for 'after'
  *   },
  * });
  */
-export function useGetRepositoriesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetRepositoriesQuery,
-    GetRepositoriesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetRepositoriesQuery, GetRepositoriesQueryVariables>(
-    GetRepositoriesDocument,
-    options
-  );
-}
-export function useGetRepositoriesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetRepositoriesQuery,
-    GetRepositoriesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetRepositoriesQuery,
-    GetRepositoriesQueryVariables
-  >(GetRepositoriesDocument, options);
-}
-export type GetRepositoriesQueryHookResult = ReturnType<
-  typeof useGetRepositoriesQuery
->;
-export type GetRepositoriesLazyQueryHookResult = ReturnType<
-  typeof useGetRepositoriesLazyQuery
->;
-export type GetRepositoriesQueryResult = Apollo.QueryResult<
-  GetRepositoriesQuery,
-  GetRepositoriesQueryVariables
->;
+export function useGetRepositoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetRepositoriesQuery, GetRepositoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRepositoriesQuery, GetRepositoriesQueryVariables>(GetRepositoriesDocument, options);
+      }
+export function useGetRepositoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRepositoriesQuery, GetRepositoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRepositoriesQuery, GetRepositoriesQueryVariables>(GetRepositoriesDocument, options);
+        }
+export type GetRepositoriesQueryHookResult = ReturnType<typeof useGetRepositoriesQuery>;
+export type GetRepositoriesLazyQueryHookResult = ReturnType<typeof useGetRepositoriesLazyQuery>;
+export type GetRepositoriesQueryResult = Apollo.QueryResult<GetRepositoriesQuery, GetRepositoriesQueryVariables>;
