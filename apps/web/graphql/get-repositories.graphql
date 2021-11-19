@@ -4,7 +4,7 @@ query GetRepositories {
       node {
         fullName
         limitedDescription
-        stargazerscount
+        stargazersCount
         forksCount
         openIssuesCount
         language {

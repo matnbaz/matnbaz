@@ -11,7 +11,7 @@ export class Repository {
   nodeId: string;
   homePage?: string;
   size: number;
-  stargazerscount: number;
+  stargazersCount: number;
   watchersCount: number;
   forksCount: number;
   openIssuesCount: number;

@@ -17,7 +17,7 @@ model Repository {
   nodeId          String       @unique
   homePage        String?
   size            Int
-  stargazerscount Int
+  stargazersCount Int
   watchersCount   Int
   forksCount      Int
   openIssuesCount Int

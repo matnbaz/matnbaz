@@ -82,7 +82,7 @@ export class ExtractionProcessor {
           pushedAt: repo.pushed_at,
           score: repo.score,
           size: repo.size,
-          stargazerscount: repo.stargazers_count,
+          stargazersCount: repo.stargazers_count,
           updatedAt: repo.updated_at,
           watchersCount: repo.watchers_count,
           mirrorUrl: repo.mirror_url,

@@ -20,7 +20,7 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
     {
       name: 'ستاره ها',
       icon: AiOutlineStar,
-      value: +repository.stargazerscount,
+      value: +repository.stargazersCount,
     },
   ];
   return (

@@ -106,7 +106,7 @@ type Repository {
   recordUpdatedAt: DateTime!
   score: Float
   size: Float!
-  stargazerscount: Float!
+  stargazersCount: Float!
   topics: [Topic!]!
   updatedAt: DateTime!
   watchersCount: Float!
