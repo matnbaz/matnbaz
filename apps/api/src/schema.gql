@@ -104,7 +104,7 @@ type Repository {
   platformId: Float!
   pushedAt: DateTime!
   recordUpdatedAt: DateTime!
-  score: Float!
+  score: Float
   size: Float!
   stargazerscount: Float!
   topics: [Topic!]!

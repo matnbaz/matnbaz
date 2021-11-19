@@ -21,7 +21,7 @@ model Repository {
   watchersCount   Int
   forksCount      Int
   openIssuesCount Int
-  score           Int
+  score           Int?
   language        String?
   hasIssues       Boolean
   hasProjects     Boolean

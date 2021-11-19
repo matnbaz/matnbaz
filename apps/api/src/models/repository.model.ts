@@ -15,7 +15,7 @@ export class Repository {
   watchersCount: number;
   forksCount: number;
   openIssuesCount: number;
-  score: number;
+  score?: number;
   hasIssues: boolean;
   hasProjects: boolean;
   hasWiki: boolean;
