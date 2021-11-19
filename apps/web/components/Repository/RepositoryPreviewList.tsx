@@ -14,7 +14,10 @@ const RepositoryPreviewList = ({
   return (
     <InfiniteScroll onLoadMore={onLoadMore}>
       {repositories.map((repository) => (
-        <RepositoryPreview repository={repository.node} />
+        <RepositoryPreview
+          repository={repository.node}
+          key={repository.node.fullName}
+        />
       ))}
     </InfiniteScroll>
   );
