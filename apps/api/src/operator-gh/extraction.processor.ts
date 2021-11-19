@@ -1,114 +1,59 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Process, Processor } from '@nestjs/bull';
+import { Logger } from '@nestjs/common';
 import { Owner, Prisma } from '@prisma/client';
 import axios from 'axios';
 import { PrismaService } from 'nestjs-prisma';
 import { timeout } from '../utils/timeout';
-import {
-  IPaginatedRepositories,
-  IRepositoryItem,
-} from './interfaces/repository-search-response';
+import { GITHUB_QUEUE, MINIMUM_STARS } from './constants';
+import { IRepositoryItem } from './interfaces/repository-search-response';
 
-const MINIMUM_STARS = 3;
-@Injectable()
-export class OperatorGhService {
+@Processor(GITHUB_QUEUE)
+export class ExtractionProcessor {
   constructor(private readonly prisma: PrismaService) {}
+  logger = new Logger('ExtractionProcessor-GitHub');
 
-  async discoverOwners(term: string) {
-    let page = 1;
-    const repos: IRepositoryItem[] = [];
-
-    let finished = false;
-    while (!finished) {
-      try {
-        const response = await axios.get<
-          unknown,
-          { data: IPaginatedRepositories }
-        >('https://api.github.com/search/repositories', {
-          params: {
-            q: term,
-            per_page: 100,
-            page,
-            sort: 'stars',
-          },
-        });
-
-        page++;
-
-        if (
-          repos.length >= response.data.total_count || // Last page
-          repos.length >= 1000 || // GitHub's limitation
-          repos[repos.length - 1]?.stargazers_count < MINIMUM_STARS // Low-star repos
-        ) {
-          finished = true;
-        }
-      } catch (e) {
-        if (e.response?.status === 403) {
-          Logger.warn('Rate limited. will wait for a bit and try again...');
-        } else {
-          Logger.warn(`Discovery failed. will wait for a bit and try again...`);
-        }
-        await timeout(10000);
-      }
-    }
-
-    for (const { owner, stargazers_count } of repos) {
-      if (stargazers_count < MINIMUM_STARS) break;
-
-      await this.prisma.owner.upsert({
-        where: {
-          platform_platformId: { platformId: owner.id, platform: 'GitHub' },
-        },
-        create: {
-          platformId: owner.id,
-          platform: 'GitHub',
-          gravatarId: owner.gravatar_id,
-          login: owner.login,
-          type: owner.type,
-          nodeId: owner.node_id,
-          siteAdmin: owner.site_admin,
-        },
-        update: {
-          platformId: owner.id,
-          platform: 'GitHub',
-          gravatarId: owner.gravatar_id,
-          login: owner.login,
-          type: owner.type,
-          nodeId: owner.node_id,
-          siteAdmin: owner.site_admin,
-        },
-      });
-      Logger.warn(`Discovered (probably) Iranian maintainer: ${owner.login}`);
-    }
-  }
-
+  @Process('extract')
   async extractReposFromOwners() {
+    this.logger.log('Starting the extraction of repositories...');
+
     const owners = await this.prisma.owner.findMany({
       where: {
         platform: 'GitHub',
       },
     });
 
+    this.logger.log(`${owners.length} owners found.`);
+
     for (const owner of owners) {
+      this.logger.log(`Now extracting ${owner.login}'s repositories...'`);
       await this.extractReposFromOwner(owner);
     }
   }
 
   private async extractReposFromOwner(owner: Owner) {
     try {
-      const response = await axios.get<
-        unknown,
-        { data: IPaginatedRepositories }
-      >(`https://api.github.com/users/${owner.login}/repos`, {
-        params: {
-          per_page: 100,
-          sort: 'stars',
-        },
-      });
+      const response = await axios.get<unknown, { data: IRepositoryItem[] }>(
+        `https://api.github.com/users/${owner.login}/repos`,
+        {
+          params: {
+            per_page: 100,
+            sort: 'stars',
+          },
+          headers: {
+            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          },
+        }
+      );
 
-      const repos = response.data.items;
+      const repos = response.data;
 
       for (const { owner, topics, license, ...repo } of repos) {
-        if (repo.stargazers_count < MINIMUM_STARS) break;
+        if (repo.stargazers_count < MINIMUM_STARS) {
+          this.logger.warn(
+            `repo ${repo.full_name} with ${repo.stargazers_count} stars disqualified.`
+          );
+          break;
+        }
 
         const repoData: Prisma.XOR<
           Prisma.RepositoryCreateInput,
@@ -177,17 +122,21 @@ export class OperatorGhService {
           update: repoData,
         });
 
-        Logger.warn(
+        this.logger.log(
           `Extracted/updated (probably) Iranian repository: ${repo.full_name}`
         );
       }
     } catch (e) {
-      if (e.response?.status === 403) {
-        Logger.warn('Rate limited. will wait for a bit and try again...');
+      if (
+        e.response?.status === 403 &&
+        e.response?.data.message.includes('rate limit')
+      ) {
+        this.logger.warn('Rate limited. will wait for a bit and try again...');
         await timeout(10000);
         await this.extractReposFromOwner(owner);
       } else {
-        Logger.warn(`Extraction failed for ${owner.login}`);
+        console.log(e);
+        this.logger.warn(`Extraction failed for ${owner.login}`);
       }
     }
   }

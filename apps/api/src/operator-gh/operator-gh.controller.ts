@@ -18,4 +18,11 @@ export class OperatorGhController {
       await this.scheduler.extractAndUpdate();
     }
   }
+
+  @Get('flush')
+  async flush() {
+    if (process.env.NODE_ENV === 'development') {
+      this.scheduler.flushQueue();
+    }
+  }
 }

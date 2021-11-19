@@ -1,8 +1,11 @@
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
+import { DiscoveryProcessor } from '../operator-gh/discovery.processor';
+import { ExtractionProcessor } from '../operator-gh/extraction.processor';
 import { OperatorGhModule } from '../operator-gh/operator-gh.module';
 import { OwnerModule } from '../owner/owner.module';
 import { RepositoryModule } from '../repository/repository.module';
@@ -20,6 +23,12 @@ import { AppService } from './app.service';
       sortSchema: true,
     }),
     ScheduleModule.forRoot(),
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     OperatorGhModule,
     // GraphQL:
     RepositoryModule,
@@ -27,6 +36,6 @@ import { AppService } from './app.service';
     OwnerModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, DiscoveryProcessor, ExtractionProcessor],
 })
 export class AppModule {}
