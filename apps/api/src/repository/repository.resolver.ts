@@ -1,31 +1,14 @@
-import {
-  Args,
-  ArgsType,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
+import { PaginationArgs } from '@exonest/graphql-connections';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import * as P from '@prisma/client';
+import * as GithubColors from 'github-colors';
 import { PrismaService } from 'nestjs-prisma';
+import { RepositoryConnection } from '../models/connections/repository.connection';
+import { Language } from '../models/language.model';
 import { Owner } from '../models/owner.model';
 import { Repository } from '../models/repository.model';
-import * as P from '@prisma/client';
 import { Topic } from '../models/topic.model';
-import { RepositoryConnection } from '../models/connections/repository.connection';
-// import { PaginationArgs } from '@exonest/graphql-connections';
-import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
-import { Language } from '../models/language.model';
-import * as GithubColors from 'github-colors';
-
-@ArgsType()
-export class PaginationArgs {
-  // Forward pagination arguments
-  first?: number;
-  after?: string;
-  // Backward pagination arguments
-  last?: number;
-  before?: string;
-}
 
 @Resolver(() => Repository)
 export class RepositoryResolver {

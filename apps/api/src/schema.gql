@@ -21,7 +21,7 @@ type Owner {
   platform: PlatformType!
   platformId: Float!
   recordUpdatedAt: DateTime!
-  repositories: RepositoryConnection!
+  repositories(after: String!, before: String!, first: Int!, last: Int!): RepositoryConnection!
   siteAdmin: Boolean!
   type: OwnerType!
 }
@@ -66,7 +66,7 @@ type Query {
   owner(id: String!): Owner
   ownerByLogin(login: String!): Owner
   ownerGithub(id: Float!): Owner
-  repositories: RepositoryConnection!
+  repositories(after: String!, before: String!, first: Int!, last: Int!): RepositoryConnection!
   repositoryById(id: String!): Repository
   repositoryGithub(id: Float!): Repository
   topic(name: String!): Topic
@@ -133,6 +133,6 @@ type Topic {
   createdAt: DateTime!
   id: String!
   name: String!
-  repositories: RepositoryConnection!
+  repositories(after: String!, before: String!, first: Int!, last: Int!): RepositoryConnection!
   repositoriesCount: Int!
 }
