@@ -1,7 +1,11 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const { createGlobPatternsForDependencies } = require('@nrwl/react/tailwind');
 module.exports = {
   mode: 'jit',
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  purge: [
+    './apps/web/pages/**/*.{js,ts,jsx,tsx}',
+    './apps/web/components/**/*.{js,ts,jsx,tsx}',
+  ],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
