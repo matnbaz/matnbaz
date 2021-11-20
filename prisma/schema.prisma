@@ -29,6 +29,7 @@ model Repository {
   archived        Boolean
   disabled        Boolean
   allowForking    Boolean
+  isFork          Boolean
   isTemplate      Boolean
   defaultBranch   String
   createdAt       DateTime
@@ -38,7 +39,6 @@ model Repository {
   recordUpdatedAt DateTime     @updatedAt
   name            String
   description     String?
-  isFork          Boolean
   Owner           Owner        @relation(fields: [ownerId], references: [id])
   ownerId         String
   Language        Language?    @relation(fields: [languageId], references: [id])

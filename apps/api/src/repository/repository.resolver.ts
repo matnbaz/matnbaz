@@ -10,9 +10,10 @@ import { Language } from '../models/language.model';
 import { Owner } from '../models/owner.model';
 import { Repository } from '../models/repository.model';
 import { Topic } from '../models/topic.model';
-import { LanguageArgs } from './args/language.args';
+import { RepoFilterArgs } from './args/repo-filter.args';
 import { RepoOrderArgs } from './args/repo-order.args';
 import { RepoSearchArgs } from './args/repo-search.args';
+import { RepoType } from './enums/repo-type.enum';
 import { RepoOrder } from './enums/repos-order.enum';
 
 @Resolver(() => Repository)
@@ -41,7 +42,7 @@ export class RepositoryResolver {
   @Query(() => RepositoryConnection)
   repositories(
     @Args() pagination: PaginationArgs,
-    @Args() { languages }: LanguageArgs,
+    @Args() { languages, type }: RepoFilterArgs,
     @Args() { searchTerm }: RepoSearchArgs,
     @Args() { order }: RepoOrderArgs
   ) {
@@ -49,9 +50,18 @@ export class RepositoryResolver {
       (args) =>
         this.prisma.repository.findMany({
           where: {
-            Language: languages
-              ? { OR: languages.map((lang) => ({ slug: lang })) }
-              : undefined,
+            isFork:
+              type === RepoType.FORK
+                ? true
+                : type === RepoType.SOURCE
+                ? false
+                : undefined,
+            archived: type === RepoType.ARCHIVE ? true : undefined,
+            isTemplate: type === RepoType.TEMPLATE ? true : undefined,
+            Language:
+              languages && languages.length > 0
+                ? { OR: languages.map((lang) => ({ slug: lang })) }
+                : undefined,
             name: { in: searchTerm || undefined },
           },
           orderBy: {

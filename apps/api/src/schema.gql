@@ -96,7 +96,7 @@ type Query {
   owner(id: String!): Owner
   ownerByLogin(login: String!): Owner
   ownerByPlatform(id: ID!, platform: PlatformType!): Owner
-  repositories(after: String, before: String, first: Int, languages: [String!], last: Int, order: RepoOrder = STARS_DESC, searchTerm: String): RepositoryConnection!
+  repositories(after: String, before: String, first: Int, languages: [String!], last: Int, order: RepoOrder = STARS_DESC, searchTerm: String, type: RepoType = ALL): RepositoryConnection!
   repositoryById(id: String!): Repository
   repositoryByPlatform(id: ID!, platform: PlatformType!): Repository
   topic(name: String!): Topic
@@ -120,6 +120,24 @@ enum RepoOrder {
 
   """Order by most stars in descending direction."""
   STARS_DESC
+}
+
+"""The repo type used in filters."""
+enum RepoType {
+  """Doesn't apply any filter to the query."""
+  ALL
+
+  """Only returns the archived repositoroes."""
+  ARCHIVE
+
+  """Only returns the forked repositoroes."""
+  FORK
+
+  """Only returns the source repositoroes."""
+  SOURCE
+
+  """Only returns the template repositoroes."""
+  TEMPLATE
 }
 
 type Repository {
