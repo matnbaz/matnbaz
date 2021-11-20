@@ -8,9 +8,8 @@ export class Owner {
   @Field(() => PlatformType)
   platform: PlatformType;
   @Field(() => ID)
-  platformId: number;
+  platformId: string;
   login: string;
-  nodeId: string;
   gravatarId: string;
   @Field(() => OwnerType)
   type: OwnerType;

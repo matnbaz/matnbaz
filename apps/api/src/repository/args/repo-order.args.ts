@@ -1,8 +1,8 @@
 import { ArgsType, Field } from '@nestjs/graphql';
-import { ReposOrder } from '../enums/repos-order.enum';
+import { RepoOrder } from '../enums/repos-order.enum';
 
 @ArgsType()
 export class RepoOrderArgs {
-  @Field(() => ReposOrder)
-  order?: ReposOrder;
+  @Field(() => RepoOrder)
+  order: RepoOrder = RepoOrder.STARS_DESC;
 }

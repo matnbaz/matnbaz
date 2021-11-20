@@ -93,24 +93,25 @@ export class DiscoveryProcessor {
 
       await this.prisma.owner.upsert({
         where: {
-          platform_platformId: { platformId: owner.id, platform: 'GitHub' },
+          platform_platformId: {
+            platformId: owner.id.toString(),
+            platform: 'GitHub',
+          },
         },
         create: {
-          platformId: owner.id,
+          platformId: owner.id.toString(),
           platform: 'GitHub',
           gravatarId: owner.gravatar_id,
           login: owner.login,
           type: owner.type,
-          nodeId: owner.node_id,
           siteAdmin: owner.site_admin,
         },
         update: {
-          platformId: owner.id,
+          platformId: owner.id.toString(),
           platform: 'GitHub',
           gravatarId: owner.gravatar_id,
           login: owner.login,
           type: owner.type,
-          nodeId: owner.node_id,
           siteAdmin: owner.site_admin,
         },
       });

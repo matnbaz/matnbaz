@@ -1,6 +1,6 @@
 import { registerEnumType } from '@nestjs/graphql';
 
-export enum ReposOrder {
+export enum RepoOrder {
   CREATED_ASC = 'CREATED_ASC',
   CREATED_DESC = 'CREATED_DESC',
   PUSHED_ASC = 'PUSHED_ASC',
@@ -8,8 +8,8 @@ export enum ReposOrder {
   STARS_DESC = 'STARS_DESC',
 }
 
-registerEnumType(ReposOrder, {
-  name: 'ReposOrder',
+registerEnumType(RepoOrder, {
+  name: 'RepoOrder',
   description: 'You can order repositories with one of these options.',
   valuesMap: {
     CREATED_ASC: {

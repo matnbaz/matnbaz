@@ -6,9 +6,8 @@ export class Repository {
   id: string;
 
   @Field(() => ID)
-  platformId: number;
+  platformId: string;
 
-  nodeId: string;
   homePage?: string;
 
   @Field(() => Int)

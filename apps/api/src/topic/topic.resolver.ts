@@ -11,7 +11,10 @@ import {
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { RepositoryConnection } from '../models/connections/repository.connection';
+import { TopicConnection } from '../models/connections/topic.connection';
 import { Topic } from '../models/topic.model';
+import { TopicOrderArgs } from './args/topic-order.args';
+import { TopicOrder } from './enums/topics-order.enum';
 
 @Resolver(() => Topic)
 export class TopicResolver {
@@ -26,6 +29,26 @@ export class TopicResolver {
     });
   }
 
+  @Query(() => TopicConnection)
+  topics(
+    @Args() pagination: PaginationArgs,
+    @Args() { order }: TopicOrderArgs
+  ) {
+    return findManyCursorConnection(
+      (args) =>
+        this.prisma.topic.findMany({
+          orderBy: {
+            [TopicOrder.REPOSITORIES_DESC]: {
+              Repositories: { _count: 'desc' as const },
+            },
+          }[order],
+          ...args,
+        }),
+      () => this.prisma.topic.count(),
+      pagination
+    );
+  }
+
   @Query(() => Topic, { nullable: true })
   topic(@Args('name') name: string) {
     return this.prisma.topic.findUnique({
@@ -37,15 +60,11 @@ export class TopicResolver {
 
   @ResolveField(() => RepositoryConnection)
   repositories(@Args() pagination: PaginationArgs, @Parent() { id }: P.Topic) {
+    const topicPromise = this.prisma.topic.findUnique({ where: { id } });
+
     return findManyCursorConnection(
-      ({ cursor, ...args }) =>
-        this.prisma.repository.findMany({
-          where: { Topics: { every: { id } } },
-          cursor: { nodeId: cursor.id },
-          ...args,
-        }),
-      () =>
-        this.prisma.repository.count({ where: { Topics: { every: { id } } } }),
+      (args) => topicPromise.Repositories(args),
+      async () => (await topicPromise.Repositories()).length,
       pagination
     );
   }
