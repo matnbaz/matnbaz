@@ -1,5 +1,12 @@
 import { PaginationArgs } from '@exonest/graphql-connections';
-import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  ID,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { PrismaService } from 'nestjs-prisma';
 import * as P from '@prisma/client';
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
@@ -20,7 +27,7 @@ export class OwnerResolver {
   }
 
   @Query(() => Owner, { nullable: true })
-  ownerGithub(@Args('id') id: number) {
+  ownerGithub(@Args('id', { type: () => ID }) id: number) {
     return this.prisma.owner.findUnique({
       where: { platform_platformId: { platform: 'GitHub', platformId: id } },
     });

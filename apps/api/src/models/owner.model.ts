@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { OwnerType } from './enums/owner-type.enum';
 import { PlatformType } from './enums/platform-type.enum';
 
@@ -7,6 +7,7 @@ export class Owner {
   id: string;
   @Field(() => PlatformType)
   platform: PlatformType;
+  @Field(() => ID)
   platformId: number;
   login: string;
   nodeId: string;

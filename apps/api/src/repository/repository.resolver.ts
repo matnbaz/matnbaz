@@ -1,6 +1,13 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
-import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  ID,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import * as GithubColors from 'github-colors';
 import { PrismaService } from 'nestjs-prisma';
@@ -28,7 +35,7 @@ export class RepositoryResolver {
   }
 
   @Query(() => Repository, { nullable: true })
-  repositoryGithub(@Args('id') id: number) {
+  repositoryGithub(@Args('id', { type: () => ID }) id: number) {
     return this.prisma.repository.findFirst({
       where: {
         platform: 'GitHub',

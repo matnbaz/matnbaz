@@ -19,7 +19,7 @@ type Owner {
   login: String!
   nodeId: String!
   platform: PlatformType!
-  platformId: Float!
+  platformId: ID!
   recordUpdatedAt: DateTime!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   siteAdmin: Boolean!
@@ -65,10 +65,10 @@ enum PlatformType {
 type Query {
   owner(id: String!): Owner
   ownerByLogin(login: String!): Owner
-  ownerGithub(id: Float!): Owner
+  ownerGithub(id: ID!): Owner
   repositories(after: String, before: String, first: Int, language: String, last: Int, order: ReposOrder, searchTerm: String): RepositoryConnection!
   repositoryById(id: String!): Repository
-  repositoryGithub(id: Float!): Repository
+  repositoryGithub(id: ID!): Repository
   topic(name: String!): Topic
   topicById(id: String!): Topic
 }
@@ -100,7 +100,7 @@ type Repository {
   descriptionDirection: ScriptDirection!
   disabled: Boolean!
   extractedAt: DateTime!
-  forksCount: Float!
+  forksCount: Int!
   fullName: String!
   hasIssues: Boolean!
   hasPages: Boolean!
@@ -116,20 +116,20 @@ type Repository {
   mirrorUrl: String
   name: String!
   nodeId: String!
-  openIssuesCount: Float!
+  openIssuesCount: Int!
   owner: Owner
   ownerId: String!
   platform: PlatformType!
-  platformId: Float!
+  platformId: ID!
   platformUrl: String
   pushedAt: DateTime!
   recordUpdatedAt: DateTime!
-  score: Float
-  size: Float!
-  stargazersCount: Float!
+  score: Int
+  size: Int!
+  stargazersCount: Int!
   topics: [Topic!]!
   updatedAt: DateTime!
-  watchersCount: Float!
+  watchersCount: Int!
 }
 
 type RepositoryConnection {
