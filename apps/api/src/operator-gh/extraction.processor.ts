@@ -53,7 +53,7 @@ export class ExtractionProcessor {
           this.logger.warn(
             `repo ${repo.full_name} with ${repo.stargazers_count} stars disqualified.`
           );
-          break;
+          continue;
         }
 
         const repoData: Prisma.XOR<

@@ -88,7 +88,7 @@ export class DiscoveryProcessor {
         this.logger.warn(
           `repo ${repo.full_name} with ${repo.stargazers_count} stars disqualified.`
         );
-        break;
+        continue;
       }
 
       await this.prisma.owner.upsert({
