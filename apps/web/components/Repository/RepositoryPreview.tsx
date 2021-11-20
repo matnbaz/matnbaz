@@ -1,4 +1,4 @@
-import { GetRepositoriesQuery } from 'apps/web/graphql-types';
+import { GetRepositoriesQuery } from 'apps/web/lib/graphql-types';
 import {
   AiOutlineBranches,
   AiOutlineExclamationCircle,

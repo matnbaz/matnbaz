@@ -1,6 +1,6 @@
 import Card from '../components/UI/Card';
 
-import { useGetRepositoriesQuery } from '../graphql-types';
+import { useGetRepositoriesQuery } from '../lib/graphql-types';
 import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loaders/RepositoryPreviewSkeletonLoader';
 
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
