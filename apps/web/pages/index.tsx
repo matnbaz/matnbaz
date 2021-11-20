@@ -12,6 +12,7 @@ export function Index() {
   const repositoriesPageInfo = data?.repositories.pageInfo;
   const repositoriesLoadMoreHandler = () => {
     if (!repositoriesPageInfo.hasNextPage) return;
+
     fetchMore({
       variables: {
         after: repositoriesPageInfo.endCursor,
@@ -20,7 +21,7 @@ export function Index() {
   };
   return (
     <MainLayout>
-      <div className="grid grid-cols-1 md:grid-cols-5 px-6 gap-y-6 gap-x-0 md:gap-x-6">
+      <div className="grid grid-cols-1 md:grid-cols-5 px-6 pb-6 gap-y-6 gap-x-0 md:gap-x-6">
         <div>
           <Card>TODO</Card>
         </div>
