@@ -51,7 +51,13 @@ export class ExtractionProcessor {
       for (const { owner, topics, license, ...repo } of repos) {
         if (repo.stargazers_count < MINIMUM_STARS) {
           this.logger.warn(
-            `repo ${repo.full_name} with ${repo.stargazers_count} stars disqualified.`
+            `repo ${repo.full_name} disqualified. (reason: low stars - ${repo.stargazers_count})`
+          );
+          continue;
+        }
+        if (repo.description.length > 256) {
+          this.logger.warn(
+            `repo ${repo.full_name} disqualified. (reason: long description - ${repo.description.length} chars)`
           );
           continue;
         }
