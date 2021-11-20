@@ -5,11 +5,16 @@ import * as P from '@prisma/client';
 import * as GithubColors from 'github-colors';
 import { PrismaService } from 'nestjs-prisma';
 import { RepositoryConnection } from '../models/connections/repository.connection';
+import {
+  registerScriptDirectionEnum,
+  ScriptDirection,
+} from '../models/enums/script-direction.enum';
 import { Language } from '../models/language.model';
 import { Owner } from '../models/owner.model';
 import { Repository } from '../models/repository.model';
 import { Topic } from '../models/topic.model';
 
+registerScriptDirectionEnum(); // TODO Extract all enum register calls into one file?
 @Resolver(() => Repository)
 export class RepositoryResolver {
   constructor(private readonly prisma: PrismaService) {}
@@ -82,6 +87,19 @@ export class RepositoryResolver {
       name: language,
       color: languageInfo?.color || null,
     };
+  }
+
+  @ResolveField(() => ScriptDirection)
+  descriptionDirection(
+    @Parent() { description }: P.Repository
+  ): ScriptDirection {
+    // We check if the first 5 characters include any persian words
+    if (!description || description.length < 5) return ScriptDirection.LTR;
+    return description
+      .slice(0, 4)
+      .match(/[\u0600-\u06FF\uFB8A\u067E\u0686\u06AF\u200C\u200F]/g)
+      ? ScriptDirection.RTL
+      : ScriptDirection.LTR;
   }
 
   @ResolveField(() => String, { nullable: true })

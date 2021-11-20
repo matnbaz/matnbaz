@@ -79,6 +79,7 @@ type Repository {
   createdAt: DateTime!
   defaultBranch: String!
   description: String
+  descriptionDirection: ScriptDirection!
   disabled: Boolean!
   extractedAt: DateTime!
   forksCount: Float!
@@ -127,6 +128,15 @@ type RepositoryEdge {
 
   """The item at the end of RepositoryEdge."""
   node: Repository!
+}
+
+"""A repository owner could any of these types."""
+enum ScriptDirection {
+  """left-to-right"""
+  LTR
+
+  """right-to-left"""
+  RTL
 }
 
 type Topic {
