@@ -8,7 +8,7 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
   return (
     <>
       <Header className="h-20" />
-      <div className="pt-24">{children}</div>
+      <div className="pt-24 w-full">{children}</div>
     </>
   );
 };

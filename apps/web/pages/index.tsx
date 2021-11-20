@@ -20,11 +20,11 @@ export function Index() {
   };
   return (
     <MainLayout>
-      <div className="p-6 grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-5 px-6 gap-y-6 gap-x-0 md:gap-x-6">
         <div>
           <Card>TODO</Card>
         </div>
-        <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6 col-span-4 md:col-span-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-0 md:gap-x-6 md:col-span-4">
           {loading ? (
             <>
               {[...Array(6).keys()].map((number) => (

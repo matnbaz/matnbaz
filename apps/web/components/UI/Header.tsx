@@ -12,7 +12,7 @@ const Header = ({ className }: IHeaderProps) => {
         className || ''
       }`}
     >
-      <div className="flex m-auto  max-w-6xl  justify-between items-center py-6 md:justify-start md:space-x-10">
+      <div className="flex md:m-auto  max-w-6xl  justify-between items-center py-6 md:justify-start md:space-x-10">
         <div className="flex justify-start lg:w-0 lg:flex-1 max-w-7xl">
           <a href="#">
             <span className="sr-only">Workflow</span>
