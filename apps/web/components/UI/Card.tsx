@@ -11,7 +11,7 @@ const Card = ({ children, className, onClick, ...props }: ICardProps) => {
     <Component
       {...props}
       onClick={onClick}
-      className={`px-5 py-4 rounded-xl bg-gray-200 dark:bg-gray-800 ${
+      className={`px-5 py-4 rounded-xl bg-gray-200 dark:bg-gray-800 shadow-md ${
         className || ''
       }`}
     >

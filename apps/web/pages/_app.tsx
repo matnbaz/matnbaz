@@ -3,8 +3,8 @@ import { ThemeProvider, useTheme } from 'next-themes';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import client from '../apollo';
-import './styles.css';
+import client from '../lib/apollo';
+import '../styles/global.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (

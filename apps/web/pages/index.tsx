@@ -1,10 +1,11 @@
 import Card from '../components/UI/Card';
 
-import { useGetRepositoriesQuery } from '../graphql-types';
+import { useGetRepositoriesQuery } from '../lib/graphql-types';
 import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loaders/RepositoryPreviewSkeletonLoader';
 
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
 import MainLayout from '../components/Layouts/MainLayout';
+import MultiSelectWIP from '../components/UI/MultiSelectWIP';
 
 export function Index() {
   const { loading, data, fetchMore } = useGetRepositoriesQuery();
@@ -12,6 +13,7 @@ export function Index() {
   const repositoriesPageInfo = data?.repositories.pageInfo;
   const repositoriesLoadMoreHandler = () => {
     if (!repositoriesPageInfo.hasNextPage) return;
+
     fetchMore({
       variables: {
         after: repositoriesPageInfo.endCursor,
@@ -20,9 +22,19 @@ export function Index() {
   };
   return (
     <MainLayout>
-      <div className="grid grid-cols-1 md:grid-cols-5 px-6 gap-y-6 gap-x-0 md:gap-x-6">
+      <div className="grid grid-cols-1 md:grid-cols-5 px-6 pb-6 gap-y-6 gap-x-0 md:gap-x-6">
         <div>
-          <Card>TODO</Card>
+          <Card>
+            <MultiSelectWIP
+              options={[
+                { name: 'Javascript', value: 'javascript' },
+                { name: 'PHP', value: 'php' },
+              ]}
+              onChange={(values) => {
+                console.log('values', values);
+              }}
+            />
+          </Card>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-0 md:gap-x-6 md:col-span-4">
           {loading ? (
