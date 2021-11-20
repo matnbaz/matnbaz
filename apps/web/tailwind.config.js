@@ -1,8 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const { createGlobPatternsForDependencies } = require('@nrwl/react/tailwind');
+
 module.exports = {
-  mode: 'jit',
-  purge: [
+  content: [
     './apps/web/pages/**/*.{js,ts,jsx,tsx}',
     './apps/web/components/**/*.{js,ts,jsx,tsx}',
   ],
