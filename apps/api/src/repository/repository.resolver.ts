@@ -1,25 +1,20 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
-import {
-  Args,
-  ID,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import * as P from '@prisma/client';
-import * as GithubColors from 'github-colors';
 import { PrismaService } from 'nestjs-prisma';
+import { PlatformArgs } from '../models/args/platform.args';
 import { RepositoryConnection } from '../models/connections/repository.connection';
 import { ScriptDirection } from '../models/enums/script-direction.enum';
 import { Language } from '../models/language.model';
 import { Owner } from '../models/owner.model';
 import { Repository } from '../models/repository.model';
 import { Topic } from '../models/topic.model';
-import { LanguageArgs } from './args/language.args';
+import { RepoFilterArgs } from './args/repo-filter.args';
 import { RepoOrderArgs } from './args/repo-order.args';
 import { RepoSearchArgs } from './args/repo-search.args';
+import { RepoType } from './enums/repo-type.enum';
+import { RepoOrder } from './enums/repos-order.enum';
 
 @Resolver(() => Repository)
 export class RepositoryResolver {
@@ -35,10 +30,10 @@ export class RepositoryResolver {
   }
 
   @Query(() => Repository, { nullable: true })
-  repositoryGithub(@Args('id', { type: () => ID }) id: number) {
+  repositoryByPlatform(@Args() { id, platform }: PlatformArgs) {
     return this.prisma.repository.findFirst({
       where: {
-        platform: 'GitHub',
+        platform,
         platformId: id,
       },
     });
@@ -47,7 +42,7 @@ export class RepositoryResolver {
   @Query(() => RepositoryConnection)
   repositories(
     @Args() pagination: PaginationArgs,
-    @Args() { language }: LanguageArgs,
+    @Args() { languages, type }: RepoFilterArgs,
     @Args() { searchTerm }: RepoSearchArgs,
     @Args() { order }: RepoOrderArgs
   ) {
@@ -55,15 +50,26 @@ export class RepositoryResolver {
       (args) =>
         this.prisma.repository.findMany({
           where: {
-            language,
+            isFork:
+              type === RepoType.FORK
+                ? true
+                : type === RepoType.SOURCE
+                ? false
+                : undefined,
+            archived: type === RepoType.ARCHIVE ? true : undefined,
+            isTemplate: type === RepoType.TEMPLATE ? true : undefined,
+            Language:
+              languages && languages.length > 0
+                ? { OR: languages.map((lang) => ({ slug: lang })) }
+                : undefined,
             name: { in: searchTerm || undefined },
           },
           orderBy: {
-            CREATED_ASC: { createdAt: 'asc' as const },
-            CREATED_DESC: { createdAt: 'desc' as const },
-            PUSHED_ASC: { pushedAt: 'asc' as const },
-            PUSHED_DESC: { pushedAt: 'desc' as const },
-            STARS_DESC: { stargazersCount: 'desc' as const },
+            [RepoOrder.CREATED_ASC]: { createdAt: 'asc' as const },
+            [RepoOrder.CREATED_DESC]: { createdAt: 'desc' as const },
+            [RepoOrder.PUSHED_ASC]: { pushedAt: 'asc' as const },
+            [RepoOrder.PUSHED_DESC]: { pushedAt: 'desc' as const },
+            [RepoOrder.STARS_DESC]: { stargazersCount: 'desc' as const },
           }[order],
           ...args,
         }),
@@ -126,13 +132,9 @@ export class RepositoryResolver {
   }
 
   @ResolveField(() => Language, { nullable: true })
-  language(@Parent() { language }: P.Repository) {
-    if (!language) return null;
-    const languageInfo = GithubColors.get(language);
-    return {
-      name: language,
-      color: languageInfo?.color || null,
-    };
+  language(@Parent() { languageId }: P.Repository) {
+    if (!languageId) return null;
+    return this.prisma.language.findUnique({ where: { id: languageId } });
   }
 
   @ResolveField(() => ScriptDirection)

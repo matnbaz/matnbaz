@@ -6,6 +6,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { timeout } from '../utils/timeout';
 import { GITHUB_QUEUE, MINIMUM_STARS } from './constants';
 import { IRepositoryItem } from './interfaces/repository-search-response';
+import slugify from 'slugify';
 
 @Processor(GITHUB_QUEUE)
 export class ExtractionProcessor {
@@ -52,14 +53,14 @@ export class ExtractionProcessor {
           this.logger.warn(
             `repo ${repo.full_name} with ${repo.stargazers_count} stars disqualified.`
           );
-          break;
+          continue;
         }
 
         const repoData: Prisma.XOR<
           Prisma.RepositoryCreateInput,
           Prisma.RepositoryUncheckedCreateInput
         > = {
-          platformId: repo.id,
+          platformId: repo.id.toString(),
           platform: 'GitHub',
           allowForking: repo.allow_forking,
           archived: repo.archived,
@@ -75,9 +76,7 @@ export class ExtractionProcessor {
           homePage: repo.homepage,
           isFork: repo.fork,
           isTemplate: repo.is_template,
-          language: repo.language,
           name: repo.name,
-          nodeId: repo.node_id,
           openIssuesCount: repo.open_issues_count,
           pushedAt: repo.pushed_at,
           score: repo.score,
@@ -92,6 +91,19 @@ export class ExtractionProcessor {
               create: { name: topicName },
             })),
           },
+          Language: repo.language
+            ? {
+                connectOrCreate: {
+                  where: {
+                    slug: slugify(repo.language.toLowerCase()),
+                  },
+                  create: {
+                    slug: slugify(repo.language.toLowerCase()),
+                    name: repo.language,
+                  },
+                },
+              }
+            : undefined,
           License: license
             ? {
                 connectOrCreate: {
@@ -101,7 +113,6 @@ export class ExtractionProcessor {
                   create: {
                     key: license.key,
                     name: license.name,
-                    nodeId: license.node_id,
                     spdxId: license.spdx_id,
                   },
                 },
@@ -109,14 +120,20 @@ export class ExtractionProcessor {
             : undefined,
           Owner: {
             connect: {
-              platform_platformId: { platform: 'GitHub', platformId: owner.id },
+              platform_platformId: {
+                platform: 'GitHub',
+                platformId: owner.id.toString(),
+              },
             },
           },
         };
 
         await this.prisma.repository.upsert({
           where: {
-            platform_platformId: { platformId: repo.id, platform: 'GitHub' },
+            platform_platformId: {
+              platformId: repo.id.toString(),
+              platform: 'GitHub',
+            },
           },
           create: repoData,
           update: repoData,

@@ -1,6 +1,6 @@
 import { ArgsType } from '@nestjs/graphql';
 
 @ArgsType()
-export class LanguageArgs {
-  language?: string;
+export class LanguageSlugArgs {
+  slug: string;
 }

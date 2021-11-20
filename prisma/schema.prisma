@@ -13,8 +13,7 @@ datasource db {
 model Repository {
   id              String       @id @default(cuid())
   platform        PlatformType
-  platformId      Int
-  nodeId          String       @unique
+  platformId      String
   homePage        String?
   size            Int
   stargazersCount Int
@@ -22,7 +21,6 @@ model Repository {
   forksCount      Int
   openIssuesCount Int
   score           Int?
-  language        String?
   hasIssues       Boolean
   hasProjects     Boolean
   hasWiki         Boolean
@@ -31,6 +29,7 @@ model Repository {
   archived        Boolean
   disabled        Boolean
   allowForking    Boolean
+  isFork          Boolean
   isTemplate      Boolean
   defaultBranch   String
   createdAt       DateTime
@@ -40,21 +39,20 @@ model Repository {
   recordUpdatedAt DateTime     @updatedAt
   name            String
   description     String?
-  isFork          Boolean
   Owner           Owner        @relation(fields: [ownerId], references: [id])
   ownerId         String
+  Language        Language?    @relation(fields: [languageId], references: [id])
+  languageId      String?
   License         License?     @relation(fields: [licenseId], references: [id])
   licenseId       String?
   Topics          Topic[]
 
   @@unique([platform, platformId])
-  @@index([language])
 }
 
 model License {
   id           String       @id @default(cuid())
   key          String       @unique
-  nodeId       String       @unique
   name         String
   spdxId       String
   Repositories Repository[]
@@ -70,9 +68,8 @@ model Topic {
 model Owner {
   id              String       @id @default(cuid())
   platform        PlatformType
-  platformId      Int
+  platformId      String
   login           String       @unique
-  nodeId          String       @unique
   gravatarId      String
   type            OwnerType
   siteAdmin       Boolean
@@ -81,6 +78,14 @@ model Owner {
   recordUpdatedAt DateTime     @updatedAt
 
   @@unique([platform, platformId])
+}
+
+model Language {
+  id           String       @id @default(cuid())
+  name         String
+  slug         String       @unique
+  description  String?
+  Repositories Repository[]
 }
 
 enum OwnerType {

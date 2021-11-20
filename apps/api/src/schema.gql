@@ -9,7 +9,35 @@ scalar DateTime
 
 type Language {
   color: String
+  description: String
+  id: ID!
   name: String!
+  repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
+  repositoriesCount: Int!
+  slug: String!
+}
+
+type LanguageConnection {
+  """A list of edges"""
+  edges: [LanguageEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A Language edge."""
+type LanguageEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of LanguageEdge."""
+  node: Language!
+}
+
+"""You can order repositories with one of these options."""
+enum LanguageOrder {
+  """Order by repositories count in descending direction."""
+  REPOSITORIES_DESC
 }
 
 type Owner {
@@ -17,11 +45,11 @@ type Owner {
   gravatarId: String!
   id: String!
   login: String!
-  nodeId: String!
   platform: PlatformType!
   platformId: ID!
   recordUpdatedAt: DateTime!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
+  repositoriesCount: Int!
   siteAdmin: Boolean!
   type: OwnerType!
 }
@@ -63,18 +91,21 @@ enum PlatformType {
 }
 
 type Query {
+  language(slug: String!): Language
+  languages(after: String, before: String, first: Int, last: Int, order: LanguageOrder = REPOSITORIES_DESC): LanguageConnection!
   owner(id: String!): Owner
   ownerByLogin(login: String!): Owner
-  ownerGithub(id: ID!): Owner
-  repositories(after: String, before: String, first: Int, language: String, last: Int, order: ReposOrder, searchTerm: String): RepositoryConnection!
+  ownerByPlatform(id: ID!, platform: PlatformType!): Owner
+  repositories(after: String, before: String, first: Int, languages: [String!], last: Int, order: RepoOrder = STARS_DESC, searchTerm: String, type: RepoType = ALL): RepositoryConnection!
   repositoryById(id: String!): Repository
-  repositoryGithub(id: ID!): Repository
+  repositoryByPlatform(id: ID!, platform: PlatformType!): Repository
   topic(name: String!): Topic
   topicById(id: String!): Topic
+  topics(after: String, before: String, first: Int, last: Int, order: TopicOrder = REPOSITORIES_DESC): TopicConnection!
 }
 
 """You can order repositories with one of these options."""
-enum ReposOrder {
+enum RepoOrder {
   """Order by creation date in ascending direction."""
   CREATED_ASC
 
@@ -89,6 +120,24 @@ enum ReposOrder {
 
   """Order by most stars in descending direction."""
   STARS_DESC
+}
+
+"""The repo type used in filters."""
+enum RepoType {
+  """Doesn't apply any filter to the query."""
+  ALL
+
+  """Only returns the archived repositoroes."""
+  ARCHIVE
+
+  """Only returns the forked repositoroes."""
+  FORK
+
+  """Only returns the source repositoroes."""
+  SOURCE
+
+  """Only returns the template repositoroes."""
+  TEMPLATE
 }
 
 type Repository {
@@ -115,7 +164,6 @@ type Repository {
   limitedDescription: String
   mirrorUrl: String
   name: String!
-  nodeId: String!
   openIssuesCount: Int!
   owner: Owner
   ownerId: String!
@@ -164,4 +212,27 @@ type Topic {
   name: String!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int!
+}
+
+type TopicConnection {
+  """A list of edges"""
+  edges: [TopicEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A Topic edge."""
+type TopicEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of TopicEdge."""
+  node: Topic!
+}
+
+"""You can order repositories with one of these options."""
+enum TopicOrder {
+  """Order by repositories count in descending direction."""
+  REPOSITORIES_DESC
 }

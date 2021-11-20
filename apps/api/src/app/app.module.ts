@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
+import { LanguageModule } from '../language/language.module';
 import { DiscoveryProcessor } from '../operator-gh/discovery.processor';
 import { ExtractionProcessor } from '../operator-gh/extraction.processor';
 import { OperatorGhModule } from '../operator-gh/operator-gh.module';
@@ -39,6 +40,7 @@ import { AppService } from './app.service';
     RepositoryModule,
     TopicModule,
     OwnerModule,
+    LanguageModule,
   ],
   controllers: [AppController],
   providers: [AppService, DiscoveryProcessor, ExtractionProcessor],

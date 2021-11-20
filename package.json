@@ -37,6 +37,7 @@
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "rxjs": "~6.6.3",
+    "slugify": "^1.6.2",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
