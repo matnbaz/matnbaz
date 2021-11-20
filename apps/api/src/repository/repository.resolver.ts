@@ -41,7 +41,7 @@ export class RepositoryResolver {
   @Query(() => RepositoryConnection)
   repositories(
     @Args() pagination: PaginationArgs,
-    @Args() { language }: LanguageArgs,
+    @Args() { languages }: LanguageArgs,
     @Args() { searchTerm }: RepoSearchArgs,
     @Args() { order }: RepoOrderArgs
   ) {
@@ -49,7 +49,9 @@ export class RepositoryResolver {
       (args) =>
         this.prisma.repository.findMany({
           where: {
-            Language: language ? { name: language } : undefined,
+            Language: languages
+              ? { OR: languages.map((lang) => ({ slug: lang })) }
+              : undefined,
             name: { in: searchTerm || undefined },
           },
           orderBy: {
