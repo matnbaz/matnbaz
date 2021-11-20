@@ -1,9 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import * as P from '@prisma/client';
-import { registerPlatformTypeEnum } from './enums/platform-type.enum';
-import { Language } from './language.model';
+import { PlatformType } from './enums/platform-type.enum';
 
-registerPlatformTypeEnum();
 @ObjectType()
 export class Repository {
   id: string;
@@ -36,6 +33,6 @@ export class Repository {
   isFork: boolean;
   ownerId: string;
   licenseId: string;
-  @Field(() => P.PlatformType)
-  platform: P.PlatformType;
+  @Field(() => PlatformType)
+  platform: PlatformType;
 }

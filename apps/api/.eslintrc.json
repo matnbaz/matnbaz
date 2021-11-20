@@ -13,6 +13,24 @@
     {
       "files": ["*.js", "*.jsx"],
       "rules": {}
+    },
+    /*
+      This rule lets you do:
+      
+      requiresShipping: boolean = false
+
+      so the NestJS Graphql CLI can parse it
+     */
+    {
+      "files": [
+        "**/*.model.ts",
+        "**/*.input.ts",
+        "**/*.payload.ts",
+        "**/*.args.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-inferrable-types": 0
+      }
     }
   ]
 }

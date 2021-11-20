@@ -17,6 +17,11 @@ import { AppService } from './app.service';
   imports: [
     PrismaModule.forRoot({
       isGlobal: true,
+      prismaServiceOptions: {
+        prismaOptions: {
+          log: ['query'],
+        },
+      },
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'apps/api/src/schema.gql'),

@@ -5,16 +5,15 @@ import * as P from '@prisma/client';
 import * as GithubColors from 'github-colors';
 import { PrismaService } from 'nestjs-prisma';
 import { RepositoryConnection } from '../models/connections/repository.connection';
-import {
-  registerScriptDirectionEnum,
-  ScriptDirection,
-} from '../models/enums/script-direction.enum';
+import { ScriptDirection } from '../models/enums/script-direction.enum';
 import { Language } from '../models/language.model';
 import { Owner } from '../models/owner.model';
 import { Repository } from '../models/repository.model';
 import { Topic } from '../models/topic.model';
+import { LanguageArgs } from './args/language.args';
+import { RepoOrderArgs } from './args/repo-order.args';
+import { RepoSearchArgs } from './args/repo-search.args';
 
-registerScriptDirectionEnum(); // TODO Extract all enum register calls into one file?
 @Resolver(() => Repository)
 export class RepositoryResolver {
   constructor(private readonly prisma: PrismaService) {}
@@ -39,9 +38,28 @@ export class RepositoryResolver {
   }
 
   @Query(() => RepositoryConnection)
-  repositories(@Args() pagination: PaginationArgs) {
+  repositories(
+    @Args() pagination: PaginationArgs,
+    @Args() { language }: LanguageArgs,
+    @Args() { searchTerm }: RepoSearchArgs,
+    @Args() { order }: RepoOrderArgs
+  ) {
     return findManyCursorConnection(
-      (args) => this.prisma.repository.findMany({ ...args }),
+      (args) =>
+        this.prisma.repository.findMany({
+          where: {
+            language,
+            name: { in: searchTerm || undefined },
+          },
+          orderBy: {
+            CREATED_ASC: { createdAt: 'asc' as const },
+            CREATED_DESC: { createdAt: 'desc' as const },
+            PUSHED_ASC: { pushedAt: 'asc' as const },
+            PUSHED_DESC: { pushedAt: 'desc' as const },
+            STARS_DESC: { stargazersCount: 'desc' as const },
+          }[order],
+          ...args,
+        }),
       () => this.prisma.repository.count(),
       pagination
     );
@@ -67,6 +85,27 @@ export class RepositoryResolver {
       .Owner();
 
     return `${owner.login}/${name}`;
+  }
+
+  @ResolveField(() => String, { nullable: true })
+  async platformUrl(@Parent() { id, name, platform }: P.Repository) {
+    const owner = await this.prisma.repository
+      .findUnique({
+        where: { id },
+        select: { id: true },
+      })
+      .Owner();
+
+    switch (platform) {
+      case 'GitHub':
+        return `https://github.com/${owner.login}/${name}`;
+      case 'GitLab':
+        throw Error('GitLab support is not yet implemented');
+      case 'BitBucket':
+        throw Error('BitBucket support is not yet implemented');
+      default:
+        return null;
+    }
   }
 
   @ResolveField(() => [Topic])

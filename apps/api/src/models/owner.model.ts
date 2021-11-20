@@ -1,20 +1,18 @@
-import * as P from '@prisma/client';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { registerOwnerTypeEnum } from './enums/owner-type.enum';
-
-registerOwnerTypeEnum();
+import { OwnerType } from './enums/owner-type.enum';
+import { PlatformType } from './enums/platform-type.enum';
 
 @ObjectType()
-export class Owner implements P.Owner {
+export class Owner {
   id: string;
-  @Field(() => P.PlatformType)
-  platform: P.PlatformType;
+  @Field(() => PlatformType)
+  platform: PlatformType;
   platformId: number;
   login: string;
   nodeId: string;
   gravatarId: string;
-  @Field(() => P.OwnerType)
-  type: P.OwnerType;
+  @Field(() => OwnerType)
+  type: OwnerType;
   siteAdmin: boolean;
   extractedAt: Date;
   recordUpdatedAt: Date;
