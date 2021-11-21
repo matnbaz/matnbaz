@@ -40,6 +40,38 @@ enum LanguageOrder {
   REPOSITORIES_DESC
 }
 
+type License {
+  id: ID!
+  key: String!
+  name: String!
+  repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
+  repositoriesCount: Int!
+  spdxId: String!
+}
+
+type LicenseConnection {
+  """A list of edges"""
+  edges: [LicenseEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A License edge."""
+type LicenseEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of LicenseEdge."""
+  node: License!
+}
+
+"""You can order repositories with one of these options."""
+enum LicenseOrder {
+  """Order by repositories count in descending direction."""
+  REPOSITORIES_DESC
+}
+
 type Owner {
   extractedAt: DateTime!
   gravatarId: String!
@@ -93,6 +125,7 @@ enum PlatformType {
 type Query {
   language(slug: String!): Language
   languages(after: String, before: String, first: Int, last: Int, order: LanguageOrder = REPOSITORIES_DESC): LanguageConnection!
+  licenses(after: String, before: String, first: Int, last: Int, order: LicenseOrder = REPOSITORIES_DESC): LicenseConnection!
   owner(id: String!): Owner
   ownerByLogin(login: String!): Owner
   ownerByPlatform(id: ID!, platform: PlatformType!): Owner

@@ -7,6 +7,7 @@ import { join } from 'path';
 import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
 import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
 import { LanguageModule } from '../language/language.module';
+import { LicenseModule } from '../license/license.module';
 import { OctokitModule } from '../octokit/octokit.module';
 import { OwnerModule } from '../owner/owner.module';
 import { RepositoryModule } from '../repository/repository.module';
@@ -43,6 +44,7 @@ import { AppService } from './app.service';
     TopicModule,
     OwnerModule,
     LanguageModule,
+    LicenseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

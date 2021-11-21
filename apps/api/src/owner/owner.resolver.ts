@@ -45,13 +45,12 @@ export class OwnerResolver {
 
   @ResolveField(() => RepositoryConnection)
   repositories(@Args() pagination: PaginationArgs, @Parent() { id }: P.Owner) {
+    const ownerPromise = this.prisma.owner.findUnique({ where: { id } });
+
     return findManyCursorConnection(
-      ({ ...args }) =>
-        this.prisma.repository.findMany({
-          where: { ownerId: id },
-          ...args,
-        }),
-      () => this.prisma.repository.count({ where: { ownerId: id } }),
+      (args) => ownerPromise.Repositories(args),
+      async () =>
+        (await ownerPromise.Repositories({ select: { id: true } })).length,
       pagination
     );
   }

@@ -64,7 +64,8 @@ export class TopicResolver {
 
     return findManyCursorConnection(
       (args) => topicPromise.Repositories(args),
-      async () => (await topicPromise.Repositories()).length,
+      async () =>
+        (await topicPromise.Repositories({ select: { id: true } })).length,
       pagination
     );
   }

@@ -57,15 +57,6 @@ export class LanguageResolver {
     return GithubColors.get(name)?.color;
   }
 
-  @ResolveField(() => Int)
-  async repositoriesCount(@Parent() { id }: P.Language) {
-    return (
-      await this.prisma.language
-        .findUnique({ where: { id } })
-        .Repositories({ select: { id: true } })
-    ).length;
-  }
-
   @ResolveField(() => RepositoryConnection)
   async repositories(
     @Parent() { id }: P.Language,
@@ -79,5 +70,14 @@ export class LanguageResolver {
         (await languagePromise.Repositories({ select: { id: true } })).length,
       pagination
     );
+  }
+
+  @ResolveField(() => Int)
+  async repositoriesCount(@Parent() { id }: P.Language) {
+    return (
+      await this.prisma.language
+        .findUnique({ where: { id } })
+        .Repositories({ select: { id: true } })
+    ).length;
   }
 }
