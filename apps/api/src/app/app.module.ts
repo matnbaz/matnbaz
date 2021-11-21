@@ -4,10 +4,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
+import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
+import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
 import { LanguageModule } from '../language/language.module';
-import { DiscoveryProcessor } from '../operator-gh/discovery.processor';
-import { ExtractionProcessor } from '../operator-gh/extraction.processor';
-import { OperatorGhModule } from '../operator-gh/operator-gh.module';
+import { OctokitModule } from '../octokit/octokit.module';
 import { OwnerModule } from '../owner/owner.module';
 import { RepositoryModule } from '../repository/repository.module';
 import { TopicModule } from '../topic/topic.module';
@@ -20,7 +20,7 @@ import { AppService } from './app.service';
       isGlobal: true,
       prismaServiceOptions: {
         prismaOptions: {
-          log: ['query'],
+          // log: ['query'],
         },
       },
     }),
@@ -35,7 +35,9 @@ import { AppService } from './app.service';
         port: 6379,
       },
     }),
-    OperatorGhModule,
+    OctokitModule,
+    GithubDiscovererModule,
+    GithubExtractorModule,
     // GraphQL:
     RepositoryModule,
     TopicModule,
@@ -43,6 +45,6 @@ import { AppService } from './app.service';
     LanguageModule,
   ],
   controllers: [AppController],
-  providers: [AppService, DiscoveryProcessor, ExtractionProcessor],
+  providers: [AppService],
 })
 export class AppModule {}

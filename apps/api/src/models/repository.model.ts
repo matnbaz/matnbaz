@@ -25,9 +25,6 @@ export class Repository {
   @Field(() => Int)
   openIssuesCount: number;
 
-  @Field(() => Int)
-  score?: number;
-
   hasIssues: boolean;
   hasProjects: boolean;
   hasWiki: boolean;

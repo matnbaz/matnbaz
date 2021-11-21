@@ -14,24 +14,20 @@ model Repository {
   id              String       @id @default(cuid())
   platform        PlatformType
   platformId      String
-  homePage        String?
   size            Int
   stargazersCount Int
   watchersCount   Int
   forksCount      Int
   openIssuesCount Int
-  score           Int?
   hasIssues       Boolean
   hasProjects     Boolean
   hasWiki         Boolean
   hasPages        Boolean
-  mirrorUrl       String?
   archived        Boolean
   disabled        Boolean
   allowForking    Boolean
   isFork          Boolean
   isTemplate      Boolean
-  defaultBranch   String
   createdAt       DateTime
   updatedAt       DateTime
   pushedAt        DateTime
@@ -39,6 +35,9 @@ model Repository {
   recordUpdatedAt DateTime     @updatedAt
   name            String
   description     String?
+  defaultBranch   String
+  homePage        String?
+  mirrorUrl       String?
   Owner           Owner        @relation(fields: [ownerId], references: [id])
   ownerId         String
   Language        Language?    @relation(fields: [languageId], references: [id])

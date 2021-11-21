@@ -172,7 +172,6 @@ type Repository {
   platformUrl: String
   pushedAt: DateTime!
   recordUpdatedAt: DateTime!
-  score: Int
   size: Int!
   stargazersCount: Int!
   topics: [Topic!]!
