@@ -8,6 +8,7 @@ import MainLayout from '../components/Layouts/MainLayout';
 import MultiSelectWIP from '../components/UI/MultiSelectWIP';
 import Input from '../components/UI/Input';
 import { AiOutlineSearch } from 'react-icons/ai';
+import Collapsible from '../components/UI/Collapsible';
 
 export function Index() {
   const { loading, data, fetchMore } = useGetRepositoriesQuery();
@@ -27,11 +28,13 @@ export function Index() {
       <div className="grid grid-cols-1 md:grid-cols-5 px-6 pb-6 gap-y-6 gap-x-0 md:gap-x-6">
         <div>
           <Card>
-            <Input
-              placeholder="تست"
-              icon={AiOutlineSearch}
-              className="w-full"
-            />
+            <Collapsible>
+              <Input
+                placeholder="تست"
+                icon={AiOutlineSearch}
+                className="w-full"
+              />
+            </Collapsible>
           </Card>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-0 md:gap-x-6 md:col-span-4">
