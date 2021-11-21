@@ -6,13 +6,10 @@ import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
 import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
 import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
-import { LanguageModule } from '../language/language.module';
 import { OctokitModule } from '../octokit/octokit.module';
-import { OwnerModule } from '../owner/owner.module';
-import { RepositoryModule } from '../repository/repository.module';
-import { TopicModule } from '../topic/topic.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ResolverModule } from '../resolvers/resolver.module';
 
 @Module({
   imports: [
@@ -38,11 +35,7 @@ import { AppService } from './app.service';
     OctokitModule,
     GithubDiscovererModule,
     GithubExtractorModule,
-    // GraphQL:
-    RepositoryModule,
-    TopicModule,
-    OwnerModule,
-    LanguageModule,
+    ResolverModule,
   ],
   controllers: [AppController],
   providers: [AppService],

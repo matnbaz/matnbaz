@@ -11,9 +11,9 @@ import {
 import * as P from '@prisma/client';
 import * as GithubColors from 'github-colors';
 import { PrismaService } from 'nestjs-prisma';
-import { LanguageConnection } from '../models/connections/language.connection';
-import { RepositoryConnection } from '../models/connections/repository.connection';
-import { Language } from '../models/language.model';
+import { LanguageConnection } from '../../models/connections/language.connection';
+import { RepositoryConnection } from '../../models/connections/repository.connection';
+import { Language } from '../../models/language.model';
 import { LanguageIdArgs } from './args/language-id.args';
 import { LanguageOrderArgs } from './args/language-order.args';
 import { LanguageSlugArgs } from './args/language-slug.args';
@@ -57,15 +57,6 @@ export class LanguageResolver {
     return GithubColors.get(name)?.color;
   }
 
-  @ResolveField(() => Int)
-  async repositoriesCount(@Parent() { id }: P.Language) {
-    return (
-      await this.prisma.language
-        .findUnique({ where: { id } })
-        .Repositories({ select: { id: true } })
-    ).length;
-  }
-
   @ResolveField(() => RepositoryConnection)
   async repositories(
     @Parent() { id }: P.Language,
@@ -79,5 +70,14 @@ export class LanguageResolver {
         (await languagePromise.Repositories({ select: { id: true } })).length,
       pagination
     );
+  }
+
+  @ResolveField(() => Int)
+  async repositoriesCount(@Parent() { id }: P.Language) {
+    return (
+      await this.prisma.language
+        .findUnique({ where: { id } })
+        .Repositories({ select: { id: true } })
+    ).length;
   }
 }
