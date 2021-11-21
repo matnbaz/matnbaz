@@ -114,8 +114,8 @@ export class RepositoryResolver {
         return `https://github.com/${owner.login}/${name}`;
       case 'GitLab':
         throw Error('GitLab support is not yet implemented');
-      case 'BitBucket':
-        throw Error('BitBucket support is not yet implemented');
+      case 'Bitbucket':
+        throw Error('Bitbucket support is not yet implemented');
       default:
         return null;
     }

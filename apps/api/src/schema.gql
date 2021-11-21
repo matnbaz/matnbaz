@@ -81,7 +81,7 @@ type PageInfo {
 """A repository owner could any of these types."""
 enum PlatformType {
   """https://bitbucket.com"""
-  BitBucket
+  Bitbucket
 
   """https://github.com"""
   GitHub

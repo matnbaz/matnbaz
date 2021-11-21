@@ -96,5 +96,5 @@ enum OwnerType {
 enum PlatformType {
   GitHub
   GitLab
-  BitBucket
+  Bitbucket
 }

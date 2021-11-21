@@ -3,7 +3,7 @@ import { registerEnumType } from '@nestjs/graphql';
 export enum PlatformType {
   GitHub = 'GitHub',
   GitLab = 'GitLab',
-  BitBucket = 'BitBucket',
+  Bitbucket = 'Bitbucket',
 }
 
 registerEnumType(PlatformType, {
@@ -16,7 +16,7 @@ registerEnumType(PlatformType, {
     GitLab: {
       description: 'https://gitlab.com',
     },
-    BitBucket: {
+    Bitbucket: {
       description: 'https://bitbucket.com',
     },
   },
