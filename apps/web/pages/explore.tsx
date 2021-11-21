@@ -10,7 +10,7 @@ import Input from '../components/UI/Input';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Collapsible from '../components/UI/Collapsible';
 
-export function Index() {
+const Explore = () => {
   const { loading, data, fetchMore } = useGetRepositoriesQuery();
   const repositories = data?.repositories.edges;
   const repositoriesPageInfo = data?.repositories.pageInfo;
@@ -25,7 +25,7 @@ export function Index() {
   };
   return (
     <MainLayout>
-      <div className="grid grid-cols-1 md:grid-cols-5 px-6 pb-6 gap-y-6 gap-x-0 md:gap-x-6">
+      <div className="grid grid-cols-1 md:grid-cols-5 pt-4 px-6 pb-6 gap-y-6 gap-x-0 md:gap-x-6">
         <div>
           <Card>
             <Collapsible>
@@ -61,6 +61,6 @@ export function Index() {
       </div>
     </MainLayout>
   );
-}
+};
 
-export default Index;
+export default Explore;
