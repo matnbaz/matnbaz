@@ -10,9 +10,9 @@ import {
 } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { RepositoryConnection } from '../models/connections/repository.connection';
-import { TopicConnection } from '../models/connections/topic.connection';
-import { Topic } from '../models/topic.model';
+import { RepositoryConnection } from '../../models/connections/repository.connection';
+import { TopicConnection } from '../../models/connections/topic.connection';
+import { Topic } from '../../models/topic.model';
 import { TopicOrderArgs } from './args/topic-order.args';
 import { TopicOrder } from './enums/topics-order.enum';
 

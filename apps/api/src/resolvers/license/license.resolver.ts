@@ -10,9 +10,9 @@ import {
 } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { LicenseConnection } from '../models/connections/license.connection';
-import { RepositoryConnection } from '../models/connections/repository.connection';
-import { License } from '../models/license.model';
+import { LicenseConnection } from '../../models/connections/license.connection';
+import { RepositoryConnection } from '../../models/connections/repository.connection';
+import { License } from '../../models/license.model';
 import { LicenseOrderArgs } from './args/license-order.args';
 import { LicenseOrder } from './enums/license-order.enum';
 

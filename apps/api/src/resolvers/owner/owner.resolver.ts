@@ -10,9 +10,9 @@ import {
 } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { PlatformArgs } from '../models/args/platform.args';
-import { RepositoryConnection } from '../models/connections/repository.connection';
-import { Owner } from '../models/owner.model';
+import { PlatformArgs } from '../../models/args/platform.args';
+import { RepositoryConnection } from '../../models/connections/repository.connection';
+import { Owner } from '../../models/owner.model';
 
 @Resolver(() => Owner)
 export class OwnerResolver {

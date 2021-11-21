@@ -6,12 +6,12 @@ import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
 import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
 import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
-import { LanguageModule } from '../language/language.module';
-import { LicenseModule } from '../license/license.module';
+import { LanguageModule } from '../resolvers/language/language.module';
+import { LicenseModule } from '../resolvers/license/license.module';
 import { OctokitModule } from '../octokit/octokit.module';
-import { OwnerModule } from '../owner/owner.module';
-import { RepositoryModule } from '../repository/repository.module';
-import { TopicModule } from '../topic/topic.module';
+import { OwnerModule } from '../resolvers/owner/owner.module';
+import { RepositoryModule } from '../resolvers/repository/repository.module';
+import { TopicModule } from '../resolvers/topic/topic.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
