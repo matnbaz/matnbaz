@@ -1,5 +1,5 @@
 import { Listbox, Menu, Transition } from '@headlessui/react';
-import classNames from 'apps/web/utils/classNames';
+import classNames from 'classnames';
 import { Fragment, useEffect, useState } from 'react';
 import { HiChevronDown, HiDuplicate, HiPencilAlt } from 'react-icons/hi';
 import {

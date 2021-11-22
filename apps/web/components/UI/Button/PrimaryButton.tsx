@@ -1,4 +1,4 @@
-import classNames from 'apps/web/utils/classNames';
+import classNames from 'classnames';
 import Button, { IButtonProps } from './Button';
 
 const PrimaryButton = ({ children, className, ...props }: IButtonProps) => {

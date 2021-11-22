@@ -1,7 +1,6 @@
-import classNames from 'apps/web/utils/classNames';
 import { ButtonHTMLAttributes } from 'react';
 import PrimaryButton from './PrimaryButton';
-
+import classNames from 'classnames';
 enum RadiusesEnum {
   'sm' = 'rounded-sm',
   'md' = 'rounded-md',

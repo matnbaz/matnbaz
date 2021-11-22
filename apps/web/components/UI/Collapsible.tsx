@@ -1,4 +1,4 @@
-import classNames from 'apps/web/utils/classNames';
+import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 import { HiChevronDown } from 'react-icons/hi';
