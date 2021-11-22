@@ -25,6 +25,7 @@
     "apollo-server-express": "^3.5.0",
     "axios": "^0.24.0",
     "bull": "^4.1.1",
+    "classnames": "^2.3.1",
     "core-js": "^3.6.5",
     "github-colors": "^2.2.20",
     "graphql": "15.7.0",

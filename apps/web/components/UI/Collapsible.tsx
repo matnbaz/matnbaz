@@ -1,4 +1,4 @@
-import classNames from 'apps/web/utils/classNames';
+import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 import { HiChevronDown } from 'react-icons/hi';
@@ -19,14 +19,15 @@ const Collapsible = ({
   return (
     <div
       ref={childrenRef}
-      className={classNames(
-        // Can't use open ? "h-auto" : "h-10" since height is not animated/transitioned
-        'bg-gray-700 w-full h-auto rounded-lg flex flex-col px-4 pt-2 pb-4 transition-all ease-in-out duration-700 overflow-hidden space-y-4'
-      )}
+      className={
+        'border border-white dark:border-gray-700 w-full h-auto rounded-lg flex flex-col px-4 pt-2 pb-4 transition-all ease-in-out duration-700 overflow-hidden space-y-4'
+      }
       style={{
         maxHeight: open
-          ? childrenRef?.current.parentElement.clientHeight + 30 + 'px'
-          : '40px',
+          ? (childrenRef?.current?.parentElement?.clientHeight || 400) +
+            30 +
+            'px'
+          : '45px',
       }}
     >
       <button

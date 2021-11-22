@@ -1,4 +1,4 @@
-import classNames from 'apps/web/utils/classNames';
+import classNames from 'classnames';
 import { InputHTMLAttributes } from 'react';
 import { HiStar } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
