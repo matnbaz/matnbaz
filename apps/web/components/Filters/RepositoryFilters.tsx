@@ -54,9 +54,11 @@ const RepositoryFilters = ({ onApply }: IRepositoryFilters) => {
     return languagesNode?.languages.edges.map((edge) => edge.node);
   }, [languagesNode]);
 
-  const searchedLanguages = languages?.filter((language) =>
-    language?.slug?.toLowerCase().includes(languageSearchInput.toLowerCase())
-  );
+  const searchedLanguages = useMemo(() => {
+    return languages?.filter((language) =>
+      language?.slug?.toLowerCase().includes(languageSearchInput.toLowerCase())
+    );
+  }, [languages, languageSearchInput]);
 
   let [state, dispatch] = useReducer(reducer, initialState);
   state = state as TRepositoryFiltersState;
