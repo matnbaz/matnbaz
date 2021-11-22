@@ -17,12 +17,12 @@ interface ICheckboxListProps {
 
 const CheckboxList = ({
   options,
-  value,
+  value = [],
   className,
   dir = 'rtl',
   onChange,
 }: ICheckboxListProps) => {
-  const [selectedOptions, setSelectedOptions] = useState<TValue>([]);
+  const [selectedOptions, setSelectedOptions] = useState<TValue>(value);
 
   useEffect(() => {
     if (selectedOptions) onChange(selectedOptions);
@@ -42,6 +42,7 @@ const CheckboxList = ({
             {option.name}
             <Input.Checkbox
               className="ml-2"
+              checked={selectedOptions.includes(option)}
               onChange={(value) => {
                 if (value)
                   setSelectedOptions((previousSelectedOptions) => {

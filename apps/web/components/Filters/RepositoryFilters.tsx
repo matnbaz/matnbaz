@@ -3,7 +3,7 @@ import {
   GetLanguagesQueryResult,
   useGetLanguagesQuery,
 } from 'apps/web/lib/graphql-types';
-import React, { useMemo, useReducer } from 'react';
+import React, { useMemo, useReducer, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card';
@@ -48,9 +48,15 @@ const reducer = (
 const RepositoryFilters = ({ onApply }: IRepositoryFilters) => {
   const { data: languagesNode, loading, error } = useGetLanguagesQuery();
 
+  const [languageSearchInput, setLanguageSearchInput] = useState('');
+
   const languages = useMemo(() => {
     return languagesNode?.languages.edges.map((edge) => edge.node);
   }, [languagesNode]);
+
+  const searchedLanguages = languages?.filter((language) =>
+    language?.slug?.toLowerCase().includes(languageSearchInput.toLowerCase())
+  );
 
   let [state, dispatch] = useReducer(reducer, initialState);
   state = state as TRepositoryFiltersState;
@@ -91,7 +97,9 @@ const RepositoryFilters = ({ onApply }: IRepositoryFilters) => {
         <Collapsible title="زبان برنامه نویسی" open={true}>
           <Input
             placeholder="جستجو..."
-            onChange={searchTermChangeHandler}
+            onChange={(event) => {
+              setLanguageSearchInput(event.target.value);
+            }}
             icon={AiOutlineSearch}
             className="w-full"
           />
@@ -100,7 +108,10 @@ const RepositoryFilters = ({ onApply }: IRepositoryFilters) => {
               className="max-h-36 overflow-y-auto mt-4"
               // Languages are all in english
               dir="ltr"
-              options={languages}
+              options={searchedLanguages}
+              value={searchedLanguages?.filter((language) =>
+                state.languages?.includes(language.slug)
+              )}
               onChange={languagesFilterChangeHandler}
             />
           )}
