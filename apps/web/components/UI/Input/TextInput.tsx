@@ -1,13 +1,12 @@
 import classNames from 'classnames';
-import { InputHTMLAttributes } from 'react';
-import { HiStar } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
+import { IInputProps } from './Input';
 
-interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
+export interface ITextInputProps extends IInputProps {
   icon?: IconType;
 }
-const Input = ({ className, icon, ...props }: IInputProps) => {
+
+const TextInput = ({ className, icon, ...props }: ITextInputProps) => {
   const IconComponent = icon;
   return (
     <div className="relative">
@@ -26,4 +25,4 @@ const Input = ({ className, icon, ...props }: IInputProps) => {
   );
 };
 
-export default Input;
+export default TextInput;
