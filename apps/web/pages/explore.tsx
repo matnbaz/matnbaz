@@ -9,6 +9,8 @@ import MultiSelectWIP from '../components/UI/MultiSelectWIP';
 import Input from '../components/UI/Input';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Collapsible from '../components/UI/Collapsible';
+import PrimaryButton from '../components/UI/Button/PrimaryButton';
+import Button from '../components/UI/Button/Button';
 
 const Explore = () => {
   const { loading, data, fetchMore } = useGetRepositoriesQuery();
@@ -35,6 +37,9 @@ const Explore = () => {
                 className="w-full"
               />
             </Collapsible>
+            <Button.Primary className="mt-4" size="sm">
+              اعمال
+            </Button.Primary>
           </Card>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-0 md:gap-x-6 md:col-span-4">
