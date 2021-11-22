@@ -28,9 +28,9 @@ const Explore = () => {
       <div className="grid grid-cols-1 md:grid-cols-5 pt-4 px-6 pb-6 gap-y-6 gap-x-0 md:gap-x-6">
         <div>
           <Card>
-            <Collapsible>
+            <Collapsible title="جستجوی پروژه" open={true}>
               <Input
-                placeholder="تست"
+                placeholder="جستجو..."
                 icon={AiOutlineSearch}
                 className="w-full"
               />
