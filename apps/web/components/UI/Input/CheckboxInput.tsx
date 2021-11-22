@@ -8,6 +8,8 @@ interface ICheckboxInputProps extends IInputProps {
   onChange?: (value) => void;
 }
 
+// TODO refactor this component
+
 const CheckboxInput = ({
   className,
   checked: checkedProp = false,
@@ -15,6 +17,7 @@ const CheckboxInput = ({
   onChange,
   ...props
 }: ICheckboxInputProps) => {
+  const didMountRef = useRef(true);
   const [checked, setChecked] = useState(checkedProp);
   const splittedClassName = className.split(' ');
   // the given className might not contain width and height, so we find and store them in this object so we could use it if it's provided or set a default width and height if it's not provided
@@ -27,8 +30,14 @@ const CheckboxInput = ({
 
   if (checked === undefined || checked === null) return <></>;
 
+  useEffect(() => {
+    if (didMountRef.current) didMountRef.current = false;
+    else onChange?.(checked);
+  }, [checked]);
+
   return (
     <button
+      type="button"
       className={classNames(
         className,
         width || defaultWidth,
@@ -38,11 +47,8 @@ const CheckboxInput = ({
       )}
       onClick={() => {
         setChecked((previousChecked) => {
-          // OnChange is called here so it's guaranteed that it will have the latest value
-          onChange?.(!previousChecked);
           return !previousChecked;
         });
-
         onClick?.();
       }}
     >

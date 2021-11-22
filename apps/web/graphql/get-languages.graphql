@@ -1,0 +1,11 @@
+query GetLanguages {
+  languages {
+    edges {
+      node {
+        name
+        slug
+        repositoriesCount
+      }
+    }
+  }
+}

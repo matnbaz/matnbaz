@@ -6,12 +6,14 @@ import { HiChevronDown } from 'react-icons/hi';
 interface ICollapsibleProps {
   children: React.ReactNode;
   title?: string;
+  className?: string;
   open?: boolean;
 }
 
 const Collapsible = ({
   children,
   title = 'باز کردن',
+  className,
   open: initialOpen = false,
 }: ICollapsibleProps) => {
   const childrenRef = useRef(null);
@@ -19,9 +21,10 @@ const Collapsible = ({
   return (
     <div
       ref={childrenRef}
-      className={
+      className={classNames(
+        className,
         'border border-white dark:border-gray-700 w-full h-auto rounded-lg flex flex-col px-4 pt-2 pb-4 transition-all ease-in-out duration-700 overflow-hidden space-y-4'
-      }
+      )}
       style={{
         maxHeight: open
           ? (childrenRef?.current?.parentElement?.clientHeight || 400) +

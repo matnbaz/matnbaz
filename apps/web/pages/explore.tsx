@@ -6,7 +6,7 @@ import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loaders/Repo
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
 import MainLayout from '../components/Layouts/MainLayout';
 import MultiSelectWIP from '../components/UI/MultiSelectWIP';
-import Input from '../components/UI/Input';
+import Input from '../components/UI/Input/Input';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Collapsible from '../components/UI/Collapsible';
 import PrimaryButton from '../components/UI/Button/PrimaryButton';
