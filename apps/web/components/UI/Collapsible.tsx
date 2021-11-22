@@ -31,6 +31,7 @@ const Collapsible = ({
       }}
     >
       <button
+        type="button"
         className="w-full text-right flex items-center space-x-0.5 space-x-reverse text-gray-700 dark:text-gray-300"
         onClick={() => {
           setOpen((previousOpen) => !previousOpen);

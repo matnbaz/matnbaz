@@ -11,9 +11,13 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import Collapsible from '../components/UI/Collapsible';
 import PrimaryButton from '../components/UI/Button/PrimaryButton';
 import Button from '../components/UI/Button/Button';
+import { useState } from 'react';
+import RepositoryFilters, {
+  TRepositoryFiltersState,
+} from '../components/Filters/RepositoryFilters';
 
 const Explore = () => {
-  const { loading, data, fetchMore } = useGetRepositoriesQuery();
+  const { loading, data, fetchMore, refetch } = useGetRepositoriesQuery();
   const repositories = data?.repositories.edges;
   const repositoriesPageInfo = data?.repositories.pageInfo;
   const repositoriesLoadMoreHandler = () => {
@@ -25,24 +29,16 @@ const Explore = () => {
       },
     });
   };
+  const applyFiltersHandler = (filters: TRepositoryFiltersState) => {
+    refetch({ after: null, ...filters });
+  };
   return (
     <MainLayout>
-      <div className="grid grid-cols-1 md:grid-cols-5 pt-4 px-6 pb-6 gap-y-6 gap-x-0 md:gap-x-6">
-        <div>
-          <Card>
-            <Collapsible title="جستجوی پروژه" open={true}>
-              <Input
-                placeholder="جستجو..."
-                icon={AiOutlineSearch}
-                className="w-full"
-              />
-            </Collapsible>
-            <Button.Primary className="mt-4" size="sm">
-              اعمال
-            </Button.Primary>
-          </Card>
+      <div className="grid grid-cols-1 md:grid-cols-8 pt-4 px-6 pb-6 gap-y-6 gap-x-0 md:gap-x-6">
+        <div className="md:col-span-2">
+          <RepositoryFilters onApply={applyFiltersHandler} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-0 md:gap-x-6 md:col-span-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-0 md:gap-x-6 md:col-span-6">
           {loading ? (
             <>
               {[...Array(6).keys()].map((number) => (

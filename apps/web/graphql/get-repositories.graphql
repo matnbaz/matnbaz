@@ -1,5 +1,5 @@
-query GetRepositories($after: String) {
-  repositories(first: 8, after: $after) {
+query GetRepositories($after: String, $searchTerm: String) {
+  repositories(first: 8, after: $after, searchTerm: $searchTerm) {
     edges {
       node {
         fullName

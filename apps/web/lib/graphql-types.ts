@@ -20,8 +20,85 @@ export type Scalars = {
 export type Language = {
   __typename?: 'Language';
   color?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
   name: Scalars['String'];
+  repositories: RepositoryConnection;
+  repositoriesCount: Scalars['Int'];
+  slug: Scalars['String'];
 };
+
+
+export type LanguageRepositoriesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+export type LanguageConnection = {
+  __typename?: 'LanguageConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<LanguageEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A Language edge. */
+export type LanguageEdge = {
+  __typename?: 'LanguageEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of LanguageEdge. */
+  node: Language;
+};
+
+/** You can order repositories with one of these options. */
+export enum LanguageOrder {
+  /** Order by repositories count in descending direction. */
+  RepositoriesDesc = 'REPOSITORIES_DESC'
+}
+
+export type License = {
+  __typename?: 'License';
+  id: Scalars['ID'];
+  key: Scalars['String'];
+  name: Scalars['String'];
+  repositories: RepositoryConnection;
+  repositoriesCount: Scalars['Int'];
+  spdxId: Scalars['String'];
+};
+
+
+export type LicenseRepositoriesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+export type LicenseConnection = {
+  __typename?: 'LicenseConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<LicenseEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A License edge. */
+export type LicenseEdge = {
+  __typename?: 'LicenseEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of LicenseEdge. */
+  node: License;
+};
+
+/** You can order repositories with one of these options. */
+export enum LicenseOrder {
+  /** Order by repositories count in descending direction. */
+  RepositoriesDesc = 'REPOSITORIES_DESC'
+}
 
 export type Owner = {
   __typename?: 'Owner';
@@ -29,11 +106,11 @@ export type Owner = {
   gravatarId: Scalars['String'];
   id: Scalars['String'];
   login: Scalars['String'];
-  nodeId: Scalars['String'];
   platform: PlatformType;
-  platformId: Scalars['Float'];
+  platformId: Scalars['ID'];
   recordUpdatedAt: Scalars['DateTime'];
   repositories: RepositoryConnection;
+  repositoriesCount: Scalars['Int'];
   siteAdmin: Scalars['Boolean'];
   type: OwnerType;
 };
@@ -70,7 +147,7 @@ export type PageInfo = {
 /** A repository owner could any of these types. */
 export enum PlatformType {
   /** https://bitbucket.com */
-  BitBucket = 'BitBucket',
+  Bitbucket = 'Bitbucket',
   /** https://github.com */
   GitHub = 'GitHub',
   /** https://gitlab.com */
@@ -79,14 +156,41 @@ export enum PlatformType {
 
 export type Query = {
   __typename?: 'Query';
+  language?: Maybe<Language>;
+  languages: LanguageConnection;
+  licenses: LicenseConnection;
   owner?: Maybe<Owner>;
   ownerByLogin?: Maybe<Owner>;
-  ownerGithub?: Maybe<Owner>;
+  ownerByPlatform?: Maybe<Owner>;
   repositories: RepositoryConnection;
   repositoryById?: Maybe<Repository>;
-  repositoryGithub?: Maybe<Repository>;
+  repositoryByPlatform?: Maybe<Repository>;
   topic?: Maybe<Topic>;
   topicById?: Maybe<Topic>;
+  topics: TopicConnection;
+};
+
+
+export type QueryLanguageArgs = {
+  slug: Scalars['String'];
+};
+
+
+export type QueryLanguagesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  order?: InputMaybe<LanguageOrder>;
+};
+
+
+export type QueryLicensesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  order?: InputMaybe<LicenseOrder>;
 };
 
 
@@ -100,8 +204,9 @@ export type QueryOwnerByLoginArgs = {
 };
 
 
-export type QueryOwnerGithubArgs = {
-  id: Scalars['Float'];
+export type QueryOwnerByPlatformArgs = {
+  id: Scalars['ID'];
+  platform: PlatformType;
 };
 
 
@@ -109,7 +214,11 @@ export type QueryRepositoriesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  languages?: InputMaybe<Array<Scalars['String']>>;
   last?: InputMaybe<Scalars['Int']>;
+  order?: InputMaybe<RepoOrder>;
+  searchTerm?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<RepoType>;
 };
 
 
@@ -118,8 +227,9 @@ export type QueryRepositoryByIdArgs = {
 };
 
 
-export type QueryRepositoryGithubArgs = {
-  id: Scalars['Float'];
+export type QueryRepositoryByPlatformArgs = {
+  id: Scalars['ID'];
+  platform: PlatformType;
 };
 
 
@@ -132,6 +242,43 @@ export type QueryTopicByIdArgs = {
   id: Scalars['String'];
 };
 
+
+export type QueryTopicsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  order?: InputMaybe<TopicOrder>;
+};
+
+/** You can order repositories with one of these options. */
+export enum RepoOrder {
+  /** Order by creation date in ascending direction. */
+  CreatedAsc = 'CREATED_ASC',
+  /** Order by creation date in descending direction. */
+  CreatedDesc = 'CREATED_DESC',
+  /** Order by last push's date in ascending direction. */
+  PushedAsc = 'PUSHED_ASC',
+  /** Order by last push's date in descending direction. */
+  PushedDesc = 'PUSHED_DESC',
+  /** Order by most stars in descending direction. */
+  StarsDesc = 'STARS_DESC'
+}
+
+/** The repo type used in filters. */
+export enum RepoType {
+  /** Doesn't apply any filter to the query. */
+  All = 'ALL',
+  /** Only returns the archived repositoroes. */
+  Archive = 'ARCHIVE',
+  /** Only returns the forked repositoroes. */
+  Fork = 'FORK',
+  /** Only returns the source repositoroes. */
+  Source = 'SOURCE',
+  /** Only returns the template repositoroes. */
+  Template = 'TEMPLATE'
+}
+
 export type Repository = {
   __typename?: 'Repository';
   allowForking: Scalars['Boolean'];
@@ -139,9 +286,10 @@ export type Repository = {
   createdAt: Scalars['DateTime'];
   defaultBranch: Scalars['String'];
   description?: Maybe<Scalars['String']>;
+  descriptionDirection: ScriptDirection;
   disabled: Scalars['Boolean'];
   extractedAt: Scalars['DateTime'];
-  forksCount: Scalars['Float'];
+  forksCount: Scalars['Int'];
   fullName: Scalars['String'];
   hasIssues: Scalars['Boolean'];
   hasPages: Scalars['Boolean'];
@@ -156,20 +304,19 @@ export type Repository = {
   limitedDescription?: Maybe<Scalars['String']>;
   mirrorUrl?: Maybe<Scalars['String']>;
   name: Scalars['String'];
-  nodeId: Scalars['String'];
-  openIssuesCount: Scalars['Float'];
+  openIssuesCount: Scalars['Int'];
   owner?: Maybe<Owner>;
   ownerId: Scalars['String'];
   platform: PlatformType;
-  platformId: Scalars['Float'];
+  platformId: Scalars['ID'];
+  platformUrl?: Maybe<Scalars['String']>;
   pushedAt: Scalars['DateTime'];
   recordUpdatedAt: Scalars['DateTime'];
-  score?: Maybe<Scalars['Float']>;
-  size: Scalars['Float'];
-  stargazersCount: Scalars['Float'];
+  size: Scalars['Int'];
+  stargazersCount: Scalars['Int'];
   topics: Array<Topic>;
   updatedAt: Scalars['DateTime'];
-  watchersCount: Scalars['Float'];
+  watchersCount: Scalars['Int'];
 };
 
 export type RepositoryConnection = {
@@ -189,6 +336,14 @@ export type RepositoryEdge = {
   node: Repository;
 };
 
+/** A repository owner could any of these types. */
+export enum ScriptDirection {
+  /** left-to-right */
+  Ltr = 'LTR',
+  /** right-to-left */
+  Rtl = 'RTL'
+}
+
 export type Topic = {
   __typename?: 'Topic';
   createdAt: Scalars['DateTime'];
@@ -206,17 +361,41 @@ export type TopicRepositoriesArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+export type TopicConnection = {
+  __typename?: 'TopicConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<TopicEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A Topic edge. */
+export type TopicEdge = {
+  __typename?: 'TopicEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of TopicEdge. */
+  node: Topic;
+};
+
+/** You can order repositories with one of these options. */
+export enum TopicOrder {
+  /** Order by repositories count in descending direction. */
+  RepositoriesDesc = 'REPOSITORIES_DESC'
+}
+
 export type GetRepositoriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
+  searchTerm?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', fullName: string, limitedDescription?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, platformId: number } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
+export type GetRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', fullName: string, limitedDescription?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, platformId: string } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
 
 
 export const GetRepositoriesDocument = gql`
-    query GetRepositories($after: String) {
-  repositories(first: 8, after: $after) {
+    query GetRepositories($after: String, $searchTerm: String) {
+  repositories(first: 8, after: $after, searchTerm: $searchTerm) {
     edges {
       node {
         fullName
@@ -255,6 +434,7 @@ export const GetRepositoriesDocument = gql`
  * const { data, loading, error } = useGetRepositoriesQuery({
  *   variables: {
  *      after: // value for 'after'
+ *      searchTerm: // value for 'searchTerm'
  *   },
  * });
  */
