@@ -62,7 +62,7 @@ export class RepositoryResolver {
               languages && languages.length > 0
                 ? { OR: languages.map((lang) => ({ slug: lang })) }
                 : undefined,
-            name: { in: searchTerm || undefined },
+            name: { contains: searchTerm || undefined },
           },
           orderBy: {
             [RepoOrder.CREATED_ASC]: { createdAt: 'asc' as const },
