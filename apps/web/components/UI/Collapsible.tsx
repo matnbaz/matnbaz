@@ -17,13 +17,18 @@ const Collapsible = ({
   open: initialOpen = false,
 }: ICollapsibleProps) => {
   const childrenRef = useRef(null);
+  const titleRef = useRef(null);
   const [open, setOpen] = useState(initialOpen);
-  const [height, setHeight] = useState(0);
+  const [childRefHeight, setChildRefHeight] = useState(0);
+  const [titleRefHeight, setTitleRefHeight] = useState(0);
 
   useEffect(() => {
-    console.log(childrenRef.current.clientHeight);
-    setHeight(childrenRef.current.clientHeight);
+    setChildRefHeight(childrenRef.current.clientHeight + 100);
   }, [childrenRef.current?.clientHeight]);
+
+  useEffect(() => {
+    setTitleRefHeight(titleRef.current.clientHeight + 20);
+  }, [titleRef.current?.clientHeight]);
 
   return (
     <div
@@ -32,10 +37,13 @@ const Collapsible = ({
         'border border-white dark:border-gray-700 w-full h-auto rounded-lg flex flex-col px-4 pt-2 pb-4 transition-all ease-in-out duration-700 overflow-hidden space-y-4'
       )}
       style={{
-        maxHeight: open ? (height || 400) + 100 + 'px' : '45px',
+        maxHeight: open
+          ? (childRefHeight || 400) + 'px'
+          : (titleRefHeight || 45) + 'px',
       }}
     >
       <button
+        ref={titleRef}
         type="button"
         className="w-full text-right flex items-center space-x-0.5 space-x-reverse text-gray-700 dark:text-gray-300"
         onClick={() => {
