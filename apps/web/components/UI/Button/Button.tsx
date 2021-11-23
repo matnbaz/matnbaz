@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 import PrimaryButton from './PrimaryButton';
 import classNames from 'classnames';
+import RedButton from './RedButton';
 enum RadiusesEnum {
   'sm' = 'rounded-sm',
   'md' = 'rounded-md',
@@ -50,5 +51,6 @@ const Button = ({
 };
 
 Button.Primary = PrimaryButton;
+Button.Red = RedButton;
 
 export default Button;
