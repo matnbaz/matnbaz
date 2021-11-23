@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { AiOutlineCheck, AiOutlineSelect } from 'react-icons/ai';
 import { HiChevronDown } from 'react-icons/hi';
@@ -19,6 +19,10 @@ interface ISelectProps {
 
 const Select = ({ options, value = null, onChange }: ISelectProps) => {
   const [selectedOption, setSelectedOption] = useState(value);
+
+  useEffect(() => {
+    setSelectedOption(value);
+  }, [value]);
 
   return (
     <Listbox
