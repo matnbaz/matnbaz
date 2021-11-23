@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 import { HiChevronDown } from 'react-icons/hi';
 
@@ -18,19 +18,21 @@ const Collapsible = ({
 }: ICollapsibleProps) => {
   const childrenRef = useRef(null);
   const [open, setOpen] = useState(initialOpen);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    console.log(childrenRef.current.clientHeight);
+    setHeight(childrenRef.current.clientHeight);
+  }, [childrenRef.current?.clientHeight]);
+
   return (
     <div
-      ref={childrenRef}
       className={classNames(
         className,
         'border border-white dark:border-gray-700 w-full h-auto rounded-lg flex flex-col px-4 pt-2 pb-4 transition-all ease-in-out duration-700 overflow-hidden space-y-4'
       )}
       style={{
-        maxHeight: open
-          ? (childrenRef?.current?.parentElement?.clientHeight || 400) +
-            30 +
-            'px'
-          : '45px',
+        maxHeight: open ? (height || 400) + 100 + 'px' : '45px',
       }}
     >
       <button
@@ -48,7 +50,7 @@ const Collapsible = ({
         />
         <span>{title}</span>
       </button>
-      <div>{children}</div>
+      <div ref={childrenRef}>{children}</div>
     </div>
   );
 };
