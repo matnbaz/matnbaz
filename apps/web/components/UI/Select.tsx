@@ -41,7 +41,7 @@ const Select = ({ options, value = null, onChange }: ISelectProps) => {
               selectedOption
                 ? 'text-gray-700 dark:text-gray-100'
                 : 'text-secondary',
-              'inline-flex justify-between w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white dark:border-gray-600/60 dark:bg-gray-700/60 backdrop-blur-sm text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-primary-500'
+              'inline-flex justify-between w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white/80 dark:border-gray-600/60 dark:bg-gray-700/60 backdrop-blur-sm text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-primary-500'
             )}
           >
             <span>{selectedOption?.name || 'انتخاب کنید...'}</span>
