@@ -29,7 +29,7 @@ const Collapsible = ({
     >
       {({ open }) => (
         <>
-          <Disclosure.Button className="flex justify-between w-full pt-2 text-sm font-medium text-left text-secondary focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+          <Disclosure.Button className="flex justify-between w-full pt-2 text-sm font-medium text-left text-secondary focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-75">
             <span>{title}</span>
             <HiChevronDown
               className={`${
