@@ -1,4 +1,4 @@
-import { Switch } from '@headlessui/react';
+import { Switch, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
@@ -40,7 +40,7 @@ const CheckboxInput = ({
         width || 'w-4',
         height || 'h-4',
         checked ? 'bg-primary-500' : 'bg-white dark:bg-gray-600',
-        'rounded-sm shadow-sm cursor-pointer text-white relative'
+        'rounded-sm shadow-sm cursor-pointer text-white relative transition-all ease-in-out duration-75'
       )}
       checked={checked}
       onChange={(value) => {
@@ -48,9 +48,17 @@ const CheckboxInput = ({
         setChecked(value);
       }}
     >
-      {checked && (
+      <Transition
+        show={checked}
+        enter="transition-opacity duration-75 ease-in-out"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-75 ease-in-out"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
         <AiOutlineCheck className="w-3/4 h-3/4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-      )}
+      </Transition>
     </Switch>
   );
 };
