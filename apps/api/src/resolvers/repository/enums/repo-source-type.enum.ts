@@ -14,10 +14,10 @@ registerEnumType(RepoSourceType, {
       description: "Doesn't apply any filter to the query.",
     },
     FORK: {
-      description: 'Only returns the forked repositoroes.',
+      description: 'Only returns the forked repositories.',
     },
     SOURCE: {
-      description: 'Only returns the source repositoroes.',
+      description: 'Only returns the source repositories.',
     },
   },
 });

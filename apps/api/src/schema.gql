@@ -160,22 +160,19 @@ enum RepoSourceType {
   """Doesn't apply any filter to the query."""
   ALL
 
-  """Only returns the forked repositoroes."""
+  """Only returns the forked repositories."""
   FORK
 
-  """Only returns the source repositoroes."""
+  """Only returns the source repositories."""
   SOURCE
 }
 
 """The repo type used in filters."""
 enum RepoType {
-  """Doesn't apply any filter to the query."""
-  ALL
-
-  """Only returns the archived repositoroes."""
+  """Only returns the archived repositories."""
   ARCHIVE
 
-  """Only returns the template repositoroes."""
+  """Only returns the template repositories."""
   TEMPLATE
 }
 

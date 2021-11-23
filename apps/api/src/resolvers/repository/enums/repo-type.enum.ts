@@ -10,10 +10,10 @@ registerEnumType(RepoType, {
   description: 'The repo type used in filters.',
   valuesMap: {
     ARCHIVE: {
-      description: 'Only returns the archived repositoroes.',
+      description: 'Only returns the archived repositories.',
     },
     TEMPLATE: {
-      description: 'Only returns the template repositoroes.',
+      description: 'Only returns the template repositories.',
     },
   },
 });
