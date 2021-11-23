@@ -393,6 +393,7 @@ export type GetRepositoriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
   searchTerm?: InputMaybe<Scalars['String']>;
   languages?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+  order?: InputMaybe<RepoOrder>;
 }>;
 
 
@@ -440,12 +441,13 @@ export type GetLanguagesQueryHookResult = ReturnType<typeof useGetLanguagesQuery
 export type GetLanguagesLazyQueryHookResult = ReturnType<typeof useGetLanguagesLazyQuery>;
 export type GetLanguagesQueryResult = Apollo.QueryResult<GetLanguagesQuery, GetLanguagesQueryVariables>;
 export const GetRepositoriesDocument = gql`
-    query GetRepositories($after: String, $searchTerm: String, $languages: [String!]) {
+    query GetRepositories($after: String, $searchTerm: String, $languages: [String!], $order: RepoOrder) {
   repositories(
     first: 8
     after: $after
     searchTerm: $searchTerm
     languages: $languages
+    order: $order
   ) {
     edges {
       node {
@@ -487,6 +489,7 @@ export const GetRepositoriesDocument = gql`
  *      after: // value for 'after'
  *      searchTerm: // value for 'searchTerm'
  *      languages: // value for 'languages'
+ *      order: // value for 'order'
  *   },
  * });
  */
