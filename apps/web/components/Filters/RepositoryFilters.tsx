@@ -1,9 +1,10 @@
+import { Transition } from '@headlessui/react';
 import {
   GetLanguagesQuery,
   GetLanguagesQueryResult,
   useGetLanguagesQuery,
 } from 'apps/web/lib/graphql-types';
-import React, { useMemo, useReducer, useState } from 'react';
+import React, { Fragment, useMemo, useReducer, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card';
@@ -12,7 +13,7 @@ import Collapsible from '../UI/Collapsible';
 import Input from '../UI/Input/Input';
 
 type TRepositoryFiltersAction = {
-  type: keyof TRepositoryFiltersState;
+  type: keyof TRepositoryFiltersState | 'clear';
   payload: any;
 };
 interface IRepositoryFiltersProps {
@@ -20,8 +21,8 @@ interface IRepositoryFiltersProps {
 }
 
 const initialState: TRepositoryFiltersState = {
-  searchTerm: null,
-  languages: null,
+  searchTerm: '',
+  languages: [],
 };
 
 export type TRepositoryFiltersState = {
@@ -37,6 +38,8 @@ const reducer = (
     case 'languages':
     case 'searchTerm':
       return { ...state, [action.type]: action?.payload };
+    case 'clear':
+      return initialState;
     default:
       return state;
   }
@@ -96,6 +99,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
             placeholder="جستجو..."
             onChange={searchTermChangeHandler}
             icon={AiOutlineSearch}
+            value={state.searchTerm}
             className="w-full"
           />
         </Collapsible>
@@ -123,6 +127,26 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
           <Button.Primary size="sm" type="submit">
             اعمال
           </Button.Primary>
+          <Transition
+            show={JSON.stringify(state) !== JSON.stringify(initialState)}
+            enter="transition-opacity duration-100 ease-in-out"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-100 ease-in-out"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Button.Red
+              size="sm"
+              type="submit"
+              onClick={() => {
+                setSelectedLanguages([]);
+                dispatch({ type: 'clear', payload: null });
+              }}
+            >
+              حذف فیلتر ها
+            </Button.Red>
+          </Transition>
         </div>
       </form>
     </Card>
