@@ -25,6 +25,11 @@ const CheckboxList = ({
   const [selectedOptions, setSelectedOptions] = useState<TValue>(value);
 
   useEffect(() => {
+    console.log(value);
+    setSelectedOptions(value);
+  }, [value]);
+
+  useEffect(() => {
     if (selectedOptions) onChange(selectedOptions);
   }, [selectedOptions]);
 
@@ -43,8 +48,8 @@ const CheckboxList = ({
             <Input.Checkbox
               className="ml-2"
               checked={selectedOptions.includes(option)}
-              onChange={(value) => {
-                if (value)
+              onChange={(checked) => {
+                if (checked)
                   setSelectedOptions((previousSelectedOptions) => {
                     return [...previousSelectedOptions, option];
                   });

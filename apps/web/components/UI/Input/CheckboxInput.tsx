@@ -18,6 +18,11 @@ const CheckboxInput = ({
   ...props
 }: ICheckboxInputProps) => {
   const [checked, setChecked] = useState(checkedProp);
+
+  useEffect(() => {
+    setChecked(checkedProp);
+  }, [checkedProp]);
+
   const splittedClassName = className.split(' ');
   // the given className might not contain width and height, so we find and store them in this object so we could use it if it's provided or set a default width and height if it's not provided
   const { width, height } = {
