@@ -11,25 +11,22 @@ import CheckboxList from '../UI/CheckboxList';
 import Collapsible from '../UI/Collapsible';
 import Input from '../UI/Input/Input';
 
-export type TRepositoryFiltersState = {
-  searchTerm: string | null;
-  languages: string[] | null;
+type TRepositoryFiltersAction = {
+  type: keyof TRepositoryFiltersState;
+  payload: any;
 };
-
-type TRepositoryFiltersAction =
-  | { type: 'searchTerm'; payload: string }
-  | {
-      type: 'languages';
-      payload: string[];
-    };
-
-interface IRepositoryFilters {
+interface IRepositoryFiltersProps {
   onApply?: (state: TRepositoryFiltersState) => void;
 }
 
 const initialState: TRepositoryFiltersState = {
   searchTerm: null,
   languages: null,
+};
+
+export type TRepositoryFiltersState = {
+  searchTerm: string | null;
+  languages: string[] | null;
 };
 
 const reducer = (
@@ -45,20 +42,24 @@ const reducer = (
   }
 };
 
-const RepositoryFilters = ({ onApply }: IRepositoryFilters) => {
+const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
   const { data: languagesNode, loading, error } = useGetLanguagesQuery();
 
   const [languageSearchInput, setLanguageSearchInput] = useState('');
 
-  const languages = useMemo(() => {
-    return languagesNode?.languages.edges.map((edge) => edge.node);
-  }, [languagesNode]);
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
 
-  const searchedLanguages = useMemo(() => {
-    return languages?.filter((language) =>
+  const languages = useMemo(() => {
+    // First the returned languages must be mapped because they are paginated and they have nodes
+    const mappedLanguages = languagesNode?.languages.edges.map(
+      (edge) => edge.node
+    );
+    if (languageSearchInput.length < 1) return mappedLanguages;
+    // Then they must be filtered if the user searched for a specific language
+    return mappedLanguages.filter((language) =>
       language?.slug?.toLowerCase().includes(languageSearchInput.toLowerCase())
     );
-  }, [languages, languageSearchInput]);
+  }, [languagesNode, languageSearchInput]);
 
   let [state, dispatch] = useReducer(reducer, initialState);
   state = state as TRepositoryFiltersState;
@@ -73,8 +74,10 @@ const RepositoryFilters = ({ onApply }: IRepositoryFilters) => {
   const languagesFilterChangeHandler = (
     value: GetLanguagesQuery['languages']['edges'][0]['node'][]
   ) => {
+    setSelectedLanguages(value);
     dispatch({
       type: 'languages',
+      // Since languages filter is based on slug, it should be mapped before changing the state
       payload: value.map((language) => language.slug),
     });
   };
@@ -110,10 +113,8 @@ const RepositoryFilters = ({ onApply }: IRepositoryFilters) => {
               className="max-h-36 overflow-y-auto mt-4"
               // Languages are all in english
               dir="ltr"
-              options={searchedLanguages}
-              value={searchedLanguages?.filter((language) =>
-                state.languages?.includes(language.slug)
-              )}
+              options={languages}
+              value={selectedLanguages}
               onChange={languagesFilterChangeHandler}
             />
           )}
