@@ -39,7 +39,9 @@ const CheckboxInput = ({
         className,
         width || 'w-4',
         height || 'h-4',
-        checked ? 'bg-primary-500' : 'bg-white dark:bg-gray-600',
+        checked
+          ? 'bg-primary-500/90 backdrop-blur-sm'
+          : 'bg-white/80 dark:bg-gray-600/80 backdrop-blur-sm',
         'rounded-sm shadow-sm cursor-pointer text-white relative transition-all ease-in-out duration-75'
       )}
       checked={checked}

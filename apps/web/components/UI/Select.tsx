@@ -41,7 +41,7 @@ const Select = ({ options, value = null, onChange }: ISelectProps) => {
               selectedOption
                 ? 'text-gray-700 dark:text-gray-100'
                 : 'text-secondary',
-              'inline-flex justify-between w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white dark:border-gray-600 dark:bg-gray-700 text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-primary-500'
+              'inline-flex justify-between w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white dark:border-gray-600/60 dark:bg-gray-700/60 backdrop-blur-sm text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-primary-500'
             )}
           >
             <span>{selectedOption?.name || 'انتخاب کنید...'}</span>
@@ -62,7 +62,7 @@ const Select = ({ options, value = null, onChange }: ISelectProps) => {
           >
             <Listbox.Options
               static
-              className="origin-top-right absolute z-40 right-0 px-2 py-2 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
+              className="origin-top-right absolute z-40 right-0 px-2 py-2 mt-2 w-56 rounded-md shadow-lg bg-white/20 dark:bg-gray-600/20 backdrop-blur-md ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
             >
               <div className="py-1 space-y-2">
                 {options.map((option) => (
