@@ -138,7 +138,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
           >
             <Button.Red
               size="sm"
-              type="submit"
+              type="button"
               onClick={() => {
                 setSelectedLanguages([]);
                 dispatch({ type: 'clear', payload: null });
