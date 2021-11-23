@@ -1,7 +1,9 @@
+import { Disclosure, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineArrowDown } from 'react-icons/ai';
-import { HiChevronDown } from 'react-icons/hi';
+import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
+import Divider from './Divider';
 
 interface ICollapsibleProps {
   children: React.ReactNode;
@@ -16,50 +18,44 @@ const Collapsible = ({
   className,
   open: initialOpen = false,
 }: ICollapsibleProps) => {
-  const childrenRef = useRef(null);
-  const titleRef = useRef(null);
-  const [open, setOpen] = useState(initialOpen);
-  const [childRefHeight, setChildRefHeight] = useState(0);
-  const [titleRefHeight, setTitleRefHeight] = useState(0);
-
-  useEffect(() => {
-    setChildRefHeight(childrenRef.current.clientHeight + 100);
-  }, [childrenRef.current?.clientHeight]);
-
-  useEffect(() => {
-    setTitleRefHeight(titleRef.current.clientHeight + 20);
-  }, [titleRef.current?.clientHeight]);
-
   return (
-    <div
+    <Disclosure
+      as="div"
+      defaultOpen={initialOpen}
       className={classNames(
         className,
-        'border border-white dark:border-gray-700 w-full h-auto rounded-lg flex flex-col px-4 pt-2 pb-4 transition-all ease-in-out duration-700 overflow-hidden space-y-4'
+        'border border-white dark:border-gray-700 w-full h-auto rounded-lg flex flex-col px-4 pt-2 pb-4 transition-all ease-in-out duration-700 space-y-2'
       )}
-      style={{
-        maxHeight: open
-          ? (childRefHeight || 400) + 'px'
-          : (titleRefHeight || 45) + 'px',
-      }}
     >
-      <button
-        ref={titleRef}
-        type="button"
-        className="w-full text-right flex items-center space-x-0.5 space-x-reverse text-gray-700 dark:text-gray-300"
-        onClick={() => {
-          setOpen((previousOpen) => !previousOpen);
-        }}
-      >
-        <HiChevronDown
-          className={classNames(
-            open && 'transform rotate-180',
-            'fill-current w-4 h-4 transition-all duration-300'
-          )}
-        />
-        <span>{title}</span>
-      </button>
-      <div ref={childrenRef}>{children}</div>
-    </div>
+      {({ open }) => (
+        <>
+          <Disclosure.Button className="flex justify-between w-full pt-2 text-sm font-medium text-left text-secondary focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-75">
+            <span>{title}</span>
+            <HiChevronDown
+              className={`${
+                open ? 'transform rotate-180' : ''
+              } w-5 h-5 text-secondary`}
+            />
+          </Disclosure.Button>
+          <Transition
+            show={open}
+            enter="transition duration-400 ease-in-out"
+            enterFrom="transform opacity-0"
+            enterTo="transform opacity-100"
+            leave="transition duration-400 ease-in-out"
+            leaveFrom="transform opacity-100"
+            leaveTo="transform opacity-0"
+          >
+            <Disclosure.Panel>
+              <div className="space-y-4">
+                <Divider />
+                <div>{children}</div>
+              </div>
+            </Disclosure.Panel>
+          </Transition>
+        </>
+      )}
+    </Disclosure>
   );
 };
 

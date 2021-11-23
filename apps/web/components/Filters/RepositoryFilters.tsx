@@ -2,6 +2,7 @@ import { Transition } from '@headlessui/react';
 import {
   GetLanguagesQuery,
   GetLanguagesQueryResult,
+  RepoOrder,
   useGetLanguagesQuery,
 } from 'apps/web/lib/graphql-types';
 import React, { Fragment, useMemo, useReducer, useState } from 'react';
@@ -11,7 +12,7 @@ import Card from '../UI/Card';
 import CheckboxList from '../UI/CheckboxList';
 import Collapsible from '../UI/Collapsible';
 import Input from '../UI/Input/Input';
-
+import Select from '../UI/Select';
 type TRepositoryFiltersAction = {
   type: keyof TRepositoryFiltersState | 'clear';
   payload: any;
@@ -94,6 +95,14 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
         }}
         className="space-y-6"
       >
+        <Collapsible title="مرتب سازی بر اساس" open={true}>
+          <Select
+            options={[
+              { name: 'Test 1', value: 'test1' },
+              { name: 'Test 2', value: 'test2' },
+            ]}
+          />
+        </Collapsible>
         <Collapsible title="جستجوی پروژه" open={true}>
           <Input
             placeholder="جستجو..."
@@ -103,7 +112,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
             className="w-full"
           />
         </Collapsible>
-        <Collapsible title="زبان برنامه نویسی" open={true}>
+        <Collapsible title="زبان برنامه نویسی">
           <Input
             placeholder="جستجو..."
             onChange={(event) => {

@@ -2,12 +2,14 @@ query GetRepositories(
   $after: String
   $searchTerm: String
   $languages: [String!]
+  $order: RepoOrder
 ) {
   repositories(
     first: 8
     after: $after
     searchTerm: $searchTerm
     languages: $languages
+    order: $order
   ) {
     edges {
       node {
