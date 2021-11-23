@@ -10,6 +10,7 @@ import { Language } from '../../models/language.model';
 import { Owner } from '../../models/owner.model';
 import { Repository } from '../../models/repository.model';
 import { Topic } from '../../models/topic.model';
+import { paginationComplexity } from '../../plugins/pagination-complexity';
 import { RepoFilterArgs } from './args/repo-filter.args';
 import { RepoOrderArgs } from './args/repo-order.args';
 import { RepoSearchArgs } from './args/repo-search.args';
@@ -39,7 +40,7 @@ export class RepositoryResolver {
     });
   }
 
-  @Query(() => RepositoryConnection)
+  @Query(() => RepositoryConnection, { complexity: paginationComplexity })
   repositories(
     @Args() pagination: PaginationArgs,
     @Args() { languages, type }: RepoFilterArgs,

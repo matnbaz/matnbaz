@@ -13,6 +13,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { TopicConnection } from '../../models/connections/topic.connection';
 import { Topic } from '../../models/topic.model';
+import { paginationComplexity } from '../../plugins/pagination-complexity';
 import { TopicOrderArgs } from './args/topic-order.args';
 import { TopicOrder } from './enums/topics-order.enum';
 
@@ -29,7 +30,7 @@ export class TopicResolver {
     });
   }
 
-  @Query(() => TopicConnection)
+  @Query(() => TopicConnection, { complexity: paginationComplexity })
   topics(
     @Args() pagination: PaginationArgs,
     @Args() { order }: TopicOrderArgs
@@ -58,7 +59,9 @@ export class TopicResolver {
     });
   }
 
-  @ResolveField(() => RepositoryConnection)
+  @ResolveField(() => RepositoryConnection, {
+    complexity: paginationComplexity,
+  })
   repositories(@Args() pagination: PaginationArgs, @Parent() { id }: P.Topic) {
     const topicPromise = this.prisma.topic.findUnique({ where: { id } });
 

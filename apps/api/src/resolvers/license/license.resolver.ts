@@ -13,6 +13,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { LicenseConnection } from '../../models/connections/license.connection';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { License } from '../../models/license.model';
+import { paginationComplexity } from '../../plugins/pagination-complexity';
 import { LicenseOrderArgs } from './args/license-order.args';
 import { LicenseOrder } from './enums/license-order.enum';
 
@@ -20,7 +21,7 @@ import { LicenseOrder } from './enums/license-order.enum';
 export class LicenseResolver {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Query(() => LicenseConnection)
+  @Query(() => LicenseConnection, { complexity: paginationComplexity })
   licenses(
     @Args() pagination: PaginationArgs,
     @Args() { order }: LicenseOrderArgs
@@ -40,7 +41,9 @@ export class LicenseResolver {
     );
   }
 
-  @ResolveField(() => RepositoryConnection)
+  @ResolveField(() => RepositoryConnection, {
+    complexity: paginationComplexity,
+  })
   repositories(
     @Args() pagination: PaginationArgs,
     @Parent() { id }: P.License

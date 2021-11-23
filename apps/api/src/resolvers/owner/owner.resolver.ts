@@ -13,6 +13,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { PlatformArgs } from '../../models/args/platform.args';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { Owner } from '../../models/owner.model';
+import { paginationComplexity } from '../../plugins/pagination-complexity';
 
 @Resolver(() => Owner)
 export class OwnerResolver {
@@ -43,7 +44,9 @@ export class OwnerResolver {
     });
   }
 
-  @ResolveField(() => RepositoryConnection)
+  @ResolveField(() => RepositoryConnection, {
+    complexity: paginationComplexity,
+  })
   repositories(@Args() pagination: PaginationArgs, @Parent() { id }: P.Owner) {
     const ownerPromise = this.prisma.owner.findUnique({ where: { id } });
 

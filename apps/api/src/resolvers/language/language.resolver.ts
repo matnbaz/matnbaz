@@ -14,6 +14,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { LanguageConnection } from '../../models/connections/language.connection';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { Language } from '../../models/language.model';
+import { paginationComplexity } from '../../plugins/pagination-complexity';
 import { LanguageIdArgs } from './args/language-id.args';
 import { LanguageOrderArgs } from './args/language-order.args';
 import { LanguageSlugArgs } from './args/language-slug.args';
@@ -23,7 +24,9 @@ import { LanguageOrder } from './enums/language-order.enum';
 export class LanguageResolver {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Query(() => LanguageConnection)
+  @Query(() => LanguageConnection, {
+    // complexity: paginationComplexity,
+  })
   async languages(
     @Args() pagination: PaginationArgs,
     @Args() { order }: LanguageOrderArgs
@@ -57,7 +60,9 @@ export class LanguageResolver {
     return GithubColors.get(name)?.color;
   }
 
-  @ResolveField(() => RepositoryConnection)
+  @ResolveField(() => RepositoryConnection, {
+    complexity: paginationComplexity,
+  })
   async repositories(
     @Parent() { id }: P.Language,
     @Args() pagination: PaginationArgs

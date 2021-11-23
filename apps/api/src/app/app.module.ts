@@ -10,6 +10,7 @@ import { OctokitModule } from '../octokit/octokit.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ResolverModule } from '../resolvers/resolver.module';
+import { ComplexityPlugin } from '../plugins/complexity.plugin';
 
 @Module({
   imports: [
@@ -38,6 +39,6 @@ import { ResolverModule } from '../resolvers/resolver.module';
     ResolverModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ComplexityPlugin],
 })
 export class AppModule {}
