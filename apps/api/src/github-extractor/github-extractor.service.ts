@@ -1,7 +1,7 @@
+import { slugifyLanguage } from '@iranfoss/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { Owner, Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import slugify from 'slugify';
 import { OctokitService } from '../octokit/octokit.service';
 import { MINIMUM_STARS } from './constants';
 
@@ -93,10 +93,10 @@ export class GithubExtractorService {
         ? {
             connectOrCreate: {
               where: {
-                slug: slugify(repo.language.toLowerCase()),
+                slug: slugifyLanguage(repo.language.toLowerCase()),
               },
               create: {
-                slug: slugify(repo.language.toLowerCase()),
+                slug: slugifyLanguage(repo.language.toLowerCase()),
                 name: repo.language,
               },
             },

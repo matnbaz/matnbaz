@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "common": "libs/common",
     "web": "apps/web",
     "web-e2e": "apps/web-e2e"
   }
