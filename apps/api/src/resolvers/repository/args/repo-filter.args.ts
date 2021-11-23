@@ -6,8 +6,8 @@ import { RepoType } from '../enums/repo-type.enum';
 export class RepoFilterArgs {
   languages?: string[];
 
-  @Field(() => RepoType)
-  type: RepoType = RepoType.ALL;
+  @Field(() => [RepoType], { nullable: true })
+  type?: RepoType[];
 
   @Field(() => RepoSourceType)
   sourceType: RepoSourceType = RepoSourceType.ALL;

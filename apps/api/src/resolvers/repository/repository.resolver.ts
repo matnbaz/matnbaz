@@ -58,8 +58,8 @@ export class RepositoryResolver {
                 : sourceType === RepoSourceType.SOURCE
                 ? false
                 : undefined,
-            archived: type === RepoType.ARCHIVE ? true : undefined,
-            isTemplate: type === RepoType.TEMPLATE ? true : undefined,
+            archived: type.includes(RepoType.ARCHIVE) ? true : undefined,
+            isTemplate: type.includes(RepoType.TEMPLATE) ? true : undefined,
             Language:
               languages && languages.length > 0
                 ? { OR: languages.map((lang) => ({ slug: lang })) }

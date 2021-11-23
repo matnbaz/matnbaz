@@ -129,7 +129,7 @@ type Query {
   owner(id: String!): Owner
   ownerByLogin(login: String!): Owner
   ownerByPlatform(id: ID!, platform: PlatformType!): Owner
-  repositories(after: String, before: String, first: Int, languages: [String!], last: Int, order: RepoOrder = PUSHED_DESC, searchTerm: String, sourceType: RepoSourceType = ALL, type: RepoType = ALL): RepositoryConnection!
+  repositories(after: String, before: String, first: Int, languages: [String!], last: Int, order: RepoOrder = PUSHED_DESC, searchTerm: String, sourceType: RepoSourceType = ALL, type: [RepoType!]): RepositoryConnection!
   repositoryById(id: String!): Repository
   repositoryByPlatform(id: ID!, platform: PlatformType!): Repository
   topic(name: String!): Topic
