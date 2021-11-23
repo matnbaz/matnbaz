@@ -17,6 +17,8 @@ type TRepositoryFiltersAction = {
   type: keyof TRepositoryFiltersState | 'clear';
   payload: any;
 };
+
+// TODO: refactor needed for this component
 interface IRepositoryFiltersProps {
   onApply?: (state: TRepositoryFiltersState) => void;
 }
@@ -24,11 +26,13 @@ interface IRepositoryFiltersProps {
 const initialState: TRepositoryFiltersState = {
   searchTerm: '',
   languages: [],
+  order: null,
 };
 
 export type TRepositoryFiltersState = {
   searchTerm: string | null;
   languages: string[] | null;
+  order: RepoOrder | null;
 };
 
 const reducer = (
@@ -36,6 +40,7 @@ const reducer = (
   action: TRepositoryFiltersAction
 ): TRepositoryFiltersState => {
   switch (action.type) {
+    case 'order':
     case 'languages':
     case 'searchTerm':
       return { ...state, [action.type]: action?.payload };
@@ -46,12 +51,26 @@ const reducer = (
   }
 };
 
+//! TODO: this is type safe but its ugly. change it
+
+const repoOrderOptions: Record<RepoOrder, { name: string; value: RepoOrder }> =
+  {
+    CREATED_ASC: { name: 'قدیمی‌ترین', value: RepoOrder.CreatedAsc },
+    CREATED_DESC: { name: 'جدید‌ترین', value: RepoOrder.CreatedDesc },
+    PUSHED_ASC: { name: 'قدیمی‌ترین تغییر', value: RepoOrder.PushedAsc },
+    PUSHED_DESC: { name: 'جدید‌ترین تغییر', value: RepoOrder.PushedDesc },
+    STARS_DESC: { name: 'بیشترین تعداد ستاره', value: RepoOrder.StarsDesc },
+  };
+
 const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
   const { data: languagesNode, loading, error } = useGetLanguagesQuery();
 
   const [languageSearchInput, setLanguageSearchInput] = useState('');
 
   const [selectedLanguages, setSelectedLanguages] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(
+    repoOrderOptions['PUSHED_DESC']
+  );
 
   const languages = useMemo(() => {
     // First the returned languages must be mapped because they are paginated and they have nodes
@@ -86,6 +105,11 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
     });
   };
 
+  const orderChangeHandler = (order) => {
+    setSelectedOrder(order);
+    dispatch({ type: 'order', payload: order.value });
+  };
+
   return (
     <Card>
       <form
@@ -97,10 +121,9 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
       >
         <Collapsible title="مرتب سازی بر اساس" open={true}>
           <Select
-            options={[
-              { name: 'Test 1', value: 'test1' },
-              { name: 'Test 2', value: 'test2' },
-            ]}
+            options={Object.values(repoOrderOptions)}
+            value={selectedOrder}
+            onChange={orderChangeHandler}
           />
         </Collapsible>
         <Collapsible title="جستجوی پروژه" open={true}>
@@ -150,6 +173,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
               type="button"
               onClick={() => {
                 setSelectedLanguages([]);
+                setSelectedOrder(repoOrderOptions['PUSHED_DESC']);
                 dispatch({ type: 'clear', payload: null });
               }}
             >

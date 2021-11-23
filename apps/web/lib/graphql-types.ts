@@ -218,7 +218,8 @@ export type QueryRepositoriesArgs = {
   last?: InputMaybe<Scalars['Int']>;
   order?: InputMaybe<RepoOrder>;
   searchTerm?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<RepoType>;
+  sourceType?: InputMaybe<RepoSourceType>;
+  type?: InputMaybe<Array<RepoType>>;
 };
 
 
@@ -266,15 +267,19 @@ export enum RepoOrder {
 }
 
 /** The repo type used in filters. */
-export enum RepoType {
+export enum RepoSourceType {
   /** Doesn't apply any filter to the query. */
   All = 'ALL',
-  /** Only returns the archived repositoroes. */
-  Archive = 'ARCHIVE',
   /** Only returns the forked repositoroes. */
   Fork = 'FORK',
   /** Only returns the source repositoroes. */
-  Source = 'SOURCE',
+  Source = 'SOURCE'
+}
+
+/** The repo type used in filters. */
+export enum RepoType {
+  /** Only returns the archived repositoroes. */
+  Archive = 'ARCHIVE',
   /** Only returns the template repositoroes. */
   Template = 'TEMPLATE'
 }
