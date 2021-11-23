@@ -14,6 +14,7 @@ import { paginationComplexity } from '../../plugins/pagination-complexity';
 import { RepoFilterArgs } from './args/repo-filter.args';
 import { RepoOrderArgs } from './args/repo-order.args';
 import { RepoSearchArgs } from './args/repo-search.args';
+import { RepoSourceType } from './enums/repo-source-type.enum';
 import { RepoType } from './enums/repo-type.enum';
 import { RepoOrder } from './enums/repos-order.enum';
 
@@ -43,7 +44,7 @@ export class RepositoryResolver {
   @Query(() => RepositoryConnection, { complexity: paginationComplexity })
   repositories(
     @Args() pagination: PaginationArgs,
-    @Args() { languages, type }: RepoFilterArgs,
+    @Args() { languages, type, sourceType }: RepoFilterArgs,
     @Args() { searchTerm }: RepoSearchArgs,
     @Args() { order }: RepoOrderArgs
   ) {
@@ -52,13 +53,13 @@ export class RepositoryResolver {
         this.prisma.repository.findMany({
           where: {
             isFork:
-              type === RepoType.FORK
+              sourceType === RepoSourceType.FORK
                 ? true
-                : type === RepoType.SOURCE
+                : sourceType === RepoSourceType.SOURCE
                 ? false
                 : undefined,
-            archived: type === RepoType.ARCHIVE ? true : undefined,
-            isTemplate: type === RepoType.TEMPLATE ? true : undefined,
+            archived: type.includes(RepoType.ARCHIVE) ? true : undefined,
+            isTemplate: type.includes(RepoType.TEMPLATE) ? true : undefined,
             Language:
               languages && languages.length > 0
                 ? { OR: languages.map((lang) => ({ slug: lang })) }

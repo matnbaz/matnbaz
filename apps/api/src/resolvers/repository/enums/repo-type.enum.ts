@@ -2,8 +2,6 @@ import { registerEnumType } from '@nestjs/graphql';
 
 export enum RepoType {
   ALL = 'ALL',
-  SOURCE = 'SOURCE',
-  FORK = 'FORK',
   ARCHIVE = 'ARCHIVE',
   TEMPLATE = 'TEMPLATE',
 }
@@ -17,12 +15,6 @@ registerEnumType(RepoType, {
     },
     ARCHIVE: {
       description: 'Only returns the archived repositoroes.',
-    },
-    FORK: {
-      description: 'Only returns the forked repositoroes.',
-    },
-    SOURCE: {
-      description: 'Only returns the source repositoroes.',
     },
     TEMPLATE: {
       description: 'Only returns the template repositoroes.',

@@ -129,7 +129,7 @@ type Query {
   owner(id: String!): Owner
   ownerByLogin(login: String!): Owner
   ownerByPlatform(id: ID!, platform: PlatformType!): Owner
-  repositories(after: String, before: String, first: Int, languages: [String!], last: Int, order: RepoOrder = PUSHED_DESC, searchTerm: String, type: RepoType = ALL): RepositoryConnection!
+  repositories(after: String, before: String, first: Int, languages: [String!], last: Int, order: RepoOrder = PUSHED_DESC, searchTerm: String, sourceType: RepoSourceType = ALL, type: [RepoType!]): RepositoryConnection!
   repositoryById(id: String!): Repository
   repositoryByPlatform(id: ID!, platform: PlatformType!): Repository
   topic(name: String!): Topic
@@ -156,18 +156,24 @@ enum RepoOrder {
 }
 
 """The repo type used in filters."""
-enum RepoType {
+enum RepoSourceType {
   """Doesn't apply any filter to the query."""
   ALL
-
-  """Only returns the archived repositoroes."""
-  ARCHIVE
 
   """Only returns the forked repositoroes."""
   FORK
 
   """Only returns the source repositoroes."""
   SOURCE
+}
+
+"""The repo type used in filters."""
+enum RepoType {
+  """Doesn't apply any filter to the query."""
+  ALL
+
+  """Only returns the archived repositoroes."""
+  ARCHIVE
 
   """Only returns the template repositoroes."""
   TEMPLATE
