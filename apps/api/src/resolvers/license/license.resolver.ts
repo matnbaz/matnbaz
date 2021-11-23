@@ -2,6 +2,7 @@ import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection
 import { PaginationArgs } from '@exonest/graphql-connections';
 import {
   Args,
+  // Info,
   Int,
   Parent,
   Query,
@@ -9,6 +10,8 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import * as P from '@prisma/client';
+// import { CacheScope } from 'apollo-server-types';
+// import { GraphQLResolveInfo } from 'graphql';
 import { PrismaService } from 'nestjs-prisma';
 import { LicenseConnection } from '../../models/connections/license.connection';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
@@ -21,11 +24,16 @@ import { LicenseOrder } from './enums/license-order.enum';
 export class LicenseResolver {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Query(() => LicenseConnection, { complexity: paginationComplexity })
+  @Query(() => LicenseConnection, {
+    // complexity: paginationComplexity,
+  })
   licenses(
     @Args() pagination: PaginationArgs,
     @Args() { order }: LicenseOrderArgs
-  ) {
+  ) // @Info() { cacheControl }: GraphQLResolveInfo
+  {
+    // cacheControl.setCacheHint({ maxAge: 60, scope: CacheScope.Public });
+
     return findManyCursorConnection(
       (args) =>
         this.prisma.license.findMany({
