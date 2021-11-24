@@ -4,10 +4,12 @@ import {
   GetLanguagesQueryResult,
   GetRepositoriesQueryVariables,
   RepoOrder,
+  useGetLanguagesLazyQuery,
   useGetLanguagesQuery,
 } from 'apps/web/lib/graphql-types';
 import React, { Fragment, useMemo, useReducer, useState } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
+import { AiOutlineLoading, AiOutlineSearch } from 'react-icons/ai';
+import LanguagesFilterSkeletonLoader from '../Skeleton Loaders/LanguagesFilterSkeletonLoader';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card';
 import CheckboxList from '../UI/CheckboxList';
@@ -68,7 +70,8 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
   state = state as TRepositoryFiltersState;
   dispatch = dispatch as React.Dispatch<TRepositoryFiltersAction>;
 
-  const { data: languagesNode, loading, error } = useGetLanguagesQuery();
+  const [runQuery, { data: languagesNode, loading, error }] =
+    useGetLanguagesLazyQuery();
 
   const [languageSearchInput, setLanguageSearchInput] = useState('');
 
@@ -83,6 +86,8 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
       language?.slug?.toLowerCase().includes(languageSearchInput.toLowerCase())
     );
   }, [languagesNode, languageSearchInput]);
+
+  // Filter handlers
 
   const searchTermChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -104,20 +109,19 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
     dispatch({ type: 'order', payload: order });
   };
 
+  const formSubmitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+    onApply({
+      after: null,
+      languages: state.languages.map((language) => language.slug),
+      order: state.order.value,
+      searchTerm: state.searchTerm,
+    });
+  };
+
   return (
     <Card>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          onApply({
-            after: null,
-            languages: state.languages.map((language) => language.slug),
-            order: state.order.value,
-            searchTerm: state.searchTerm,
-          });
-        }}
-        className="space-y-6"
-      >
+      <form onSubmit={formSubmitHandler} className="space-y-6">
         <Collapsible title="مرتب سازی بر اساس" open={true}>
           <Select
             options={Object.values(repoOrderOptions)}
@@ -134,7 +138,12 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
             className="w-full"
           />
         </Collapsible>
-        <Collapsible title="زبان برنامه نویسی">
+        <Collapsible
+          title="زبان برنامه نویسی"
+          onClick={() => {
+            if (!languagesNode && !error) runQuery();
+          }}
+        >
           <Input
             placeholder="جستجو..."
             onChange={(event) => {
@@ -152,6 +161,13 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
               value={state.languages}
               onChange={languagesFilterChangeHandler}
             />
+          )}
+          {loading && (
+            <div className="max-h-36 overflow-y-auto mt-4 space-y-4">
+              {[...Array(12).keys()].map((index) => (
+                <LanguagesFilterSkeletonLoader key={index} />
+              ))}{' '}
+            </div>
           )}
         </Collapsible>
         <div className="flex space-x-2 items-center space-x-reverse">
