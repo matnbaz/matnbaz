@@ -10,6 +10,7 @@ interface ICollapsibleProps {
   title?: string;
   className?: string;
   open?: boolean;
+  onClick?: () => void;
 }
 
 const Collapsible = ({
@@ -17,9 +18,11 @@ const Collapsible = ({
   title = 'باز کردن',
   className,
   open: initialOpen = false,
+  ...props
 }: ICollapsibleProps) => {
   return (
     <Disclosure
+      {...props}
       as="div"
       defaultOpen={initialOpen}
       className={classNames(
