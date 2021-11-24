@@ -1,16 +1,14 @@
 import { Transition } from '@headlessui/react';
+import React, { useMemo, useReducer, useState } from 'react';
+import { AiOutlineSearch } from 'react-icons/ai';
 import {
   ForkStatusType,
   GetLanguagesQuery,
-  GetLanguagesQueryResult,
   GetRepositoriesQueryVariables,
   RepoOrder,
   TemplateStatusType,
   useGetLanguagesLazyQuery,
-  useGetLanguagesQuery,
-} from 'apps/web/lib/graphql-types';
-import React, { Fragment, useMemo, useReducer, useState } from 'react';
-import { AiOutlineLoading, AiOutlineSearch } from 'react-icons/ai';
+} from '../../lib/graphql-types';
 import LanguagesFilterSkeletonLoader from '../Skeleton Loaders/LanguagesFilterSkeletonLoader';
 import Button from '../UI/Button/Button';
 import Card from '../UI/Card';
@@ -18,7 +16,6 @@ import CheckboxList from '../UI/CheckboxList';
 import Collapsible from '../UI/Collapsible';
 import Input from '../UI/Input/Input';
 import RadioList from '../UI/RadioList';
-import Select from '../UI/Select';
 type TRepositoryFiltersAction = {
   type: keyof TRepositoryFiltersState | 'clear';
   payload: any;
