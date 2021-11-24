@@ -39,7 +39,7 @@ const RadioInput = ({
         className,
         width || 'w-4',
         height || 'h-4',
-        'bg-white/80 dark:bg-gray-600/80 backdrop-blur-sm rounded-full shadow-sm cursor-pointer text-white flex items-center transition-all ease-in-out duration-75'
+        'bg-gray-200/80 dark:bg-gray-600/80 backdrop-blur-sm rounded-full shadow-sm cursor-pointer text-white flex items-center transition-all ease-in-out duration-75'
       )}
       checked={checked}
       onChange={(value) => {
