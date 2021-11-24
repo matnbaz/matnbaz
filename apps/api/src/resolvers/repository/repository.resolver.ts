@@ -45,10 +45,13 @@ export class RepositoryResolver {
   repositories(
     @Args() pagination: PaginationArgs,
     @Args()
-    { languages, type, sourceType = RepoSourceType.ALL }: RepoFilterArgs,
+    { languages, type, sourceType }: RepoFilterArgs,
     @Args() { searchTerm }: RepoSearchArgs,
-    @Args() { order = RepoOrder.PUSHED_DESC }: RepoOrderArgs
+    @Args() { order }: RepoOrderArgs
   ) {
+    order = order || RepoOrder.PUSHED_DESC;
+    sourceType = sourceType || RepoSourceType.ALL;
+
     return findManyCursorConnection(
       (args) =>
         this.prisma.repository.findMany({
