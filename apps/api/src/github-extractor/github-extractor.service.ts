@@ -4,6 +4,7 @@ import { Owner, Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
 import { MINIMUM_STARS } from './constants';
+import * as emoji from 'node-emoji';
 @Injectable()
 export class GithubExtractorService {
   constructor(
@@ -53,7 +54,7 @@ export class GithubExtractorService {
       );
       return;
     }
-    const emoji = require('node-emoji');
+
     const repoData: Prisma.XOR<
       Prisma.RepositoryCreateInput,
       Prisma.RepositoryUncheckedCreateInput
