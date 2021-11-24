@@ -16,7 +16,7 @@ enum RadiusesEnum {
 enum SizeEnum {
   'xs' = 'text-xs border font-medium py-1 px-1.5',
   'sm' = 'text-sm border font-medium py-1 px-2.5',
-  'md' = 'text-md border font-medium py-2 px-4',
+  'md' = 'text-base border font-medium py-1.5 px-3.5',
   'lg' = 'text-lg border-2 font-medium py-2 px-5',
   'xl' = 'text-xl border-2 font-bold py-3 px-8',
 }

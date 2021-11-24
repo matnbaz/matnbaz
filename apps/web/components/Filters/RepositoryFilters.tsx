@@ -148,73 +148,83 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
   };
 
   return (
-    <Card>
+    <div className="space-y-4">
       <form onSubmit={formSubmitHandler} className="space-y-6">
-        <Collapsible title="مرتب سازی بر اساس" open={true}>
-          <RadioList
-            options={Object.values(repoOrderOptions)}
-            value={state.order}
-            onChange={orderChangeHandler}
-          />
-        </Collapsible>
-        <Collapsible title="جستجوی پروژه" open={true}>
-          <Input
-            placeholder="جستجو..."
-            onChange={searchTermChangeHandler}
-            icon={AiOutlineSearch}
-            value={state.searchTerm}
-            className="w-full"
-          />
-        </Collapsible>
-        <Collapsible
-          title="زبان برنامه نویسی"
-          onClick={() => {
-            // Remove this listener and don't use lazy useQuery if open is set to true for this collapsible
-            if (!languagesNode && !error) runQuery();
-          }}
-        >
-          <Input
-            placeholder="جستجو..."
-            onChange={(event) => {
-              setLanguageSearchInput(event.target.value);
-            }}
-            icon={AiOutlineSearch}
-            className="w-full"
-          />
-          {languages && (
-            <CheckboxList
-              className="max-h-36 overflow-y-auto mt-4"
-              // Languages are all in english
-              dir="ltr"
-              options={languages}
-              value={state.languages}
-              onChange={languagesFilterChangeHandler}
+        <Card>
+          <Collapsible title="مرتب سازی بر اساس" open={true}>
+            <RadioList
+              options={Object.values(repoOrderOptions)}
+              value={state.order}
+              onChange={orderChangeHandler}
             />
-          )}
-          {loading && (
-            <div className="max-h-36 overflow-y-auto mt-4 space-y-4">
-              {[...Array(12).keys()].map((index) => (
-                <LanguagesFilterSkeletonLoader key={index} />
-              ))}{' '}
-            </div>
-          )}
-        </Collapsible>
-        <Collapsible title="وضعیت فورک">
-          <RadioList
-            options={Object.values(forkStatusOptions)}
-            value={state.forkStatus}
-            onChange={forkStatusChangeHandler}
-          />
-        </Collapsible>
-        <Collapsible title="وضعیت قالب">
-          <RadioList
-            options={Object.values(templateStatusOptions)}
-            value={state.templateStatus}
-            onChange={templateStatusChangeHandler}
-          />
-        </Collapsible>
+          </Collapsible>
+        </Card>
+        <Card>
+          <Collapsible title="جستجوی پروژه" open={true}>
+            <Input
+              placeholder="جستجو..."
+              onChange={searchTermChangeHandler}
+              icon={AiOutlineSearch}
+              value={state.searchTerm}
+              className="w-full"
+            />
+          </Collapsible>
+        </Card>
+        <Card>
+          <Collapsible
+            title="زبان برنامه نویسی"
+            onClick={() => {
+              // Remove this listener and don't use lazy useQuery if open is set to true for this collapsible
+              if (!languagesNode && !error) runQuery();
+            }}
+          >
+            <Input
+              placeholder="جستجو..."
+              onChange={(event) => {
+                setLanguageSearchInput(event.target.value);
+              }}
+              icon={AiOutlineSearch}
+              className="w-full"
+            />
+            {languages && (
+              <CheckboxList
+                className="max-h-52 overflow-y-auto mt-4"
+                // Languages are all in english
+                dir="ltr"
+                options={languages}
+                value={state.languages}
+                onChange={languagesFilterChangeHandler}
+              />
+            )}
+            {loading && (
+              <div className="max-h-52 overflow-y-auto mt-4 space-y-4">
+                {[...Array(12).keys()].map((index) => (
+                  <LanguagesFilterSkeletonLoader key={index} />
+                ))}{' '}
+              </div>
+            )}
+          </Collapsible>
+        </Card>
+        <Card>
+          <Collapsible title="وضعیت فورک">
+            <RadioList
+              options={Object.values(forkStatusOptions)}
+              value={state.forkStatus}
+              onChange={forkStatusChangeHandler}
+            />
+          </Collapsible>
+        </Card>
+        <Card>
+          <Collapsible title="وضعیت قالب">
+            <RadioList
+              options={Object.values(templateStatusOptions)}
+              value={state.templateStatus}
+              onChange={templateStatusChangeHandler}
+            />
+          </Collapsible>
+        </Card>
         <div className="flex space-x-2 items-center space-x-reverse">
-          <Button.Primary size="sm" type="submit">
+          <Button.Primary size="md" type="submit">
             اعمال
           </Button.Primary>
           <Transition
@@ -226,19 +236,19 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Button.Red
-              size="sm"
+            <Button.Ghost
+              size="md"
               type="button"
               onClick={() => {
                 dispatch({ type: 'clear', payload: null });
               }}
             >
               حذف فیلتر ها
-            </Button.Red>
+            </Button.Ghost>
           </Transition>
         </div>
       </form>
-    </Card>
+    </div>
   );
 };
 

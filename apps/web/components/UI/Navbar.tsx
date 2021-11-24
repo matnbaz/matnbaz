@@ -78,7 +78,10 @@ const Navbar = ({ className }: INavbarProps) => {
             </IconButton>
           </div>
 
-          <div className="h-6 w-0.5 dark:bg-gray-200 bg-gray-700" />
+          <div
+            className="h-6 dark:bg-gray-400 bg-gray-500"
+            style={{ width: '1px' }}
+          />
 
           <div>
             <IconButton

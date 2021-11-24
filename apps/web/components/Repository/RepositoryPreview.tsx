@@ -29,11 +29,7 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
     },
   ];
   return (
-    <Card
-      onClick={() => {
-        console.log('clicked');
-      }}
-    >
+    <Card padded>
       <div className="relative h-full">
         {/* Platform Logo */}
         {/* <img
@@ -91,10 +87,10 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
             {statistics.map((statistic) => (
               <div
                 key={statistic.name}
-                className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end"
+                className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
               >
                 <span>{statistic.value.toLocaleString('fa')}</span>
-                <statistic.icon className="w-5 h-5 m-auto" />
+                <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
               </div>
             ))}
           </div>

@@ -1,24 +1,8 @@
-import Card from '../components/UI/Card';
-
-import {
-  GetRepositoriesQueryVariables,
-  RepoOrder,
-  useGetRepositoriesQuery,
-} from '../lib/graphql-types';
-import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loaders/RepositoryPreviewSkeletonLoader';
-
-import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
+import RepositoryFilters from '../components/Filters/RepositoryFilters';
 import MainLayout from '../components/Layouts/MainLayout';
-import MultiSelectWIP from '../components/UI/MultiSelectWIP';
-import Input from '../components/UI/Input/Input';
-import { AiOutlineSearch } from 'react-icons/ai';
-import Collapsible from '../components/UI/Collapsible';
-import PrimaryButton from '../components/UI/Button/PrimaryButton';
-import Button from '../components/UI/Button/Button';
-import { useState } from 'react';
-import RepositoryFilters, {
-  TRepositoryFiltersState,
-} from '../components/Filters/RepositoryFilters';
+import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
+import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loaders/RepositoryPreviewSkeletonLoader';
+import { useGetRepositoriesQuery } from '../lib/graphql-types';
 
 const Explore = () => {
   const { loading, data, fetchMore, refetch } = useGetRepositoriesQuery();
