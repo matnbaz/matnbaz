@@ -5,7 +5,9 @@ import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loaders/Repo
 import { useGetRepositoriesQuery } from '../lib/graphql-types';
 
 const Explore = () => {
-  const { loading, data, fetchMore, refetch } = useGetRepositoriesQuery();
+  const { loading, data, fetchMore, refetch } = useGetRepositoriesQuery({
+    notifyOnNetworkStatusChange: true,
+  });
   const repositories = data?.repositories.edges;
   const repositoriesPageInfo = data?.repositories.pageInfo;
   const repositoriesLoadMoreHandler = () => {
