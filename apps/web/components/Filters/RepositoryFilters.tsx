@@ -2,6 +2,7 @@ import { Transition } from '@headlessui/react';
 import {
   GetLanguagesQuery,
   GetLanguagesQueryResult,
+  GetRepositoriesQueryVariables,
   RepoOrder,
   useGetLanguagesQuery,
 } from 'apps/web/lib/graphql-types';
@@ -20,19 +21,30 @@ type TRepositoryFiltersAction = {
 
 // TODO: refactor needed for this component
 interface IRepositoryFiltersProps {
-  onApply?: (state: TRepositoryFiltersState) => void;
+  onApply?: (state: GetRepositoriesQueryVariables) => void;
 }
+
+//! TODO: this is type safe but its ugly. change it
+
+const repoOrderOptions: Record<RepoOrder, { name: string; value: RepoOrder }> =
+  {
+    CREATED_ASC: { name: 'قدیمی‌ترین', value: RepoOrder.CreatedAsc },
+    CREATED_DESC: { name: 'جدید‌ترین', value: RepoOrder.CreatedDesc },
+    PUSHED_ASC: { name: 'قدیمی‌ترین تغییر', value: RepoOrder.PushedAsc },
+    PUSHED_DESC: { name: 'جدید‌ترین تغییر', value: RepoOrder.PushedDesc },
+    STARS_DESC: { name: 'بیشترین تعداد ستاره', value: RepoOrder.StarsDesc },
+  };
 
 const initialState: TRepositoryFiltersState = {
   searchTerm: '',
   languages: [],
-  order: null,
+  order: repoOrderOptions['PUSHED_DESC'],
 };
 
 export type TRepositoryFiltersState = {
   searchTerm: string | null;
-  languages: string[] | null;
-  order: RepoOrder | null;
+  languages: GetLanguagesQuery['languages']['edges'][0]['node'][] | null;
+  order: { name: string; value: RepoOrder } | null;
 };
 
 const reducer = (
@@ -51,26 +63,14 @@ const reducer = (
   }
 };
 
-//! TODO: this is type safe but its ugly. change it
-
-const repoOrderOptions: Record<RepoOrder, { name: string; value: RepoOrder }> =
-  {
-    CREATED_ASC: { name: 'قدیمی‌ترین', value: RepoOrder.CreatedAsc },
-    CREATED_DESC: { name: 'جدید‌ترین', value: RepoOrder.CreatedDesc },
-    PUSHED_ASC: { name: 'قدیمی‌ترین تغییر', value: RepoOrder.PushedAsc },
-    PUSHED_DESC: { name: 'جدید‌ترین تغییر', value: RepoOrder.PushedDesc },
-    STARS_DESC: { name: 'بیشترین تعداد ستاره', value: RepoOrder.StarsDesc },
-  };
-
 const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
+  let [state, dispatch] = useReducer(reducer, initialState);
+  state = state as TRepositoryFiltersState;
+  dispatch = dispatch as React.Dispatch<TRepositoryFiltersAction>;
+
   const { data: languagesNode, loading, error } = useGetLanguagesQuery();
 
   const [languageSearchInput, setLanguageSearchInput] = useState('');
-
-  const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState(
-    repoOrderOptions['PUSHED_DESC']
-  );
 
   const languages = useMemo(() => {
     // First the returned languages must be mapped because they are paginated and they have nodes
@@ -84,10 +84,6 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
     );
   }, [languagesNode, languageSearchInput]);
 
-  let [state, dispatch] = useReducer(reducer, initialState);
-  state = state as TRepositoryFiltersState;
-  dispatch = dispatch as React.Dispatch<TRepositoryFiltersAction>;
-
   const searchTermChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -97,17 +93,15 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
   const languagesFilterChangeHandler = (
     value: GetLanguagesQuery['languages']['edges'][0]['node'][]
   ) => {
-    setSelectedLanguages(value);
     dispatch({
       type: 'languages',
       // Since languages filter is based on slug, it should be mapped before changing the state
-      payload: value.map((language) => language.slug),
+      payload: value,
     });
   };
 
   const orderChangeHandler = (order) => {
-    setSelectedOrder(order);
-    dispatch({ type: 'order', payload: order.value });
+    dispatch({ type: 'order', payload: order });
   };
 
   return (
@@ -115,14 +109,19 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          onApply(state);
+          onApply({
+            after: null,
+            languages: state.languages.map((language) => language.slug),
+            order: state.order.value,
+            searchTerm: state.searchTerm,
+          });
         }}
         className="space-y-6"
       >
         <Collapsible title="مرتب سازی بر اساس" open={true}>
           <Select
             options={Object.values(repoOrderOptions)}
-            value={selectedOrder}
+            value={state.order}
             onChange={orderChangeHandler}
           />
         </Collapsible>
@@ -150,7 +149,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
               // Languages are all in english
               dir="ltr"
               options={languages}
-              value={selectedLanguages}
+              value={state.languages}
               onChange={languagesFilterChangeHandler}
             />
           )}
@@ -172,8 +171,6 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
               size="sm"
               type="button"
               onClick={() => {
-                setSelectedLanguages([]);
-                setSelectedOrder(repoOrderOptions['PUSHED_DESC']);
                 dispatch({ type: 'clear', payload: null });
               }}
             >
