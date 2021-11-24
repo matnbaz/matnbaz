@@ -4,7 +4,7 @@ import SkeletonLoaderShape from './SkeletonLoaderShape';
 const RepositoryPreviewSkeletonLoader = () => {
   return (
     // TODO: update this for mobile
-    <Card>
+    <Card padded>
       <div className="flex space-x-3 space-x-reverse justify-end">
         <div className="flex flex-col space-y-3 items-end">
           <SkeletonLoaderShape
