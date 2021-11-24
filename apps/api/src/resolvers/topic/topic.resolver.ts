@@ -35,7 +35,7 @@ export class TopicResolver {
   @CacheControl({ maxAge: 180 })
   topics(
     @Args() pagination: PaginationArgs,
-    @Args() { order }: TopicOrderArgs
+    @Args() { order = TopicOrder.REPOSITORIES_DESC }: TopicOrderArgs
   ) {
     return findManyCursorConnection(
       (args) =>

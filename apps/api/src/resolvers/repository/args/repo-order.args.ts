@@ -4,5 +4,5 @@ import { RepoOrder } from '../enums/repos-order.enum';
 @ArgsType()
 export class RepoOrderArgs {
   @Field(() => RepoOrder)
-  order: RepoOrder = RepoOrder.PUSHED_DESC;
+  order?: RepoOrder;
 }

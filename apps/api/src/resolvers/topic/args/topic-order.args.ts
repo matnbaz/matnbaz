@@ -4,5 +4,5 @@ import { TopicOrder } from '../enums/topics-order.enum';
 @ArgsType()
 export class TopicOrderArgs {
   @Field(() => TopicOrder)
-  order: TopicOrder = TopicOrder.REPOSITORIES_DESC;
+  order?: TopicOrder;
 }

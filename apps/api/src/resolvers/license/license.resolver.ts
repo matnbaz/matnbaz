@@ -28,7 +28,7 @@ export class LicenseResolver {
   @CacheControl({ maxAge: 180 })
   licenses(
     @Args() pagination: PaginationArgs,
-    @Args() { order }: LicenseOrderArgs
+    @Args() { order = LicenseOrder.REPOSITORIES_DESC }: LicenseOrderArgs
   ) {
     return findManyCursorConnection(
       (args) =>

@@ -44,9 +44,10 @@ export class RepositoryResolver {
   @Query(() => RepositoryConnection, { complexity: paginationComplexity })
   repositories(
     @Args() pagination: PaginationArgs,
-    @Args() { languages, type, sourceType }: RepoFilterArgs,
+    @Args()
+    { languages, type, sourceType = RepoSourceType.ALL }: RepoFilterArgs,
     @Args() { searchTerm }: RepoSearchArgs,
-    @Args() { order }: RepoOrderArgs
+    @Args() { order = RepoOrder.PUSHED_DESC }: RepoOrderArgs
   ) {
     return findManyCursorConnection(
       (args) =>

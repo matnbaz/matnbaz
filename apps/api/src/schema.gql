@@ -124,17 +124,17 @@ enum PlatformType {
 
 type Query {
   language(slug: String!): Language
-  languages(after: String, before: String, first: Int, last: Int, order: LanguageOrder = REPOSITORIES_DESC): LanguageConnection!
-  licenses(after: String, before: String, first: Int, last: Int, order: LicenseOrder = REPOSITORIES_DESC): LicenseConnection!
+  languages(after: String, before: String, first: Int, last: Int, order: LanguageOrder): LanguageConnection!
+  licenses(after: String, before: String, first: Int, last: Int, order: LicenseOrder): LicenseConnection!
   owner(id: String!): Owner
   ownerByLogin(login: String!): Owner
   ownerByPlatform(id: ID!, platform: PlatformType!): Owner
-  repositories(after: String, before: String, first: Int, languages: [String!], last: Int, order: RepoOrder = PUSHED_DESC, searchTerm: String, sourceType: RepoSourceType = ALL, type: [RepoType!]): RepositoryConnection!
+  repositories(after: String, before: String, first: Int, languages: [String!], last: Int, order: RepoOrder, searchTerm: String, sourceType: RepoSourceType!, type: [RepoType!]): RepositoryConnection!
   repositoryById(id: String!): Repository
   repositoryByPlatform(id: ID!, platform: PlatformType!): Repository
   topic(name: String!): Topic
   topicById(id: String!): Topic
-  topics(after: String, before: String, first: Int, last: Int, order: TopicOrder = REPOSITORIES_DESC): TopicConnection!
+  topics(after: String, before: String, first: Int, last: Int, order: TopicOrder): TopicConnection!
 }
 
 """You can order repositories with one of these options."""

@@ -31,7 +31,7 @@ export class LanguageResolver {
   @CacheControl({ maxAge: 180 })
   async languages(
     @Args() pagination: PaginationArgs,
-    @Args() { order }: LanguageOrderArgs
+    @Args() { order = LanguageOrder.REPOSITORIES_DESC }: LanguageOrderArgs
   ) {
     return findManyCursorConnection(
       (args) =>
