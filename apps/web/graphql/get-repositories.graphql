@@ -28,6 +28,7 @@ query GetRepositories(
         }
         owner {
           type
+          login
           platformId
         }
       }

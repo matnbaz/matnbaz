@@ -1,6 +1,9 @@
 const Divider = () => {
   return (
-    <div className="w-full h-0.5 rounded-lg bg-gray-300/50 dark:bg-gray-600/50" />
+    <div
+      className="w-full rounded-lg bg-gray-200 dark:bg-gray-700"
+      style={{ height: '1px' }}
+    />
   );
 };
 

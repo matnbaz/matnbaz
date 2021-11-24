@@ -1,4 +1,5 @@
-import { GetRepositoriesQuery } from 'apps/web/lib/graphql-types';
+import { GetRepositoriesQuery } from '../../lib/graphql-types';
+import Image from 'next/image';
 import {
   AiOutlineBranches,
   AiOutlineExclamationCircle,
@@ -16,7 +17,11 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
       icon: AiOutlineExclamationCircle,
       value: +repository.openIssuesCount,
     },
-    { name: 'فورک ها', icon: AiOutlineBranches, value: +repository.forksCount },
+    {
+      name: 'فورک ها',
+      icon: AiOutlineBranches,
+      value: +repository.forksCount,
+    },
     {
       name: 'ستاره ها',
       icon: AiOutlineStar,
@@ -24,34 +29,35 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
     },
   ];
   return (
-    <Card
-      onClick={() => {
-        console.log('clicked');
-      }}
-    >
+    <Card padded>
       <div className="relative h-full">
-        {/* Github Logo */}
-        <img
+        {/* Platform Logo */}
+        {/* <img
           className="w-4 h-4 absolute opacity-10"
           style={{ filter: 'invert(1)' }}
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
-        />
+        /> */}
         <div
-          className="flex flex-col md:flex-row md:space-x-3 space-y-2 pb-4 md:pb-12"
+          className="flex flex-col md:flex-row md:space-x-3 items-start space-y-2 pb-4 md:pb-12"
           dir="ltr"
         >
-          <img
-            src={`https://avatars.githubusercontent.com/u/${repository.owner.platformId}?v=4`}
-            className={`w-16 h-16 ${
-              repository.owner.type === 'User' ? 'rounded-full' : 'rounded-lg'
-            }`}
-          />
+          <div>
+            <Image
+              width={100}
+              height={100}
+              src={`https://avatars.githubusercontent.com/u/${repository.owner.platformId}?v=4`}
+              alt={`عکس ${repository.owner.login}`}
+              className={`w-16 h-16 ${
+                repository.owner.type === 'User' ? 'rounded-full' : 'rounded-lg'
+              }`}
+            />
+          </div>
           <div className="flex flex-col space-y-2 h-full w-full text-left overflow-hidden">
-            {/* // TODO: change the href so it works for gitlab, github, etc */}
             <a
-              className="text-lg text-blue-600 dark:text-blue-400"
+              className="text-lg text-primary-600 dark:text-primary-400"
               href={`https://github.com/${repository.fullName}`}
               target="_blank"
+              rel="noreferrer"
             >
               {repository.fullName}
             </a>
@@ -61,7 +67,7 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
             </span>
           </div>
         </div>
-        <div className="flex justify-between items-center static md:absolute bottom-0 w-full mt-2 md:mt-0">
+        <div className="flex justify-between items-center md:absolute bottom-0 w-full mt-2 md:mt-0">
           {repository.language && (
             <div className="flex items-center">
               <>
@@ -77,14 +83,14 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
             </div>
           )}
 
-          <div className="flex flex-col md:flex-row space-x-6 space-y-3 md:space-y-0 space-x-reverse mr-auto">
+          <div className="flex flex-col sm:flex-row space-x-6 space-y-3 sm:space-y-0 space-x-reverse mr-auto">
             {statistics.map((statistic) => (
               <div
                 key={statistic.name}
-                className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end"
+                className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
               >
                 <span>{statistic.value.toLocaleString('fa')}</span>
-                <statistic.icon className="w-5 h-5 m-auto" />
+                <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
               </div>
             ))}
           </div>
