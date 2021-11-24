@@ -42,7 +42,7 @@ const Button = ({
         className,
         RadiusesEnum[rounded],
         SizeEnum[size],
-        ' text-center cursor-pointer inline-flex items-center px-2.5 py-1.5 border border-transparent font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2'
+        ' text-center cursor-pointer inline-flex items-center border border-transparent font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2'
       )}
     >
       {children}
