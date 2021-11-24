@@ -36,11 +36,11 @@ const Explore = () => {
 
   return (
     <MainLayout>
-      <div className="grid grid-cols-1 md:grid-cols-8 pt-4 px-6 pb-6 gap-y-6 gap-x-0 md:gap-x-6">
-        <div className="md:col-span-2">
+      <div className="grid grid-cols-1 md:grid-cols-8 pt-4 px-6 pb-6 gap-6">
+        <div className="md:col-span-3 lg:col-span-2">
           <RepositoryFilters onApply={refetch} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-0 md:gap-x-6 md:col-span-6 auto-rows-min">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
           {loading ? (
             <>
               {[...Array(6).keys()].map((number) => (

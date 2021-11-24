@@ -1,4 +1,4 @@
-import Header from '../UI/Header';
+import Navbar from '../UI/Header';
 
 interface IMainLayoutProps {
   children: React.ReactNode;
@@ -7,8 +7,8 @@ interface IMainLayoutProps {
 const MainLayout = ({ children }: IMainLayoutProps) => {
   return (
     <>
-      <Header className="h-20" />
-      <div className="pt-20 w-full">{children}</div>
+      <Navbar className="h-20" />
+      <div className="pt-20 max-w-[92rem] mx-auto">{children}</div>
     </>
   );
 };

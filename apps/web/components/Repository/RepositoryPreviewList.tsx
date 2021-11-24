@@ -1,4 +1,4 @@
-import { GetRepositoriesQuery } from 'apps/web/lib/graphql-types';
+import { GetRepositoriesQuery } from '../../lib/graphql-types';
 import InfiniteScroll from '../Feature/InfiniteScroll';
 import RepositoryPreview from './RepositoryPreview';
 
