@@ -45,7 +45,7 @@ const forkStatusOptions: Record<
 > = {
   ALL: { name: 'همه', value: ForkStatusType.All },
   FORK: { name: 'فورک', value: ForkStatusType.Fork },
-  SOURCE: { name: 'سورس', value: ForkStatusType.Fork },
+  SOURCE: { name: 'سورس', value: ForkStatusType.Source },
 };
 
 const initialState: TRepositoryFiltersState = {
