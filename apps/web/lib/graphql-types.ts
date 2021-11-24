@@ -414,6 +414,7 @@ export type GetRepositoriesQueryVariables = Exact<{
   languages?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
   order?: InputMaybe<RepoOrder>;
   forkStatus?: InputMaybe<ForkStatusType>;
+  templateStatus?: InputMaybe<TemplateStatusType>;
 }>;
 
 
@@ -462,7 +463,7 @@ export type GetLanguagesQueryHookResult = ReturnType<typeof useGetLanguagesQuery
 export type GetLanguagesLazyQueryHookResult = ReturnType<typeof useGetLanguagesLazyQuery>;
 export type GetLanguagesQueryResult = Apollo.QueryResult<GetLanguagesQuery, GetLanguagesQueryVariables>;
 export const GetRepositoriesDocument = gql`
-    query GetRepositories($after: String, $searchTerm: String, $languages: [String!], $order: RepoOrder, $forkStatus: ForkStatusType) {
+    query GetRepositories($after: String, $searchTerm: String, $languages: [String!], $order: RepoOrder, $forkStatus: ForkStatusType, $templateStatus: TemplateStatusType) {
   repositories(
     first: 8
     after: $after
@@ -470,6 +471,7 @@ export const GetRepositoriesDocument = gql`
     languages: $languages
     order: $order
     forkStatus: $forkStatus
+    templateStatus: $templateStatus
   ) {
     edges {
       node {
@@ -513,6 +515,7 @@ export const GetRepositoriesDocument = gql`
  *      languages: // value for 'languages'
  *      order: // value for 'order'
  *      forkStatus: // value for 'forkStatus'
+ *      templateStatus: // value for 'templateStatus'
  *   },
  * });
  */

@@ -5,6 +5,7 @@ import {
   GetLanguagesQueryResult,
   GetRepositoriesQueryVariables,
   RepoOrder,
+  TemplateStatusType,
   useGetLanguagesLazyQuery,
   useGetLanguagesQuery,
 } from 'apps/web/lib/graphql-types';
@@ -48,11 +49,21 @@ const forkStatusOptions: Record<
   SOURCE: { name: 'سورس', value: ForkStatusType.Source },
 };
 
+const templateStatusOptions: Record<
+  TemplateStatusType,
+  { name: string; value: TemplateStatusType }
+> = {
+  ALL: { name: 'همه', value: TemplateStatusType.All },
+  NOT_TEMPLATE: { name: 'غیر قالب', value: TemplateStatusType.NotTemplate },
+  TEMPLATE: { name: 'قالب', value: TemplateStatusType.Template },
+};
+
 const initialState: TRepositoryFiltersState = {
   searchTerm: '',
   languages: [],
   order: repoOrderOptions['PUSHED_DESC'],
   forkStatus: forkStatusOptions['ALL'],
+  templateStatus: templateStatusOptions['ALL'],
 };
 
 export type TRepositoryFiltersState = {
@@ -60,6 +71,7 @@ export type TRepositoryFiltersState = {
   languages: GetLanguagesQuery['languages']['edges'][0]['node'][] | null;
   order: { name: string; value: RepoOrder } | null;
   forkStatus: { name: string; value: ForkStatusType };
+  templateStatus: { name: string; value: TemplateStatusType };
 };
 
 const reducer = (
@@ -67,15 +79,10 @@ const reducer = (
   action: TRepositoryFiltersAction
 ): TRepositoryFiltersState => {
   switch (action.type) {
-    case 'forkStatus':
-    case 'order':
-    case 'languages':
-    case 'searchTerm':
-      return { ...state, [action.type]: action?.payload };
     case 'clear':
       return initialState;
     default:
-      return state;
+      return { ...state, [action.type]: action?.payload };
   }
 };
 
@@ -127,6 +134,10 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
     dispatch({ type: 'forkStatus', payload: forkStatus });
   };
 
+  const templateStatusChangeHandler = (forkStatus) => {
+    dispatch({ type: 'templateStatus', payload: forkStatus });
+  };
+
   const formSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     onApply({
@@ -135,6 +146,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
       order: state.order.value,
       searchTerm: state.searchTerm,
       forkStatus: state.forkStatus.value,
+      templateStatus: state.templateStatus.value,
     });
   };
 
@@ -195,6 +207,13 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
             options={Object.values(forkStatusOptions)}
             value={state.forkStatus}
             onChange={forkStatusChangeHandler}
+          />
+        </Collapsible>
+        <Collapsible title="وضعیت قالب">
+          <RadioList
+            options={Object.values(templateStatusOptions)}
+            value={state.templateStatus}
+            onChange={templateStatusChangeHandler}
           />
         </Collapsible>
         <div className="flex space-x-2 items-center space-x-reverse">
