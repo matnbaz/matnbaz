@@ -14,9 +14,10 @@ import { paginationComplexity } from '../../plugins/pagination-complexity';
 import { RepoFilterArgs } from './args/repo-filter.args';
 import { RepoOrderArgs } from './args/repo-order.args';
 import { RepoSearchArgs } from './args/repo-search.args';
-import { RepoSourceType } from './enums/repo-source-type.enum';
-import { RepoType } from './enums/repo-type.enum';
+import { ArchiveStatusType } from './enums/archive-status-type.enum';
+import { ForkStatusType } from './enums/fork-status-type.enum';
 import { RepoOrder } from './enums/repos-order.enum';
+import { TemplateStatusType } from './enums/template-status-type.enum';
 
 @Resolver(() => Repository)
 export class RepositoryResolver {
@@ -45,28 +46,47 @@ export class RepositoryResolver {
   repositories(
     @Args() pagination: PaginationArgs,
     @Args()
-    { languages, type, sourceType }: RepoFilterArgs,
+    {
+      languages,
+      licenses,
+      forkStatus: sourceStatus,
+      archiveStatus,
+      templateStatus,
+    }: RepoFilterArgs,
     @Args() { searchTerm }: RepoSearchArgs,
     @Args() { order }: RepoOrderArgs
   ) {
-    order = order || RepoOrder.PUSHED_DESC;
-    sourceType = sourceType || RepoSourceType.ALL;
-
     return findManyCursorConnection(
       (args) =>
         this.prisma.repository.findMany({
           where: {
-            isFork:
-              sourceType === RepoSourceType.FORK
-                ? true
-                : sourceType === RepoSourceType.SOURCE
-                ? false
-                : undefined,
-            archived: type?.includes(RepoType.ARCHIVE) ? true : undefined,
-            isTemplate: type?.includes(RepoType.TEMPLATE) ? true : undefined,
+            isFork: {
+              [ForkStatusType.FORK]: true,
+              [ForkStatusType.SOURCE]: false,
+            }[sourceStatus],
+            archived: {
+              [ArchiveStatusType.ARCHIVED]: true,
+              [ArchiveStatusType.NOT_ARCHIVED]: false,
+            }[archiveStatus],
+            isTemplate: {
+              [TemplateStatusType.TEMPLATE]: true,
+              [TemplateStatusType.NOT_TEMPLATE]: false,
+            }[templateStatus],
             Language:
               languages && languages.length > 0
-                ? { OR: languages.map((lang) => ({ slug: lang })) }
+                ? {
+                    OR: languages.map((language) => ({
+                      slug: language.toLowerCase(),
+                    })),
+                  }
+                : undefined,
+            License:
+              licenses && licenses.length > 0
+                ? {
+                    OR: licenses.map((license) => ({
+                      key: license.toLowerCase(),
+                    })),
+                  }
                 : undefined,
             name: { contains: searchTerm || undefined },
           },

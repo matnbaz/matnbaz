@@ -2,10 +2,34 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""The repo type used in filters."""
+enum ArchiveStatusType {
+  """Doesn't apply any filter to the query."""
+  ALL
+
+  """Only returns the archived repositories."""
+  ARCHIVED
+
+  """Only returns the non-archived repositories."""
+  NOT_ARCHIVED
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+"""The repo type used in filters."""
+enum ForkStatusType {
+  """Doesn't apply any filter to the query."""
+  ALL
+
+  """Only returns the forked repositories."""
+  FORK
+
+  """Only returns the source (not forked) repositories."""
+  SOURCE
+}
 
 type Language {
   color: String
@@ -129,7 +153,23 @@ type Query {
   owner(id: String!): Owner
   ownerByLogin(login: String!): Owner
   ownerByPlatform(id: ID!, platform: PlatformType!): Owner
-  repositories(after: String, before: String, first: Int, languages: [String!], last: Int, order: RepoOrder, searchTerm: String, sourceType: RepoSourceType, type: [RepoType!]): RepositoryConnection!
+  repositories(
+    after: String
+    archiveStatus: ArchiveStatusType
+    before: String
+    first: Int
+    forkStatus: ForkStatusType
+
+    """Language slugs"""
+    languages: [String!]
+    last: Int
+
+    """License keys"""
+    licenses: [String!]
+    order: RepoOrder
+    searchTerm: String
+    templateStatus: TemplateStatusType
+  ): RepositoryConnection!
   repositoryById(id: String!): Repository
   repositoryByPlatform(id: ID!, platform: PlatformType!): Repository
   topic(name: String!): Topic
@@ -153,27 +193,6 @@ enum RepoOrder {
 
   """Order by most stars in descending direction."""
   STARS_DESC
-}
-
-"""The repo type used in filters."""
-enum RepoSourceType {
-  """Doesn't apply any filter to the query."""
-  ALL
-
-  """Only returns the forked repositories."""
-  FORK
-
-  """Only returns the source repositories."""
-  SOURCE
-}
-
-"""The repo type used in filters."""
-enum RepoType {
-  """Only returns the archived repositories."""
-  ARCHIVE
-
-  """Only returns the template repositories."""
-  TEMPLATE
 }
 
 type Repository {
@@ -239,6 +258,18 @@ enum ScriptDirection {
 
   """right-to-left"""
   RTL
+}
+
+"""The repo type used in filters."""
+enum TemplateStatusType {
+  """Doesn't apply any filter to the query."""
+  ALL
+
+  """Only returns the non-template repositories."""
+  NOT_TEMPLATE
+
+  """Only returns the template repositories."""
+  TEMPLATE
 }
 
 type Topic {

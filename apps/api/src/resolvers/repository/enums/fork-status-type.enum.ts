@@ -1,13 +1,13 @@
 import { registerEnumType } from '@nestjs/graphql';
 
-export enum RepoSourceType {
+export enum ForkStatusType {
   ALL = 'ALL',
   SOURCE = 'SOURCE',
   FORK = 'FORK',
 }
 
-registerEnumType(RepoSourceType, {
-  name: 'RepoSourceType',
+registerEnumType(ForkStatusType, {
+  name: 'ForkStatusType',
   description: 'The repo type used in filters.',
   valuesMap: {
     ALL: {
@@ -17,7 +17,7 @@ registerEnumType(RepoSourceType, {
       description: 'Only returns the forked repositories.',
     },
     SOURCE: {
-      description: 'Only returns the source repositories.',
+      description: 'Only returns the source (not forked) repositories.',
     },
   },
 });
