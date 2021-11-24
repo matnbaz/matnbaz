@@ -40,7 +40,7 @@ const Explore = () => {
         <div className="md:col-span-2">
           <RepositoryFilters onApply={refetch} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-0 md:gap-x-6 md:col-span-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-0 md:gap-x-6 md:col-span-6 auto-rows-min">
           {loading ? (
             <>
               {[...Array(6).keys()].map((number) => (
