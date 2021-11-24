@@ -4,7 +4,6 @@ import { Owner, Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
 import { MINIMUM_STARS } from './constants';
-
 @Injectable()
 export class GithubExtractorService {
   constructor(
@@ -54,7 +53,7 @@ export class GithubExtractorService {
       );
       return;
     }
-
+    const emoji = require('node-emoji');
     const repoData: Prisma.XOR<
       Prisma.RepositoryCreateInput,
       Prisma.RepositoryUncheckedCreateInput
@@ -65,7 +64,8 @@ export class GithubExtractorService {
       archived: repo.archived,
       createdAt: repo.created_at,
       defaultBranch: repo.default_branch,
-      description: repo.description,
+      // TODO: service for this
+      description: emoji.emojify(repo.description),
       disabled: repo.disabled,
       forksCount: repo.forks_count,
       hasIssues: repo.has_issues,
