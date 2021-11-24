@@ -28,8 +28,10 @@ export class LicenseResolver {
   @CacheControl({ maxAge: 180 })
   licenses(
     @Args() pagination: PaginationArgs,
-    @Args() { order = LicenseOrder.REPOSITORIES_DESC }: LicenseOrderArgs
+    @Args() { order }: LicenseOrderArgs
   ) {
+    order = order || LicenseOrder.REPOSITORIES_DESC;
+
     return findManyCursorConnection(
       (args) =>
         this.prisma.license.findMany({

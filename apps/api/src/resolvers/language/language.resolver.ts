@@ -31,8 +31,10 @@ export class LanguageResolver {
   @CacheControl({ maxAge: 180 })
   async languages(
     @Args() pagination: PaginationArgs,
-    @Args() { order = LanguageOrder.REPOSITORIES_DESC }: LanguageOrderArgs
+    @Args() { order }: LanguageOrderArgs
   ) {
+    order = order || LanguageOrder.REPOSITORIES_DESC;
+
     return findManyCursorConnection(
       (args) =>
         this.prisma.language.findMany({

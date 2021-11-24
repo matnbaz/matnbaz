@@ -35,8 +35,10 @@ export class TopicResolver {
   @CacheControl({ maxAge: 180 })
   topics(
     @Args() pagination: PaginationArgs,
-    @Args() { order = TopicOrder.REPOSITORIES_DESC }: TopicOrderArgs
+    @Args() { order }: TopicOrderArgs
   ) {
+    order = order || TopicOrder.REPOSITORIES_DESC;
+
     return findManyCursorConnection(
       (args) =>
         this.prisma.topic.findMany({
