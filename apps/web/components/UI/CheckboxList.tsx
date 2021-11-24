@@ -2,7 +2,9 @@ import classNames from 'classnames';
 import { DOMAttributes, useEffect, useMemo, useState } from 'react';
 import Input from './Input/Input';
 interface IOption {
+  id?: string | number;
   name: string;
+  key?: string | number;
 }
 
 type TValue = IOption[];
@@ -36,7 +38,10 @@ const CheckboxList = ({
   return (
     <div className={classNames(className, 'flex flex-col space-y-4 pb-2')}>
       {options.map((option) => (
-        <div key={option.name} className="inline-flex items-center">
+        <div
+          key={option.id || option.key || option.name}
+          className="inline-flex items-center"
+        >
           <span
             className={classNames(
               dir === 'ltr' && 'text-right',

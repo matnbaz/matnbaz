@@ -141,6 +141,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
         <Collapsible
           title="زبان برنامه نویسی"
           onClick={() => {
+            // Remove this listener and don't use lazy useQuery if open is set to true for this collapsible
             if (!languagesNode && !error) runQuery();
           }}
         >

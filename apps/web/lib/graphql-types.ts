@@ -270,17 +270,17 @@ export enum RepoOrder {
 export enum RepoSourceType {
   /** Doesn't apply any filter to the query. */
   All = 'ALL',
-  /** Only returns the forked repositoroes. */
+  /** Only returns the forked repositories. */
   Fork = 'FORK',
-  /** Only returns the source repositoroes. */
+  /** Only returns the source repositories. */
   Source = 'SOURCE'
 }
 
 /** The repo type used in filters. */
 export enum RepoType {
-  /** Only returns the archived repositoroes. */
+  /** Only returns the archived repositories. */
   Archive = 'ARCHIVE',
-  /** Only returns the template repositoroes. */
+  /** Only returns the template repositories. */
   Template = 'TEMPLATE'
 }
 
@@ -392,7 +392,7 @@ export enum TopicOrder {
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetLanguagesQuery = { __typename?: 'Query', languages: { __typename?: 'LanguageConnection', edges?: Array<{ __typename?: 'LanguageEdge', node: { __typename?: 'Language', name: string, slug: string, repositoriesCount: number } }> | null | undefined } };
+export type GetLanguagesQuery = { __typename?: 'Query', languages: { __typename?: 'LanguageConnection', edges?: Array<{ __typename?: 'LanguageEdge', node: { __typename?: 'Language', id: string, name: string, slug: string, repositoriesCount: number } }> | null | undefined } };
 
 export type GetRepositoriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
@@ -410,6 +410,7 @@ export const GetLanguagesDocument = gql`
   languages {
     edges {
       node {
+        id
         name
         slug
         repositoriesCount

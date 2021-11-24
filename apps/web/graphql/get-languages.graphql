@@ -2,6 +2,7 @@ query GetLanguages {
   languages {
     edges {
       node {
+        id
         name
         slug
         repositoriesCount
