@@ -1,8 +1,8 @@
-import { Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
-import { AiOutlineCheck, AiOutlineSelect } from 'react-icons/ai';
-import { HiChevronDown } from 'react-icons/hi';
 import classNames from 'classnames';
+import { Fragment, useEffect, useState } from 'react';
+import { AiOutlineCheck } from 'react-icons/ai';
+import { HiChevronDown } from 'react-icons/hi';
 
 interface IOption {
   name: string;

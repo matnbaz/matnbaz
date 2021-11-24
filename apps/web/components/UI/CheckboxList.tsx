@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { DOMAttributes, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Input from './Input/Input';
 interface IOption {
   id?: string | number;
@@ -27,7 +27,6 @@ const CheckboxList = ({
   const [selectedOptions, setSelectedOptions] = useState<TValue>(value);
 
   useEffect(() => {
-    console.log(value);
     setSelectedOptions(value);
   }, [value]);
 

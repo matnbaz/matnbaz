@@ -11,8 +11,8 @@ const nextConfig = {
     svgr: false,
   },
   images: {
-    domains: ['avatars.githubusercontent.com',]
-  }
+    domains: ['avatars.githubusercontent.com'],
+  },
 };
 
 module.exports = withNx(nextConfig);

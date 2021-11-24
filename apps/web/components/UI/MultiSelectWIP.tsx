@@ -1,12 +1,8 @@
-import { Listbox, Menu, Transition } from '@headlessui/react';
+import { Listbox, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { Fragment, useEffect, useState } from 'react';
-import { HiChevronDown, HiDuplicate, HiPencilAlt } from 'react-icons/hi';
-import {
-  AiOutlineCheck,
-  AiOutlineCheckCircle,
-  AiOutlineClose,
-} from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
+import { HiChevronDown } from 'react-icons/hi';
 
 interface IOptions {
   name: string;
@@ -33,7 +29,6 @@ const MultiSelectWIP = ({ options, value, onChange }: IMultiSelectProps) => {
     ]);
   };
   const removeSelectedOption = (option) => {
-    console.log(selectedOptions.indexOf(option));
     setSelectedOptions((previousSelectedOptions) =>
       previousSelectedOptions.filter(
         (previousSelectedOption) =>
