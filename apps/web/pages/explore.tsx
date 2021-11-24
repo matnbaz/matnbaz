@@ -5,7 +5,8 @@ import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loaders/Repo
 import { useGetRepositoriesQuery } from '../lib/graphql-types';
 
 const Explore = () => {
-  const { loading, data, fetchMore, refetch } = useGetRepositoriesQuery();
+  const { loading, data, fetchMore, refetch, networkStatus } =
+    useGetRepositoriesQuery({ notifyOnNetworkStatusChange: true });
   const repositories = data?.repositories.edges;
   const repositoriesPageInfo = data?.repositories.pageInfo;
   const repositoriesLoadMoreHandler = () => {
@@ -25,7 +26,7 @@ const Explore = () => {
           <RepositoryFilters onApply={refetch} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
-          {loading ? (
+          {loading && networkStatus !== 3 ? (
             <>
               {[...Array(6).keys()].map((number) => (
                 <RepositoryPreviewSkeletonLoader key={number} />
