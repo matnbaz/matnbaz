@@ -10,5 +10,5 @@ export class RepoFilterArgs {
   type?: RepoType[];
 
   @Field(() => RepoSourceType)
-  sourceType: RepoSourceType;
+  sourceType?: RepoSourceType;
 }
