@@ -6,7 +6,7 @@ import { IInputProps } from './Input';
 
 interface ICheckboxInputProps {
   className?: string;
-  checked: boolean;
+  checked?: boolean;
   onClick?: () => void;
   onChange?: (value) => void;
 }
