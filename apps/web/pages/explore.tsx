@@ -26,6 +26,9 @@ const Explore = () => {
           <RepositoryFilters onApply={refetch} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
+          {/* // Network status 4 is when refetch gets called and network status 3 is for when fetchMore gets called
+          // In this case we don't want skeleton loaders to appear when the user is trying to load more data
+          // So it checks if it's 4 */}
           {loading && networkStatus !== 3 ? (
             <>
               {[...Array(6).keys()].map((number) => (
