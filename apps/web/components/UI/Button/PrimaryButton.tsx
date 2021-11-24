@@ -7,7 +7,7 @@ const PrimaryButton = ({ children, className, ...props }: IButtonProps) => {
       {...props}
       className={classNames(
         className,
-        'bg-primary-400 dark:bg-primary-500 focus:ring-primary-400 dark:focus:ring-primary-500 hover:bg-primary-500 dark:hover:bg-primary-400'
+        'border-transparent text-white bg-primary-500 dark:bg-primary-600 focus:ring-primary-500 dark:focus:ring-primary-500 hover:bg-primary-600 dark:hover:bg-primary-700'
       )}
     >
       {children}
