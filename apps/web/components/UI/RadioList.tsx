@@ -3,7 +3,9 @@ import classNames from 'classnames';
 import { DOMAttributes, useEffect, useMemo, useState } from 'react';
 import Input from './Input/Input';
 interface IOption {
+  id?: string | number;
   name: string;
+  key?: string | number;
 }
 
 type TValue = IOption;
@@ -42,6 +44,7 @@ const RadioList = ({
     >
       {options.map((option) => (
         <RadioGroup.Option
+          key={option.id || option.key || option.name}
           as="div"
           value={option}
           className={classNames(
