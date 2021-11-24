@@ -1,5 +1,6 @@
 import { Transition } from '@headlessui/react';
 import {
+  ForkStatusType,
   GetLanguagesQuery,
   GetLanguagesQueryResult,
   GetRepositoriesQueryVariables,
@@ -15,6 +16,7 @@ import Card from '../UI/Card';
 import CheckboxList from '../UI/CheckboxList';
 import Collapsible from '../UI/Collapsible';
 import Input from '../UI/Input/Input';
+import RadioList from '../UI/RadioList';
 import Select from '../UI/Select';
 type TRepositoryFiltersAction = {
   type: keyof TRepositoryFiltersState | 'clear';
@@ -37,16 +39,27 @@ const repoOrderOptions: Record<RepoOrder, { name: string; value: RepoOrder }> =
     STARS_DESC: { name: 'بیشترین تعداد ستاره', value: RepoOrder.StarsDesc },
   };
 
+const forkStatusOptions: Record<
+  ForkStatusType,
+  { name: string; value: ForkStatusType }
+> = {
+  ALL: { name: 'همه', value: ForkStatusType.All },
+  FORK: { name: 'فورک', value: ForkStatusType.Fork },
+  SOURCE: { name: 'سورس', value: ForkStatusType.Fork },
+};
+
 const initialState: TRepositoryFiltersState = {
   searchTerm: '',
   languages: [],
   order: repoOrderOptions['PUSHED_DESC'],
+  forkStatus: forkStatusOptions['ALL'],
 };
 
 export type TRepositoryFiltersState = {
   searchTerm: string | null;
   languages: GetLanguagesQuery['languages']['edges'][0]['node'][] | null;
   order: { name: string; value: RepoOrder } | null;
+  forkStatus: { name: string; value: ForkStatusType };
 };
 
 const reducer = (
@@ -54,6 +67,7 @@ const reducer = (
   action: TRepositoryFiltersAction
 ): TRepositoryFiltersState => {
   switch (action.type) {
+    case 'forkStatus':
     case 'order':
     case 'languages':
     case 'searchTerm':
@@ -109,6 +123,10 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
     dispatch({ type: 'order', payload: order });
   };
 
+  const forkStatusChangeHandler = (forkStatus) => {
+    dispatch({ type: 'forkStatus', payload: forkStatus });
+  };
+
   const formSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     onApply({
@@ -116,6 +134,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
       languages: state.languages.map((language) => language.slug),
       order: state.order.value,
       searchTerm: state.searchTerm,
+      forkStatus: state.forkStatus.value,
     });
   };
 
@@ -123,7 +142,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
     <Card>
       <form onSubmit={formSubmitHandler} className="space-y-6">
         <Collapsible title="مرتب سازی بر اساس" open={true}>
-          <Select
+          <RadioList
             options={Object.values(repoOrderOptions)}
             value={state.order}
             onChange={orderChangeHandler}
@@ -170,6 +189,13 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
               ))}{' '}
             </div>
           )}
+        </Collapsible>
+        <Collapsible title="وضعیت فورک">
+          <RadioList
+            options={Object.values(forkStatusOptions)}
+            value={state.forkStatus}
+            onChange={forkStatusChangeHandler}
+          />
         </Collapsible>
         <div className="flex space-x-2 items-center space-x-reverse">
           <Button.Primary size="sm" type="submit">

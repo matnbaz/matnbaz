@@ -17,6 +17,26 @@ export type Scalars = {
   DateTime: any;
 };
 
+/** The repo type used in filters. */
+export enum ArchiveStatusType {
+  /** Doesn't apply any filter to the query. */
+  All = 'ALL',
+  /** Only returns the archived repositories. */
+  Archived = 'ARCHIVED',
+  /** Only returns the non-archived repositories. */
+  NotArchived = 'NOT_ARCHIVED'
+}
+
+/** The repo type used in filters. */
+export enum ForkStatusType {
+  /** Doesn't apply any filter to the query. */
+  All = 'ALL',
+  /** Only returns the forked repositories. */
+  Fork = 'FORK',
+  /** Only returns the source (not forked) repositories. */
+  Source = 'SOURCE'
+}
+
 export type Language = {
   __typename?: 'Language';
   color?: Maybe<Scalars['String']>;
@@ -212,14 +232,16 @@ export type QueryOwnerByPlatformArgs = {
 
 export type QueryRepositoriesArgs = {
   after?: InputMaybe<Scalars['String']>;
+  archiveStatus?: InputMaybe<ArchiveStatusType>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
+  forkStatus?: InputMaybe<ForkStatusType>;
   languages?: InputMaybe<Array<Scalars['String']>>;
   last?: InputMaybe<Scalars['Int']>;
+  licenses?: InputMaybe<Array<Scalars['String']>>;
   order?: InputMaybe<RepoOrder>;
   searchTerm?: InputMaybe<Scalars['String']>;
-  sourceType?: InputMaybe<RepoSourceType>;
-  type?: InputMaybe<Array<RepoType>>;
+  templateStatus?: InputMaybe<TemplateStatusType>;
 };
 
 
@@ -264,24 +286,6 @@ export enum RepoOrder {
   PushedDesc = 'PUSHED_DESC',
   /** Order by most stars in descending direction. */
   StarsDesc = 'STARS_DESC'
-}
-
-/** The repo type used in filters. */
-export enum RepoSourceType {
-  /** Doesn't apply any filter to the query. */
-  All = 'ALL',
-  /** Only returns the forked repositories. */
-  Fork = 'FORK',
-  /** Only returns the source repositories. */
-  Source = 'SOURCE'
-}
-
-/** The repo type used in filters. */
-export enum RepoType {
-  /** Only returns the archived repositories. */
-  Archive = 'ARCHIVE',
-  /** Only returns the template repositories. */
-  Template = 'TEMPLATE'
 }
 
 export type Repository = {
@@ -349,6 +353,16 @@ export enum ScriptDirection {
   Rtl = 'RTL'
 }
 
+/** The repo type used in filters. */
+export enum TemplateStatusType {
+  /** Doesn't apply any filter to the query. */
+  All = 'ALL',
+  /** Only returns the non-template repositories. */
+  NotTemplate = 'NOT_TEMPLATE',
+  /** Only returns the template repositories. */
+  Template = 'TEMPLATE'
+}
+
 export type Topic = {
   __typename?: 'Topic';
   createdAt: Scalars['DateTime'];
@@ -399,6 +413,7 @@ export type GetRepositoriesQueryVariables = Exact<{
   searchTerm?: InputMaybe<Scalars['String']>;
   languages?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
   order?: InputMaybe<RepoOrder>;
+  forkStatus?: InputMaybe<ForkStatusType>;
 }>;
 
 
@@ -447,13 +462,14 @@ export type GetLanguagesQueryHookResult = ReturnType<typeof useGetLanguagesQuery
 export type GetLanguagesLazyQueryHookResult = ReturnType<typeof useGetLanguagesLazyQuery>;
 export type GetLanguagesQueryResult = Apollo.QueryResult<GetLanguagesQuery, GetLanguagesQueryVariables>;
 export const GetRepositoriesDocument = gql`
-    query GetRepositories($after: String, $searchTerm: String, $languages: [String!], $order: RepoOrder) {
+    query GetRepositories($after: String, $searchTerm: String, $languages: [String!], $order: RepoOrder, $forkStatus: ForkStatusType) {
   repositories(
     first: 8
     after: $after
     searchTerm: $searchTerm
     languages: $languages
     order: $order
+    forkStatus: $forkStatus
   ) {
     edges {
       node {
@@ -496,6 +512,7 @@ export const GetRepositoriesDocument = gql`
  *      searchTerm: // value for 'searchTerm'
  *      languages: // value for 'languages'
  *      order: // value for 'order'
+ *      forkStatus: // value for 'forkStatus'
  *   },
  * });
  */

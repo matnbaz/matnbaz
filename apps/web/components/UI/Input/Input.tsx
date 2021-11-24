@@ -3,6 +3,7 @@ import { InputHTMLAttributes } from 'react';
 import { HiStar } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
 import CheckboxInput from './CheckboxInput';
+import RadioInput from './RadioInput';
 import TextInput, { ITextInputProps } from './TextInput';
 
 export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -16,5 +17,6 @@ const Input = ({ ...props }: ITextInputProps) => {
 
 Input.Text = TextInput;
 Input.Checkbox = CheckboxInput;
+Input.Radio = RadioInput;
 
 export default Input;

@@ -3,6 +3,7 @@ query GetRepositories(
   $searchTerm: String
   $languages: [String!]
   $order: RepoOrder
+  $forkStatus: ForkStatusType
 ) {
   repositories(
     first: 8
@@ -10,6 +11,7 @@ query GetRepositories(
     searchTerm: $searchTerm
     languages: $languages
     order: $order
+    forkStatus: $forkStatus
   ) {
     edges {
       node {
