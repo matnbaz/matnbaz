@@ -1256,10 +1256,22 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@exonest/graphql-connections@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@exonest/graphql-connections/-/graphql-connections-0.0.3.tgz#fb9de9bd73a2e1fd0f53911b8c09d17cf4d205e8"
-  integrity sha512-fqVXEleAn9Alq+e/aTY/QudiVgaYzGRYhSQZ+mIaFXgFyrnm2mUn7BYk9oYAUFcaqKOiNM2CELeUDxv8kNs8ig==
+"@exonest/graphql-cache-control@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@exonest/graphql-cache-control/-/graphql-cache-control-0.1.0.tgz#50025f0f023a2d72c62010513f547a46ed2e58f5"
+  integrity sha512-9nh18p7p6PhUuKh8VH89onHgp3iRUeLIDjhG9cA5tdxdIwq9Rq3vNgqPCSR+7asg3GCVhpkSfO6MuOkd23OPYw==
+  dependencies:
+    "@nestjs/common" "^8.2.3"
+    "@nestjs/core" "^8.2.3"
+    "@nestjs/graphql" "^9.1.1"
+    apollo-server-core "^3.5.0"
+    graphql "15.7.0"
+    reflect-metadata "^0.1.13"
+
+"@exonest/graphql-connections@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@exonest/graphql-connections/-/graphql-connections-0.1.0.tgz#6e9b3ebb62e63fbc82a1368ebfab8a9a844f1aeb"
+  integrity sha512-qH2RUUs4j7InMGp3Sw0Mg5I6kEnWwfVYYkWxBeRKQ2LJ8+BD/xxWq5QXoUXRXB+Ebyf31oENhgP8wwyYnv76zQ==
   dependencies:
     "@nestjs/common" "^8.2.0"
     "@nestjs/core" "^8.2.1"
@@ -1965,6 +1977,16 @@
     tslib "2.3.1"
     uuid "8.3.2"
 
+"@nestjs/common@^8.2.3":
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-8.2.3.tgz#77ac1ef59c36dd9ae131f5c5ddabfc6258802d1c"
+  integrity sha512-slXVVMc9tZG6ZaARXkTUsSqZbkEcc0hVKb4mPLxS9mjXmDspUleGQakZ5OzniiEWqzO299BVlEbm6TGyoGbpNg==
+  dependencies:
+    axios "0.24.0"
+    iterare "1.2.1"
+    tslib "2.3.1"
+    uuid "8.3.2"
+
 "@nestjs/core@^7.0.0":
   version "7.6.18"
   resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.6.18.tgz#36448f0ae7f7d08f032e1e7e53b4a4c82ae844d7"
@@ -1982,6 +2004,19 @@
   version "8.2.1"
   resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-8.2.1.tgz#dd9540ade8cc13e274e0dbf4d54ece288fde5cae"
   integrity sha512-5JyCBd+gDkl32Xa7ZRp2cvLR/elPSE/T4egtMFvSwQJDhek+djp9jaVq5PYvsBgaCr/HSHHrLIQ72nnDRLTisQ==
+  dependencies:
+    "@nuxtjs/opencollective" "0.3.2"
+    fast-safe-stringify "2.1.1"
+    iterare "1.2.1"
+    object-hash "2.2.0"
+    path-to-regexp "3.2.0"
+    tslib "2.3.1"
+    uuid "8.3.2"
+
+"@nestjs/core@^8.2.3":
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-8.2.3.tgz#26fb3858df586b00362d1bd492ba432698590d67"
+  integrity sha512-CP/Z+uTEdblTZQXRf+xvZHvESZ6v2vxX/YaRcpJDv/ytgxxOafmOJ/RDKSzNOGBkt8kVwYNFpWXzzll4P5AJ0g==
   dependencies:
     "@nuxtjs/opencollective" "0.3.2"
     fast-safe-stringify "2.1.1"

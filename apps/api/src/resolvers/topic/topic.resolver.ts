@@ -1,8 +1,8 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
+import { CacheControl } from '@exonest/graphql-cache-control';
 import { PaginationArgs } from '@exonest/graphql-connections';
 import {
   Args,
-  // Info,
   Int,
   Parent,
   Query,
@@ -10,8 +10,6 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import * as P from '@prisma/client';
-// import { CacheScope } from 'apollo-server-types';
-// import { GraphQLResolveInfo } from 'graphql';
 import { PrismaService } from 'nestjs-prisma';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { TopicConnection } from '../../models/connections/topic.connection';
@@ -34,13 +32,11 @@ export class TopicResolver {
   }
 
   @Query(() => TopicConnection, { complexity: paginationComplexity })
+  @CacheControl({ maxAge: 180 })
   topics(
     @Args() pagination: PaginationArgs,
     @Args() { order }: TopicOrderArgs
-  ) // @Info() { cacheControl }: GraphQLResolveInfo
-  {
-    // cacheControl.setCacheHint({ maxAge: 60, scope: CacheScope.Public });
-
+  ) {
     return findManyCursorConnection(
       (args) =>
         this.prisma.topic.findMany({

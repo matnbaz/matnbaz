@@ -28,9 +28,10 @@ import { AppService } from './app.service';
       autoSchemaFile: join(process.cwd(), 'apps/api/src/schema.gql'),
       sortSchema: true,
       plugins: [
-        ApolloServerPluginCacheControl({ defaultMaxAge: 10 }),
+        ApolloServerPluginCacheControl({ defaultMaxAge: 5 }),
         responseCachePlugin(),
       ],
+      schemaDirectives: {},
     }),
     ScheduleModule.forRoot(),
     BullModule.forRoot({
