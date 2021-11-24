@@ -8,12 +8,14 @@ enum RadiusesEnum {
   'lg' = 'rounded-lg',
   'xl' = 'rounded-xl',
   '2xl' = 'rounded-2xl',
+  'full' = 'rounded-full',
 }
 enum SizeEnum {
-  'sm' = 'text-sm py-1 px-2.5',
-  'md' = 'text-md py-1 px-3',
-  'lg' = 'text-lg py-2 px-3.5',
-  'xl' = 'text-xl py-2.5 px-4',
+  'xs' = 'text-xs font-medium py-1 px-1.5',
+  'sm' = 'text-sm font-medium py-1 px-2.5',
+  'md' = 'text-md font-medium py-2 px-4',
+  'lg' = 'text-lg font-medium py-2 px-5',
+  'xl' = 'text-xl font-bold py-3 px-8',
 }
 
 export interface IButtonProps
@@ -42,7 +44,7 @@ const Button = ({
         className,
         RadiusesEnum[rounded],
         SizeEnum[size],
-        ' text-center cursor-pointer inline-flex items-center border border-transparent font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2'
+        'text-center cursor-pointer inline-flex items-center border border-transparent shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2'
       )}
     >
       {children}
