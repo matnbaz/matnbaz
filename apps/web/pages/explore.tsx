@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import RepositoryFilters from '../components/Filters/RepositoryFilters';
 import MainLayout from '../components/Layouts/MainLayout';
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
@@ -19,6 +20,12 @@ const Explore = () => {
       },
     });
   };
+
+  useEffect(() => {
+    if (document.body.clientHeight < window.innerHeight && !loading) {
+      repositoriesLoadMoreHandler();
+    }
+  }, [data]);
 
   if (error)
     return (
