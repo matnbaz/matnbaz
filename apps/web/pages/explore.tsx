@@ -2,10 +2,11 @@ import RepositoryFilters from '../components/Filters/RepositoryFilters';
 import MainLayout from '../components/Layouts/MainLayout';
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
 import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loaders/RepositoryPreviewSkeletonLoader';
+import Button from '../components/UI/Button/Button';
 import { useGetRepositoriesQuery } from '../lib/graphql-types';
 
 const Explore = () => {
-  const { loading, data, fetchMore, refetch, networkStatus } =
+  const { loading, data, error, fetchMore, refetch, networkStatus } =
     useGetRepositoriesQuery({ notifyOnNetworkStatusChange: true });
   const repositories = data?.repositories.edges;
   const repositoriesPageInfo = data?.repositories.pageInfo;
@@ -18,6 +19,26 @@ const Explore = () => {
       },
     });
   };
+
+  if (error)
+    return (
+      <MainLayout>
+        <div className="flex flex-col space-y-6 items-center justify-center">
+          <h1 className="text-7xl font-bold text-red-500">خطا در بارگیری!</h1>
+          <span className="text-3xl">
+            لطفا چند لحظه بعد دوباره امتحان کنید.
+          </span>
+          <Button.Primary
+            disabled={loading}
+            onClick={() => {
+              refetch();
+            }}
+          >
+            امتحان مجدد
+          </Button.Primary>
+        </div>
+      </MainLayout>
+    );
 
   return (
     <MainLayout>
