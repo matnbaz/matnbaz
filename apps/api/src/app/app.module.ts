@@ -1,5 +1,6 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -9,6 +10,7 @@ import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
 import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
 import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
+import { HybridThrottlerGuard } from '../hybrid-throttler.guard';
 import { OctokitModule } from '../octokit/octokit.module';
 import { ComplexityPlugin } from '../plugins/complexity.plugin';
 import { ResolverModule } from '../resolvers/resolver.module';
@@ -52,6 +54,13 @@ import { AppService } from './app.service';
     ResolverModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ComplexityPlugin],
+  providers: [
+    AppService,
+    ComplexityPlugin,
+    {
+      provide: APP_GUARD,
+      useClass: HybridThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}

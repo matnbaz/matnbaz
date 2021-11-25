@@ -1,0 +1,30 @@
+query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
+  repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
+    fullName
+    description
+    archived
+    isTemplate
+    defaultBranch
+    pushedAt
+    createdAt
+    homePage
+    stargazersCount
+    forksCount
+    openIssuesCount
+    readme
+    language {
+      name
+      color
+    }
+    license {
+      name
+      key
+      spdxId
+    }
+    owner {
+      type
+      login
+      platformId
+    }
+  }
+}

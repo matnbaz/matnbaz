@@ -120,6 +120,23 @@ export enum LicenseOrder {
   RepositoriesDesc = 'REPOSITORIES_DESC'
 }
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  reportOwner: Report;
+  submissionSubmit: Submission;
+};
+
+
+export type MutationReportOwnerArgs = {
+  ownerId: Scalars['ID'];
+  reason: Scalars['String'];
+};
+
+
+export type MutationSubmissionSubmitArgs = {
+  content: Scalars['String'];
+};
+
 export type Owner = {
   __typename?: 'Owner';
   extractedAt: Scalars['DateTime'];
@@ -182,9 +199,11 @@ export type Query = {
   owner?: Maybe<Owner>;
   ownerByLogin?: Maybe<Owner>;
   ownerByPlatform?: Maybe<Owner>;
+  ownerByPlatformId?: Maybe<Owner>;
   repositories: RepositoryConnection;
   repositoryById?: Maybe<Repository>;
   repositoryByPlatform?: Maybe<Repository>;
+  repositoryByPlatformId?: Maybe<Repository>;
   topic?: Maybe<Topic>;
   topicById?: Maybe<Topic>;
   topics: TopicConnection;
@@ -225,6 +244,12 @@ export type QueryOwnerByLoginArgs = {
 
 
 export type QueryOwnerByPlatformArgs = {
+  owner: Scalars['String'];
+  platform: PlatformType;
+};
+
+
+export type QueryOwnerByPlatformIdArgs = {
   id: Scalars['ID'];
   platform: PlatformType;
 };
@@ -251,6 +276,13 @@ export type QueryRepositoryByIdArgs = {
 
 
 export type QueryRepositoryByPlatformArgs = {
+  owner: Scalars['String'];
+  platform: PlatformType;
+  repo: Scalars['String'];
+};
+
+
+export type QueryRepositoryByPlatformIdArgs = {
   id: Scalars['ID'];
   platform: PlatformType;
 };
@@ -288,6 +320,14 @@ export enum RepoOrder {
   StarsDesc = 'STARS_DESC'
 }
 
+export type Report = {
+  __typename?: 'Report';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  reason: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
 export type Repository = {
   __typename?: 'Repository';
   allowForking: Scalars['Boolean'];
@@ -309,17 +349,17 @@ export type Repository = {
   isFork: Scalars['Boolean'];
   isTemplate: Scalars['Boolean'];
   language?: Maybe<Language>;
-  licenseId: Scalars['String'];
+  license?: Maybe<License>;
   limitedDescription?: Maybe<Scalars['String']>;
   mirrorUrl?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   openIssuesCount: Scalars['Int'];
   owner?: Maybe<Owner>;
-  ownerId: Scalars['String'];
   platform: PlatformType;
   platformId: Scalars['ID'];
   platformUrl?: Maybe<Scalars['String']>;
   pushedAt: Scalars['DateTime'];
+  readme?: Maybe<Scalars['String']>;
   recordUpdatedAt: Scalars['DateTime'];
   size: Scalars['Int'];
   stargazersCount: Scalars['Int'];
@@ -352,6 +392,14 @@ export enum ScriptDirection {
   /** right-to-left */
   Rtl = 'RTL'
 }
+
+export type Submission = {
+  __typename?: 'Submission';
+  content: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
+};
 
 /** The repo type used in filters. */
 export enum TemplateStatusType {
@@ -408,6 +456,15 @@ export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetLanguagesQuery = { __typename?: 'Query', languages: { __typename?: 'LanguageConnection', edges?: Array<{ __typename?: 'LanguageEdge', node: { __typename?: 'Language', id: string, name: string, slug: string, repositoriesCount: number } }> | null | undefined } };
 
+export type GetOwnerQueryVariables = Exact<{
+  owner: Scalars['String'];
+  platform: PlatformType;
+  reposCount?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', fullName: string, limitedDescription?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } } | null | undefined };
+
 export type GetRepositoriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
   searchTerm?: InputMaybe<Scalars['String']>;
@@ -419,6 +476,15 @@ export type GetRepositoriesQueryVariables = Exact<{
 
 
 export type GetRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', fullName: string, limitedDescription?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
+
+export type GetRepositoryQueryVariables = Exact<{
+  owner: Scalars['String'];
+  repo: Scalars['String'];
+  platform: PlatformType;
+}>;
+
+
+export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, description?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, pushedAt: any, createdAt: any, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readme?: string | null | undefined, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
 
 
 export const GetLanguagesDocument = gql`
@@ -462,6 +528,65 @@ export function useGetLanguagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetLanguagesQueryHookResult = ReturnType<typeof useGetLanguagesQuery>;
 export type GetLanguagesLazyQueryHookResult = ReturnType<typeof useGetLanguagesLazyQuery>;
 export type GetLanguagesQueryResult = Apollo.QueryResult<GetLanguagesQuery, GetLanguagesQueryVariables>;
+export const GetOwnerDocument = gql`
+    query GetOwner($owner: String!, $platform: PlatformType!, $reposCount: Int = 10) {
+  ownerByPlatform(owner: $owner, platform: $platform) {
+    repositories(first: $reposCount) {
+      edges {
+        cursor
+        node {
+          fullName
+          limitedDescription
+          stargazersCount
+          forksCount
+          openIssuesCount
+          language {
+            name
+            color
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+    type
+    login
+    platformId
+  }
+}
+    `;
+
+/**
+ * __useGetOwnerQuery__
+ *
+ * To run a query within a React component, call `useGetOwnerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOwnerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOwnerQuery({
+ *   variables: {
+ *      owner: // value for 'owner'
+ *      platform: // value for 'platform'
+ *      reposCount: // value for 'reposCount'
+ *   },
+ * });
+ */
+export function useGetOwnerQuery(baseOptions: Apollo.QueryHookOptions<GetOwnerQuery, GetOwnerQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOwnerQuery, GetOwnerQueryVariables>(GetOwnerDocument, options);
+      }
+export function useGetOwnerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOwnerQuery, GetOwnerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOwnerQuery, GetOwnerQueryVariables>(GetOwnerDocument, options);
+        }
+export type GetOwnerQueryHookResult = ReturnType<typeof useGetOwnerQuery>;
+export type GetOwnerLazyQueryHookResult = ReturnType<typeof useGetOwnerLazyQuery>;
+export type GetOwnerQueryResult = Apollo.QueryResult<GetOwnerQuery, GetOwnerQueryVariables>;
 export const GetRepositoriesDocument = gql`
     query GetRepositories($after: String, $searchTerm: String, $languages: [String!], $order: RepoOrder, $forkStatus: ForkStatusType, $templateStatus: TemplateStatusType) {
   repositories(
@@ -531,3 +656,65 @@ export function useGetRepositoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type GetRepositoriesQueryHookResult = ReturnType<typeof useGetRepositoriesQuery>;
 export type GetRepositoriesLazyQueryHookResult = ReturnType<typeof useGetRepositoriesLazyQuery>;
 export type GetRepositoriesQueryResult = Apollo.QueryResult<GetRepositoriesQuery, GetRepositoriesQueryVariables>;
+export const GetRepositoryDocument = gql`
+    query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
+  repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
+    fullName
+    description
+    archived
+    isTemplate
+    defaultBranch
+    pushedAt
+    createdAt
+    homePage
+    stargazersCount
+    forksCount
+    openIssuesCount
+    readme
+    language {
+      name
+      color
+    }
+    license {
+      name
+      key
+      spdxId
+    }
+    owner {
+      type
+      login
+      platformId
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetRepositoryQuery__
+ *
+ * To run a query within a React component, call `useGetRepositoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRepositoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRepositoryQuery({
+ *   variables: {
+ *      owner: // value for 'owner'
+ *      repo: // value for 'repo'
+ *      platform: // value for 'platform'
+ *   },
+ * });
+ */
+export function useGetRepositoryQuery(baseOptions: Apollo.QueryHookOptions<GetRepositoryQuery, GetRepositoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRepositoryQuery, GetRepositoryQueryVariables>(GetRepositoryDocument, options);
+      }
+export function useGetRepositoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRepositoryQuery, GetRepositoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRepositoryQuery, GetRepositoryQueryVariables>(GetRepositoryDocument, options);
+        }
+export type GetRepositoryQueryHookResult = ReturnType<typeof useGetRepositoryQuery>;
+export type GetRepositoryLazyQueryHookResult = ReturnType<typeof useGetRepositoryLazyQuery>;
+export type GetRepositoryQueryResult = Apollo.QueryResult<GetRepositoryQuery, GetRepositoryQueryVariables>;

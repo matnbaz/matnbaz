@@ -157,7 +157,8 @@ type Query {
   licenses(after: String, before: String, first: Int, last: Int, order: LicenseOrder): LicenseConnection!
   owner(id: String!): Owner
   ownerByLogin(login: String!): Owner
-  ownerByPlatform(id: ID!, platform: PlatformType!): Owner
+  ownerByPlatform(owner: String!, platform: PlatformType!): Owner
+  ownerByPlatformId(id: ID!, platform: PlatformType!): Owner
   repositories(
     after: String
     archiveStatus: ArchiveStatusType
@@ -176,7 +177,8 @@ type Query {
     templateStatus: TemplateStatusType
   ): RepositoryConnection!
   repositoryById(id: String!): Repository
-  repositoryByPlatform(id: ID!, platform: PlatformType!): Repository
+  repositoryByPlatform(owner: String!, platform: PlatformType!, repo: String!): Repository
+  repositoryByPlatformId(id: ID!, platform: PlatformType!): Repository
   topic(name: String!): Topic
   topicById(id: String!): Topic
   topics(after: String, before: String, first: Int, last: Int, order: TopicOrder): TopicConnection!
@@ -227,13 +229,12 @@ type Repository {
   isFork: Boolean!
   isTemplate: Boolean!
   language: Language
-  licenseId: String!
+  license: License
   limitedDescription: String
   mirrorUrl: String
   name: String!
   openIssuesCount: Int!
   owner: Owner
-  ownerId: String!
   platform: PlatformType!
   platformId: ID!
   platformUrl: String

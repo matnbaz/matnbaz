@@ -44,8 +44,6 @@ export class Repository {
   description?: string;
   readme?: string;
   isFork: boolean;
-  ownerId: string;
-  licenseId: string;
 
   @Field(() => PlatformType)
   platform: PlatformType;

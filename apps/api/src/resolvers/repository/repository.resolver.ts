@@ -3,14 +3,16 @@ import { PaginationArgs } from '@exonest/graphql-connections';
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { PlatformArgs } from '../../models/args/platform.args';
+import { PlatformByIdArgs } from '../../models/args/platform-by-id.args';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { ScriptDirection } from '../../models/enums/script-direction.enum';
 import { Language } from '../../models/language.model';
+import { License } from '../../models/license.model';
 import { Owner } from '../../models/owner.model';
 import { Repository } from '../../models/repository.model';
 import { Topic } from '../../models/topic.model';
 import { paginationComplexity } from '../../plugins/pagination-complexity';
+import { PlatformArgs } from './args/platform.args';
 import { RepoFilterArgs } from './args/repo-filter.args';
 import { RepoOrderArgs } from './args/repo-order.args';
 import { RepoSearchArgs } from './args/repo-search.args';
@@ -33,11 +35,23 @@ export class RepositoryResolver {
   }
 
   @Query(() => Repository, { nullable: true })
-  repositoryByPlatform(@Args() { id, platform }: PlatformArgs) {
+  repositoryByPlatformId(@Args() { id, platform }: PlatformByIdArgs) {
     return this.prisma.repository.findFirst({
       where: {
         platform,
         platformId: id,
+      },
+    });
+  }
+
+  @Query(() => Repository, { nullable: true })
+  repositoryByPlatform(@Args() { owner, repo, platform }: PlatformArgs) {
+    console.log(owner, repo, platform);
+    return this.prisma.repository.findFirst({
+      where: {
+        platform,
+        name: { mode: 'insensitive', equals: repo },
+        Owner: { login: { mode: 'insensitive', equals: owner } },
       },
     });
   }
@@ -161,6 +175,12 @@ export class RepositoryResolver {
   language(@Parent() { languageId }: P.Repository) {
     if (!languageId) return null;
     return this.prisma.language.findUnique({ where: { id: languageId } });
+  }
+
+  @ResolveField(() => License, { nullable: true })
+  license(@Parent() { licenseId }: P.Repository) {
+    if (!licenseId) return null;
+    return this.prisma.license.findUnique({ where: { id: licenseId } });
   }
 
   @ResolveField(() => ScriptDirection)

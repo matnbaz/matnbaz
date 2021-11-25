@@ -10,10 +10,11 @@ import {
 } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { PlatformArgs } from '../../models/args/platform.args';
+import { PlatformByIdArgs } from '../../models/args/platform-by-id.args';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { Owner } from '../../models/owner.model';
 import { paginationComplexity } from '../../plugins/pagination-complexity';
+import { PlatformArgs } from './args/platform.args';
 
 @Resolver(() => Owner)
 export class OwnerResolver {
@@ -29,9 +30,19 @@ export class OwnerResolver {
   }
 
   @Query(() => Owner, { nullable: true })
-  ownerByPlatform(@Args() { id, platform }: PlatformArgs) {
+  ownerByPlatformId(@Args() { id, platform }: PlatformByIdArgs) {
     return this.prisma.owner.findUnique({
       where: { platform_platformId: { platform, platformId: id } },
+    });
+  }
+
+  @Query(() => Owner, { nullable: true })
+  ownerByPlatform(@Args() { owner, platform }: PlatformArgs) {
+    return this.prisma.owner.findFirst({
+      where: {
+        login: owner,
+        platform,
+      },
     });
   }
 
