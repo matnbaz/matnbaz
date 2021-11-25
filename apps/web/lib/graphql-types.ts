@@ -333,6 +333,7 @@ export type Repository = {
   allowForking: Scalars['Boolean'];
   archived: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
+  createdAtHumanlyReadable: Scalars['String'];
   defaultBranch: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   descriptionDirection: ScriptDirection;
@@ -359,6 +360,7 @@ export type Repository = {
   platformId: Scalars['ID'];
   platformUrl?: Maybe<Scalars['String']>;
   pushedAt: Scalars['DateTime'];
+  pushedAtHumanlyReadable: Scalars['String'];
   readme?: Maybe<Scalars['String']>;
   readmeHtml?: Maybe<Scalars['String']>;
   recordUpdatedAt: Scalars['DateTime'];
@@ -366,6 +368,7 @@ export type Repository = {
   stargazersCount: Scalars['Int'];
   topics: Array<Topic>;
   updatedAt: Scalars['DateTime'];
+  updatedAtHumanlyReadable: Scalars['String'];
   watchersCount: Scalars['Int'];
 };
 
@@ -485,7 +488,7 @@ export type GetRepositoryQueryVariables = Exact<{
 }>;
 
 
-export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, description?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, pushedAt: any, createdAt: any, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readme?: string | null | undefined, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
+export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, description?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, pushedAt: any, createdAt: any, pushedAtHumanlyReadable: string, createdAtHumanlyReadable: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
 
 
 export const GetLanguagesDocument = gql`
@@ -667,11 +670,13 @@ export const GetRepositoryDocument = gql`
     defaultBranch
     pushedAt
     createdAt
+    pushedAtHumanlyReadable
+    createdAtHumanlyReadable
     homePage
     stargazersCount
     forksCount
     openIssuesCount
-    readme
+    readmeHtml
     language {
       name
       color

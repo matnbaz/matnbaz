@@ -51,8 +51,11 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
   const apolloClient = initializeApollo();
 
   const {
-    data: { data },
-  } = await apolloClient.query<GetOwnerQueryResult, GetOwnerQueryVariables>({
+    data: { ownerByPlatform },
+  } = await apolloClient.query<
+    GetOwnerQueryResult['data'],
+    GetOwnerQueryVariables
+  >({
     query: GetOwnerDocument,
     variables: {
       owner,
@@ -60,7 +63,7 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
     },
   });
 
-  if (!data)
+  if (!ownerByPlatform)
     return {
       redirect: { permanent: false, destination: '/' },
       props: { ownerSlug: owner },

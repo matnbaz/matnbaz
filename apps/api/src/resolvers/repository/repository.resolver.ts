@@ -1,9 +1,11 @@
-import { marked } from 'marked';
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
+import { humanlyReadableDate } from '@iranfoss/common';
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import * as P from '@prisma/client';
+import { marked } from 'marked';
 import { PrismaService } from 'nestjs-prisma';
+import * as emoji from 'node-emoji';
 import { PlatformByIdArgs } from '../../models/args/platform-by-id.args';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { ScriptDirection } from '../../models/enums/script-direction.enum';
@@ -200,7 +202,7 @@ export class RepositoryResolver {
   @ResolveField(() => String, { nullable: true })
   readmeHtml(@Parent() { readme }: P.Repository) {
     if (!readme) return readme;
-    return marked.parse(readme);
+    return marked.parse(emoji.emojify(readme));
   }
 
   @ResolveField(() => String, { nullable: true })
@@ -222,5 +224,20 @@ export class RepositoryResolver {
     );
 
     return trimmedString.length > 0 ? trimmedString + '...' : null;
+  }
+
+  @ResolveField(() => String)
+  createdAtHumanlyReadable(@Parent() { createdAt }: P.Repository) {
+    return humanlyReadableDate(createdAt);
+  }
+
+  @ResolveField(() => String)
+  pushedAtHumanlyReadable(@Parent() { pushedAt }: P.Repository) {
+    return humanlyReadableDate(pushedAt);
+  }
+
+  @ResolveField(() => String)
+  updatedAtHumanlyReadable(@Parent() { updatedAt }: P.Repository) {
+    return humanlyReadableDate(updatedAt);
   }
 }

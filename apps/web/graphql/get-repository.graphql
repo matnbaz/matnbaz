@@ -7,11 +7,13 @@ query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
     defaultBranch
     pushedAt
     createdAt
+    pushedAtHumanlyReadable
+    createdAtHumanlyReadable
     homePage
     stargazersCount
     forksCount
     openIssuesCount
-    readme
+    readmeHtml
     language {
       name
       color

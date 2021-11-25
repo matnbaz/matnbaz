@@ -103,12 +103,14 @@ type Mutation {
 
 type Owner {
   extractedAt: DateTime!
+  extractedAtHumanlyReadable: String!
   gravatarId: String!
   id: String!
   login: String!
   platform: PlatformType!
   platformId: ID!
   recordUpdatedAt: DateTime!
+  recordUpdatedAtHumanlyReadable: String!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int!
   siteAdmin: Boolean!
@@ -213,6 +215,7 @@ type Repository {
   allowForking: Boolean!
   archived: Boolean!
   createdAt: DateTime!
+  createdAtHumanlyReadable: String!
   defaultBranch: String!
   description: String
   descriptionDirection: ScriptDirection!
@@ -239,6 +242,7 @@ type Repository {
   platformId: ID!
   platformUrl: String
   pushedAt: DateTime!
+  pushedAtHumanlyReadable: String!
   readme: String
   readmeHtml: String
   recordUpdatedAt: DateTime!
@@ -246,6 +250,7 @@ type Repository {
   stargazersCount: Int!
   topics: [Topic!]!
   updatedAt: DateTime!
+  updatedAtHumanlyReadable: String!
   watchersCount: Int!
 }
 
