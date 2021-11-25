@@ -43,6 +43,7 @@ const RadioInput = ({
       )}
       checked={checked}
       onChange={(value) => {
+        if (!value) return;
         if (onChange) onChange(value);
         setChecked(value);
       }}

@@ -5,6 +5,8 @@ import {
   ButtonHTMLAttributes,
   HTMLAttributeAnchorTarget,
   PropsWithChildren,
+  useEffect,
+  useState,
 } from 'react';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { SiDiscord, SiGithub, SiTelegram } from 'react-icons/si';
@@ -16,6 +18,8 @@ interface INavbarProps {
 
 const Navbar = ({ className }: INavbarProps) => {
   const { setTheme, theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   return (
     <div
       className={`w-full bg-gray-100/30 dark:bg-gray-900/30 backdrop-blur-sm z-20 fixed ${
@@ -83,15 +87,17 @@ const Navbar = ({ className }: INavbarProps) => {
             style={{ width: '1px' }}
           />
 
-          <div>
-            <IconButton
-              className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            >
-              {theme === 'dark' && <BsFillMoonFill className="w-5 h-5" />}
-              {theme === 'light' && <BsFillSunFill className="w-5 h-5" />}
-            </IconButton>
-          </div>
+          {mounted && (
+            <div>
+              <IconButton
+                className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              >
+                {theme === 'dark' && <BsFillMoonFill className="w-5 h-5" />}
+                {theme === 'light' && <BsFillSunFill className="w-5 h-5" />}
+              </IconButton>
+            </div>
+          )}
         </div>
       </div>
     </div>

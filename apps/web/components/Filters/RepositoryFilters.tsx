@@ -88,8 +88,10 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
   state = state as TRepositoryFiltersState;
   dispatch = dispatch as React.Dispatch<TRepositoryFiltersAction>;
 
-  const [runQuery, { data: languagesNode, loading, error }] =
-    useGetLanguagesLazyQuery();
+  const [
+    runQuery,
+    { data: languagesNode, loading, error, refetch: refetchLanguages },
+  ] = useGetLanguagesLazyQuery();
 
   const [languageSearchInput, setLanguageSearchInput] = useState('');
 
@@ -195,6 +197,19 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
                 value={state.languages}
                 onChange={languagesFilterChangeHandler}
               />
+            )}
+            {error && (
+              <div className="flex flex-col space-y-2 items-center mt-2">
+                <span>خطایی رخ داد</span>
+                <Button.Primary
+                  size="sm"
+                  onClick={() => {
+                    refetchLanguages();
+                  }}
+                >
+                  امتحان مجدد
+                </Button.Primary>
+              </div>
             )}
             {loading && (
               <div className="max-h-52 overflow-y-auto mt-4 space-y-4">
