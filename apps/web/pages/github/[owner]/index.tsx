@@ -8,6 +8,7 @@ import {
   PlatformType,
   useGetOwnerQuery,
 } from '../../../lib/graphql-types';
+import { GetServerSideProps } from 'next';
 
 interface OwnerPageProps {
   ownerSlug: string;
@@ -37,18 +38,32 @@ const OwnerPage = ({ ownerSlug }) => {
 
 export default OwnerPage;
 
-export const getServerSideProps = async ({ query: { owner }, res }) => {
-  if (typeof owner !== 'string') return { redirect: '/' };
+export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
+  query: { owner },
+  res,
+}) => {
+  if (typeof owner !== 'string')
+    return { redirect: { destination: '/' }, props: { ownerSlug: '' } };
 
   const apolloClient = initializeApollo();
 
-  await apolloClient.query<GetOwnerQueryResult, GetOwnerQueryVariables>({
+  const {
+    data: { data },
+  } = await apolloClient.query<GetOwnerQueryResult, GetOwnerQueryVariables>({
     query: GetOwnerDocument,
     variables: {
       owner,
       platform: PlatformType.GitHub,
     },
   });
+
+  if (!data)
+    return {
+      redirect: {
+        destination: '/',
+      },
+      props: { ownerSlug: owner },
+    };
 
   return {
     props: {

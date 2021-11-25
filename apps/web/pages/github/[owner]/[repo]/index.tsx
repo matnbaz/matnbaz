@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next';
 import MainLayout from '../../../../components/Layouts/MainLayout';
 import { initializeApollo } from '../../../../lib/apollo';
 import {
@@ -34,29 +35,41 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
 
 export default RepositoryPage;
 
-export const getServerSideProps = async ({ query: { owner, repo }, res }) => {
-  if (typeof owner !== 'string' || typeof repo !== 'string')
-    return { redirect: '/' };
+export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
+  async ({ query: { owner, repo }, res }) => {
+    if (typeof owner !== 'string' || typeof repo !== 'string')
+      return {
+        redirect: { destination: '/' },
+        props: { ownerSlug: '', repoSlug: '' },
+      };
 
-  const apolloClient = initializeApollo();
+    const apolloClient = initializeApollo();
 
-  await apolloClient.query<
-    GetRepositoryQueryResult,
-    GetRepositoryQueryVariables
-  >({
-    query: GetRepositoryDocument,
-    variables: {
-      owner,
-      repo,
-      platform: PlatformType.GitHub,
-    },
-  });
+    const {
+      data: { data },
+    } = await apolloClient.query<
+      GetRepositoryQueryResult,
+      GetRepositoryQueryVariables
+    >({
+      query: GetRepositoryDocument,
+      variables: {
+        owner,
+        repo,
+        platform: PlatformType.GitHub,
+      },
+    });
 
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-      repoSlug: repo,
-      ownerSlug: owner,
-    },
+    if (!data)
+      return {
+        redirect: { destination: '/' },
+        props: { ownerSlug: '', repoSlug: '' },
+      };
+
+    return {
+      props: {
+        initialApolloState: apolloClient.cache.extract(),
+        repoSlug: repo,
+        ownerSlug: owner,
+      },
+    };
   };
-};
