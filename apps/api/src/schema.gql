@@ -96,6 +96,11 @@ enum LicenseOrder {
   REPOSITORIES_DESC
 }
 
+type Mutation {
+  reportOwner(ownerId: ID!, reason: String!): Report!
+  submissionSubmit(content: String!): Submission!
+}
+
 type Owner {
   extractedAt: DateTime!
   gravatarId: String!
@@ -195,6 +200,13 @@ enum RepoOrder {
   STARS_DESC
 }
 
+type Report {
+  createdAt: DateTime!
+  id: ID!
+  reason: String!
+  updatedAt: DateTime!
+}
+
 type Repository {
   allowForking: Boolean!
   archived: Boolean!
@@ -226,6 +238,7 @@ type Repository {
   platformId: ID!
   platformUrl: String
   pushedAt: DateTime!
+  readme: String
   recordUpdatedAt: DateTime!
   size: Int!
   stargazersCount: Int!
@@ -258,6 +271,13 @@ enum ScriptDirection {
 
   """right-to-left"""
   RTL
+}
+
+type Submission {
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
 }
 
 """The repo type used in filters."""
