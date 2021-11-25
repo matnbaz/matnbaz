@@ -1,3 +1,4 @@
+import { marked } from 'marked';
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
@@ -197,8 +198,14 @@ export class RepositoryResolver {
   }
 
   @ResolveField(() => String, { nullable: true })
+  readmeHtml(@Parent() { readme }: P.Repository) {
+    if (!readme) return readme;
+    return marked.parse(readme);
+  }
+
+  @ResolveField(() => String, { nullable: true })
   limitedDescription(@Parent() { description }: P.Repository) {
-    if (!description) return null;
+    if (!description) return description;
 
     const maxLength = 256;
 

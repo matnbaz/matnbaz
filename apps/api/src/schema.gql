@@ -240,6 +240,7 @@ type Repository {
   platformUrl: String
   pushedAt: DateTime!
   readme: String
+  readmeHtml: String
   recordUpdatedAt: DateTime!
   size: Int!
   stargazersCount: Int!

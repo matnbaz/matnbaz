@@ -5,11 +5,13 @@ import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
 import { MINIMUM_STARS } from './constants';
 import * as emoji from 'node-emoji';
+import { GithubReadmeExtractorService } from './github-readme-extractor.service';
 @Injectable()
 export class GithubExtractorService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly octokit: OctokitService
+    private readonly octokit: OctokitService,
+    private readonly readmeExtractor: GithubReadmeExtractorService
   ) {}
   private logger = new Logger(GithubExtractorService.name);
 
@@ -31,7 +33,10 @@ export class GithubExtractorService {
 
     const repos = response.data;
 
-    for (const repo of repos) await this.populateRepo(repo);
+    for (const repo of repos) {
+      const repoInDb = await this.populateRepo(repo);
+      await this.readmeExtractor.extractReadme(repoInDb.id);
+    }
   }
 
   async populateRepo({
@@ -65,7 +70,6 @@ export class GithubExtractorService {
       archived: repo.archived,
       createdAt: repo.created_at,
       defaultBranch: repo.default_branch,
-      // TODO: service for this
       description: emoji.emojify(repo.description),
       disabled: repo.disabled,
       forksCount: repo.forks_count,
@@ -127,7 +131,7 @@ export class GithubExtractorService {
       },
     };
 
-    await this.prisma.repository.upsert({
+    const repoInDb = await this.prisma.repository.upsert({
       where: {
         platform_platformId: {
           platformId: repo.id.toString(),
@@ -141,5 +145,7 @@ export class GithubExtractorService {
     this.logger.log(
       `repo ${repo.full_name} with ${repo.stargazers_count} stars was qualified and populated.`
     );
+
+    return repoInDb;
   }
 }

@@ -6,6 +6,7 @@ import { GithubExtractorController } from './github-extractor.controller';
 import { GithubExtractorProcessor } from './github-extractor.processor';
 import { GithubExtractorScheduler } from './github-extractor.scheduler';
 import { GithubExtractorService } from './github-extractor.service';
+import { GithubReadmeExtractorService } from './github-readme-extractor.service';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { GithubExtractorService } from './github-extractor.service';
     GithubExtractorProcessor,
     GithubExtractorScheduler,
     GithubExtractorService,
+    GithubReadmeExtractorService,
   ],
   controllers: [GithubExtractorController],
 })
