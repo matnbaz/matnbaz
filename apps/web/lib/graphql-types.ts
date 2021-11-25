@@ -336,6 +336,7 @@ export type Repository = {
   defaultBranch: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   descriptionDirection: ScriptDirection;
+  descriptionLimited?: Maybe<Scalars['String']>;
   disabled: Scalars['Boolean'];
   extractedAt: Scalars['DateTime'];
   forksCount: Scalars['Int'];
@@ -350,7 +351,6 @@ export type Repository = {
   isTemplate: Scalars['Boolean'];
   language?: Maybe<Language>;
   license?: Maybe<License>;
-  limitedDescription?: Maybe<Scalars['String']>;
   mirrorUrl?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   openIssuesCount: Scalars['Int'];
@@ -360,6 +360,7 @@ export type Repository = {
   platformUrl?: Maybe<Scalars['String']>;
   pushedAt: Scalars['DateTime'];
   readme?: Maybe<Scalars['String']>;
+  readmeHtml?: Maybe<Scalars['String']>;
   recordUpdatedAt: Scalars['DateTime'];
   size: Scalars['Int'];
   stargazersCount: Scalars['Int'];
@@ -463,7 +464,7 @@ export type GetOwnerQueryVariables = Exact<{
 }>;
 
 
-export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', fullName: string, limitedDescription?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } } | null | undefined };
+export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } } | null | undefined };
 
 export type GetRepositoriesQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
@@ -475,7 +476,7 @@ export type GetRepositoriesQueryVariables = Exact<{
 }>;
 
 
-export type GetRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', fullName: string, limitedDescription?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
+export type GetRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
 
 export type GetRepositoryQueryVariables = Exact<{
   owner: Scalars['String'];
@@ -536,7 +537,7 @@ export const GetOwnerDocument = gql`
         cursor
         node {
           fullName
-          limitedDescription
+          descriptionLimited
           stargazersCount
           forksCount
           openIssuesCount
@@ -601,7 +602,7 @@ export const GetRepositoriesDocument = gql`
     edges {
       node {
         fullName
-        limitedDescription
+        descriptionLimited
         stargazersCount
         forksCount
         openIssuesCount

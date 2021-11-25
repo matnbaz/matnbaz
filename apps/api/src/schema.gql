@@ -216,6 +216,7 @@ type Repository {
   defaultBranch: String!
   description: String
   descriptionDirection: ScriptDirection!
+  descriptionLimited: String
   disabled: Boolean!
   extractedAt: DateTime!
   forksCount: Int!
@@ -230,7 +231,6 @@ type Repository {
   isTemplate: Boolean!
   language: Language
   license: License
-  limitedDescription: String
   mirrorUrl: String
   name: String!
   openIssuesCount: Int!

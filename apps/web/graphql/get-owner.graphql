@@ -9,7 +9,7 @@ query GetOwner(
         cursor
         node {
           fullName
-          limitedDescription
+          descriptionLimited
           stargazersCount
           forksCount
           openIssuesCount

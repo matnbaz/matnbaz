@@ -204,7 +204,7 @@ export class RepositoryResolver {
   }
 
   @ResolveField(() => String, { nullable: true })
-  limitedDescription(@Parent() { description }: P.Repository) {
+  descriptionLimited(@Parent() { description }: P.Repository) {
     if (!description) return description;
 
     const maxLength = 256;

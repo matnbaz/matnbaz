@@ -63,7 +63,7 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
             </a>
 
             <span className="text-gray-800 dark:text-gray-300 font-extralight text-sm">
-              {repository.limitedDescription}
+              {repository.descriptionLimited}
             </span>
           </div>
         </div>

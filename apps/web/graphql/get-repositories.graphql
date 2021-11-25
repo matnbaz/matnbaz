@@ -18,7 +18,7 @@ query GetRepositories(
     edges {
       node {
         fullName
-        limitedDescription
+        descriptionLimited
         stargazersCount
         forksCount
         openIssuesCount
