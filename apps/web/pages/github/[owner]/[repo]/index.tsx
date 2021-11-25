@@ -34,7 +34,6 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
       platform: PlatformType.GitHub,
     },
   });
-
   const statistics = [
     {
       name: 'تعداد مشکلات',
@@ -64,7 +63,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
     {
       name: 'لایسنس',
       icon: AiOutlineFolder,
-      value: persianNumbers(repo.license.name),
+      value: repo.license ? repo.license.name : 'نامشخص',
     },
   ];
 
