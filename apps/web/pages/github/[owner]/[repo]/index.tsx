@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
   async ({ query: { owner, repo }, res }) => {
     if (typeof owner !== 'string' || typeof repo !== 'string')
       return {
-        redirect: { destination: '/' },
+        redirect: { permanent: false, destination: '/' },
         props: { ownerSlug: '', repoSlug: '' },
       };
 
@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
 
     if (!data)
       return {
-        redirect: { destination: '/' },
+        redirect: { permanent: false, destination: '/' },
         props: { ownerSlug: '', repoSlug: '' },
       };
 

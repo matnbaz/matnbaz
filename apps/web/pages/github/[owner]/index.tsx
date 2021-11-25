@@ -43,7 +43,10 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
   res,
 }) => {
   if (typeof owner !== 'string')
-    return { redirect: { destination: '/' }, props: { ownerSlug: '' } };
+    return {
+      redirect: { permanent: false, destination: '/' },
+      props: { ownerSlug: '' },
+    };
 
   const apolloClient = initializeApollo();
 
@@ -59,9 +62,7 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
 
   if (!data)
     return {
-      redirect: {
-        destination: '/',
-      },
+      redirect: { permanent: false, destination: '/' },
       props: { ownerSlug: owner },
     };
 
