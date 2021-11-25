@@ -2,6 +2,7 @@ import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core/dist/plugin/cacheControl';
 import responseCachePlugin from 'apollo-server-plugin-response-cache';
 import { PrismaModule } from 'nestjs-prisma';
@@ -16,6 +17,10 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),
     PrismaModule.forRoot({
       isGlobal: true,
       prismaServiceOptions: {
@@ -31,6 +36,7 @@ import { AppService } from './app.service';
         ApolloServerPluginCacheControl({ defaultMaxAge: 5 }),
         responseCachePlugin(),
       ],
+      context: ({ req, res }) => ({ req, res }),
       schemaDirectives: {},
     }),
     ScheduleModule.forRoot(),

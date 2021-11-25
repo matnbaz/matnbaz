@@ -42,9 +42,11 @@ export class Repository {
   recordUpdatedAt: Date;
   name: string;
   description?: string;
+  readme?: string;
   isFork: boolean;
   ownerId: string;
   licenseId: string;
+
   @Field(() => PlatformType)
   platform: PlatformType;
 }

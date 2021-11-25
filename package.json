@@ -20,6 +20,7 @@
     "@nestjs/graphql": "^9.1.2",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/schedule": "^1.0.2",
+    "@nestjs/throttler": "^2.0.0",
     "@nrwl/next": "^13.1.4",
     "@prisma/client": "^3.5.0",
     "apollo-server-core": "^3.5.0",

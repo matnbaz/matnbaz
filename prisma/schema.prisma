@@ -35,6 +35,7 @@ model Repository {
   recordUpdatedAt DateTime     @updatedAt
   name            String
   description     String?
+  readme          String?
   defaultBranch   String
   homePage        String?
   mirrorUrl       String?
@@ -76,7 +77,22 @@ model Owner {
   extractedAt     DateTime     @default(now())
   recordUpdatedAt DateTime     @updatedAt
 
+  Reports Report[]
   @@unique([platform, platformId])
+}
+
+model Submission {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model Report {
+  id        String   @id @default(cuid())
+  reason    String
+  owner     Owner    @relation(fields: [ownerId], references: [id])
+  ownerId   String
+  createdAt DateTime @default(now())
 }
 
 model Language {
