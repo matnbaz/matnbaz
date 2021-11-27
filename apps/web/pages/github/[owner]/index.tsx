@@ -17,9 +17,20 @@ interface OwnerPageProps {
 const OwnerPage = ({ ownerSlug }) => {
   const {
     data: { ownerByPlatform: owner },
+    fetchMore,
   } = useGetOwnerQuery({
     variables: { owner: ownerSlug, platform: PlatformType.GitHub },
   });
+  const repositoriesLoadMoreHandler = () => {
+    console.log('reached');
+    if (!owner.repositories.pageInfo.hasNextPage) return;
+
+    fetchMore({
+      variables: {
+        reposAfter: owner.repositories.pageInfo.endCursor,
+      },
+    });
+  };
   return (
     <MainLayout>
       <pre>{owner.login} repos</pre>
@@ -30,6 +41,7 @@ const OwnerPage = ({ ownerSlug }) => {
             ...edge,
             node: { ...edge.node, owner },
           }))}
+          onLoadMore={repositoriesLoadMoreHandler}
         />
       </div>
     </MainLayout>

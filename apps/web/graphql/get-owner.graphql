@@ -2,9 +2,10 @@ query GetOwner(
   $owner: String!
   $platform: PlatformType!
   $reposCount: Int = 10
+  $reposAfter: String
 ) {
   ownerByPlatform(owner: $owner, platform: $platform) {
-    repositories(first: $reposCount) {
+    repositories(first: $reposCount, after: $reposAfter) {
       edges {
         cursor
         node {

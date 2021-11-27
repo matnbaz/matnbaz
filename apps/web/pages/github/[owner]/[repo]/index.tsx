@@ -22,6 +22,7 @@ import {
 } from '../../../../lib/graphql-types';
 import { formatDistanceToNow } from 'date-fns-jalali';
 import Card from 'apps/web/components/UI/Card';
+import Button from 'apps/web/components/UI/Button/Button';
 
 interface RepositoryPageProps {
   repoSlug: string;
@@ -81,8 +82,8 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         <div
           className="relative flex items-center h-96 w-full"
           style={{
-            // TODO: check if repo as thumbnail otherwise use author's own picture
-            backgroundImage: `url("https://avatars.githubusercontent.com/u/${repo.owner.platformId}?v=4")`,
+            // TODO: check if repo as thumbnail otherwise use this
+            backgroundImage: `linear-gradient(to right, #009fff, #ec2f4b)`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
@@ -101,7 +102,9 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
               />
               <div className="flex flex-col space-y-4 items-start mr-6">
                 <h1 className="text-3xl font-bold">{repo.fullName}</h1>
-                <span className="text-secondary">{repo.description}</span>
+                <span className="text-secondary">
+                  {repo.descriptionLimited}
+                </span>
                 <span
                   className="px-1.5 py-1 rounded-lg text-xs border-2"
                   style={{ borderColor: repo.language.color }}
@@ -111,19 +114,26 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
               </div>
             </div>
           </div>
-          <div className="self-end flex space-x-12 space-x-reverse absolute bottom-3 right-3">
-            {statistics.map(({ name, icon: Icon, value }) =>
-              value === null || value === undefined ? null : (
-                <div key={name} className="flex flex-col space-y-3 items-start">
-                  <span className="text-xs text-secondary">{name}</span>
-                  <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-md">
-                    <Icon className="w-5 h-5" />
+          <div className="self-end flex items-end justify-between absolute w-full px-4 pb-4">
+            <div className="flex space-x-12 space-x-reverse items-center">
+              {statistics.map(({ name, icon: Icon, value }) =>
+                value === null || value === undefined ? null : (
+                  <div
+                    key={name}
+                    className="flex flex-col space-y-3 items-start"
+                  >
+                    <span className="text-xs text-secondary">{name}</span>
+                    <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-md">
+                      <Icon className="w-5 h-5" />
 
-                    <span className="font-bold">{value}</span>
+                      <span className="font-bold">{value}</span>
+                    </div>
                   </div>
-                </div>
-              )
-            )}
+                )
+              )}
+            </div>
+
+            <Button.Red>گزارش</Button.Red>
           </div>
         </div>
         <div className="p-8">

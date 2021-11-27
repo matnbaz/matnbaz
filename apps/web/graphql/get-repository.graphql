@@ -1,7 +1,7 @@
 query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
     fullName
-    description
+    descriptionLimited
     archived
     isTemplate
     defaultBranch

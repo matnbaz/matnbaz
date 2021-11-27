@@ -140,12 +140,14 @@ export type MutationSubmissionSubmitArgs = {
 export type Owner = {
   __typename?: 'Owner';
   extractedAt: Scalars['DateTime'];
+  extractedAtHumanlyReadable: Scalars['String'];
   gravatarId: Scalars['String'];
   id: Scalars['String'];
   login: Scalars['String'];
   platform: PlatformType;
   platformId: Scalars['ID'];
   recordUpdatedAt: Scalars['DateTime'];
+  recordUpdatedAtHumanlyReadable: Scalars['String'];
   repositories: RepositoryConnection;
   repositoriesCount: Scalars['Int'];
   siteAdmin: Scalars['Boolean'];
@@ -464,6 +466,7 @@ export type GetOwnerQueryVariables = Exact<{
   owner: Scalars['String'];
   platform: PlatformType;
   reposCount?: InputMaybe<Scalars['Int']>;
+  reposAfter?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -488,7 +491,7 @@ export type GetRepositoryQueryVariables = Exact<{
 }>;
 
 
-export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, description?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, pushedAt: any, createdAt: any, pushedAtHumanlyReadable: string, createdAtHumanlyReadable: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
+export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, pushedAt: any, createdAt: any, pushedAtHumanlyReadable: string, createdAtHumanlyReadable: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
 
 
 export const GetLanguagesDocument = gql`
@@ -533,9 +536,9 @@ export type GetLanguagesQueryHookResult = ReturnType<typeof useGetLanguagesQuery
 export type GetLanguagesLazyQueryHookResult = ReturnType<typeof useGetLanguagesLazyQuery>;
 export type GetLanguagesQueryResult = Apollo.QueryResult<GetLanguagesQuery, GetLanguagesQueryVariables>;
 export const GetOwnerDocument = gql`
-    query GetOwner($owner: String!, $platform: PlatformType!, $reposCount: Int = 10) {
+    query GetOwner($owner: String!, $platform: PlatformType!, $reposCount: Int = 10, $reposAfter: String) {
   ownerByPlatform(owner: $owner, platform: $platform) {
-    repositories(first: $reposCount) {
+    repositories(first: $reposCount, after: $reposAfter) {
       edges {
         cursor
         node {
@@ -577,6 +580,7 @@ export const GetOwnerDocument = gql`
  *      owner: // value for 'owner'
  *      platform: // value for 'platform'
  *      reposCount: // value for 'reposCount'
+ *      reposAfter: // value for 'reposAfter'
  *   },
  * });
  */
@@ -664,7 +668,7 @@ export const GetRepositoryDocument = gql`
     query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
     fullName
-    description
+    descriptionLimited
     archived
     isTemplate
     defaultBranch
