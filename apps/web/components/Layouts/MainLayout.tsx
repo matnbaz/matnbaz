@@ -8,7 +8,7 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
   return (
     <>
       <Navbar className="h-20" />
-      <div className="pt-24 max-w-[92rem] mx-auto">{children}</div>
+      <div className="pt-24 mx-auto">{children}</div>
     </>
   );
 };

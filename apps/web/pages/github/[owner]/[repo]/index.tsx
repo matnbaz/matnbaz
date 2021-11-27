@@ -1,4 +1,5 @@
 import { persianNumbers } from '@iranfoss/common';
+import classNames from 'classnames';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import {
@@ -7,6 +8,7 @@ import {
   AiOutlineExclamationCircle,
   AiOutlineFolder,
   AiOutlinePushpin,
+  AiOutlineSafetyCertificate,
   AiOutlineStar,
 } from 'react-icons/ai';
 import MainLayout from '../../../../components/Layouts/MainLayout';
@@ -18,6 +20,7 @@ import {
   PlatformType,
   useGetRepositoryQuery,
 } from '../../../../lib/graphql-types';
+import { formatDistanceToNow } from 'date-fns-jalali';
 
 interface RepositoryPageProps {
   repoSlug: string;
@@ -34,6 +37,8 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
       platform: PlatformType.GitHub,
     },
   });
+  console.log(repo);
+
   const statistics = [
     {
       name: 'تعداد مشکلات',
@@ -51,66 +56,79 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
       value: persianNumbers(+repo.stargazersCount),
     },
     {
-      name: 'آخرین پوش',
-      icon: AiOutlinePushpin,
-      value: persianNumbers(repo.pushedAtHumanlyReadable),
-    },
-    {
       name: 'تاریخ ایجاد',
       icon: AiOutlineCalendar,
       value: persianNumbers(repo.createdAtHumanlyReadable),
     },
     {
+      name: 'آخرین به‌روزرسانی',
+      icon: AiOutlinePushpin,
+      value: persianNumbers(
+        formatDistanceToNow(new Date(repo.pushedAt), { addSuffix: true })
+      ),
+    },
+    {
       name: 'لایسنس',
-      icon: AiOutlineFolder,
-      value: repo.license ? repo.license.name : 'نامشخص',
+      icon: AiOutlineSafetyCertificate,
+      value: repo.license?.name,
     },
   ];
 
   return (
     <MainLayout>
-      <div className="space-y-10">
+      <>
         <div
-          className="mx-10 flex justify-center space-x-8 items-center"
-          dir="ltr"
+          className="relative flex items-center h-96 w-full"
+          style={{
+            // TODO: check if repo as thumbnail otherwise use author's own picture
+            backgroundImage: `url("https://avatars.githubusercontent.com/u/${repo.owner.platformId}?v=4")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+          }}
         >
-          <Image
-            width={100}
-            height={100}
-            src={`https://avatars.githubusercontent.com/u/${repo.owner.platformId}?v=4`}
-            alt={`عکس ${repo.owner.login}`}
-            className={`w-16 h-16 ${
-              repo.owner.type === 'User' ? 'rounded-full' : 'rounded-lg'
-            }`}
-          />
-          <h1 className="font-bold text-5xl">{repo.fullName}</h1>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-8 pt-4 px-6 pb-6 gap-6">
-          <div className="md:col-span-3 lg:col-span-2">
-            <div className="space-y-1">
-              {statistics.map(({ name, icon: Icon, value }) => (
-                <div
-                  key={name}
-                  className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-lg"
-                >
-                  <Icon className="w-6 h-6" />
-                  <span>{name}:</span>
-                  <span className="font-bold">{value}</span>
-                </div>
-              ))}
+          <div className="m-auto flex items-center bg-gray-100/80 dark:bg-gray-900/90 backdrop-blur-sm w-full h-full px-5 py-2">
+            <div className="flex items-center m-auto">
+              <Image
+                width={120}
+                height={120}
+                src={`https://avatars.githubusercontent.com/u/${repo.owner.platformId}?v=4`}
+                alt={`عکس ${repo.owner.login}`}
+                className={classNames(
+                  repo.owner.type === 'User' ? 'rounded-full' : 'rounded-lg'
+                )}
+              />
+              <div className="flex flex-col space-y-4 items-start mr-6">
+                <h1 className="text-3xl font-bold">{repo.fullName}</h1>
+                <span className="text-secondary">{repo.description}</span>
+              </div>
             </div>
           </div>
-          <div className="md:col-span-5 lg:col-span-6">
-            {repo.readmeHtml && (
-              <div
-                className="prose dark:prose-light"
-                dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
-              ></div>
+          <div className="self-end flex space-x-12 space-x-reverse absolute bottom-3 right-3">
+            {statistics.map(({ name, icon: Icon, value }) =>
+              value === null || value === undefined ? null : (
+                <div key={name} className="flex flex-col space-y-3 items-start">
+                  <span className="text-xs text-secondary">{name}</span>
+                  <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-md">
+                    <Icon className="w-5 h-5" />
+
+                    <span className="font-bold">{value}</span>
+                  </div>
+                </div>
+              )
             )}
           </div>
         </div>
-      </div>
+        <div className="p-8">
+          {repo.readmeHtml && (
+            <div
+              dir="ltr"
+              className="prose dark:prose-light py-6 px-8 bg-gray-200 dark:bg-gray-800 rounded-lg overflow-y-auto"
+              dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
+            ></div>
+          )}
+        </div>
+      </>
     </MainLayout>
   );
 };
@@ -154,3 +172,46 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
       },
     };
   };
+
+//   <div className="space-y-10">
+//   <div
+//     className="mx-10 flex justify-center space-x-8 items-center"
+//     dir="ltr"
+//   >
+//     <Image
+//       width={100}
+//       height={100}
+//       src={`https://avatars.githubusercontent.com/u/${repo.owner.platformId}?v=4`}
+//       alt={`عکس ${repo.owner.login}`}
+//       className={`w-16 h-16 ${
+//         repo.owner.type === 'User' ? 'rounded-full' : 'rounded-lg'
+//       }`}
+//     />
+//     <h1 className="font-bold text-5xl">{repo.fullName}</h1>
+//   </div>
+
+//   <div className="grid grid-cols-1 md:grid-cols-8 pt-4 px-6 pb-6 gap-6">
+//     <div className="md:col-span-3 lg:col-span-2">
+//       <div className="space-y-1">
+//         {statistics.map(({ name, icon: Icon, value }) => (
+//           <div
+//             key={name}
+//             className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-lg"
+//           >
+//             <Icon className="w-6 h-6" />
+//             <span>{name}:</span>
+//             <span className="font-bold">{value}</span>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//     <div className="md:col-span-5 lg:col-span-6">
+//       {repo.readmeHtml && (
+//         <div
+//           className="prose dark:prose-light"
+//           dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
+//         ></div>
+//       )}
+//     </div>
+//   </div>
+// </div>
