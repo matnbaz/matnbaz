@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import ReactDOM from 'react-dom';
+import { AiFillCloseCircle, AiOutlineClose } from 'react-icons/ai';
 import ClientOnlyPortal from '../Feature/ClientOnlyPortal';
 
 import Divider from './Divider';
@@ -38,7 +39,7 @@ const Modal = ({ children, show, title, onClose }: Props) => {
             >
               <div
                 onClick={closeModal}
-                className="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 backdrop-filter backdrop-blur-md transition-opacity"
+                className="fixed overflow-hidden inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 backdrop-filter backdrop-blur-md transition-opacity"
                 aria-hidden="true"
               ></div>
             </Transition.Child>
@@ -58,11 +59,17 @@ const Modal = ({ children, show, title, onClose }: Props) => {
                 &#8203;
               </span>
 
-              <div className="inline-block p-4 align-bottom bg-white dark:bg-gray-800 rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <div className="inline-block p-6 align-bottom bg-white dark:bg-gray-800 rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 {title && (
                   <>
-                    <h1 className="text-right text-xl">{title}</h1>
-                    <Divider />
+                    <div className="w-full flex items-start justify-between">
+                      <h1 className="text-xl mb-4 font-semibold">{title}</h1>
+                      <button onClick={closeModal}>
+                        <AiOutlineClose className="w-5 h-5" />
+                      </button>
+                    </div>
+
+                    <Divider className="mb-5" />
                   </>
                 )}
                 {children}
