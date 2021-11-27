@@ -6,7 +6,7 @@ import {
   AiOutlineStar,
 } from 'react-icons/ai';
 import Card from '../UI/Card';
-
+import Router from 'next/router';
 interface IRepositoryPreviewProps {
   repository: GetRepositoriesQuery['repositories']['edges'][0]['node'];
 }
@@ -29,7 +29,7 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
     },
   ];
   return (
-    <Card padded>
+    <Card padded href={`/github/${repository.fullName}`}>
       <div className="relative h-full">
         {/* Platform Logo */}
         {/* <img
