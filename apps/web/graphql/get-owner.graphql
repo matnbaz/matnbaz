@@ -25,7 +25,8 @@ query GetOwner(
         endCursor
       }
     }
-
+    id
+    repositoriesCount
     type
     login
     platformId

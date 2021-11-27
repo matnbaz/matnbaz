@@ -1,0 +1,5 @@
+mutation ReportOwner($ownerId: ID!, $reason: String!) {
+  reportOwner(ownerId: $ownerId, reason: $reason) {
+    id
+  }
+}

@@ -41,17 +41,21 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
           className="flex flex-col md:flex-row md:space-x-3 items-start space-y-2 pb-4 md:pb-12"
           dir="ltr"
         >
-          <div>
-            <Image
-              width={100}
-              height={100}
-              src={`https://avatars.githubusercontent.com/u/${repository.owner.platformId}?v=4`}
-              alt={`عکس ${repository.owner.login}`}
-              className={`w-16 h-16 ${
-                repository.owner.type === 'User' ? 'rounded-full' : 'rounded-lg'
-              }`}
-            />
-          </div>
+          {repository.owner && (
+            <div>
+              <Image
+                width={100}
+                height={100}
+                src={`https://avatars.githubusercontent.com/u/${repository.owner.platformId}?v=4`}
+                alt={`عکس ${repository.owner.login}`}
+                className={`w-16 h-16 ${
+                  repository.owner.type === 'User'
+                    ? 'rounded-full'
+                    : 'rounded-lg'
+                }`}
+              />
+            </div>
+          )}
           <div className="flex flex-col space-y-2 h-full w-full text-left overflow-hidden">
             <a
               className="text-lg text-primary-600 dark:text-primary-400"
