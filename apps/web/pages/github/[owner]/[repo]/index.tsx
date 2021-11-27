@@ -21,6 +21,7 @@ import {
   useGetRepositoryQuery,
 } from '../../../../lib/graphql-types';
 import { formatDistanceToNow } from 'date-fns-jalali';
+import Card from 'apps/web/components/UI/Card';
 
 interface RepositoryPageProps {
   repoSlug: string;
@@ -101,6 +102,12 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
               <div className="flex flex-col space-y-4 items-start mr-6">
                 <h1 className="text-3xl font-bold">{repo.fullName}</h1>
                 <span className="text-secondary">{repo.description}</span>
+                <span
+                  className="px-1.5 py-1 rounded-lg text-xs border-2"
+                  style={{ borderColor: repo.language.color }}
+                >
+                  {repo.language.name}
+                </span>
               </div>
             </div>
           </div>
@@ -120,13 +127,15 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
           </div>
         </div>
         <div className="p-8">
-          {repo.readmeHtml && (
-            <div
-              dir="ltr"
-              className="prose dark:prose-light py-6 px-8 bg-gray-200 dark:bg-gray-800 rounded-lg overflow-y-auto"
-              dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
-            ></div>
-          )}
+          <Card padded>
+            {repo.readmeHtml && (
+              <div
+                dir="ltr"
+                className="prose dark:prose-light overflow-y-auto"
+                dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
+              ></div>
+            )}
+          </Card>
         </div>
       </>
     </MainLayout>
