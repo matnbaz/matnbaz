@@ -35,7 +35,7 @@ export class GithubExtractorService {
 
     for (const repo of repos) {
       const repoInDb = await this.populateRepo(repo);
-      await this.readmeExtractor.extractReadme(repoInDb.id);
+      if (repoInDb) await this.readmeExtractor.extractReadme(repoInDb.id);
     }
   }
 
