@@ -1,5 +1,11 @@
 import { Transition } from '@headlessui/react';
-import React, { useMemo, useReducer, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import {
   ForkStatusType,
@@ -16,17 +22,18 @@ import CheckboxList from '../UI/CheckboxList';
 import Collapsible from '../UI/Collapsible';
 import Input from '../UI/Input/Input';
 import RadioList from '../UI/RadioList';
+import { useDebounce } from 'use-debounce';
+import classNames from 'classnames';
+
 type TRepositoryFiltersAction = {
   type: keyof TRepositoryFiltersState | 'clear';
   payload: any;
 };
 
-// TODO: refactor needed for this component
 interface IRepositoryFiltersProps {
+  loading?: boolean;
   onApply?: (state: GetRepositoriesQueryVariables) => void;
 }
-
-//! TODO: this is type safe but its ugly. change it
 
 const repoOrderOptions: Record<RepoOrder, { name: string; value: RepoOrder }> =
   {
@@ -83,17 +90,27 @@ const reducer = (
   }
 };
 
-const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
-  let [state, dispatch] = useReducer(reducer, initialState);
+const RepositoryFilters = ({
+  onApply,
+  loading = false,
+}: IRepositoryFiltersProps) => {
+  let [state, dispatch] = useReducer(useCallback(reducer, []), initialState);
   state = state as TRepositoryFiltersState;
   dispatch = dispatch as React.Dispatch<TRepositoryFiltersAction>;
 
   const [
     runQuery,
-    { data: languagesNode, loading, error, refetch: refetchLanguages },
+    {
+      data: languagesNode,
+      loading: languagesLoading,
+      error,
+      refetch: refetchLanguages,
+    },
   ] = useGetLanguagesLazyQuery();
 
   const [languageSearchInput, setLanguageSearchInput] = useState('');
+  const [repoSearchInput, setRepoSearchInput] = useState('');
+  const [debouncedRepoSearchInput] = useDebounce(repoSearchInput, 1000);
 
   const languages = useMemo(() => {
     // First the returned languages must be mapped because they are paginated and they have nodes
@@ -112,8 +129,12 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
   const searchTermChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    dispatch({ type: 'searchTerm', payload: event.target.value });
+    setRepoSearchInput(event.target.value);
   };
+
+  useEffect(() => {
+    dispatch({ type: 'searchTerm', payload: debouncedRepoSearchInput });
+  }, [debouncedRepoSearchInput]);
 
   const languagesFilterChangeHandler = (
     value: GetLanguagesQuery['languages']['edges'][0]['node'][]
@@ -137,8 +158,8 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
     dispatch({ type: 'templateStatus', payload: forkStatus });
   };
 
-  const formSubmitHandler = (event: React.FormEvent) => {
-    event.preventDefault();
+  useEffect(() => {
+    if (loading) return;
     onApply({
       after: null,
       languages: state.languages.map((language) => language.slug),
@@ -147,11 +168,16 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
       forkStatus: state.forkStatus.value,
       templateStatus: state.templateStatus.value,
     });
-  };
+    // Dependency has to be stringified state as react can't compare two objects in useEffect
+    // So it will always trigger this useEffect regardless of the state changing or not
+  }, [JSON.stringify(state)]);
 
   return (
-    <div className="space-y-4">
-      <form onSubmit={formSubmitHandler} className="space-y-6">
+    <div className="relative">
+      {loading && (
+        <div className="absolute z-20 w-full h-full bg-white/70 dark:bg-gray-900/70" />
+      )}
+      <div className="space-y-6">
         <Card>
           <Collapsible title="مرتب سازی بر اساس" open={true}>
             <RadioList
@@ -167,7 +193,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
               placeholder="جستجو..."
               onChange={searchTermChangeHandler}
               icon={AiOutlineSearch}
-              value={state.searchTerm}
+              value={repoSearchInput}
               className="w-full"
             />
           </Collapsible>
@@ -211,7 +237,7 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
                 </Button.Primary>
               </div>
             )}
-            {loading && (
+            {languagesLoading && (
               <div className="max-h-52 overflow-y-auto mt-4 space-y-4">
                 {[...Array(12).keys()].map((index) => (
                   <LanguagesFilterSkeletonLoader key={index} />
@@ -238,31 +264,27 @@ const RepositoryFilters = ({ onApply }: IRepositoryFiltersProps) => {
             />
           </Collapsible>
         </Card>
-        <div className="flex space-x-2 items-center space-x-reverse">
-          <Button.Primary size="md" type="submit">
-            اعمال
-          </Button.Primary>
-          <Transition
-            show={JSON.stringify(state) !== JSON.stringify(initialState)}
-            enter="transition-opacity duration-100 ease-in-out"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity duration-100 ease-in-out"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+
+        <Transition
+          show={JSON.stringify(state) !== JSON.stringify(initialState)}
+          enter="transition-opacity duration-100 ease-in-out"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-100 ease-in-out"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Button.Primary
+            size="md"
+            type="button"
+            onClick={() => {
+              dispatch({ type: 'clear', payload: null });
+            }}
           >
-            <Button.Ghost
-              size="md"
-              type="button"
-              onClick={() => {
-                dispatch({ type: 'clear', payload: null });
-              }}
-            >
-              حذف فیلتر ها
-            </Button.Ghost>
-          </Transition>
-        </div>
-      </form>
+            حذف فیلتر ها
+          </Button.Primary>
+        </Transition>
+      </div>
     </div>
   );
 };
