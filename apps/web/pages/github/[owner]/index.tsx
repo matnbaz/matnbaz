@@ -22,7 +22,6 @@ const OwnerPage = ({ ownerSlug }) => {
     variables: { owner: ownerSlug, platform: PlatformType.GitHub },
   });
   const repositoriesLoadMoreHandler = () => {
-    console.log('reached');
     if (!owner.repositories.pageInfo.hasNextPage) return;
 
     fetchMore({

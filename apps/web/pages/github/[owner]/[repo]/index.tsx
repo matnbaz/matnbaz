@@ -77,77 +77,70 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
   ];
 
   return (
-    <MainLayout>
-      <>
-        <div
-          className="relative flex items-center h-96 w-full"
-          style={{
-            // TODO: check if repo as thumbnail otherwise use this
-            backgroundImage: `linear-gradient(to right, #009fff, #ec2f4b)`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-          }}
-        >
-          <div className="m-auto flex items-center bg-gray-100/80 dark:bg-gray-900/90 backdrop-blur-sm w-full h-full px-5 py-2">
-            <div className="flex items-center m-auto">
-              <Image
-                width={120}
-                height={120}
-                src={`https://avatars.githubusercontent.com/u/${repo.owner.platformId}?v=4`}
-                alt={`عکس ${repo.owner.login}`}
-                className={classNames(
-                  repo.owner.type === 'User' ? 'rounded-full' : 'rounded-lg'
-                )}
-              />
-              <div className="flex flex-col space-y-4 items-start mr-6">
-                <h1 className="text-3xl font-bold">{repo.fullName}</h1>
-                <span className="text-secondary">
-                  {repo.descriptionLimited}
-                </span>
-                <span
-                  className="px-1.5 py-1 rounded-lg text-xs border-2"
-                  style={{ borderColor: repo.language.color }}
-                >
-                  {repo.language.name}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="self-end flex items-end justify-between absolute w-full px-4 pb-4">
-            <div className="flex space-x-12 space-x-reverse items-center">
-              {statistics.map(({ name, icon: Icon, value }) =>
-                value === null || value === undefined ? null : (
-                  <div
-                    key={name}
-                    className="flex flex-col space-y-3 items-start"
-                  >
-                    <span className="text-xs text-secondary">{name}</span>
-                    <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-md">
-                      <Icon className="w-5 h-5" />
-
-                      <span className="font-bold">{value}</span>
-                    </div>
-                  </div>
-                )
+    <MainLayout maxWidth={false}>
+      <div
+        className="relative flex items-center h-96 w-full"
+        style={{
+          // TODO: check if repo as thumbnail otherwise use this
+          backgroundImage: `linear-gradient(to right, #009fff, #ec2f4b)`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+        }}
+      >
+        <div className="m-auto flex items-center bg-gray-100/80 dark:bg-gray-900/90 backdrop-blur-sm w-full h-full px-5 py-2">
+          <div className="flex items-center m-auto">
+            <Image
+              width={120}
+              height={120}
+              src={`https://avatars.githubusercontent.com/u/${repo.owner.platformId}?v=4`}
+              alt={`عکس ${repo.owner.login}`}
+              className={classNames(
+                repo.owner.type === 'User' ? 'rounded-full' : 'rounded-lg'
               )}
+            />
+            <div className="flex flex-col space-y-4 items-start mr-6">
+              <h1 className="text-3xl font-bold">{repo.fullName}</h1>
+              <span className="text-secondary">{repo.descriptionLimited}</span>
+              <span
+                className="px-1.5 py-1 rounded-lg text-xs border-2"
+                style={{ borderColor: repo.language.color }}
+              >
+                {repo.language.name}
+              </span>
             </div>
-
-            <Button.Red>گزارش</Button.Red>
           </div>
         </div>
-        <div className="p-8">
-          <Card padded>
-            {repo.readmeHtml && (
-              <div
-                dir="ltr"
-                className="prose dark:prose-light overflow-y-auto"
-                dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
-              ></div>
+        <div className="self-end flex items-end justify-between absolute w-full px-4 pb-4">
+          <div className="flex space-x-12 space-x-reverse items-center">
+            {statistics.map(({ name, icon: Icon, value }) =>
+              value === null || value === undefined ? null : (
+                <div key={name} className="flex flex-col space-y-3 items-start">
+                  <span className="text-xs text-secondary">{name}</span>
+                  <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-md">
+                    <Icon className="w-5 h-5" />
+
+                    <span className="font-bold">{value}</span>
+                  </div>
+                </div>
+              )
             )}
-          </Card>
+          </div>
+
+          <Button.Red>گزارش</Button.Red>
         </div>
-      </>
+      </div>
+      <div className="p-8">
+        <Card padded>
+          {repo.readmeHtml && (
+            <div
+              dir="ltr"
+              className="prose dark:prose-light overflow-y-auto"
+              dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
+            ></div>
+          )}
+        </Card>
+      </div>
     </MainLayout>
   );
 };
