@@ -60,7 +60,7 @@ const OwnerReport = ({ owner }: IOwnerReportProps) => {
         <div className="block space-y-6">
           <span>
             درصورتی که {owner.login} یکی از موارد ذیل و یا یکی از قوانین سایت را
-            زیر پای گذاشته است، از شما در خواست می شود به ما گزارش دهید.
+            نقض کرده است، از شما در خواست می شود به ما گزارش دهید.
           </span>
           <RadioList
             options={reasons}

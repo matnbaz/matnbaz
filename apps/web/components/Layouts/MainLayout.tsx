@@ -9,7 +9,7 @@ interface IMainLayoutProps {
 const MainLayout = ({ children, maxWidth = true }: IMainLayoutProps) => {
   return (
     <>
-      <Navbar className="h-20" />
+      <Navbar className="min-h-[5rem]" />
       <div className={classNames(maxWidth && 'max-w-[92rem]', 'pt-24 mx-auto')}>
         {children}
       </div>
