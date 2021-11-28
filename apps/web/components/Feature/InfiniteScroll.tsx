@@ -10,13 +10,12 @@ const InfiniteScroll = ({ children, onLoadMore }: IInfiniteScrollProps) => {
 
   const handleScroll = () => {
     if (
-      window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight
+      Math.ceil(window.innerHeight + window.scrollY + 300) >=
+      document.documentElement.scrollHeight
     )
-      return;
-    // We can't call "onLoadMore()" directly in here since it will always callback with the outdated (initial) state
-    // More info at https://stackoverflow.com/questions/53845595/wrong-react-hooks-behaviour-with-event-listener
-    setIsFetching(true);
+      // We can't call "onLoadMore()" directly in here since it will always callback with the outdated (initial) state
+      // More info at https://stackoverflow.com/questions/53845595/wrong-react-hooks-behaviour-with-event-listener
+      setIsFetching(true);
   };
 
   useEffect(() => {
