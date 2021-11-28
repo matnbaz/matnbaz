@@ -46,7 +46,7 @@ const Button = ({
         className,
         RadiusesEnum[rounded],
         SizeEnum[size],
-        'text-center cursor-pointer inline-flex items-center shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900'
+        'text-center cursor-pointer inline-flex items-center shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-50'
       )}
     >
       {children}
