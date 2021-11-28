@@ -32,8 +32,8 @@ const RadioList = ({
   }, [value]);
 
   useEffect(() => {
-    if (selectedOption) onChange(selectedOption);
-  }, [selectedOption]);
+    if (selectedOption && onChange) onChange(selectedOption);
+  }, [JSON.stringify(selectedOption)]);
 
   return (
     <RadioGroup
