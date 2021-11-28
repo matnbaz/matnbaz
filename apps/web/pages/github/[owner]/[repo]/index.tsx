@@ -23,6 +23,7 @@ import {
 import { formatDistanceToNow } from 'date-fns-jalali';
 import Card from 'apps/web/components/UI/Card';
 import Button from 'apps/web/components/UI/Button/Button';
+import OwnerImage from 'apps/web/components/Owner/OwnerImage';
 
 interface RepositoryPageProps {
   repoSlug: string;
@@ -90,15 +91,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
       >
         <div className="m-auto flex items-center bg-gray-100/80 dark:bg-gray-900/90 backdrop-blur-sm w-full h-full px-5 py-2">
           <div className="flex items-center m-auto">
-            <Image
-              width={120}
-              height={120}
-              src={`https://avatars.githubusercontent.com/u/${repo.owner.platformId}?v=4`}
-              alt={`عکس ${repo.owner.login}`}
-              className={classNames(
-                repo.owner.type === 'User' ? 'rounded-full' : 'rounded-lg'
-              )}
-            />
+            <OwnerImage owner={repo.owner} width={120} height={120} />
             <div className="flex flex-col space-y-4 items-start mr-6">
               <h1 className="text-3xl font-bold">{repo.fullName}</h1>
               <span className="text-secondary">{repo.descriptionLimited}</span>

@@ -7,6 +7,7 @@ import {
 } from 'react-icons/ai';
 import Card from '../UI/Card';
 import Router from 'next/router';
+import OwnerImage from '../Owner/OwnerImage';
 interface IRepositoryPreviewProps {
   repository: GetRepositoriesQuery['repositories']['edges'][0]['node'];
 }
@@ -43,17 +44,7 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
         >
           {repository.owner && (
             <div>
-              <Image
-                width={100}
-                height={100}
-                src={`https://avatars.githubusercontent.com/u/${repository.owner.platformId}?v=4`}
-                alt={`عکس ${repository.owner.login}`}
-                className={`w-16 h-16 ${
-                  repository.owner.type === 'User'
-                    ? 'rounded-full'
-                    : 'rounded-lg'
-                }`}
-              />
+              <OwnerImage owner={repository.owner} />
             </div>
           )}
           <div className="flex flex-col space-y-2 h-full w-full text-left overflow-hidden">
