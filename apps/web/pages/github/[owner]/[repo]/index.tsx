@@ -112,7 +112,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
                     className="flex flex-col space-y-3 items-start"
                   >
                     <span className="text-xs text-secondary">{name}</span>
-                    <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-xs md:text-md">
+                    <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-xs md:text-base">
                       <Icon className="w-5 h-5" />
 
                       <span className="font-bold">{value}</span>

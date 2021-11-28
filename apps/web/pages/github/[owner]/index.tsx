@@ -103,7 +103,7 @@ const OwnerPage = ({ ownerSlug }) => {
           </Button.Red>
         </div>
         <Divider />
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min pb-6">
           <RepositoryPreviewList
             repositories={owner.repositories.edges}
             onLoadMore={repositoriesLoadMoreHandler}
