@@ -7,7 +7,7 @@ query GetRepositories(
   $templateStatus: TemplateStatusType
 ) {
   repositories(
-    first: 8
+    first: 12
     after: $after
     searchTerm: $searchTerm
     languages: $languages

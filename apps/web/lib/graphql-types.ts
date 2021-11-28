@@ -544,7 +544,7 @@ export type GetLanguagesQueryHookResult = ReturnType<typeof useGetLanguagesQuery
 export type GetLanguagesLazyQueryHookResult = ReturnType<typeof useGetLanguagesLazyQuery>;
 export type GetLanguagesQueryResult = Apollo.QueryResult<GetLanguagesQuery, GetLanguagesQueryVariables>;
 export const GetOwnerDocument = gql`
-    query GetOwner($owner: String!, $platform: PlatformType!, $reposCount: Int = 10, $reposAfter: String) {
+    query GetOwner($owner: String!, $platform: PlatformType!, $reposCount: Int = 12, $reposAfter: String) {
   ownerByPlatform(owner: $owner, platform: $platform) {
     repositories(first: $reposCount, after: $reposAfter) {
       edges {
@@ -608,7 +608,7 @@ export type GetOwnerQueryResult = Apollo.QueryResult<GetOwnerQuery, GetOwnerQuer
 export const GetRepositoriesDocument = gql`
     query GetRepositories($after: String, $searchTerm: String, $languages: [String!], $order: RepoOrder, $forkStatus: ForkStatusType, $templateStatus: TemplateStatusType) {
   repositories(
-    first: 8
+    first: 12
     after: $after
     searchTerm: $searchTerm
     languages: $languages

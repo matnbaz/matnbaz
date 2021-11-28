@@ -1,7 +1,7 @@
 query GetOwner(
   $owner: String!
   $platform: PlatformType!
-  $reposCount: Int = 10
+  $reposCount: Int = 12
   $reposAfter: String
 ) {
   ownerByPlatform(owner: $owner, platform: $platform) {
