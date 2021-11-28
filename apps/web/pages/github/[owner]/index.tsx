@@ -1,6 +1,7 @@
 import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
 import MainLayout from '../../../components/Layouts/MainLayout';
 import Modal from '../../../components/UI/Modal';
+import Divider from '../../../components/UI/Divider';
 import { initializeApollo } from '../../../lib/apollo';
 import {
   GetOwnerDocument,
@@ -57,7 +58,8 @@ const OwnerPage = ({ ownerSlug }) => {
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
             استفاده از{' '}
           </span>
-          <Input
+          <Input.Textarea
+            rows={5}
             placeholder="علت گزارش..."
             className="w-full"
             onChange={(event) => {
@@ -100,7 +102,7 @@ const OwnerPage = ({ ownerSlug }) => {
             گزارش
           </Button.Red>
         </div>
-
+        <Divider />
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
           <RepositoryPreviewList
             repositories={owner.repositories.edges}
