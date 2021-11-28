@@ -104,6 +104,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
               <span
                 className="px-1.5 py-1 rounded-lg text-xs border-2"
                 style={{ borderColor: repo.language.color }}
+                dir="ltr"
               >
                 {repo.language.name}
               </span>
@@ -134,12 +135,16 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
       </div>
       <div className="p-8">
         <Card padded>
-          {repo.readmeHtml && (
+          {repo.readmeHtml ? (
             <div
               dir="ltr"
               className="prose dark:prose-light overflow-y-auto"
               dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
             ></div>
+          ) : (
+            <h1 className="text-lg font-thin text-secondary">
+              فایل readme برای نمایش وجود ندارد.
+            </h1>
           )}
         </Card>
       </div>
