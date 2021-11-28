@@ -17,17 +17,12 @@ import { persianNumbers } from '@iranfoss/common';
 import Button from 'apps/web/components/UI/Button/Button';
 import { useState, useEffect } from 'react';
 import Input from 'apps/web/components/UI/Input/Input';
+import OwnerReport from 'apps/web/components/Reports/OwnerReport';
 interface OwnerPageProps {
   ownerSlug: string;
 }
 
 const OwnerPage = ({ ownerSlug }) => {
-  const [showReportModal, setShowReportModal] = useState(false);
-  const [reportReason, setReportReason] = useState('');
-  const [
-    reportOwner,
-    { data: reportedOwnerData, loading: reportOwnerLoading },
-  ] = useReportOwnerMutation();
   const {
     data: { ownerByPlatform: owner },
     fetchMore,
@@ -43,41 +38,9 @@ const OwnerPage = ({ ownerSlug }) => {
       },
     });
   };
-  useEffect(() => setShowReportModal(false), [reportedOwnerData]);
+
   return (
     <MainLayout>
-      <Modal
-        show={showReportModal}
-        title={`گزارش ${owner.login}`}
-        onClose={() => {
-          if (!reportOwnerLoading) setShowReportModal(false);
-        }}
-      >
-        <div className="block space-y-6">
-          <span>
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
-            استفاده از{' '}
-          </span>
-          <Input.Textarea
-            rows={5}
-            placeholder="علت گزارش..."
-            className="w-full"
-            onChange={(event) => {
-              setReportReason(event.target.value);
-            }}
-          />
-          <Button.Primary
-            disabled={reportOwnerLoading}
-            onClick={() => {
-              reportOwner({
-                variables: { ownerId: owner.id, reason: reportReason },
-              });
-            }}
-          >
-            ارسال
-          </Button.Primary>
-        </div>
-      </Modal>
       <div className="px-6 space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4 space-x-reverse">
@@ -94,13 +57,7 @@ const OwnerPage = ({ ownerSlug }) => {
               </span>
             </div>
           </div>
-          <Button.Red
-            onClick={() => {
-              setShowReportModal(true);
-            }}
-          >
-            گزارش
-          </Button.Red>
+          <OwnerReport owner={owner} />
         </div>
         <Divider />
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min pb-6">
