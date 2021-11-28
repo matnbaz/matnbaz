@@ -13,6 +13,7 @@ import { SiDiscord, SiGithub, SiTelegram } from 'react-icons/si';
 import { OpenSource } from '../Icons/OpenSource';
 import { AiOutlineMenu } from 'react-icons/ai';
 import Divider from './Divider';
+import { Fragment } from 'react';
 interface INavbarProps {
   className?: string;
 }
@@ -46,7 +47,7 @@ const Navbar = ({ className }: INavbarProps) => {
             </Link>
             <div className="hidden md:flex items-center space-x-4 space-x-reverse">
               {links.map((link) => (
-                <div>
+                <div key={link.name}>
                   <Link href={link.to}>
                     <a>{link.name}</a>
                   </Link>
@@ -119,7 +120,7 @@ const Navbar = ({ className }: INavbarProps) => {
           )}
         >
           {links.map((link, index) => (
-            <>
+            <Fragment key={link.name}>
               <div>
                 <Link href={link.to}>
                   <a>{link.name}</a>
@@ -127,7 +128,7 @@ const Navbar = ({ className }: INavbarProps) => {
               </div>
               {/* The last element can't have a divider so we check if it's not the last iteration */}
               {index < links.length - 1 && <Divider />}
-            </>
+            </Fragment>
           ))}
         </div>
       </div>

@@ -101,13 +101,15 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
                 {repo.fullName}
               </a>
               <span className="text-secondary">{repo.descriptionLimited}</span>
-              <span
-                className="px-1.5 py-1 rounded-lg text-xs border-2"
-                style={{ borderColor: repo.language.color }}
-                dir="ltr"
-              >
-                {repo.language.name}
-              </span>
+              {repo.language && (
+                <span
+                  className="px-1.5 py-1 rounded-lg text-xs border-2"
+                  style={{ borderColor: repo.language.color }}
+                  dir="ltr"
+                >
+                  {repo.language.name}
+                </span>
+              )}
             </div>
           </div>
           <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0  items-center lg:items-end justify-between w-full px-4 pb-4">

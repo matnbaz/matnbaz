@@ -10,16 +10,17 @@ interface IOwnerImageProps {
 const OwnerImage = ({ owner, width, height }: IOwnerImageProps) => {
   return (
     <Link href={`/github/${owner.login}`}>
-      <Image
-        width={width || 100}
-        height={height || 100}
-        src={`https://avatars.githubusercontent.com/u/${owner.platformId}?v=4`}
-        alt={`عکس ${owner.login}`}
-        className={classNames(
-          owner?.type === 'User' ? 'rounded-full' : 'rounded-lg',
-          'cursor-pointer'
-        )}
-      />
+      <button>
+        <Image
+          width={width || 100}
+          height={height || 100}
+          src={`https://avatars.githubusercontent.com/u/${owner.platformId}?v=4`}
+          alt={`عکس ${owner.login}`}
+          className={classNames(
+            owner?.type === 'User' ? 'rounded-full' : 'rounded-lg'
+          )}
+        />
+      </button>
     </Link>
   );
 };
