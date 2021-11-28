@@ -100,6 +100,7 @@ const Navbar = ({ className }: INavbarProps) => {
                   {theme === 'light' && <BsFillSunFill className="w-5 h-5" />}
                 </IconButton>
                 <button
+                  className="block md:hidden"
                   onClick={() => {
                     setMenuOpen((previousMenuOpen) => !previousMenuOpen);
                   }}
