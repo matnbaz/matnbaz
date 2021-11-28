@@ -80,7 +80,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
   return (
     <MainLayout maxWidth={false}>
       <div
-        className="relative flex items-center h-96 w-full"
+        className="relative flex items-center h-[38rem] md:h-[24rem] w-full"
         style={{
           // TODO: check if repo as thumbnail otherwise use this
           backgroundImage: `linear-gradient(to right, #009fff, #ec2f4b)`,
@@ -89,10 +89,10 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
           backgroundPosition: 'center center',
         }}
       >
-        <div className="m-auto flex items-center bg-gray-100/80 dark:bg-gray-900/90 backdrop-blur-sm w-full h-full px-5 py-2">
-          <div className="flex items-center m-auto">
+        <div className="m-auto flex flex-col items-center bg-gray-100/80 dark:bg-gray-900/90 backdrop-blur-sm w-full h-full px-5 py-2">
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
             <OwnerImage owner={repo.owner} width={120} height={120} />
-            <div className="flex flex-col space-y-4 items-start mr-6">
+            <div className="flex flex-col space-y-4 items-start md:mr-6">
               <h1 className="text-3xl font-bold">{repo.fullName}</h1>
               <span className="text-secondary">{repo.descriptionLimited}</span>
               <span
@@ -103,24 +103,27 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
               </span>
             </div>
           </div>
-        </div>
-        <div className="self-end flex items-end justify-between absolute w-full px-4 pb-4">
-          <div className="flex space-x-12 space-x-reverse items-center">
-            {statistics.map(({ name, icon: Icon, value }) =>
-              value === null || value === undefined ? null : (
-                <div key={name} className="flex flex-col space-y-3 items-start">
-                  <span className="text-xs text-secondary">{name}</span>
-                  <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-md">
-                    <Icon className="w-5 h-5" />
+          <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0  items-center lg:items-end justify-between w-full px-4 pb-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:flex lg:space-x-12 lg:space-x-reverse items-center">
+              {statistics.map(({ name, icon: Icon, value }) =>
+                value === null || value === undefined ? null : (
+                  <div
+                    key={name}
+                    className="flex flex-col space-y-3 items-start"
+                  >
+                    <span className="text-xs text-secondary">{name}</span>
+                    <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-xs md:text-md">
+                      <Icon className="w-5 h-5" />
 
-                    <span className="font-bold">{value}</span>
+                      <span className="font-bold">{value}</span>
+                    </div>
                   </div>
-                </div>
-              )
-            )}
-          </div>
+                )
+              )}
+            </div>
 
-          <Button.Red>گزارش</Button.Red>
+            <Button.Red>گزارش</Button.Red>
+          </div>
         </div>
       </div>
       <div className="p-8">
