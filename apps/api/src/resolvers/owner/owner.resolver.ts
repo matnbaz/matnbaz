@@ -2,6 +2,7 @@ import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection
 import { PaginationArgs } from '@exonest/graphql-connections';
 import {
   Args,
+  ID,
   Int,
   Parent,
   Query,
@@ -24,7 +25,7 @@ export class OwnerResolver extends ReportableResolver(Owner) {
   }
 
   @Query(() => Owner, { nullable: true })
-  owner(@Args('id') id: string) {
+  owner(@Args('id', { type: () => ID }) id: string) {
     return this.prisma.owner.findUnique({
       where: {
         id,

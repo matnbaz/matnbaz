@@ -3,6 +3,7 @@ import { CacheControl } from '@exonest/graphql-cache-control';
 import { PaginationArgs } from '@exonest/graphql-connections';
 import {
   Args,
+  ID,
   Int,
   Parent,
   Query,
@@ -25,7 +26,7 @@ export class TopicResolver {
   constructor(private readonly prisma: PrismaService) {}
 
   @Query(() => Topic, { nullable: true })
-  topicById(@Args('id') id: string) {
+  topicById(@Args('id', { type: () => ID }) id: string) {
     return this.prisma.topic.findUnique({
       where: {
         id,
