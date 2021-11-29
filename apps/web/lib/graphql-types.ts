@@ -493,6 +493,18 @@ export enum TopicOrder {
   RepositoriesDesc = 'REPOSITORIES_DESC'
 }
 
+export type FullRepoFragment = { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined };
+
+export type RepoPreviewFragment = { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined };
+
+export type ReportOwnerMutationVariables = Exact<{
+  id: Scalars['ID'];
+  reason: Scalars['String'];
+}>;
+
+
+export type ReportOwnerMutation = { __typename?: 'Mutation', reportOwner: { __typename?: 'Report', id: string } };
+
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -529,15 +541,92 @@ export type GetRepositoryQueryVariables = Exact<{
 
 export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
 
-export type ReportOwnerMutationVariables = Exact<{
-  id: Scalars['ID'];
-  reason: Scalars['String'];
-}>;
+export const FullRepoFragmentDoc = gql`
+    fragment fullRepo on Repository {
+  fullName
+  descriptionLimited
+  archived
+  isTemplate
+  defaultBranch
+  pushedAt {
+    difference(persianNumbers: true)
+  }
+  createdAt {
+    formatted(persianNumbers: true)
+  }
+  homePage
+  stargazersCount
+  forksCount
+  openIssuesCount
+  readmeHtml
+  language {
+    name
+    color
+  }
+  license {
+    name
+    key
+    spdxId
+  }
+  owner {
+    type
+    login
+    platformId
+  }
+}
+    `;
+export const RepoPreviewFragmentDoc = gql`
+    fragment repoPreview on Repository {
+  fullName
+  descriptionLimited
+  stargazersCount
+  forksCount
+  openIssuesCount
+  language {
+    name
+    color
+  }
+  owner {
+    type
+    login
+    platformId
+  }
+}
+    `;
+export const ReportOwnerDocument = gql`
+    mutation ReportOwner($id: ID!, $reason: String!) {
+  reportOwner(id: $id, reason: $reason) {
+    id
+  }
+}
+    `;
+export type ReportOwnerMutationFn = Apollo.MutationFunction<ReportOwnerMutation, ReportOwnerMutationVariables>;
 
-
-export type ReportOwnerMutation = { __typename?: 'Mutation', reportOwner: { __typename?: 'Report', id: string } };
-
-
+/**
+ * __useReportOwnerMutation__
+ *
+ * To run a mutation, you first call `useReportOwnerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReportOwnerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reportOwnerMutation, { data, loading, error }] = useReportOwnerMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      reason: // value for 'reason'
+ *   },
+ * });
+ */
+export function useReportOwnerMutation(baseOptions?: Apollo.MutationHookOptions<ReportOwnerMutation, ReportOwnerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ReportOwnerMutation, ReportOwnerMutationVariables>(ReportOwnerDocument, options);
+      }
+export type ReportOwnerMutationHookResult = ReturnType<typeof useReportOwnerMutation>;
+export type ReportOwnerMutationResult = Apollo.MutationResult<ReportOwnerMutation>;
+export type ReportOwnerMutationOptions = Apollo.BaseMutationOptions<ReportOwnerMutation, ReportOwnerMutationVariables>;
 export const GetLanguagesDocument = gql`
     query GetLanguages {
   languages {
@@ -654,20 +743,7 @@ export const GetRepositoriesDocument = gql`
   ) {
     edges {
       node {
-        fullName
-        descriptionLimited
-        stargazersCount
-        forksCount
-        openIssuesCount
-        language {
-          name
-          color
-        }
-        owner {
-          type
-          login
-          platformId
-        }
+        ...repoPreview
       }
     }
     pageInfo {
@@ -676,7 +752,7 @@ export const GetRepositoriesDocument = gql`
     }
   }
 }
-    `;
+    ${RepoPreviewFragmentDoc}`;
 
 /**
  * __useGetRepositoriesQuery__
@@ -713,39 +789,10 @@ export type GetRepositoriesQueryResult = Apollo.QueryResult<GetRepositoriesQuery
 export const GetRepositoryDocument = gql`
     query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
-    fullName
-    descriptionLimited
-    archived
-    isTemplate
-    defaultBranch
-    pushedAt {
-      difference(persianNumbers: true)
-    }
-    createdAt {
-      formatted(persianNumbers: true)
-    }
-    homePage
-    stargazersCount
-    forksCount
-    openIssuesCount
-    readmeHtml
-    language {
-      name
-      color
-    }
-    license {
-      name
-      key
-      spdxId
-    }
-    owner {
-      type
-      login
-      platformId
-    }
+    ...fullRepo
   }
 }
-    `;
+    ${FullRepoFragmentDoc}`;
 
 /**
  * __useGetRepositoryQuery__
@@ -776,37 +823,24 @@ export function useGetRepositoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetRepositoryQueryHookResult = ReturnType<typeof useGetRepositoryQuery>;
 export type GetRepositoryLazyQueryHookResult = ReturnType<typeof useGetRepositoryLazyQuery>;
 export type GetRepositoryQueryResult = Apollo.QueryResult<GetRepositoryQuery, GetRepositoryQueryVariables>;
-export const ReportOwnerDocument = gql`
-    mutation ReportOwner($id: ID!, $reason: String!) {
-  reportOwner(id: $id, reason: $reason) {
-    id
-  }
-}
-    `;
-export type ReportOwnerMutationFn = Apollo.MutationFunction<ReportOwnerMutation, ReportOwnerMutationVariables>;
 
-/**
- * __useReportOwnerMutation__
- *
- * To run a mutation, you first call `useReportOwnerMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useReportOwnerMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [reportOwnerMutation, { data, loading, error }] = useReportOwnerMutation({
- *   variables: {
- *      id: // value for 'id'
- *      reason: // value for 'reason'
- *   },
- * });
- */
-export function useReportOwnerMutation(baseOptions?: Apollo.MutationHookOptions<ReportOwnerMutation, ReportOwnerMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ReportOwnerMutation, ReportOwnerMutationVariables>(ReportOwnerDocument, options);
+      export interface PossibleTypesResultData {
+        possibleTypes: {
+          [key: string]: string[]
+        }
       }
-export type ReportOwnerMutationHookResult = ReturnType<typeof useReportOwnerMutation>;
-export type ReportOwnerMutationResult = Apollo.MutationResult<ReportOwnerMutation>;
-export type ReportOwnerMutationOptions = Apollo.BaseMutationOptions<ReportOwnerMutation, ReportOwnerMutationVariables>;
+      const result: PossibleTypesResultData = {
+  "possibleTypes": {
+    "Node": [
+      "Language",
+      "License",
+      "Owner",
+      "Report",
+      "Repository",
+      "Submission",
+      "Topic"
+    ]
+  }
+};
+      export default result;
+    

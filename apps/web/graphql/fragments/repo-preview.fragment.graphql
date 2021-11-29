@@ -1,0 +1,16 @@
+fragment repoPreview on Repository {
+  fullName
+  descriptionLimited
+  stargazersCount
+  forksCount
+  openIssuesCount
+  language {
+    name
+    color
+  }
+  owner {
+    type
+    login
+    platformId
+  }
+}
