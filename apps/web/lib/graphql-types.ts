@@ -55,7 +55,7 @@ export enum ForkStatusType {
   Source = 'SOURCE'
 }
 
-export type Language = {
+export type Language = Node & {
   __typename?: 'Language';
   color?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
@@ -97,7 +97,7 @@ export enum LanguageOrder {
   RepositoriesDesc = 'REPOSITORIES_DESC'
 }
 
-export type License = {
+export type License = Node & {
   __typename?: 'License';
   id: Scalars['ID'];
   key: Scalars['String'];
@@ -141,12 +141,19 @@ export enum LicenseOrder {
 export type Mutation = {
   __typename?: 'Mutation';
   reportOwner: Report;
+  reportRepository: Report;
   submissionSubmit: Submission;
 };
 
 
 export type MutationReportOwnerArgs = {
-  ownerId: Scalars['ID'];
+  id: Scalars['ID'];
+  reason: Scalars['String'];
+};
+
+
+export type MutationReportRepositoryArgs = {
+  id: Scalars['ID'];
   reason: Scalars['String'];
 };
 
@@ -155,10 +162,14 @@ export type MutationSubmissionSubmitArgs = {
   content: Scalars['String'];
 };
 
-export type Owner = {
+export type Node = {
+  id: Scalars['ID'];
+};
+
+export type Owner = Node & {
   __typename?: 'Owner';
   gravatarId: Scalars['String'];
-  id: Scalars['String'];
+  id: Scalars['ID'];
   login: Scalars['String'];
   platform: PlatformType;
   platformId: Scalars['ID'];
@@ -336,14 +347,23 @@ export enum RepoOrder {
   StarsDesc = 'STARS_DESC'
 }
 
-export type Report = {
+export type Report = Node & {
   __typename?: 'Report';
   id: Scalars['ID'];
   reason: Scalars['String'];
   recordUpdatedAt: DateObject;
+  reportableType: ReportableType;
 };
 
-export type Repository = {
+/** A reportable could any of these types. */
+export enum ReportableType {
+  /** Reportable is an owner. */
+  Owner = 'Owner',
+  /** Reportable is a repository. */
+  Repository = 'Repository'
+}
+
+export type Repository = Node & {
   __typename?: 'Repository';
   allowForking: Scalars['Boolean'];
   archived: Scalars['Boolean'];
@@ -360,7 +380,7 @@ export type Repository = {
   hasProjects: Scalars['Boolean'];
   hasWiki: Scalars['Boolean'];
   homePage?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
+  id: Scalars['ID'];
   isFork: Scalars['Boolean'];
   isTemplate: Scalars['Boolean'];
   language?: Maybe<Language>;
@@ -416,7 +436,7 @@ export enum ScriptDirection {
   Rtl = 'RTL'
 }
 
-export type Submission = {
+export type Submission = Node & {
   __typename?: 'Submission';
   content: Scalars['String'];
   id: Scalars['ID'];
@@ -433,10 +453,10 @@ export enum TemplateStatusType {
   Template = 'TEMPLATE'
 }
 
-export type Topic = {
+export type Topic = Node & {
   __typename?: 'Topic';
   createdAt: DateObject;
-  id: Scalars['String'];
+  id: Scalars['ID'];
   name: Scalars['String'];
   repositories: RepositoryConnection;
   repositoriesCount: Scalars['Int'];
@@ -510,7 +530,7 @@ export type GetRepositoryQueryVariables = Exact<{
 export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
 
 export type ReportOwnerMutationVariables = Exact<{
-  ownerId: Scalars['ID'];
+  id: Scalars['ID'];
   reason: Scalars['String'];
 }>;
 
@@ -757,8 +777,8 @@ export type GetRepositoryQueryHookResult = ReturnType<typeof useGetRepositoryQue
 export type GetRepositoryLazyQueryHookResult = ReturnType<typeof useGetRepositoryLazyQuery>;
 export type GetRepositoryQueryResult = Apollo.QueryResult<GetRepositoryQuery, GetRepositoryQueryVariables>;
 export const ReportOwnerDocument = gql`
-    mutation ReportOwner($ownerId: ID!, $reason: String!) {
-  reportOwner(ownerId: $ownerId, reason: $reason) {
+    mutation ReportOwner($id: ID!, $reason: String!) {
+  reportOwner(id: $id, reason: $reason) {
     id
   }
 }
@@ -778,7 +798,7 @@ export type ReportOwnerMutationFn = Apollo.MutationFunction<ReportOwnerMutation,
  * @example
  * const [reportOwnerMutation, { data, loading, error }] = useReportOwnerMutation({
  *   variables: {
- *      ownerId: // value for 'ownerId'
+ *      id: // value for 'id'
  *      reason: // value for 'reason'
  *   },
  * });

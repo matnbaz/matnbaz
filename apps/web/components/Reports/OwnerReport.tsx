@@ -33,8 +33,8 @@ const OwnerReport = ({ owner }: IOwnerReportProps) => {
 
   const reasons: IReason[] = [
     {
-      name: 'تصویر یا نام مستهجن',
-      value: 'این کاربر یک تصویر و یا نام مستهجن برای خود انتخاب کرده است.',
+      name: 'تصویر یا نام غیر اخلاقی',
+      value: 'این کاربر یک تصویر و یا نام غیر اخلاقی برای خود انتخاب کرده است.',
     },
     {
       name: 'حساب غیر ایرانی',
@@ -85,7 +85,7 @@ const OwnerReport = ({ owner }: IOwnerReportProps) => {
             onClick={() => {
               reportOwner({
                 variables: {
-                  ownerId: owner.id,
+                  id: owner.id,
                   reason: reportReason,
                 },
               });

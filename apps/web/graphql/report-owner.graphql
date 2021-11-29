@@ -1,5 +1,5 @@
-mutation ReportOwner($ownerId: ID!, $reason: String!) {
-  reportOwner(ownerId: $ownerId, reason: $reason) {
+mutation ReportOwner($id: ID!, $reason: String!) {
+  reportOwner(id: $id, reason: $reason) {
     id
   }
 }
