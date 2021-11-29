@@ -27,6 +27,24 @@ export enum ArchiveStatusType {
   NotArchived = 'NOT_ARCHIVED'
 }
 
+export type DateObject = {
+  __typename?: 'DateObject';
+  difference: Scalars['String'];
+  formatted: Scalars['String'];
+  original: Scalars['DateTime'];
+};
+
+
+export type DateObjectDifferenceArgs = {
+  persianNumbers?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type DateObjectFormattedArgs = {
+  format?: InputMaybe<Scalars['String']>;
+  persianNumbers?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** The repo type used in filters. */
 export enum ForkStatusType {
   /** Doesn't apply any filter to the query. */
@@ -139,15 +157,11 @@ export type MutationSubmissionSubmitArgs = {
 
 export type Owner = {
   __typename?: 'Owner';
-  extractedAt: Scalars['DateTime'];
-  extractedAtHumanlyReadable: Scalars['String'];
   gravatarId: Scalars['String'];
   id: Scalars['String'];
   login: Scalars['String'];
   platform: PlatformType;
   platformId: Scalars['ID'];
-  recordUpdatedAt: Scalars['DateTime'];
-  recordUpdatedAtHumanlyReadable: Scalars['String'];
   repositories: RepositoryConnection;
   repositoriesCount: Scalars['Int'];
   siteAdmin: Scalars['Boolean'];
@@ -324,24 +338,21 @@ export enum RepoOrder {
 
 export type Report = {
   __typename?: 'Report';
-  createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   reason: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
+  recordUpdatedAt: DateObject;
 };
 
 export type Repository = {
   __typename?: 'Repository';
   allowForking: Scalars['Boolean'];
   archived: Scalars['Boolean'];
-  createdAt: Scalars['DateTime'];
-  createdAtHumanlyReadable: Scalars['String'];
+  createdAt: DateObject;
   defaultBranch: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   descriptionDirection: ScriptDirection;
   descriptionLimited?: Maybe<Scalars['String']>;
   disabled: Scalars['Boolean'];
-  extractedAt: Scalars['DateTime'];
   forksCount: Scalars['Int'];
   fullName: Scalars['String'];
   hasIssues: Scalars['Boolean'];
@@ -361,17 +372,23 @@ export type Repository = {
   platform: PlatformType;
   platformId: Scalars['ID'];
   platformUrl?: Maybe<Scalars['String']>;
-  pushedAt: Scalars['DateTime'];
-  pushedAtHumanlyReadable: Scalars['String'];
+  pushedAt: DateObject;
   readme?: Maybe<Scalars['String']>;
   readmeHtml?: Maybe<Scalars['String']>;
-  recordUpdatedAt: Scalars['DateTime'];
+  relatedRepos: RepositoryConnection;
   size: Scalars['Int'];
   stargazersCount: Scalars['Int'];
   topics: Array<Topic>;
-  updatedAt: Scalars['DateTime'];
-  updatedAtHumanlyReadable: Scalars['String'];
+  updatedAt: DateObject;
   watchersCount: Scalars['Int'];
+};
+
+
+export type RepositoryRelatedReposArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
 export type RepositoryConnection = {
@@ -402,9 +419,8 @@ export enum ScriptDirection {
 export type Submission = {
   __typename?: 'Submission';
   content: Scalars['String'];
-  createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
-  updatedAt: Scalars['DateTime'];
+  recordUpdatedAt: DateObject;
 };
 
 /** The repo type used in filters. */
@@ -419,7 +435,7 @@ export enum TemplateStatusType {
 
 export type Topic = {
   __typename?: 'Topic';
-  createdAt: Scalars['DateTime'];
+  createdAt: DateObject;
   id: Scalars['String'];
   name: Scalars['String'];
   repositories: RepositoryConnection;
@@ -491,7 +507,7 @@ export type GetRepositoryQueryVariables = Exact<{
 }>;
 
 
-export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, pushedAt: any, createdAt: any, pushedAtHumanlyReadable: string, createdAtHumanlyReadable: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
+export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
 
 export type ReportOwnerMutationVariables = Exact<{
   ownerId: Scalars['ID'];
@@ -682,10 +698,12 @@ export const GetRepositoryDocument = gql`
     archived
     isTemplate
     defaultBranch
-    pushedAt
-    createdAt
-    pushedAtHumanlyReadable
-    createdAtHumanlyReadable
+    pushedAt {
+      difference(persianNumbers: true)
+    }
+    createdAt {
+      formatted(persianNumbers: true)
+    }
     homePage
     stargazersCount
     forksCount

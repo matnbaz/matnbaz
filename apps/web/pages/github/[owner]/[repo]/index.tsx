@@ -58,14 +58,12 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
     {
       name: 'تاریخ ایجاد',
       icon: AiOutlineCalendar,
-      value: persianNumbers(repo.createdAtHumanlyReadable),
+      value: repo.createdAt.formatted,
     },
     {
       name: 'آخرین به‌روزرسانی',
       icon: AiOutlinePushpin,
-      value: persianNumbers(
-        formatDistanceToNow(new Date(repo.pushedAt), { addSuffix: true })
-      ),
+      value: repo.pushedAt.difference,
     },
     {
       name: 'لایسنس',
