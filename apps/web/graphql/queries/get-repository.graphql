@@ -1,5 +1,16 @@
 query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
     ...fullRepo
+    relatedRepos {
+      edges {
+        node {
+          ...repoPreview
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
   }
 }
