@@ -1,17 +1,18 @@
 import { persianNumbers } from '@iranfoss/common';
-import classNames from 'classnames';
+import { formatDistanceToNow } from 'date-fns-jalali';
 import { GetServerSideProps } from 'next';
-import Image from 'next/image';
 import {
   AiOutlineBranches,
   AiOutlineCalendar,
   AiOutlineExclamationCircle,
-  AiOutlineFolder,
   AiOutlinePushpin,
   AiOutlineSafetyCertificate,
   AiOutlineStar,
 } from 'react-icons/ai';
 import MainLayout from '../../../../components/Layouts/MainLayout';
+import OwnerImage from '../../../../components/Owner/OwnerImage';
+import Button from '../../../../components/UI/Button/Button';
+import Card from '../../../../components/UI/Card';
 import { initializeApollo } from '../../../../lib/apollo';
 import {
   GetRepositoryDocument,
@@ -20,10 +21,6 @@ import {
   PlatformType,
   useGetRepositoryQuery,
 } from '../../../../lib/graphql-types';
-import { formatDistanceToNow } from 'date-fns-jalali';
-import Card from 'apps/web/components/UI/Card';
-import Button from 'apps/web/components/UI/Button/Button';
-import OwnerImage from 'apps/web/components/Owner/OwnerImage';
 
 interface RepositoryPageProps {
   repoSlug: string;
@@ -95,8 +92,9 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
               <a
                 className="text-3xl font-bold text-primary-500 dark:text-primary-400"
-                href={`https://github.com/${repo.fullName}`}
+                href={`https://github.com/${repo.fullName}`} // Future concern: Check for platform and make the link depending on that
                 target="_blank"
+                rel="noreferrer"
               >
                 {repo.fullName}
               </a>
@@ -131,12 +129,12 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
               )}
             </div>
 
-            <Button.Red>گزارش</Button.Red>
+            <Button.Ghost>گزارش</Button.Ghost>
           </div>
         </div>
       </div>
       <div className="p-8">
-        <Card padded>
+        <Card padded className="max-w-5xl mx-auto">
           {repo.readmeHtml ? (
             <div
               dir="ltr"

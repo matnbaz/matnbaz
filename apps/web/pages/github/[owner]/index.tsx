@@ -1,6 +1,9 @@
-import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
+import { persianNumbers } from '@iranfoss/common';
+import { GetServerSideProps } from 'next';
+import Image from 'next/image';
 import MainLayout from '../../../components/Layouts/MainLayout';
-import Modal from '../../../components/UI/Modal';
+import OwnerReport from '../../../components/Reports/OwnerReport';
+import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
 import Divider from '../../../components/UI/Divider';
 import { initializeApollo } from '../../../lib/apollo';
 import {
@@ -9,15 +12,7 @@ import {
   GetOwnerQueryVariables,
   PlatformType,
   useGetOwnerQuery,
-  useReportOwnerMutation,
 } from '../../../lib/graphql-types';
-import { GetServerSideProps } from 'next';
-import Image from 'next/image';
-import { persianNumbers } from '@iranfoss/common';
-import Button from 'apps/web/components/UI/Button/Button';
-import { useState, useEffect } from 'react';
-import Input from 'apps/web/components/UI/Input/Input';
-import OwnerReport from 'apps/web/components/Reports/OwnerReport';
 interface OwnerPageProps {
   ownerSlug: string;
 }
@@ -48,6 +43,7 @@ const OwnerPage = ({ ownerSlug }) => {
               width={130}
               height={130}
               src={`https://avatars.githubusercontent.com/u/${owner.platformId}?v=4`}
+              alt={owner.login}
               className="rounded-xl"
             />
             <div className="flex flex-col space-y-3">

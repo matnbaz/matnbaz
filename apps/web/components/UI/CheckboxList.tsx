@@ -32,7 +32,7 @@ const CheckboxList = ({
 
   useEffect(() => {
     if (selectedOptions) onChange(selectedOptions);
-  }, [selectedOptions]);
+  }, [selectedOptions, onChange]);
 
   return (
     <div className={classNames(className, 'flex flex-col space-y-4 pb-2')}>

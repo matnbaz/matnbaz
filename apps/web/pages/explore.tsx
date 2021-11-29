@@ -30,8 +30,8 @@ const Explore = () => {
   if (error)
     return (
       <MainLayout>
-        <div className="flex flex-col space-y-6 items-center justify-center">
-          <h1 className="text-7xl font-bold text-red-500">خطا در بارگیری!</h1>
+        <div className="flex flex-col space-y-6 items-center justify-center h-80">
+          <h1 className="text-5xl font-bold">خطا در بارگیری!</h1>
           <span className="text-3xl">
             لطفا چند لحظه بعد دوباره امتحان کنید.
           </span>

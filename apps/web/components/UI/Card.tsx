@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { DOMAttributes, useMemo } from 'react';
 import Link, { LinkProps } from 'next/link';
 interface ICardProps
-  extends DOMAttributes<HTMLDivElement | HTMLButtonElement | LinkProps> {
+  extends DOMAttributes<HTMLDivElement | HTMLAnchorElement | LinkProps> {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
@@ -29,13 +29,13 @@ const Card = ({
   }, [className, colored, padded]);
   if (href)
     return (
-      <Link href={href}>
-        <button {...props} onClick={onClick} className={cardClasses}>
+      <Link href={href} passHref>
+        <a className={cardClasses} {...props} onClick={onClick}>
           {children}
-        </button>
+        </a>
       </Link>
     );
-  const Component = onClick ? `button` : `div`;
+  const Component = onClick ? `a` : `div`;
   return (
     <Component {...props} onClick={onClick} className={cardClasses}>
       {children}

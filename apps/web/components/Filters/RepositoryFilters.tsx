@@ -170,7 +170,7 @@ const RepositoryFilters = ({
     });
     // Dependency has to be stringified state as react can't compare two objects in useEffect
     // So it will always trigger this useEffect regardless of the state changing or not
-  }, [JSON.stringify(state)]);
+  }, [JSON.stringify(state)]); // TODO
 
   return (
     <div className="relative">
@@ -274,15 +274,15 @@ const RepositoryFilters = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Button.Primary
-            size="md"
+          <Button.Ghost
+            size="sm"
             type="button"
             onClick={() => {
               dispatch({ type: 'clear', payload: null });
             }}
           >
             حذف فیلتر ها
-          </Button.Primary>
+          </Button.Ghost>
         </Transition>
       </div>
     </div>

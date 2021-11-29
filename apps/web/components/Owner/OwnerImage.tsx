@@ -9,8 +9,8 @@ interface IOwnerImageProps {
 
 const OwnerImage = ({ owner, width, height }: IOwnerImageProps) => {
   return (
-    <Link href={`/github/${owner.login}`}>
-      <button>
+    <Link href={`/github/${owner.login}`} passHref>
+      <a>
         <Image
           width={width || 100}
           height={height || 100}
@@ -20,7 +20,7 @@ const OwnerImage = ({ owner, width, height }: IOwnerImageProps) => {
             owner?.type === 'User' ? 'rounded-full' : 'rounded-lg'
           )}
         />
-      </button>
+      </a>
     </Link>
   );
 };

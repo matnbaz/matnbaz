@@ -6,7 +6,7 @@ import { HiChevronDown } from 'react-icons/hi';
 
 interface IOption {
   name: string;
-  value: any;
+  value: string | number;
 }
 
 type TValue = IOption;

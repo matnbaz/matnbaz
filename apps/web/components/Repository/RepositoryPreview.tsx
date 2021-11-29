@@ -48,14 +48,9 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
             </div>
           )}
           <div className="flex flex-col space-y-2 h-full w-full text-left overflow-hidden">
-            <a
-              className="text-lg text-primary-600 dark:text-primary-400"
-              href={`https://github.com/${repository.fullName}`}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <div className="text-xl text-primary-600 dark:text-primary-400">
               {repository.fullName}
-            </a>
+            </div>
 
             <span className="text-gray-800 dark:text-gray-300 font-extralight text-sm">
               {repository.descriptionLimited}

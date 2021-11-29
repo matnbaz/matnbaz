@@ -27,7 +27,7 @@ const InfiniteScroll = ({ children, onLoadMore }: IInfiniteScrollProps) => {
     if (!isFetching) return;
     onLoadMore();
     setIsFetching(false);
-  }, [isFetching]);
+  }, [isFetching, onLoadMore]);
 
   return <>{children}</>;
 };

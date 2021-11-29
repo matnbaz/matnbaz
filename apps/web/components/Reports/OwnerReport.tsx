@@ -1,5 +1,5 @@
-import { useReportOwnerMutation } from 'apps/web/lib/graphql-types';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useReportOwnerMutation } from '../../lib/graphql-types';
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
 import Modal from '../UI/Modal';
