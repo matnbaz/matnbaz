@@ -16,7 +16,7 @@ const Expandable = ({ children, maxHeight = 2400 }: IExpandableProps) => {
 
   useEffect(() => {
     if (expandableRef?.current?.clientHeight > maxHeight) setOpen(false);
-  }, [expandableRef?.current?.clientHeight]);
+  }, [expandableRef]);
   return (
     <div
       ref={expandableRef}
