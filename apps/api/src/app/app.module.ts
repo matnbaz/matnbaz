@@ -21,7 +21,7 @@ import { AppService } from './app.service';
   imports: [
     ThrottlerModule.forRoot({
       ttl: 60,
-      limit: 10,
+      limit: 30,
     }),
     PrismaModule.forRoot({
       isGlobal: true,
