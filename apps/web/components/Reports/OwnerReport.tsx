@@ -95,7 +95,7 @@ const OwnerReport = ({ owner }: IOwnerReportProps) => {
           </Button.Primary>
         </div>
       </Modal>
-      <Button.Red
+      <Button.Ghost
         onClick={() => {
           setReportReason('');
           setSelectedReportReason(null);
@@ -103,7 +103,7 @@ const OwnerReport = ({ owner }: IOwnerReportProps) => {
         }}
       >
         گزارش
-      </Button.Red>
+      </Button.Ghost>
     </>
   );
 };
