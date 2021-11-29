@@ -22,6 +22,7 @@ import {
   PlatformType,
   useGetRepositoryQuery,
 } from '../../../../lib/graphql-types';
+import Expandable from '../../../../components/UI/Expandable';
 
 interface RepositoryPageProps {
   repoSlug: string;
@@ -136,11 +137,13 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         <div className="grid grid-cols-1 gap-6 max-w-7xl mx-auto">
           <Card padded>
             {repo.readmeHtml ? (
-              <div
-                dir="ltr"
-                className="prose dark:prose-light overflow-y-auto"
-                dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
-              ></div>
+              <Expandable>
+                <div
+                  dir="ltr"
+                  className="prose dark:prose-light overflow-y-auto"
+                  dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
+                ></div>
+              </Expandable>
             ) : (
               <h1 className="text-lg font-thin text-secondary">
                 فایل readme برای نمایش وجود ندارد.
