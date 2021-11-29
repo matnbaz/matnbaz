@@ -185,7 +185,7 @@ type Query {
     searchTerm: String
     templateStatus: TemplateStatusType
   ): RepositoryConnection!
-  repositoryById(id: String!): Repository
+  repositoryById(id: ID!): Repository
   repositoryByPlatform(owner: String!, platform: PlatformType!, repo: String!): Repository
   repositoryByPlatformId(id: ID!, platform: PlatformType!): Repository
   topic(name: String!): Topic
