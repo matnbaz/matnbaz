@@ -187,6 +187,28 @@ export class RepositoryResolver {
     return this.prisma.license.findUnique({ where: { id: licenseId } });
   }
 
+  @ResolveField(() => RepositoryConnection, {
+    complexity: paginationComplexity,
+  })
+  relatedRepos(
+    @Parent() { id, name }: P.Repository,
+    @Args() pagination: PaginationArgs
+  ) {
+    // Will *probably* change this in future
+    return findManyCursorConnection(
+      (args) =>
+        this.prisma.repository.findMany({
+          where: { name: { contains: name }, id: { not: id } },
+          ...args,
+        }),
+      () =>
+        this.prisma.repository.count({
+          where: { name: { contains: name }, id: { not: id } },
+        }),
+      pagination
+    );
+  }
+
   @ResolveField(() => ScriptDirection)
   descriptionDirection(
     @Parent() { description }: P.Repository

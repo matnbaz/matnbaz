@@ -243,6 +243,7 @@ type Repository {
   pushedAt: DateObject!
   readme: String
   readmeHtml: String
+  relatedRepos(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   size: Int!
   stargazersCount: Int!
   topics: [Topic!]!
