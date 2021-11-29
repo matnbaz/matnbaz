@@ -5,10 +5,12 @@ query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
     archived
     isTemplate
     defaultBranch
-    pushedAt
-    createdAt
-    pushedAtHumanlyReadable
-    createdAtHumanlyReadable
+    pushedAt {
+      difference(persianNumbers: true)
+    }
+    createdAt {
+      formatted(persianNumbers: true)
+    }
     homePage
     stargazersCount
     forksCount
