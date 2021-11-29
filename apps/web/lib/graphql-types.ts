@@ -539,7 +539,7 @@ export type GetRepositoryQueryVariables = Exact<{
 }>;
 
 
-export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
+export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, relatedRepos: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } }, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
 
 export const FullRepoFragmentDoc = gql`
     fragment fullRepo on Repository {
@@ -790,9 +790,21 @@ export const GetRepositoryDocument = gql`
     query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
     ...fullRepo
+    relatedRepos {
+      edges {
+        node {
+          ...repoPreview
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
   }
 }
-    ${FullRepoFragmentDoc}`;
+    ${FullRepoFragmentDoc}
+${RepoPreviewFragmentDoc}`;
 
 /**
  * __useGetRepositoryQuery__
