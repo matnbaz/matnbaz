@@ -6,6 +6,4 @@ export class Report {
   id: string;
 
   reason: string;
-  createdAt: Date;
-  updatedAt: Date;
 }

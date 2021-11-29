@@ -7,13 +7,15 @@ export class Owner {
   id: string;
   @Field(() => PlatformType)
   platform: PlatformType;
+
   @Field(() => ID)
   platformId: string;
+
   login: string;
   gravatarId: string;
+
   @Field(() => OwnerType)
   type: OwnerType;
+
   siteAdmin: boolean;
-  extractedAt: Date;
-  recordUpdatedAt: Date;
 }

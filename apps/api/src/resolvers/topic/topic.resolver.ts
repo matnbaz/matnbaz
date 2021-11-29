@@ -13,8 +13,10 @@ import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { TopicConnection } from '../../models/connections/topic.connection';
+import { DateObject } from '../../models/date.model';
 import { Topic } from '../../models/topic.model';
 import { paginationComplexity } from '../../plugins/pagination-complexity';
+import { createDateObject } from '../date/utils';
 import { TopicOrderArgs } from './args/topic-order.args';
 import { TopicOrder } from './enums/topics-order.enum';
 
@@ -87,5 +89,10 @@ export class TopicResolver {
         })
         .Repositories()
     ).length;
+  }
+
+  @ResolveField(() => DateObject)
+  createdAt(@Parent() { createdAt }: P.Topic) {
+    return createDateObject(createdAt);
   }
 }

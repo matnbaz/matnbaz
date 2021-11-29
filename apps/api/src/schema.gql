@@ -14,6 +14,12 @@ enum ArchiveStatusType {
   NOT_ARCHIVED
 }
 
+type DateObject {
+  difference(persianNumbers: Boolean = true): String!
+  formatted(format: String = "d MMMM yyyy", persianNumbers: Boolean = true): String!
+  original: DateTime!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -102,15 +108,11 @@ type Mutation {
 }
 
 type Owner {
-  extractedAt: DateTime!
-  extractedAtHumanlyReadable: String!
   gravatarId: String!
   id: String!
   login: String!
   platform: PlatformType!
   platformId: ID!
-  recordUpdatedAt: DateTime!
-  recordUpdatedAtHumanlyReadable: String!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int!
   siteAdmin: Boolean!
@@ -205,23 +207,20 @@ enum RepoOrder {
 }
 
 type Report {
-  createdAt: DateTime!
   id: ID!
   reason: String!
-  updatedAt: DateTime!
+  recordUpdatedAt: DateObject!
 }
 
 type Repository {
   allowForking: Boolean!
   archived: Boolean!
-  createdAt: DateTime!
-  createdAtHumanlyReadable: String!
+  createdAt: DateObject!
   defaultBranch: String!
   description: String
   descriptionDirection: ScriptDirection!
   descriptionLimited: String
   disabled: Boolean!
-  extractedAt: DateTime!
   forksCount: Int!
   fullName: String!
   hasIssues: Boolean!
@@ -241,16 +240,13 @@ type Repository {
   platform: PlatformType!
   platformId: ID!
   platformUrl: String
-  pushedAt: DateTime!
-  pushedAtHumanlyReadable: String!
+  pushedAt: DateObject!
   readme: String
   readmeHtml: String
-  recordUpdatedAt: DateTime!
   size: Int!
   stargazersCount: Int!
   topics: [Topic!]!
-  updatedAt: DateTime!
-  updatedAtHumanlyReadable: String!
+  updatedAt: DateObject!
   watchersCount: Int!
 }
 
@@ -282,9 +278,8 @@ enum ScriptDirection {
 
 type Submission {
   content: String!
-  createdAt: DateTime!
   id: ID!
-  updatedAt: DateTime!
+  recordUpdatedAt: DateObject!
 }
 
 """The repo type used in filters."""
@@ -300,7 +295,7 @@ enum TemplateStatusType {
 }
 
 type Topic {
-  createdAt: DateTime!
+  createdAt: DateObject!
   id: String!
   name: String!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!

@@ -1,6 +1,5 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
-import { humanlyReadableDate } from '@iranfoss/common';
 import {
   Args,
   Int,
@@ -77,15 +76,5 @@ export class OwnerResolver {
         .findUnique({ where: { id } })
         .Repositories({ select: { id: true } })
     ).length;
-  }
-
-  @ResolveField(() => String)
-  extractedAtHumanlyReadable(@Parent() { extractedAt }: P.Owner) {
-    return humanlyReadableDate(extractedAt);
-  }
-
-  @ResolveField(() => String)
-  recordUpdatedAtHumanlyReadable(@Parent() { recordUpdatedAt }: P.Owner) {
-    return humanlyReadableDate(recordUpdatedAt);
   }
 }

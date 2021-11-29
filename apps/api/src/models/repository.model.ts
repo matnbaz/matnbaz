@@ -35,11 +35,6 @@ export class Repository {
   allowForking: boolean;
   isTemplate: boolean;
   defaultBranch: string;
-  createdAt: Date;
-  updatedAt: Date;
-  pushedAt: Date;
-  extractedAt: Date;
-  recordUpdatedAt: Date;
   name: string;
   description?: string;
   readme?: string;

@@ -1,8 +1,18 @@
 import { NotFoundException } from '@nestjs/common';
-import { Args, ID, Mutation, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  ID,
+  Mutation,
+  Parent,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { Throttle } from '@nestjs/throttler';
+import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
+import { DateObject } from '../../models/date.model';
 import { Report } from '../../models/report.model';
+import { createDateObject } from '../date/utils';
 
 @Resolver(() => Report)
 export class ReportResolver {
@@ -23,5 +33,10 @@ export class ReportResolver {
         owner: { connect: { id } },
       },
     });
+  }
+
+  @ResolveField(() => DateObject)
+  recordUpdatedAt(@Parent() { createdAt }: P.Report) {
+    return createDateObject(createdAt);
   }
 }

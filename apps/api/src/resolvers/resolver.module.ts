@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { DateModule } from './date/date.module';
 import { LanguageModule } from './language/language.module';
 import { LicenseModule } from './license/license.module';
 import { OwnerModule } from './owner/owner.module';
@@ -16,6 +17,7 @@ import { TopicModule } from './topic/topic.module';
     TopicModule,
     ReportModule,
     SubmissionModule,
+    DateModule,
   ],
 })
 export class ResolverModule {}

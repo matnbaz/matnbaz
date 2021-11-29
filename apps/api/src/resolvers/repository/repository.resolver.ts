@@ -1,6 +1,5 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
-import { humanlyReadableDate } from '@iranfoss/common';
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { marked } from 'marked';
@@ -8,6 +7,7 @@ import { PrismaService } from 'nestjs-prisma';
 import * as emoji from 'node-emoji';
 import { PlatformByIdArgs } from '../../models/args/platform-by-id.args';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
+import { DateObject } from '../../models/date.model';
 import { ScriptDirection } from '../../models/enums/script-direction.enum';
 import { Language } from '../../models/language.model';
 import { License } from '../../models/license.model';
@@ -15,6 +15,7 @@ import { Owner } from '../../models/owner.model';
 import { Repository } from '../../models/repository.model';
 import { Topic } from '../../models/topic.model';
 import { paginationComplexity } from '../../plugins/pagination-complexity';
+import { createDateObject } from '../date/utils';
 import { PlatformArgs } from './args/platform.args';
 import { RepoFilterArgs } from './args/repo-filter.args';
 import { RepoOrderArgs } from './args/repo-order.args';
@@ -226,18 +227,18 @@ export class RepositoryResolver {
     return trimmedString.length > 0 ? trimmedString + '...' : null;
   }
 
-  @ResolveField(() => String)
-  createdAtHumanlyReadable(@Parent() { createdAt }: P.Repository) {
-    return humanlyReadableDate(createdAt);
+  @ResolveField(() => DateObject)
+  createdAt(@Parent() { createdAt }: P.Repository) {
+    return createDateObject(createdAt);
   }
 
-  @ResolveField(() => String)
-  pushedAtHumanlyReadable(@Parent() { pushedAt }: P.Repository) {
-    return humanlyReadableDate(pushedAt);
+  @ResolveField(() => DateObject)
+  pushedAt(@Parent() { pushedAt }: P.Repository) {
+    return createDateObject(pushedAt);
   }
 
-  @ResolveField(() => String)
-  updatedAtHumanlyReadable(@Parent() { updatedAt }: P.Repository) {
-    return humanlyReadableDate(updatedAt);
+  @ResolveField(() => DateObject)
+  updatedAt(@Parent() { updatedAt }: P.Repository) {
+    return createDateObject(updatedAt);
   }
 }
