@@ -1,4 +1,5 @@
 import { persianNumbers } from '@iranfoss/common';
+import RepositoryPreviewList from '../../../../components/Repository/RepositoryPreviewList';
 import { formatDistanceToNow } from 'date-fns-jalali';
 import { GetServerSideProps } from 'next';
 import {
@@ -132,19 +133,26 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         </div>
       </div>
       <div className="p-8">
-        <Card padded className="max-w-5xl mx-auto">
-          {repo.readmeHtml ? (
-            <div
-              dir="ltr"
-              className="prose dark:prose-light overflow-y-auto"
-              dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
-            ></div>
-          ) : (
-            <h1 className="text-lg font-thin text-secondary">
-              فایل readme برای نمایش وجود ندارد.
-            </h1>
-          )}
-        </Card>
+        <div className="grid grid-cols-1 gap-6 max-w-7xl mx-auto">
+          <Card padded>
+            {repo.readmeHtml ? (
+              <div
+                dir="ltr"
+                className="prose dark:prose-light overflow-y-auto"
+                dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
+              ></div>
+            ) : (
+              <h1 className="text-lg font-thin text-secondary">
+                فایل readme برای نمایش وجود ندارد.
+              </h1>
+            )}
+          </Card>
+
+          <div className="flex flex-col space-y-6">
+            <h1 className="text-xl font-bold">پروژه های مشابه:</h1>
+            <RepositoryPreviewList repositories={repo.relatedRepos.edges} />
+          </div>
+        </div>
       </div>
     </MainLayout>
   );

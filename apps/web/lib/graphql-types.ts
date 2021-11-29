@@ -261,7 +261,7 @@ export type QueryLicensesArgs = {
 
 
 export type QueryOwnerArgs = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
 };
 
 
@@ -298,7 +298,7 @@ export type QueryRepositoriesArgs = {
 
 
 export type QueryRepositoryByIdArgs = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
 };
 
 
@@ -321,7 +321,7 @@ export type QueryTopicArgs = {
 
 
 export type QueryTopicByIdArgs = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
 };
 
 
@@ -521,6 +521,7 @@ export type GetOwnerQueryVariables = Exact<{
 export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'Owner', id: string, repositoriesCount: number, type: OwnerType, login: string, platformId: string, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', fullName: string, descriptionLimited?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } } | null | undefined };
 
 export type GetRepositoriesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
   searchTerm?: InputMaybe<Scalars['String']>;
   languages?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
@@ -731,9 +732,9 @@ export type GetOwnerQueryHookResult = ReturnType<typeof useGetOwnerQuery>;
 export type GetOwnerLazyQueryHookResult = ReturnType<typeof useGetOwnerLazyQuery>;
 export type GetOwnerQueryResult = Apollo.QueryResult<GetOwnerQuery, GetOwnerQueryVariables>;
 export const GetRepositoriesDocument = gql`
-    query GetRepositories($after: String, $searchTerm: String, $languages: [String!], $order: RepoOrder, $forkStatus: ForkStatusType, $templateStatus: TemplateStatusType) {
+    query GetRepositories($first: Int = 12, $after: String, $searchTerm: String, $languages: [String!], $order: RepoOrder, $forkStatus: ForkStatusType, $templateStatus: TemplateStatusType) {
   repositories(
-    first: 12
+    first: $first
     after: $after
     searchTerm: $searchTerm
     languages: $languages
@@ -766,6 +767,7 @@ export const GetRepositoriesDocument = gql`
  * @example
  * const { data, loading, error } = useGetRepositoriesQuery({
  *   variables: {
+ *      first: // value for 'first'
  *      after: // value for 'after'
  *      searchTerm: // value for 'searchTerm'
  *      languages: // value for 'languages'
@@ -790,7 +792,7 @@ export const GetRepositoryDocument = gql`
     query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
     ...fullRepo
-    relatedRepos {
+    relatedRepos(first: 8) {
       edges {
         node {
           ...repoPreview

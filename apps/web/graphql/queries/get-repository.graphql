@@ -1,7 +1,12 @@
-query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!) {
+query GetRepository(
+  $owner: String!
+  $repo: String!
+  $platform: PlatformType!
+  $relatedReposFirst: Int = 8
+) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
     ...fullRepo
-    relatedRepos {
+    relatedRepos(first: $relatedReposFirst) {
       edges {
         node {
           ...repoPreview

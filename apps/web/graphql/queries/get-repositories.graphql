@@ -1,4 +1,5 @@
 query GetRepositories(
+  $first: Int = 12
   $after: String
   $searchTerm: String
   $languages: [String!]
@@ -7,7 +8,7 @@ query GetRepositories(
   $templateStatus: TemplateStatusType
 ) {
   repositories(
-    first: 12
+    first: $first
     after: $after
     searchTerm: $searchTerm
     languages: $languages
