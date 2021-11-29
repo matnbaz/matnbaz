@@ -1,0 +1,32 @@
+fragment fullRepo on Repository {
+  fullName
+  descriptionLimited
+  archived
+  isTemplate
+  defaultBranch
+  pushedAt {
+    difference(persianNumbers: true)
+  }
+  createdAt {
+    formatted(persianNumbers: true)
+  }
+  homePage
+  stargazersCount
+  forksCount
+  openIssuesCount
+  readmeHtml
+  language {
+    name
+    color
+  }
+  license {
+    name
+    key
+    spdxId
+  }
+  owner {
+    type
+    login
+    platformId
+  }
+}

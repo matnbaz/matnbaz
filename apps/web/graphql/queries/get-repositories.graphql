@@ -17,20 +17,7 @@ query GetRepositories(
   ) {
     edges {
       node {
-        fullName
-        descriptionLimited
-        stargazersCount
-        forksCount
-        openIssuesCount
-        language {
-          name
-          color
-        }
-        owner {
-          type
-          login
-          platformId
-        }
+        ...repoPreview
       }
     }
     pageInfo {
