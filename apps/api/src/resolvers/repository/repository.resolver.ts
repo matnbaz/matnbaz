@@ -109,7 +109,20 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
                     })),
                   }
                 : undefined,
-            name: { contains: searchTerm || undefined },
+            OR: searchTerm
+              ? [
+                  {
+                    name: { contains: searchTerm },
+                  },
+                  {
+                    Owner: {
+                      login: {
+                        contains: searchTerm,
+                      },
+                    },
+                  },
+                ]
+              : undefined,
           },
           orderBy: {
             [RepoOrder.CREATED_ASC]: { createdAt: 'asc' as const },
