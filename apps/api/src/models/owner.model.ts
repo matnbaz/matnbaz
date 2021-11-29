@@ -1,10 +1,10 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { OwnerType } from './enums/owner-type.enum';
 import { PlatformType } from './enums/platform-type.enum';
+import { Node } from './node.model';
 
-@ObjectType()
+@ObjectType({ implements: [Node] })
 export class Owner {
-  id: string;
   @Field(() => PlatformType)
   platform: PlatformType;
 

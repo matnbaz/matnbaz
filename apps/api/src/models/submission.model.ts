@@ -1,9 +1,7 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { ObjectType } from '@nestjs/graphql';
+import { Node } from './node.model';
 
-@ObjectType()
+@ObjectType({ implements: [Node] })
 export class Submission {
-  @Field(() => ID)
-  id: string;
-
   content: string;
 }

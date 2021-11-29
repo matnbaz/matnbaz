@@ -1,10 +1,8 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { ObjectType } from '@nestjs/graphql';
+import { Node } from './node.model';
 
-@ObjectType()
+@ObjectType({ implements: [Node] })
 export class Language {
-  @Field(() => ID)
-  id: string;
-
   name: string;
   slug: string;
   description?: string;

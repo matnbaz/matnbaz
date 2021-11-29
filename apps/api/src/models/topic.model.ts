@@ -1,7 +1,7 @@
 import { ObjectType } from '@nestjs/graphql';
+import { Node } from './node.model';
 
-@ObjectType()
+@ObjectType({ implements: [Node] })
 export class Topic {
-  id: string;
   name: string;
 }

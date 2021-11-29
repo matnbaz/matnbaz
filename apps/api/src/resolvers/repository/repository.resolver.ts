@@ -16,6 +16,7 @@ import { Repository } from '../../models/repository.model';
 import { Topic } from '../../models/topic.model';
 import { paginationComplexity } from '../../plugins/pagination-complexity';
 import { createDateObject } from '../date/utils';
+import { ReportableResolver } from '../report/reportable.resolver';
 import { PlatformArgs } from './args/platform.args';
 import { RepoFilterArgs } from './args/repo-filter.args';
 import { RepoOrderArgs } from './args/repo-order.args';
@@ -26,8 +27,10 @@ import { RepoOrder } from './enums/repos-order.enum';
 import { TemplateStatusType } from './enums/template-status-type.enum';
 
 @Resolver(() => Repository)
-export class RepositoryResolver {
-  constructor(private readonly prisma: PrismaService) {}
+export class RepositoryResolver extends ReportableResolver(Repository) {
+  constructor(private readonly prisma: PrismaService) {
+    super();
+  }
 
   @Query(() => Repository, { nullable: true })
   repositoryById(@Args('id') id: string) {

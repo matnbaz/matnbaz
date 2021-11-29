@@ -77,7 +77,6 @@ model Owner {
   extractedAt     DateTime     @default(now())
   recordUpdatedAt DateTime     @updatedAt
 
-  Reports Report[]
   @@unique([platform, platformId])
 }
 
@@ -88,11 +87,11 @@ model Submission {
 }
 
 model Report {
-  id        String   @id @default(cuid())
-  reason    String
-  owner     Owner    @relation(fields: [ownerId], references: [id])
-  ownerId   String
-  createdAt DateTime @default(now())
+  id             String         @id @default(cuid())
+  reason         String
+  reportableId   String
+  reportableType ReportableType
+  createdAt      DateTime       @default(now())
 }
 
 model Language {
@@ -112,4 +111,9 @@ enum PlatformType {
   GitHub
   GitLab
   Bitbucket
+}
+
+enum ReportableType {
+  Owner
+  Repository
 }

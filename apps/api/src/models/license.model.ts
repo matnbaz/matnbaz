@@ -1,10 +1,8 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { ObjectType } from '@nestjs/graphql';
+import { Node } from './node.model';
 
-@ObjectType()
+@ObjectType({ implements: [Node] })
 export class License {
-  @Field(() => ID)
-  id: string;
-
   name: string;
   key: string;
   spdxId: string;

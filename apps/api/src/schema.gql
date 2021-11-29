@@ -37,7 +37,7 @@ enum ForkStatusType {
   SOURCE
 }
 
-type Language {
+type Language implements Node {
   color: String
   description: String
   id: ID!
@@ -70,7 +70,7 @@ enum LanguageOrder {
   REPOSITORIES_DESC
 }
 
-type License {
+type License implements Node {
   id: ID!
   key: String!
   name: String!
@@ -103,13 +103,18 @@ enum LicenseOrder {
 }
 
 type Mutation {
-  reportOwner(ownerId: ID!, reason: String!): Report!
+  reportOwner(id: ID!, reason: String!): Report!
+  reportRepository(id: ID!, reason: String!): Report!
   submissionSubmit(content: String!): Submission!
 }
 
-type Owner {
+interface Node {
+  id: ID!
+}
+
+type Owner implements Node {
   gravatarId: String!
-  id: String!
+  id: ID!
   login: String!
   platform: PlatformType!
   platformId: ID!
@@ -206,13 +211,23 @@ enum RepoOrder {
   STARS_DESC
 }
 
-type Report {
+type Report implements Node {
   id: ID!
   reason: String!
   recordUpdatedAt: DateObject!
+  reportableType: ReportableType!
 }
 
-type Repository {
+"""A reportable could any of these types."""
+enum ReportableType {
+  """Reportable is an owner."""
+  Owner
+
+  """Reportable is a repository."""
+  Repository
+}
+
+type Repository implements Node {
   allowForking: Boolean!
   archived: Boolean!
   createdAt: DateObject!
@@ -228,7 +243,7 @@ type Repository {
   hasProjects: Boolean!
   hasWiki: Boolean!
   homePage: String
-  id: String!
+  id: ID!
   isFork: Boolean!
   isTemplate: Boolean!
   language: Language
@@ -277,7 +292,7 @@ enum ScriptDirection {
   RTL
 }
 
-type Submission {
+type Submission implements Node {
   content: String!
   id: ID!
   recordUpdatedAt: DateObject!
@@ -295,9 +310,9 @@ enum TemplateStatusType {
   TEMPLATE
 }
 
-type Topic {
+type Topic implements Node {
   createdAt: DateObject!
-  id: String!
+  id: ID!
   name: String!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int!

@@ -1,9 +1,11 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { ReportableType } from './enums/reportable-type.enum';
+import { Node } from './node.model';
 
-@ObjectType()
+@ObjectType({ implements: [Node] })
 export class Report {
-  @Field(() => ID)
-  id: string;
-
   reason: string;
+
+  @Field(() => ReportableType)
+  reportableType: ReportableType;
 }

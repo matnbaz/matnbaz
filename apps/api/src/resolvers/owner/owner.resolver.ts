@@ -14,11 +14,14 @@ import { PlatformByIdArgs } from '../../models/args/platform-by-id.args';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { Owner } from '../../models/owner.model';
 import { paginationComplexity } from '../../plugins/pagination-complexity';
+import { ReportableResolver } from '../report/reportable.resolver';
 import { PlatformArgs } from './args/platform.args';
 
 @Resolver(() => Owner)
-export class OwnerResolver {
-  constructor(private readonly prisma: PrismaService) {}
+export class OwnerResolver extends ReportableResolver(Owner) {
+  constructor(private readonly prisma: PrismaService) {
+    super();
+  }
 
   @Query(() => Owner, { nullable: true })
   owner(@Args('id') id: string) {
