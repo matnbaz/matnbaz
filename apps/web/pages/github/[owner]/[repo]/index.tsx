@@ -91,14 +91,16 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             <OwnerImage owner={repo.owner} width={120} height={120} />
             <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
               <a
-                className="text-3xl font-bold text-primary-500 dark:text-primary-400"
+                className="text-2xl md:text-3xl font-bold text-primary-500 dark:text-primary-400"
                 href={`https://github.com/${repo.fullName}`} // Future concern: Check for platform and make the link depending on that
                 target="_blank"
                 rel="noreferrer"
               >
                 {repo.fullName}
               </a>
-              <span className="text-secondary">{repo.descriptionLimited}</span>
+              <span className="text-secondary text-sm md:text-base">
+                {repo.descriptionLimited}
+              </span>
               {repo.language && (
                 <span
                   className="px-1.5 py-1 rounded-lg text-xs border-2"
@@ -116,7 +118,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
                 value === null || value === undefined ? null : (
                   <div
                     key={name}
-                    className="flex flex-col space-y-3 items-start"
+                    className="flex flex-col space-y-3 items-center lg:items-start"
                   >
                     <span className="text-xs text-secondary">{name}</span>
                     <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-xs md:text-base">
