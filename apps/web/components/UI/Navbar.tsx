@@ -31,7 +31,7 @@ const Navbar = ({ className }: INavbarProps) => {
   useEffect(() => setMounted(true), []);
   return (
     <div
-      className={`z-20 fixed w-full bg-gray-100/30 dark:bg-gray-800/70 backdrop-blur-sm  ${
+      className={`z-20 fixed w-full bg-white/40 dark:bg-gray-900/40 backdrop-blur-sm  ${
         className || ''
       }`}
     >
