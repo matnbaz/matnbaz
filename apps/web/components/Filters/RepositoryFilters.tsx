@@ -39,8 +39,8 @@ const repoOrderOptions: Record<RepoOrder, { name: string; value: RepoOrder }> =
   {
     CREATED_ASC: { name: 'قدیمی‌ترین', value: RepoOrder.CreatedAsc },
     CREATED_DESC: { name: 'جدید‌ترین', value: RepoOrder.CreatedDesc },
-    PUSHED_ASC: { name: 'قدیمی‌ترین تغییر', value: RepoOrder.PushedAsc },
-    PUSHED_DESC: { name: 'جدید‌ترین تغییر', value: RepoOrder.PushedDesc },
+    PUSHED_ASC: { name: 'قدیمی‌ترین به‌روزرسانی', value: RepoOrder.PushedAsc },
+    PUSHED_DESC: { name: 'جدید‌ترین به‌روزرسانی', value: RepoOrder.PushedDesc },
     STARS_DESC: { name: 'بیشترین تعداد ستاره', value: RepoOrder.StarsDesc },
   };
 
@@ -256,7 +256,7 @@ const RepositoryFilters = ({
           </Collapsible>
         </Card>
         <Card>
-          <Collapsible title="وضعیت قالب">
+          <Collapsible title="وضعیت قالب (Template)">
             <RadioList
               options={Object.values(templateStatusOptions)}
               value={state.templateStatus}

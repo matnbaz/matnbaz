@@ -5,6 +5,7 @@ import { GetServerSideProps } from 'next';
 import {
   AiOutlineBranches,
   AiOutlineCalendar,
+  AiOutlineClockCircle,
   AiOutlineExclamationCircle,
   AiOutlinePushpin,
   AiOutlineSafetyCertificate,
@@ -64,7 +65,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
     },
     {
       name: 'آخرین به‌روزرسانی',
-      icon: AiOutlinePushpin,
+      icon: AiOutlineClockCircle,
       value: repo.pushedAt.difference,
     },
     {
