@@ -119,7 +119,7 @@ const RepositoryFilters = ({
     );
     if (languageSearchInput.length < 1) return mappedLanguages;
     // Then they must be filtered if the user searched for a specific language
-    return mappedLanguages.filter((language) =>
+    return mappedLanguages?.filter((language) =>
       language?.slug?.toLowerCase().includes(languageSearchInput.toLowerCase())
     );
   }, [languagesNode, languageSearchInput]);
@@ -214,7 +214,7 @@ const RepositoryFilters = ({
               icon={AiOutlineSearch}
               className="w-full"
             />
-            {languages && (
+            {languages && languages.length ? (
               <CheckboxList
                 className="max-h-52 overflow-y-auto mt-4"
                 // Languages are all in english
@@ -223,6 +223,10 @@ const RepositoryFilters = ({
                 value={state.languages}
                 onChange={languagesFilterChangeHandler}
               />
+            ) : (
+              <div className="mt-4 text-sm text-secondary">
+                <span>نتیجه ای پیدا نشد.</span>
+              </div>
             )}
             {error && (
               <div className="flex flex-col space-y-2 items-center mt-2">
