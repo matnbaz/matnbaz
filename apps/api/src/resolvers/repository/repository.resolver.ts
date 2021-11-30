@@ -119,12 +119,13 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
             OR: searchTerm
               ? [
                   {
-                    name: { contains: searchTerm },
+                    name: { contains: searchTerm, mode: 'insensitive' },
                   },
                   {
                     Owner: {
                       login: {
                         contains: searchTerm,
+                        mode: 'insensitive',
                       },
                     },
                   },
