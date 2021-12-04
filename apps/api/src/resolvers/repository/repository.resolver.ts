@@ -297,6 +297,6 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
   @ResolveField(() => Boolean)
   isNew(@Parent() { createdAt }: P.Repository) {
     console.log(+createdAt);
-    return +createdAt < +new Date() - 432000000; // 5 Days
+    return +createdAt > +new Date() - 432000000; // 5 Days
   }
 }
