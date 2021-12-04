@@ -1,20 +1,19 @@
 import { persianNumbers } from '@iranfoss/common';
-import RepositoryPreviewList from '../../../../components/Repository/RepositoryPreviewList';
-import { formatDistanceToNow } from 'date-fns-jalali';
 import { GetServerSideProps } from 'next';
 import {
   AiOutlineBranches,
   AiOutlineCalendar,
   AiOutlineClockCircle,
   AiOutlineExclamationCircle,
-  AiOutlinePushpin,
   AiOutlineSafetyCertificate,
   AiOutlineStar,
 } from 'react-icons/ai';
-import MainLayout from '../../../../components/Layouts/MainLayout';
+import MainLayout from '../../../../components/Layout/MainLayout';
 import OwnerImage from '../../../../components/Owner/OwnerImage';
+import RepositoryPreviewList from '../../../../components/Repository/RepositoryPreviewList';
 import Button from '../../../../components/UI/Button/Button';
 import Card from '../../../../components/UI/Card';
+import Expandable from '../../../../components/UI/Expandable';
 import { initializeApollo } from '../../../../lib/apollo';
 import {
   GetRepositoryDocument,
@@ -23,7 +22,6 @@ import {
   PlatformType,
   useGetRepositoryQuery,
 } from '../../../../lib/graphql-types';
-import Expandable from '../../../../components/UI/Expandable';
 
 interface RepositoryPageProps {
   repoSlug: string;

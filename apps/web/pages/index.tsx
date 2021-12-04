@@ -1,4 +1,4 @@
-import MainLayout from '../components/Layouts/MainLayout';
+import MainLayout from '../components/Layout/MainLayout';
 import Button from '../components/UI/Button/Button';
 
 const Index = () => {

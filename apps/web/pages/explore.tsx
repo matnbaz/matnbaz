@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import RepositoryFilters from '../components/Filters/RepositoryFilters';
-import MainLayout from '../components/Layouts/MainLayout';
+import RepositoryFilters from '../components/Filter/RepositoryFilters';
+import MainLayout from '../components/Layout/MainLayout';
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
-import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loaders/RepositoryPreviewSkeletonLoader';
+import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loader/RepositoryPreviewSkeletonLoader';
 import Button from '../components/UI/Button/Button';
 import { useGetRepositoriesQuery } from '../lib/graphql-types';
 

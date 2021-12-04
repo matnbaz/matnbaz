@@ -1,8 +1,8 @@
 import { persianNumbers } from '@iranfoss/common';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
-import MainLayout from '../../../components/Layouts/MainLayout';
-import OwnerReport from '../../../components/Reports/OwnerReport';
+import MainLayout from '../../../components/Layout/MainLayout';
+import OwnerReport from '../../../components/Report/OwnerReport';
 import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
 import Divider from '../../../components/UI/Divider';
 import { initializeApollo } from '../../../lib/apollo';

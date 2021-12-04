@@ -1,4 +1,4 @@
-import MainLayout from '../components/Layouts/MainLayout';
+import MainLayout from '../components/Layout/MainLayout';
 
 const About = () => {
   return (
