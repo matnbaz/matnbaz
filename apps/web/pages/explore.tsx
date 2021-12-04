@@ -48,7 +48,7 @@ const Explore = () => {
     );
 
   return (
-    <MainLayout>
+    <MainLayout withoutFooter>
       <div className="grid grid-cols-1 md:grid-cols-8 pt-4 px-6 pb-6 gap-6">
         <div className="md:col-span-3 lg:col-span-2">
           <RepositoryFilters onApply={refetch} loading={loading} />

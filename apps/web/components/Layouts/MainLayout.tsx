@@ -5,9 +5,14 @@ import Navbar from '../UI/Navbar';
 interface IMainLayoutProps {
   children: React.ReactNode;
   maxWidth?: boolean;
+  withoutFooter?: boolean;
 }
 
-export const MainLayout = ({ children, maxWidth = true }: IMainLayoutProps) => {
+export const MainLayout = ({
+  children,
+  maxWidth = true,
+  withoutFooter = false,
+}: IMainLayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <Navbar className="min-h-[5rem]" />
@@ -19,7 +24,7 @@ export const MainLayout = ({ children, maxWidth = true }: IMainLayoutProps) => {
       >
         {children}
       </div>
-      <Footer />
+      {!withoutFooter && <Footer />}
     </div>
   );
 };
