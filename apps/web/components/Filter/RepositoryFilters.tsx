@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useReducer,
+  useRef,
   useState,
 } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -93,6 +94,8 @@ const RepositoryFilters = ({
   onApply,
   loading = false,
 }: IRepositoryFiltersProps) => {
+  // This is a ref because we dont want the component to rerender if this changes
+  const mounted = useRef(false);
   let [state, dispatch] = useReducer(useCallback(reducer, []), initialState);
   state = state as TRepositoryFiltersState;
   dispatch = dispatch as React.Dispatch<TRepositoryFiltersAction>;
@@ -159,6 +162,11 @@ const RepositoryFilters = ({
 
   useEffect(() => {
     if (loading) return;
+    // We don't want onApply to get called before the component in order to prevent unnecessary requests
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
     onApply({
       after: null,
       languages: state.languages.map((language) => language.slug),
@@ -169,7 +177,7 @@ const RepositoryFilters = ({
     });
     // Dependency has to be stringified state as react can't compare two objects in useEffect
     // So it will always trigger this useEffect regardless of the state changing or not
-  }, [JSON.stringify(state)]); // TODO
+  }, [JSON.stringify(state)]);
 
   return (
     <div className="relative">
