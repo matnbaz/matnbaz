@@ -35,9 +35,9 @@ const Index = () => {
                     />
                   </a>
                   <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-                    <span className="text-primary-500">تمام</span> پروژه های متن
-                    باز <span className="text-primary-500">ایرانی</span>، در یک
-                    جا
+                    تمام پروژه های متن باز{' '}
+                    <span className="text-primary-500">ایرانی</span>{' '}
+                    <span className="">در یک جا</span>
                   </h1>
                   <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
@@ -58,8 +58,11 @@ const Index = () => {
               </div>
 
               <div className="lg:relative my-auto">
-                <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
+                <div className="relative mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
                   <IranVector />
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-3xl text-center">
+                    Iran ❤️ Open-source software
+                  </div>
                 </div>
               </div>
             </div>
