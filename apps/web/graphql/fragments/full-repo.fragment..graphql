@@ -1,5 +1,7 @@
 fragment fullRepo on Repository {
   fullName
+  platformUrl
+  platform
   descriptionLimited
   archived
   isTemplate

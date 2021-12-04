@@ -73,7 +73,7 @@ const OwnerReport = ({ owner }: IOwnerReportProps) => {
           {selectedReportReason?.customValue && (
             <Input.Textarea
               rows={5}
-              placeholder="بنویسید (حداقل 5 کاراکتر)..."
+              placeholder="بنویسید (حداقل ۵ کاراکتر)..."
               className="w-full"
               onChange={(event) => {
                 setReportReason(event.target.value);

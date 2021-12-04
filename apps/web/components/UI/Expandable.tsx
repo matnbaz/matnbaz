@@ -27,7 +27,7 @@ const Expandable = ({ children, maxHeight = 2400 }: IExpandableProps) => {
       {!open && (
         <>
           <div
-            className="absolute w-full bottom-0 bg-gradient-to-b from-transparent to-white dark:to-gray-900 pointer-events-none"
+            className="absolute w-full bottom-0 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-800 pointer-events-none"
             style={{ height: `${Math.floor(maxHeight / 4)}px` }}
           />
           <Button.Ghost

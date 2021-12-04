@@ -9,17 +9,23 @@ import {
   useState,
 } from 'react';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
-import { SiDiscord, SiGithub, SiTelegram } from 'react-icons/si';
+import {
+  SiDiscord,
+  SiGithub,
+  SiOpensourceinitiative,
+  SiTelegram,
+} from 'react-icons/si';
 import { OpenSource } from '../Icons/OpenSource';
 import { AiOutlineMenu } from 'react-icons/ai';
 import Divider from './Divider';
 import { Fragment } from 'react';
+import { IconButton } from './IconButton';
 interface INavbarProps {
   className?: string;
 }
 
 const links: { name: string; to: string }[] = [
-  { name: 'کاوش', to: '/explore' },
+  { name: 'کاوش‌گر', to: '/explore' },
   { name: 'درباره پروژه', to: '/about' },
   { name: 'کمک به ایران فاس', to: '/help' },
 ];
@@ -37,12 +43,14 @@ const Navbar = ({ className }: INavbarProps) => {
     >
       <div className="flex flex-col w-full max-w-[92rem] mx-auto py-6 px-8 space-y-6">
         <div className="flex w-full justify-between items-center">
-          <div className="flex items-center space-x-4 space-x-reverse">
+          <div className="flex items-center space-x-5 space-x-reverse">
             <Link href="/">
-              <a className="flex space-x-4 space-x-reverse items-center">
-                <OpenSource className="w-10 h-10 dark:text-white text-gray-900" />
+              <a className="flex space-x-3 space-x-reverse items-center">
+                <SiOpensourceinitiative className="w-10 h-10 dark:text-white text-gray-900" />
 
-                <h2 className="text-2xl font-bold">IRAN FOSS</h2>
+                <h2 className="text-2xl font-medium font-mono uppercase">
+                  Iran FOSS
+                </h2>
               </a>
             </Link>
             <div className="hidden md:flex items-center space-x-4 space-x-reverse">
@@ -67,7 +75,7 @@ const Navbar = ({ className }: INavbarProps) => {
                 <SiGithub className="w-5 h-5" />
               </IconButton>
 
-              <IconButton
+              {/* <IconButton
                 className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-900"
                 href="https://t.me/iran_foss"
                 target="_blank"
@@ -83,11 +91,11 @@ const Navbar = ({ className }: INavbarProps) => {
                 rel="noreferrer"
               >
                 <SiDiscord className="w-5 h-5" />
-              </IconButton>
+              </IconButton> */}
             </div>
 
             <div
-              className="h-6 dark:bg-gray-400 bg-gray-500 hidden md:block"
+              className="h-6 dark:bg-gray-400 bg-gray-500 opacity-50 hidden md:block"
               style={{ width: '1px' }}
             />
 
@@ -137,28 +145,3 @@ const Navbar = ({ className }: INavbarProps) => {
 };
 
 export default Navbar;
-
-interface IconButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
-  href?: string;
-  rel?: string | undefined;
-  target?: HTMLAttributeAnchorTarget | undefined;
-}
-const IconButton = ({
-  children,
-  className,
-  ...props
-}: PropsWithChildren<IconButtonProps>) => {
-  const Component = props.href ? 'a' : 'button';
-  return (
-    <Component
-      {...props}
-      className={classNames(
-        className,
-        'whitespace-nowrap inline-flex items-center justify-center px-2 py-2 rounded-full focus:ring focus:outline-none'
-      )}
-    >
-      {children}
-    </Component>
-  );
-};

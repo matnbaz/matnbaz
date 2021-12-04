@@ -1,5 +1,7 @@
 fragment repoPreview on Repository {
   fullName
+  platformUrl
+  platform
   descriptionLimited
   stargazersCount
   forksCount

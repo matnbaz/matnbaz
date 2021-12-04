@@ -55,7 +55,7 @@ const RadioList = ({
           <Input.Radio
             checked={JSON.stringify(selectedOption) === JSON.stringify(option)}
           />
-          <span>{option.name}</span>
+          <span className="cursor-pointer">{option.name}</span>
         </RadioGroup.Option>
       ))}
     </RadioGroup>

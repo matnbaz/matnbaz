@@ -60,7 +60,6 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
 
   @Query(() => Repository, { nullable: true })
   repositoryByPlatform(@Args() { owner, repo, platform }: PlatformArgs) {
-    console.log(owner, repo, platform);
     return this.prisma.repository.findFirst({
       where: {
         platform,
@@ -179,7 +178,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
 
     switch (platform) {
       case 'GitHub':
-        return `https://github.com/${owner.login}/${name}`;
+        return `https://github.com/${owner.login}/${name}/`;
       case 'GitLab':
         throw Error('GitLab support is not yet implemented');
       case 'Bitbucket':
@@ -247,9 +246,16 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
   }
 
   @ResolveField(() => String, { nullable: true })
-  readmeHtml(@Parent() { readme }: P.Repository) {
+  async readmeHtml(@Parent() repo: P.Repository) {
+    const { readme } = repo;
     if (!readme) return readme;
-    return marked.parse(emoji.emojify(readme));
+
+    const baseUrl = await this.platformUrl(repo);
+
+    return marked.parse(emoji.emojify(readme), {
+      gfm: true,
+      baseUrl,
+    });
   }
 
   @ResolveField(() => String, { nullable: true })

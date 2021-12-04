@@ -9,15 +9,7 @@ query GetOwner(
       edges {
         cursor
         node {
-          fullName
-          descriptionLimited
-          stargazersCount
-          forksCount
-          openIssuesCount
-          language {
-            name
-            color
-          }
+          ...repoPreview
         }
       }
       pageInfo {

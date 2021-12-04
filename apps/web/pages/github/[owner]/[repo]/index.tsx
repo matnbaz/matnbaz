@@ -40,7 +40,6 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
       platform: PlatformType.GitHub,
     },
   });
-  console.log(repo);
 
   const statistics = [
     {
@@ -80,7 +79,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
       <div
         className="relative flex items-center h-[38rem] md:h-[24rem] w-full"
         style={{
-          // TODO: check if repo as thumbnail otherwise use this
+          // TODO: check if repo has thumbnail otherwise use this
           backgroundImage: `linear-gradient(to right, #009fff, #ec2f4b)`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
@@ -93,7 +92,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
               <a
                 className="text-2xl md:text-3xl font-bold text-primary-500 dark:text-primary-400"
-                href={`https://github.com/${repo.fullName}`} // Future concern: Check for platform and make the link depending on that
+                href={repo.platformUrl}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -132,13 +131,19 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
               )}
             </div>
 
-            <Button.Ghost>گزارش</Button.Ghost>
+            <div className="flex items-center space-x-2 space-x-reverse">
+              <Button.Ghost href={repo.platformUrl} target="_blank">
+                مشاهده مخزن
+              </Button.Ghost>
+
+              <Button.Ghost>گزارش</Button.Ghost>
+            </div>
           </div>
         </div>
       </div>
-      <div className="p-8">
+      <div className="p-5 sm:p-8">
         <div className="grid grid-cols-1 gap-6 max-w-7xl mx-auto">
-          <Card padded>
+          <Card padded border="desktop">
             {repo.readmeHtml ? (
               <Expandable>
                 <div
@@ -156,7 +161,13 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
 
           <div className="flex flex-col space-y-6">
             <h1 className="text-xl font-bold">پروژه های مشابه:</h1>
-            <RepositoryPreviewList repositories={repo.relatedRepos.edges} />
+            {repo.relatedRepos.edges.length > 0 ? (
+              <RepositoryPreviewList repositories={repo.relatedRepos.edges} />
+            ) : (
+              <div className="text-gray-500 dark:text-gray-400 text-sm">
+                پروژه ای یافت نشد.
+              </div>
+            )}
           </div>
         </div>
       </div>

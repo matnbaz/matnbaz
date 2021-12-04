@@ -92,9 +92,9 @@ module.exports = {
           900: '#194a6b',
         },
       },
-    },
-    fontFamily: {
-      sans: ['Vazir', ...defaultTheme.fontFamily.sans],
+      fontFamily: {
+        sans: ['Vazir', ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   variants: {
