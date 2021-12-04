@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import { DOMAttributes, useMemo } from 'react';
 import Link, { LinkProps } from 'next/link';
+import { DOMAttributes, useMemo } from 'react';
 interface ICardProps
   extends DOMAttributes<HTMLDivElement | HTMLAnchorElement | LinkProps> {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ const Card = ({
     return classNames(
       className,
       colored && 'bg-gray-200 dark:bg-gray-800',
-      padded && 'px-1 py-2 sm:px-5 sm:py-4',
+      padded && 'px-2.5 py-3 sm:px-5 sm:py-4',
       border === 'all' ? 'border' : border === 'desktop' ? 'sm:border' : '',
       'rounded-lg border-gray-200 dark:border-gray-700'
     );

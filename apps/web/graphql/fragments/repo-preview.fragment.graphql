@@ -10,6 +10,7 @@ fragment repoPreviewWithoutOwner on Repository {
     name
     color
   }
+  isNew
 }
 
 fragment repoPreview on Repository {

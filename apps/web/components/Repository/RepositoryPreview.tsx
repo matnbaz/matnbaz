@@ -36,6 +36,11 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
           style={{ filter: 'invert(1)' }}
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
         /> */}
+        {repository.isNew && (
+          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 -mr-3 -mt-6">
+            جدید
+          </span>
+        )}
         <div
           className="flex flex-col md:flex-row md:space-x-3 items-start space-y-2 pb-4 md:pb-12"
           dir="ltr"
@@ -60,7 +65,7 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
             <div className="flex items-center">
               <>
                 {/* // Dir set to ltr to avoid displaying languages like C# as #C */}
-                <span className="pr-2.5 pl-1.5 py-1.5 text-sm" dir="ltr">
+                <span className="pl-1.5 py-1.5 text-sm" dir="ltr">
                   {repository.language.name}
                 </span>
                 <div
