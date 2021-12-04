@@ -1,0 +1,5 @@
+mutation Report($subject: ReportableType!, $id: ID!, $reason: String!) {
+  report(subject: $subject, id: $id, reason: $reason) {
+    id
+  }
+}

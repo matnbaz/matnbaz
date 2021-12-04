@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { ReportableType, useReportMutation } from '../../lib/graphql-types';
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
 import Modal from '../UI/Modal';
 import RadioList from '../UI/RadioList';
 
 interface IReportProps {
-  data: any;
-  loading: boolean;
+  subject: ReportableType;
+  subjectId: string;
   reasons: IReason[];
   modalTitle?: string;
   modalDescription?: string;
   buttonTitle?: string;
-  onReport?: (reason: string) => void;
 }
 
 export interface IReason {
@@ -21,14 +21,15 @@ export interface IReason {
 }
 
 const Report = ({
+  subject,
+  subjectId,
   reasons,
-  data,
-  loading,
-  onReport,
   modalTitle = 'گزارش',
   modalDescription = 'درصورتی که یکی از موارد ذیل و یا یکی از قوانین سایت نقض شده است، از شما در خواست می شود به ما گزارش دهید.',
   buttonTitle = 'گزارش',
 }: IReportProps) => {
+  const [report, { data, loading }] = useReportMutation();
+
   const [showReportModal, setShowReportModal] = useState(false);
 
   // This is for the raw report reason itself
@@ -72,7 +73,13 @@ const Report = ({
           <Button.Primary
             disabled={loading || (reportReason || '').trim().length <= 5}
             onClick={() => {
-              onReport?.(reportReason);
+              report({
+                variables: {
+                  subject,
+                  id: subjectId,
+                  reason: reportReason,
+                },
+              });
             }}
           >
             ارسال

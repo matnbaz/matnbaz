@@ -1,5 +1,5 @@
 import React from 'react';
-import { useReportOwnerMutation } from '../../lib/graphql-types';
+import { ReportableType } from '../../lib/graphql-types';
 import Report, { IReason } from './Report';
 
 interface IOwnerReportProps {
@@ -7,8 +7,6 @@ interface IOwnerReportProps {
 }
 
 const OwnerReport = ({ owner }: IOwnerReportProps) => {
-  const [reportOwner, { data, loading }] = useReportOwnerMutation();
-
   const reasons: IReason[] = [
     {
       name: 'تصویر یا نام غیر اخلاقی',
@@ -26,19 +24,11 @@ const OwnerReport = ({ owner }: IOwnerReportProps) => {
 
   return (
     <Report
+      subject={ReportableType.Owner}
+      subjectId={owner.id}
       modalTitle={`گزارش کاربر`}
       modalDescription={`درصورتی که ${owner.login} یکی از موارد ذیل و یا یکی از قوانین سایت را نقض کرده است، از شما در خواست می شود به ما گزارش دهید.`}
       reasons={reasons}
-      loading={loading}
-      data={data}
-      onReport={(reason) => {
-        reportOwner({
-          variables: {
-            id: owner.id,
-            reason,
-          },
-        });
-      }}
     />
   );
 };
