@@ -9,7 +9,7 @@ query GetOwner(
       edges {
         cursor
         node {
-          ...repoPreview
+          ...repoPreviewWithoutOwner
         }
       }
       pageInfo {

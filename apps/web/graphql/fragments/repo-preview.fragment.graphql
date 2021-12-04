@@ -1,4 +1,4 @@
-fragment repoPreview on Repository {
+fragment repoPreviewWithoutOwner on Repository {
   fullName
   platformUrl
   platform
@@ -10,6 +10,10 @@ fragment repoPreview on Repository {
     name
     color
   }
+}
+
+fragment repoPreview on Repository {
+  ...repoPreviewWithoutOwner
   owner {
     type
     login
