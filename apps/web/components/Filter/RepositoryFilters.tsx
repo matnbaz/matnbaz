@@ -1,4 +1,5 @@
 import { Transition } from '@headlessui/react';
+import { useRouter } from 'next/dist/client/router';
 import React, {
   useCallback,
   useEffect,
@@ -9,6 +10,7 @@ import React, {
 } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useDebounce } from 'use-debounce';
+import { useFilterContext } from '../../context/filter-context';
 import {
   ForkStatusType,
   GetLanguagesQuery,
@@ -62,7 +64,7 @@ const templateStatusOptions: Record<
   TEMPLATE: { name: 'قالب', value: TemplateStatusType.Template },
 };
 
-const initialState: TRepositoryFiltersState = {
+export const initialState: TRepositoryFiltersState = {
   searchTerm: '',
   languages: [],
   order: repoOrderOptions['PUSHED_DESC'],
@@ -94,9 +96,13 @@ const RepositoryFilters = ({
   onApply,
   loading = false,
 }: IRepositoryFiltersProps) => {
+  const filterCtx = useFilterContext();
   // This is a ref because we dont want the component to rerender if this changes
   const mounted = useRef(false);
-  let [state, dispatch] = useReducer(useCallback(reducer, []), initialState);
+  let [state, dispatch] = useReducer(
+    useCallback(reducer, []),
+    filterCtx.filters
+  );
   state = state as TRepositoryFiltersState;
   dispatch = dispatch as React.Dispatch<TRepositoryFiltersAction>;
 
@@ -160,13 +166,20 @@ const RepositoryFilters = ({
     dispatch({ type: 'templateStatus', payload: forkStatus });
   };
 
+  const router = useRouter();
+
   useEffect(() => {
-    if (loading) return;
-    // We don't want onApply to get called before the component in order to prevent unnecessary requests
+    mounted.current = false;
+  }, [router.asPath]);
+
+  useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
       return;
     }
+    if (loading) return;
+    // We don't want onApply to get called before the component in order to prevent unnecessary requests
+
     onApply({
       after: null,
       languages: state.languages.map((language) => language.slug),
@@ -175,6 +188,7 @@ const RepositoryFilters = ({
       forkStatus: state.forkStatus.value,
       templateStatus: state.templateStatus.value,
     });
+    filterCtx.setFilters(state);
     // Dependency has to be stringified state as react can't compare two objects in useEffect
     // So it will always trigger this useEffect regardless of the state changing or not
   }, [JSON.stringify(state)]);
