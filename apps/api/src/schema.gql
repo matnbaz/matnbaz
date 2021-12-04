@@ -103,8 +103,9 @@ enum LicenseOrder {
 }
 
 type Mutation {
-  reportOwner(id: ID!, reason: String!): Report!
-  reportRepository(id: ID!, reason: String!): Report!
+  report(id: ID!, reason: String!, subject: ReportableType!): Report!
+  reportOwner(id: ID!, reason: String!): Report! @deprecated(reason: "Use `report` for now")
+  reportRepository(id: ID!, reason: String!): Report! @deprecated(reason: "Use `report` for now")
   submissionSubmit(content: String!): Submission!
 }
 
