@@ -1,10 +1,10 @@
-import { ButtonHTMLAttributes } from 'react';
-import Link from 'next/link';
-import PrimaryButton from './PrimaryButton';
 import classNames from 'classnames';
-import RedButton from './RedButton';
-import OutlineButton from './OutlineButton';
+import Link from 'next/link';
+import { ButtonHTMLAttributes } from 'react';
 import GhostButton from './GhostButton';
+import OutlineButton from './OutlineButton';
+import PrimaryButton from './PrimaryButton';
+import RedButton from './RedButton';
 enum RadiusesEnum {
   'sm' = 'rounded-sm',
   'md' = 'rounded-md',
@@ -17,7 +17,7 @@ enum SizeEnum {
   'xs' = 'text-xs border font-medium py-1 px-1.5',
   'sm' = 'text-sm border font-medium py-1 px-2.5',
   'md' = 'text-base border font-medium py-1.5 px-3.5',
-  'lg' = 'text-lg border-2 font-medium py-2 px-5',
+  'lg' = 'text-lg border font-medium py-2 px-5',
   'xl' = 'text-xl border-2 font-bold py-3 px-8',
 }
 
