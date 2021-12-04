@@ -293,4 +293,9 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
   updatedAt(@Parent() { updatedAt }: P.Repository) {
     return createDateObject(updatedAt);
   }
+
+  @ResolveField(() => Boolean)
+  isNew(@Parent() { createdAt }: P.Repository) {
+    return +createdAt < +new Date() + 432000000; // 5 Days
+  }
 }

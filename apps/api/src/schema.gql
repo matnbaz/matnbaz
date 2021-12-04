@@ -246,6 +246,7 @@ type Repository implements Node {
   homePage: String
   id: ID!
   isFork: Boolean!
+  isNew: Boolean!
   isTemplate: Boolean!
   language: Language
   license: License
