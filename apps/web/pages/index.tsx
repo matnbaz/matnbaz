@@ -10,7 +10,7 @@ const Index = () => {
       <main>
         <div className="pt-10 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
           <div className="mx-auto max-w-7xl lg:px-8">
-            <div className="space-y-10">
+            <div className="space-y-10 mb-10">
               <div className="mx-auto max-w-md px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right lg:flex lg:items-center">
                 <div className="lg:py-24">
                   <a
@@ -58,10 +58,10 @@ const Index = () => {
               </div>
 
               <div className="lg:relative my-auto">
-                <div className="relative mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
+                <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
                   <IranVector />
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-3xl text-center">
-                    Iran ❤️ Open-source software
+                  <div className="font-mono text-xl sm:text-2xl text-center lg:-mt-10">
+                    Iran {'<3'} Open-Source Software
                   </div>
                 </div>
               </div>
