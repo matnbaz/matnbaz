@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   SiDiscord,
   SiGithub,
@@ -5,7 +6,6 @@ import {
   SiOpensourceinitiative,
   SiTelegram,
 } from 'react-icons/si';
-import Link from 'next/link';
 import { IconButton } from './IconButton';
 
 export type FooterProps = any;

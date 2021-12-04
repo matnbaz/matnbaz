@@ -49,7 +49,7 @@ const Index = () => {
                       <Button.Primary href="/explore" size="lg">
                         برو به کاوش‌گر
                       </Button.Primary>
-                      <Button.Outline href="/explore" size="lg">
+                      <Button.Outline href="/about" size="lg">
                         درمورد پروژه
                       </Button.Outline>
                     </div>

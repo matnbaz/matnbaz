@@ -13,8 +13,8 @@ interface INavbarProps {
 
 const links: { name: string; to: string }[] = [
   { name: 'کاوش‌گر', to: '/explore' },
-  { name: 'درباره ایران فاس', to: '/about' },
-  { name: 'کمک به ایران فاس', to: '/help' },
+  { name: 'درباره', to: '/about' },
+  { name: 'ثبت کاربر', to: '/submit-user' },
 ];
 
 const Navbar = ({ className }: INavbarProps) => {

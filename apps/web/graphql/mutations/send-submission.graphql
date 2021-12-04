@@ -1,0 +1,5 @@
+mutation SendSubmission ($content: String!) {
+    sendSubmission(content: $content) {
+        id
+    }
+}

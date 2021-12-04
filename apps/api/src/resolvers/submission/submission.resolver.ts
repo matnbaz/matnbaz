@@ -18,7 +18,7 @@ export class SubmissionResolver {
 
   @Throttle(5)
   @Mutation(() => Submission)
-  submissionSubmit(@Args('content') content: string) {
+  sendSubmission(@Args('content') content: string) {
     return this.prisma.submission.create({
       data: { content },
     });

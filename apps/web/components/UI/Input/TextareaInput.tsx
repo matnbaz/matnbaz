@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { TextareaHTMLAttributes } from 'react';
 import { IconType } from 'react-icons/lib';
-import { IInputProps } from './Input';
 
 export interface ITextInputProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {

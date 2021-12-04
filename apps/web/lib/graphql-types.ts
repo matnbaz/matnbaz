@@ -145,7 +145,7 @@ export type Mutation = {
   reportOwner: Report;
   /** @deprecated Use `report` for now */
   reportRepository: Report;
-  submissionSubmit: Submission;
+  sendSubmission: Submission;
 };
 
 
@@ -168,7 +168,7 @@ export type MutationReportRepositoryArgs = {
 };
 
 
-export type MutationSubmissionSubmitArgs = {
+export type MutationSendSubmissionArgs = {
   content: Scalars['String'];
 };
 
@@ -519,6 +519,13 @@ export type ReportMutationVariables = Exact<{
 
 export type ReportMutation = { __typename?: 'Mutation', report: { __typename?: 'Report', id: string } };
 
+export type SendSubmissionMutationVariables = Exact<{
+  content: Scalars['String'];
+}>;
+
+
+export type SendSubmissionMutation = { __typename?: 'Mutation', sendSubmission: { __typename?: 'Submission', id: string } };
+
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -654,6 +661,39 @@ export function useReportMutation(baseOptions?: Apollo.MutationHookOptions<Repor
 export type ReportMutationHookResult = ReturnType<typeof useReportMutation>;
 export type ReportMutationResult = Apollo.MutationResult<ReportMutation>;
 export type ReportMutationOptions = Apollo.BaseMutationOptions<ReportMutation, ReportMutationVariables>;
+export const SendSubmissionDocument = gql`
+    mutation SendSubmission($content: String!) {
+  sendSubmission(content: $content) {
+    id
+  }
+}
+    `;
+export type SendSubmissionMutationFn = Apollo.MutationFunction<SendSubmissionMutation, SendSubmissionMutationVariables>;
+
+/**
+ * __useSendSubmissionMutation__
+ *
+ * To run a mutation, you first call `useSendSubmissionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendSubmissionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendSubmissionMutation, { data, loading, error }] = useSendSubmissionMutation({
+ *   variables: {
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+export function useSendSubmissionMutation(baseOptions?: Apollo.MutationHookOptions<SendSubmissionMutation, SendSubmissionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SendSubmissionMutation, SendSubmissionMutationVariables>(SendSubmissionDocument, options);
+      }
+export type SendSubmissionMutationHookResult = ReturnType<typeof useSendSubmissionMutation>;
+export type SendSubmissionMutationResult = Apollo.MutationResult<SendSubmissionMutation>;
+export type SendSubmissionMutationOptions = Apollo.BaseMutationOptions<SendSubmissionMutation, SendSubmissionMutationVariables>;
 export const GetLanguagesDocument = gql`
     query GetLanguages {
   languages {

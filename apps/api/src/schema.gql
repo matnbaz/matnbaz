@@ -106,7 +106,7 @@ type Mutation {
   report(id: ID!, reason: String!, subject: ReportableType!): Report!
   reportOwner(id: ID!, reason: String!): Report! @deprecated(reason: "Use `report` for now")
   reportRepository(id: ID!, reason: String!): Report! @deprecated(reason: "Use `report` for now")
-  submissionSubmit(content: String!): Submission!
+  sendSubmission(content: String!): Submission!
 }
 
 interface Node {
