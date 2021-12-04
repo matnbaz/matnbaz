@@ -27,9 +27,9 @@ const SubmitUser = () => {
       <Card padded border="none" className="max-w-lg mx-auto">
         <h1 className="text-4xl font-bold">ثبت کاربر</h1>
         <p className="mt-5">
-          در صورتی که شخص ایرانی ای رو می شناسید که در گیت هاب پروژه های متن باز
-          داره و هنوز توسط سایت پیدا نشده، نام کاربریشون رو در فرم زیر وارد کنید
-          تا توسط ما چک بشه.
+          در صورتی که شخص یا گروه ایرانی ای رو می شناسید که در گیت هاب پروژه های
+          متن باز داره و هنوز توسط سایت پیدا نشده، نام کاربریشون رو در فرم زیر
+          وارد کنید تا توسط ما چک بشه.
         </p>
 
         <div className="space-y-3 mt-10">
@@ -44,6 +44,7 @@ const SubmitUser = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               dir="ltr"
+              className="w-full"
               placeholder="GitHub username"
             />
             <Button.Primary disabled={!isValidated} type="submit">

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useEffect } from 'react';
 import RepositoryFilters from '../components/Filter/RepositoryFilters';
 import MainLayout from '../components/Layout/MainLayout';
@@ -73,7 +74,15 @@ const Explore = () => {
               <h1 className="text-2xl font-semibold mb-4">
                 نتیجه ای یافت نشد.
               </h1>
-              <span>هیچ نتیجه ای با فیلتر های وارد شده یافت نشد.</span>
+              <div>
+                هیچ نتیجه ای با فیلتر های وارد شده یافت نشد. می تونید{' '}
+                <Link href="/submit-user">
+                  <a className="text-blue-500 hover:text-blue-400">
+                    ثبت دستی کاربران
+                  </a>
+                </Link>{' '}
+                به ما کمک کنید.
+              </div>
             </div>
           )}
         </div>
