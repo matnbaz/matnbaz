@@ -1,24 +1,11 @@
 import classNames from 'classnames';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import {
-  ButtonHTMLAttributes,
-  HTMLAttributeAnchorTarget,
-  PropsWithChildren,
-  useEffect,
-  useState,
-} from 'react';
-import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
-import {
-  SiDiscord,
-  SiGithub,
-  SiOpensourceinitiative,
-  SiTelegram,
-} from 'react-icons/si';
-import { OpenSource } from '../Icons/OpenSource';
+import { Fragment, useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
+import { SiGithub, SiOpensourceinitiative } from 'react-icons/si';
 import Divider from './Divider';
-import { Fragment } from 'react';
 import { IconButton } from './IconButton';
 interface INavbarProps {
   className?: string;

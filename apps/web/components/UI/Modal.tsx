@@ -1,9 +1,7 @@
-import { Dialog, Transition } from '@headlessui/react';
+import { Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import ReactDOM from 'react-dom';
-import { AiFillCloseCircle, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 import ClientOnlyPortal from '../Feature/ClientOnlyPortal';
-
 import Divider from './Divider';
 
 interface Props {

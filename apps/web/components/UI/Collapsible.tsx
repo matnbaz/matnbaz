@@ -1,8 +1,6 @@
 import { Disclosure, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
-import { AiOutlineArrowDown } from 'react-icons/ai';
-import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
+import { HiChevronDown } from 'react-icons/hi';
 import Divider from './Divider';
 
 interface ICollapsibleProps {

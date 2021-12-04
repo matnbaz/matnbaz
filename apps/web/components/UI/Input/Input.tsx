@@ -1,7 +1,4 @@
-import classNames from 'classnames';
 import { InputHTMLAttributes } from 'react';
-import { HiStar } from 'react-icons/hi';
-import { IconType } from 'react-icons/lib';
 import CheckboxInput from './CheckboxInput';
 import RadioInput from './RadioInput';
 import TextareaInput from './TextareaInput';

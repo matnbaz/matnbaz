@@ -1,13 +1,11 @@
-import { GetRepositoriesQuery } from '../../lib/graphql-types';
-import Image from 'next/image';
 import {
   AiOutlineBranches,
   AiOutlineExclamationCircle,
   AiOutlineStar,
 } from 'react-icons/ai';
-import Card from '../UI/Card';
-import Router from 'next/router';
+import { GetRepositoriesQuery } from '../../lib/graphql-types';
 import OwnerImage from '../Owner/OwnerImage';
+import Card from '../UI/Card';
 interface IRepositoryPreviewProps {
   repository: GetRepositoriesQuery['repositories']['edges'][0]['node'];
 }

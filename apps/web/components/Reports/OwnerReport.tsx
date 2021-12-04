@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useReportOwnerMutation } from '../../lib/graphql-types';
-import Button from '../UI/Button/Button';
-import Input from '../UI/Input/Input';
-import Modal from '../UI/Modal';
-import RadioList from '../UI/RadioList';
 import Report, { IReason } from './Report';
 
 interface IOwnerReportProps {

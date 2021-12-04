@@ -1,7 +1,4 @@
-import { Disclosure } from '@headlessui/react';
-import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
-import { HiChevronDown } from 'react-icons/hi';
 import Button from './Button/Button';
 
 interface IExpandableProps {

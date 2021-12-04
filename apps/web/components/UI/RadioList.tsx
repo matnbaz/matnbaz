@@ -1,6 +1,6 @@
 import { RadioGroup } from '@headlessui/react';
 import classNames from 'classnames';
-import { DOMAttributes, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Input from './Input/Input';
 interface IOption {
   id?: string | number;
