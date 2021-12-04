@@ -44,6 +44,7 @@ const SubmitUser = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               dir="ltr"
+              className="w-full"
               placeholder="GitHub username"
             />
             <Button.Primary disabled={!isValidated} type="submit">
