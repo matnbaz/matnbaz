@@ -9,7 +9,10 @@ export function ReportableResolver<T extends Type<unknown>>(classRef: T): any {
   abstract class ReportableResolverHost {
     constructor(private readonly prisma: PrismaService) {}
 
-    @Mutation(() => Report, { name: `report${classRef.name}` })
+    @Mutation(() => Report, {
+      name: `report${classRef.name}`,
+      deprecationReason: 'Use `report` for now',
+    })
     async report(
       @Args('id', { type: () => ID }) id: string,
       @Args('reason') reason: string
