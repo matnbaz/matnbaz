@@ -81,17 +81,19 @@ model Owner {
 }
 
 model Submission {
-  id        String   @id @default(cuid())
-  content   String
-  createdAt DateTime @default(now())
+  id              String   @id @default(cuid())
+  content         String
+  hasBeenResolved Boolean  @default(false)
+  createdAt       DateTime @default(now())
 }
 
 model Report {
-  id             String         @id @default(cuid())
-  reason         String
-  reportableId   String
-  reportableType ReportableType
-  createdAt      DateTime       @default(now())
+  id              String         @id @default(cuid())
+  reason          String
+  reportableId    String
+  reportableType  ReportableType
+  hasBeenResolved Boolean        @default(false)
+  createdAt       DateTime       @default(now())
 
 }
 
