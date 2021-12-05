@@ -65,7 +65,7 @@ const templateStatusOptions: Record<
 export const initialState: TRepositoryFiltersState = {
   searchTerm: '',
   languages: [],
-  order: repoOrderOptions['STARS_DESC'],
+  order: repoOrderOptions['PUSHED_DESC'],
   forkStatus: forkStatusOptions['ALL'],
   templateStatus: templateStatusOptions['ALL'],
 };
