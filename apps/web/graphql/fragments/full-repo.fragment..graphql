@@ -1,4 +1,5 @@
 fragment fullRepo on Repository {
+  id
   fullName
   platformUrl
   platform

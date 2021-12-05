@@ -1,4 +1,5 @@
 import { persianNumbers } from '@iranfoss/common';
+import RepositoryReport from 'apps/web/components/Report/RepositoryReport';
 import { GetServerSideProps } from 'next';
 import {
   AiOutlineBranches,
@@ -125,7 +126,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
                 مشاهده مخزن
               </Button.Ghost>
 
-              <Button.Ghost>گزارش</Button.Ghost>
+              <RepositoryReport repository={repo} />
             </div>
           </div>
         </div>

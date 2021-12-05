@@ -1,4 +1,5 @@
 fragment repoPreviewWithoutOwner on Repository {
+  id
   fullName
   platformUrl
   platform
