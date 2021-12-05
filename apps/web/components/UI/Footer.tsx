@@ -1,3 +1,4 @@
+import { SOCIAL_MEDIA } from '@iranfoss/common';
 import Link from 'next/link';
 import {
   SiDiscord,
@@ -8,7 +9,7 @@ import {
 } from 'react-icons/si';
 import { IconButton } from './IconButton';
 
-export type FooterProps = any;
+export type FooterProps = unknown;
 
 export const Footer = (props: FooterProps) => {
   return (
@@ -40,7 +41,7 @@ export const Footer = (props: FooterProps) => {
               </Link>
               <a
                 className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
-                href="https://github.com/iranfoss/iranfoss"
+                href={'https://github.com/iranfoss/iranfoss'}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -48,7 +49,7 @@ export const Footer = (props: FooterProps) => {
               </a>
               <a
                 className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
-                href="https://discord.gg/5eGecDjFpj"
+                href={SOCIAL_MEDIA.discord}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -59,28 +60,28 @@ export const Footer = (props: FooterProps) => {
 
           <div className="flex items-center justify-center">
             <IconButton
-              href="https://github.com/iranfoss"
+              href={SOCIAL_MEDIA.github}
               target="_blank"
               rel="noreferrer"
             >
               <SiGithub className="w-5 h-5" />
             </IconButton>
             <IconButton
-              href="https://t.me/iran_foss"
+              href={SOCIAL_MEDIA.telegram}
               target="_blank"
               rel="noreferrer"
             >
               <SiTelegram className="w-5 h-5" />
             </IconButton>
             <IconButton
-              href="https://discord.gg/5eGecDjFpj"
+              href={SOCIAL_MEDIA.discord}
               target="_blank"
               rel="noreferrer"
             >
               <SiDiscord className="w-5 h-5" />
             </IconButton>
             <IconButton
-              href="https://instagram.com/iranfoss"
+              href={SOCIAL_MEDIA.instagram}
               target="_blank"
               rel="noreferrer"
             >
