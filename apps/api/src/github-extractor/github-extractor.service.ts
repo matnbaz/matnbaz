@@ -60,6 +60,63 @@ export class GithubExtractorService {
       return;
     }
 
+    const blockedRepo = await this.prisma.blockedRepository.findUnique({
+      where: {
+        platform_platformId: {
+          platform: 'GitHub',
+          platformId: repo.id.toString(),
+        },
+      },
+    });
+
+    if (blockedRepo) {
+      this.prisma.repository.delete({
+        where: {
+          platform_platformId: {
+            platform: 'GitHub',
+            platformId: repo.id.toString(),
+          },
+        },
+      });
+      this.logger.log(
+        `Repository, "${repo.name}" with ID of ${repo.id} was not added because it is blocked.`
+      );
+      return;
+    }
+
+    const blockedOwner = await this.prisma.blockedOwner.findUnique({
+      where: {
+        platform_platformId: {
+          platform: 'GitHub',
+          platformId: owner.id.toString(),
+        },
+      },
+    });
+
+    if (blockedOwner) {
+      this.prisma.repository.delete({
+        where: {
+          platform_platformId: {
+            platform: 'GitHub',
+            platformId: repo.id.toString(),
+          },
+        },
+      });
+
+      this.prisma.owner.delete({
+        where: {
+          platform_platformId: {
+            platform: 'GitHub',
+            platformId: owner.id.toString(),
+          },
+        },
+      });
+      this.logger.log(
+        `Repository, "${repo.name}" with ID of ${repo.id} was not added because the owner is blocked.`
+      );
+      return;
+    }
+
     const repoData: Prisma.XOR<
       Prisma.RepositoryCreateInput,
       Prisma.RepositoryUncheckedCreateInput

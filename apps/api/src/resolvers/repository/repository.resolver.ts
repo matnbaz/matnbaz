@@ -76,12 +76,12 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     {
       languages,
       licenses,
-      forkStatus: sourceStatus,
+      forkStatus,
       archiveStatus,
       templateStatus,
     }: RepoFilterArgs,
     @Args() { searchTerm }: RepoSearchArgs,
-    @Args() { order }: RepoOrderArgs
+    @Args() { order = RepoOrder.PUSHED_DESC }: RepoOrderArgs
   ) {
     return findManyCursorConnection(
       (args) =>
@@ -90,7 +90,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
             isFork: {
               [ForkStatusType.FORK]: true,
               [ForkStatusType.SOURCE]: false,
-            }[sourceStatus],
+            }[forkStatus],
             archived: {
               [ArchiveStatusType.ARCHIVED]: true,
               [ArchiveStatusType.NOT_ARCHIVED]: false,
