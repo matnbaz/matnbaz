@@ -17,12 +17,12 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
       value: +repository.openIssuesCount,
     },
     {
-      name: 'فورک ها',
+      name: 'فورک‌ها',
       icon: AiOutlineBranches,
       value: +repository.forksCount,
     },
     {
-      name: 'ستاره ها',
+      name: 'ستاره‌ها',
       icon: AiOutlineStar,
       value: +repository.stargazersCount,
     },

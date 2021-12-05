@@ -46,12 +46,12 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
       value: persianNumbers(+repo.openIssuesCount),
     },
     {
-      name: 'فورک ها',
+      name: 'فورک‌ها',
       icon: AiOutlineBranches,
       value: persianNumbers(+repo.forksCount),
     },
     {
-      name: 'ستاره ها',
+      name: 'ستاره‌ها',
       icon: AiOutlineStar,
       value: persianNumbers(+repo.stargazersCount),
     },
@@ -73,18 +73,9 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
   ];
 
   return (
-    <MainLayout maxWidth={false}>
-      <div
-        className="relative flex items-center h-[38rem] md:h-[24rem] w-full"
-        style={{
-          // TODO: check if repo has thumbnail otherwise use this
-          backgroundImage: `linear-gradient(to right, #009fff, #ec2f4b)`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-        }}
-      >
-        <div className="m-auto flex flex-col items-center bg-gray-100/80 dark:bg-gray-900/90 backdrop-blur-sm w-full h-full px-5 py-2">
+    <MainLayout maxWidth={false} withoutPadding>
+      <div className="relative flex items-center h-[40rem] md:h-[30rem] w-full bg-gradient-to-bl from-green-500 to-yellow-400">
+        <div className="px-6 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-100/75 dark:bg-gray-900/75 w-full h-full">
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
             <OwnerImage owner={repo.owner} width={120} height={120} />
             <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
@@ -158,7 +149,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
           </Card>
 
           <div className="flex flex-col space-y-6">
-            <h1 className="text-xl font-bold">پروژه های مشابه:</h1>
+            <h1 className="text-xl font-bold">پروژه‌های مشابه:</h1>
             {repo.relatedRepos.edges.length > 0 ? (
               <RepositoryPreviewList repositories={repo.relatedRepos.edges} />
             ) : (

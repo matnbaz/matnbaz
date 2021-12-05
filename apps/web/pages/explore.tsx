@@ -50,7 +50,7 @@ const Explore = () => {
 
   return (
     <MainLayout withoutFooter>
-      <div className="grid grid-cols-1 md:grid-cols-8 pt-4 px-6 pb-6 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-8 pb-6 gap-6">
         <div className="md:col-span-3 lg:col-span-2">
           <RepositoryFilters onApply={refetch} loading={loading} />
         </div>
@@ -74,15 +74,19 @@ const Explore = () => {
               <h1 className="text-2xl font-semibold mb-4">
                 نتیجه ای یافت نشد.
               </h1>
-              <div>
-                هیچ نتیجه ای با فیلتر های وارد شده یافت نشد. می تونید{' '}
+              <p>
+                <span className="font-bold font-lg">
+                  نتیجه ای با فیلتر‌های وارد شده یافت نشد.
+                </span>
+                <br />
+                می توانید با{' '}
                 <Link href="/submit-user">
                   <a className="text-blue-500 hover:text-blue-400">
                     ثبت دستی کاربران
                   </a>
                 </Link>{' '}
-                به ما کمک کنید.
-              </div>
+                به کاوش بهتر مخزن‌ها کمک کنید.
+              </p>
             </div>
           )}
         </div>

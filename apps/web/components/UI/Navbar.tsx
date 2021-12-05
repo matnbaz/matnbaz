@@ -1,10 +1,11 @@
+import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
-import { SiGithub, SiOpensourceinitiative } from 'react-icons/si';
+import { SiDiscord, SiOpensourceinitiative } from 'react-icons/si';
 import Divider from './Divider';
 import { IconButton } from './IconButton';
 interface INavbarProps {
@@ -19,18 +20,24 @@ const links: { name: string; to: string }[] = [
 
 const Navbar = ({ className }: INavbarProps) => {
   const { setTheme, theme } = useTheme();
+  const [atFirst, setAtFirst] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  useScrollPosition(({ prevPos, currPos }) => {
+    setAtFirst(currPos.y > -20);
+  });
   useEffect(() => setMounted(true), []);
   return (
     <div
-      className={`z-20 fixed w-full bg-white/40 dark:bg-gray-900/40 backdrop-blur-sm  ${
-        className || ''
-      }`}
+      className={classNames(
+        !atFirst && 'bg-white/40 dark:bg-gray-900/40 backdrop-blur-sm',
+        'z-20 fixed w-full transition-colors',
+        className
+      )}
     >
       <div className="flex flex-col w-full max-w-[92rem] mx-auto py-6 px-8 space-y-6">
         <div className="flex w-full justify-between items-center">
-          <div className="flex items-center space-x-5 space-x-reverse">
+          <div className="flex items-center space-x-8 space-x-reverse">
             <Link href="/">
               <a className="flex space-x-3 space-x-reverse items-center">
                 <SiOpensourceinitiative className="w-10 h-10 dark:text-white text-gray-900" />
@@ -53,14 +60,14 @@ const Navbar = ({ className }: INavbarProps) => {
 
           <div className="flex items-center space-x-2 space-x-reverse">
             <div className="hidden md:block">
-              <IconButton
+              {/* <IconButton
                 className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-900"
                 href="https://github.com/iranfoss"
                 target="_blank"
                 rel="noreferrer"
               >
                 <SiGithub className="w-5 h-5" />
-              </IconButton>
+              </IconButton> */}
 
               {/* <IconButton
                 className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-900"
@@ -69,7 +76,7 @@ const Navbar = ({ className }: INavbarProps) => {
                 rel="noreferrer"
               >
                 <SiTelegram className="w-5 h-5" />
-              </IconButton>
+              </IconButton> */}
 
               <IconButton
                 className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-900"
@@ -78,7 +85,7 @@ const Navbar = ({ className }: INavbarProps) => {
                 rel="noreferrer"
               >
                 <SiDiscord className="w-5 h-5" />
-              </IconButton> */}
+              </IconButton>
             </div>
 
             <div

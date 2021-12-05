@@ -306,7 +306,7 @@ const RepositoryFilters = ({
               dispatch({ type: 'clear', payload: null });
             }}
           >
-            حذف فیلتر ها
+            حذف فیلتر‌ها
           </Button.Ghost>
         </Transition>
       </div>

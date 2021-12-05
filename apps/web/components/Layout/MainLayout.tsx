@@ -6,12 +6,14 @@ interface IMainLayoutProps {
   children: React.ReactNode;
   maxWidth?: boolean;
   withoutFooter?: boolean;
+  withoutPadding?: boolean;
 }
 
 export const MainLayout = ({
   children,
   maxWidth = true,
   withoutFooter = false,
+  withoutPadding = false,
 }: IMainLayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -19,7 +21,8 @@ export const MainLayout = ({
       <div
         className={classNames(
           maxWidth && 'max-w-[92rem]',
-          'pt-24 mx-auto w-full'
+          !withoutPadding && 'pt-24 pb-6 px-6',
+          'mx-auto w-full'
         )}
       >
         {children}

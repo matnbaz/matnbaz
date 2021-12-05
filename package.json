@@ -15,6 +15,7 @@
     "@exonest/graphql-connections": "^0.1.0",
     "@graphql-codegen/fragment-matcher": "^3.2.0",
     "@headlessui/react": "^1.4.2",
+    "@n8tb1t/use-scroll-position": "^2.0.3",
     "@nestjs/bull": "^0.4.2",
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
