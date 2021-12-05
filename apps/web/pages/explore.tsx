@@ -49,14 +49,13 @@ const Explore = () => {
         </div>
       </MainLayout>
     );
-
   return (
     <MainLayout withoutFooter>
       <div className="grid grid-cols-1 md:grid-cols-8 pb-6 gap-6">
         <div className="md:col-span-3 lg:col-span-2">
           <RepositoryFilters
             onApply={(filters) => {
-              if (data) fetchMore({ variables: filters });
+              if (data) refetch(filters);
               else getRepositories({ variables: filters });
             }}
             loading={loading}
