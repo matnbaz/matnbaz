@@ -1,3 +1,4 @@
+import { SOCIAL_MEDIA } from '@iranfoss/common';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
 import { useTheme } from 'next-themes';
@@ -80,7 +81,7 @@ const Navbar = ({ className }: INavbarProps) => {
 
               <IconButton
                 className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-900"
-                href="https://discord.gg/5eGecDjFpj"
+                href={SOCIAL_MEDIA.discord}
                 target="_blank"
                 rel="noreferrer"
               >
