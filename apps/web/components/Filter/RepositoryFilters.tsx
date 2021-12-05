@@ -1,11 +1,9 @@
 import { Transition } from '@headlessui/react';
-import { useRouter } from 'next/dist/client/router';
 import React, {
   useCallback,
   useEffect,
   useMemo,
   useReducer,
-  useRef,
   useState,
 } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -67,7 +65,7 @@ const templateStatusOptions: Record<
 export const initialState: TRepositoryFiltersState = {
   searchTerm: '',
   languages: [],
-  order: repoOrderOptions['PUSHED_DESC'],
+  order: repoOrderOptions['STARS_DESC'],
   forkStatus: forkStatusOptions['ALL'],
   templateStatus: templateStatusOptions['ALL'],
 };
@@ -97,8 +95,7 @@ const RepositoryFilters = ({
   loading = false,
 }: IRepositoryFiltersProps) => {
   const filterCtx = useFilterContext();
-  // This is a ref because we dont want the component to rerender if this changes
-  const mounted = useRef(false);
+
   let [state, dispatch] = useReducer(
     useCallback(reducer, []),
     filterCtx.filters
@@ -166,17 +163,7 @@ const RepositoryFilters = ({
     dispatch({ type: 'templateStatus', payload: forkStatus });
   };
 
-  const router = useRouter();
-
   useEffect(() => {
-    mounted.current = false;
-  }, [router.asPath]);
-
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-      return;
-    }
     if (loading) return;
     // We don't want onApply to get called before the component in order to prevent unnecessary requests
 
