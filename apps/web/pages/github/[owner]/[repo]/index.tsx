@@ -1,5 +1,4 @@
 import { persianNumbers } from '@iranfoss/common';
-import RepositoryReport from 'apps/web/components/Report/RepositoryReport';
 import { GetServerSideProps } from 'next';
 import {
   AiOutlineBranches,
@@ -11,6 +10,7 @@ import {
 } from 'react-icons/ai';
 import MainLayout from '../../../../components/Layout/MainLayout';
 import OwnerImage from '../../../../components/Owner/OwnerImage';
+import RepositoryReport from '../../../../components/Report/RepositoryReport';
 import RepositoryPreviewList from '../../../../components/Repository/RepositoryPreviewList';
 import Button from '../../../../components/UI/Button/Button';
 import Card from '../../../../components/UI/Card';
