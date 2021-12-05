@@ -92,6 +92,7 @@ model Report {
   reportableId   String
   reportableType ReportableType
   createdAt      DateTime       @default(now())
+
 }
 
 model Language {
@@ -100,6 +101,26 @@ model Language {
   slug         String       @unique
   description  String?
   Repositories Repository[]
+}
+
+model BlockedRepository {
+  id         String       @id @default(cuid())
+  reason     String?
+  platform   PlatformType
+  platformId String
+  createdAt  DateTime     @default(now())
+
+  @@unique([platform, platformId])
+}
+
+model BlockedOwner {
+  id         String       @id @default(cuid())
+  reason     String?
+  platform   PlatformType
+  platformId String
+  createdAt  DateTime     @default(now())
+
+  @@unique([platform, platformId])
 }
 
 enum OwnerType {

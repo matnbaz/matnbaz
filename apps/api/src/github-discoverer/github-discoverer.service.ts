@@ -73,6 +73,30 @@ export class GithubDiscovererService {
       ReturnType<OctokitService['rest']['search']['repos']>
     >['data']['items'][0]['owner']
   ) {
+    const blockItem = await this.prisma.blockedOwner.findUnique({
+      where: {
+        platform_platformId: {
+          platform: 'GitHub',
+          platformId: owner.id.toString(),
+        },
+      },
+    });
+
+    if (blockItem) {
+      this.prisma.owner.delete({
+        where: {
+          platform_platformId: {
+            platform: 'GitHub',
+            platformId: owner.id.toString(),
+          },
+        },
+      });
+      this.logger.log(
+        `${owner.login} with ID of ${owner.id} was not added because they are blocked.`
+      );
+      return;
+    }
+
     await this.prisma.owner.upsert({
       where: {
         platform_platformId: {
