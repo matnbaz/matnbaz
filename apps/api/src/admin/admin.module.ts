@@ -2,14 +2,16 @@ import ExpressLoader from '@adminjs/express';
 import { AdminModule as AdminJsModule } from '@adminjs/nestjs';
 import { Database, Resource } from '@adminjs/prisma';
 import { Module } from '@nestjs/common';
+import { UserType } from '@prisma/client';
 import { DMMFClass } from '@prisma/client/runtime';
 import AdminJS, {
   NotFoundError,
   ResourceWithOptions,
   ValidationError,
 } from 'adminjs';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'nestjs-prisma';
-
+//
 AdminJS.registerAdapter({ Database, Resource });
 const block = {
   name: 'block',
@@ -181,6 +183,8 @@ const bulkUnblock = {
   },
 };
 
+console.log(bcrypt.hashSync('password', 10));
+
 @Module({
   imports: [
     AdminJsModule.createAdminAsync({
@@ -188,6 +192,24 @@ const bulkUnblock = {
       useFactory: (prisma: PrismaService) => {
         const dmmf = (prisma as any)._dmmf as DMMFClass;
         return {
+          auth: {
+            cookieName: 'admin_auth_cookie',
+            cookiePassword: process.env.ADMIN_COOKIE_SECRET,
+            authenticate: async (email, password) => {
+              const user = await prisma.user.findUnique({ where: { email } });
+              if (
+                !user ||
+                !(
+                  user.type === UserType.Admin ||
+                  user.type === UserType.Moderator
+                )
+              )
+                return null;
+              return bcrypt.compareSync(password, user.password)
+                ? { ...user, title: user.name }
+                : null;
+            },
+          },
           adminJsOptions: {
             rootPath: '/admin',
             branding: {
@@ -195,6 +217,7 @@ const bulkUnblock = {
               logo: '',
               softwareBrothers: false,
             },
+
             resources: [
               {
                 resource: {
