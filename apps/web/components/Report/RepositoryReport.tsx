@@ -13,8 +13,8 @@ const RepositoryReport = ({ repository }: IRepositoryReportProps) => {
 
   const reasons: IReason[] = [
     {
-      name: 'تصویر یا نام غیر اخلاقی',
-      value: 'این پروژه یک تصویر و یا نام غیر اخلاقی دارد.',
+      name: 'محتوای غیر اخلاقی',
+      value: 'این پروژه محتوا،‌ تصویر یا نام غیر اخلاقی دارد.',
     },
     {
       name: 'پروژه غیر ایرانی',
