@@ -18,6 +18,7 @@ const Expandable = ({ children, maxHeight = 2400 }: IExpandableProps) => {
 
   const router = useRouter();
 
+  // If user navigated to any other page, the expandable should be closed and this useEffect ensures that
   useEffect(() => {
     if (open) {
       setOpen(false);
