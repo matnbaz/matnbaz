@@ -52,6 +52,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
   repositoryByPlatformId(@Args() { id, platform }: PlatformByIdArgs) {
     return this.prisma.repository.findFirst({
       where: {
+        blockedAt: null,
         platform,
         platformId: id,
       },
@@ -62,6 +63,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
   repositoryByPlatform(@Args() { owner, repo, platform }: PlatformArgs) {
     return this.prisma.repository.findFirst({
       where: {
+        blockedAt: null,
         platform,
         name: { mode: 'insensitive', equals: repo },
         Owner: { login: { mode: 'insensitive', equals: owner } },
@@ -87,6 +89,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
       (args) =>
         this.prisma.repository.findMany({
           where: {
+            blockedAt: null,
             isFork: {
               [ForkStatusType.FORK]: true,
               [ForkStatusType.SOURCE]: false,
@@ -213,15 +216,28 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
   @ResolveField(() => RepositoryConnection, {
     complexity: paginationComplexity,
   })
-  relatedRepos(
+  async relatedRepos(
     @Parent() { id, name }: P.Repository,
     @Args() pagination: PaginationArgs
   ) {
-    // Will *probably* change this in future
+    const topics = await this.prisma.repository
+      .findUnique({ where: { id } })
+      .Topics();
     return findManyCursorConnection(
       (args) =>
         this.prisma.repository.findMany({
-          where: { name: { contains: name }, id: { not: id } },
+          where: {
+            blockedAt: null,
+            id: { not: id },
+            OR: [
+              {
+                Topics: {
+                  some: { name: { in: topics.map(({ name }) => name) } },
+                },
+              },
+              { name: { contains: name.split('-')[0] } },
+            ],
+          },
           ...args,
         }),
       () =>
