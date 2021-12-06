@@ -1,3 +1,4 @@
+import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useRef, useState } from 'react';
 import Button from './Button/Button';
 
@@ -14,6 +15,15 @@ const Expandable = ({ children, maxHeight = 2400 }: IExpandableProps) => {
   useEffect(() => {
     if (expandableRef?.current?.clientHeight > maxHeight) setOpen(false);
   }, [expandableRef]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (open) {
+      setOpen(false);
+    }
+  }, [router.asPath]);
+
   return (
     <div
       ref={expandableRef}
