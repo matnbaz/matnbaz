@@ -9,6 +9,7 @@ export class GithubReadmeExtractorService {
 
   async extractAllReadmes() {
     const repos = await this.prisma.repository.findMany({
+      where: { blockedAt: null },
       select: { id: true },
     });
 

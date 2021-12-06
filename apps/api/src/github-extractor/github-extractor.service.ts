@@ -2,9 +2,9 @@ import { slugifyLanguage } from '@iranfoss/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { Owner, Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
+import * as emoji from 'node-emoji';
 import { OctokitService } from '../octokit/octokit.service';
 import { MINIMUM_STARS } from './constants';
-import * as emoji from 'node-emoji';
 import { GithubReadmeExtractorService } from './github-readme-extractor.service';
 @Injectable()
 export class GithubExtractorService {
@@ -60,31 +60,7 @@ export class GithubExtractorService {
       return;
     }
 
-    const blockedRepo = await this.prisma.blockedRepository.findUnique({
-      where: {
-        platform_platformId: {
-          platform: 'GitHub',
-          platformId: repo.id.toString(),
-        },
-      },
-    });
-
-    if (blockedRepo) {
-      this.prisma.repository.delete({
-        where: {
-          platform_platformId: {
-            platform: 'GitHub',
-            platformId: repo.id.toString(),
-          },
-        },
-      });
-      this.logger.log(
-        `Repository, "${repo.name}" with ID of ${repo.id} was not added because it is blocked.`
-      );
-      return;
-    }
-
-    const blockedOwner = await this.prisma.blockedOwner.findUnique({
+    const ownerFromDb = await this.prisma.owner.findUnique({
       where: {
         platform_platformId: {
           platform: 'GitHub',
@@ -93,34 +69,11 @@ export class GithubExtractorService {
       },
     });
 
-    if (blockedOwner) {
-      this.prisma.repository.delete({
-        where: {
-          platform_platformId: {
-            platform: 'GitHub',
-            platformId: repo.id.toString(),
-          },
-        },
-      });
-
-      this.prisma.owner.delete({
-        where: {
-          platform_platformId: {
-            platform: 'GitHub',
-            platformId: owner.id.toString(),
-          },
-        },
-      });
-      this.logger.log(
-        `Repository, "${repo.name}" with ID of ${repo.id} was not added because the owner is blocked.`
-      );
-      return;
-    }
-
     const repoData: Prisma.XOR<
       Prisma.RepositoryCreateInput,
       Prisma.RepositoryUncheckedCreateInput
     > = {
+      blockedAt: ownerFromDb.blockedAt ? new Date() : undefined,
       platformId: repo.id.toString(),
       platform: 'GitHub',
       allowForking: repo.allow_forking,

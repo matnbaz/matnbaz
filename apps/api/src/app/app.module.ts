@@ -8,6 +8,7 @@ import { ApolloServerPluginCacheControl } from 'apollo-server-core/dist/plugin/c
 import responseCachePlugin from 'apollo-server-plugin-response-cache';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
+import { AdminModule } from '../admin/admin.module';
 import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
 import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
 import { HybridThrottlerGuard } from '../hybrid-throttler.guard';
@@ -41,6 +42,7 @@ import { AppService } from './app.service';
       context: ({ req, res }) => ({ req, res }),
       schemaDirectives: {},
     }),
+    AdminModule,
     ScheduleModule.forRoot(),
     BullModule.forRoot({
       redis: {

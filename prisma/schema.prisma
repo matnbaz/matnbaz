@@ -46,6 +46,7 @@ model Repository {
   License         License?     @relation(fields: [licenseId], references: [id])
   licenseId       String?
   Topics          Topic[]
+  blockedAt       DateTime?
 
   @@unique([platform, platformId])
 }
@@ -76,6 +77,7 @@ model Owner {
   Repositories    Repository[]
   extractedAt     DateTime     @default(now())
   recordUpdatedAt DateTime     @updatedAt
+  blockedAt       DateTime?
 
   @@unique([platform, platformId])
 }
@@ -103,26 +105,6 @@ model Language {
   slug         String       @unique
   description  String?
   Repositories Repository[]
-}
-
-model BlockedRepository {
-  id         String       @id @default(cuid())
-  reason     String?
-  platform   PlatformType
-  platformId String
-  createdAt  DateTime     @default(now())
-
-  @@unique([platform, platformId])
-}
-
-model BlockedOwner {
-  id         String       @id @default(cuid())
-  reason     String?
-  platform   PlatformType
-  platformId String
-  createdAt  DateTime     @default(now())
-
-  @@unique([platform, platformId])
 }
 
 enum OwnerType {

@@ -105,3 +105,4 @@ fabric.properties
 # Redis dump 
 
 dump.rdb
+.adminjs
