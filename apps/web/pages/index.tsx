@@ -62,7 +62,9 @@ const Index = () => {
                 <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
                   <IranVector />
                   <div className="font-mono text-xl sm:text-2xl text-center lg:-mt-10">
-                    Iran {'<3'} Open-Source Software
+                    Iran{' '}
+                    <span className="text-red-500 animate-pulse">{'♥'}</span>{' '}
+                    Open-Source Software
                   </div>
                 </div>
               </div>
