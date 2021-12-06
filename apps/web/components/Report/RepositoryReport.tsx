@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ReportableType } from '../../lib/graphql-types';
+import Button from '../UI/Button/Button';
+import Modal from '../UI/Modal';
 import Report, { IReason } from './Report';
 
 interface IRepositoryReportProps {
@@ -7,6 +9,8 @@ interface IRepositoryReportProps {
 }
 
 const RepositoryReport = ({ repository }: IRepositoryReportProps) => {
+  const [showOtherModal, setShowOtherModal] = useState(false);
+
   const reasons: IReason[] = [
     {
       name: 'تصویر یا نام غیر اخلاقی',
@@ -22,7 +26,7 @@ const RepositoryReport = ({ repository }: IRepositoryReportProps) => {
     },
   ];
 
-  return (
+  return repository.fullName !== 'iranfoss/iranfoss' ? (
     <Report
       subject={ReportableType.Repository}
       subjectId={repository.id}
@@ -30,6 +34,26 @@ const RepositoryReport = ({ repository }: IRepositoryReportProps) => {
       modalDescription={`درصورتی که ${repository.fullName} یکی از موارد ذیل و یا یکی از قوانین سایت را نقض کرده است، از شما در خواست می شود به ما گزارش دهید.`}
       reasons={reasons}
     />
+  ) : (
+    // Why am I doing this
+    <>
+      <Button.Ghost
+        onClick={() => {
+          setShowOtherModal((previousState) => !previousState);
+        }}
+      >
+        گزارش
+      </Button.Ghost>
+      <Modal
+        title="گزارش پروژه"
+        show={showOtherModal}
+        onClose={() => {
+          setShowOtherModal(false);
+        }}
+      >
+        <span>درصورتی که {repository.fullName} یکی از موا... 🤔</span>
+      </Modal>
+    </>
   );
 };
 
