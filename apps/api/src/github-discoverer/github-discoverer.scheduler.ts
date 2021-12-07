@@ -11,7 +11,7 @@ export class GithubDiscovererScheduler {
   ) {}
   private logger = new Logger(GithubDiscovererScheduler.name);
 
-  @Cron(CronExpression.EVERY_WEEKEND)
+  @Cron(CronExpression.EVERY_DAY_AT_2AM)
   async discover() {
     this.queue.add('discover');
     this.logger.log(
