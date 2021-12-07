@@ -117,6 +117,15 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model DiscoveryTerms {
+  id        String       @id @default(cuid())
+  term      String
+  platform  PlatformType
+  createdAt DateTime     @default(now())
+
+  @@unique([term, platform])
+}
+
 enum OwnerType {
   User
   Organization

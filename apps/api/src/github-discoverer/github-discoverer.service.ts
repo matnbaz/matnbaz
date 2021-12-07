@@ -13,8 +13,9 @@ export class GithubDiscovererService {
   private logger = new Logger(GithubDiscovererService.name);
 
   async discoverByPredefinedTerms() {
-    // TODO these terms will eventually go in database
-    for (const term of ['iranian', 'persian']) await this.discover(term);
+    const terms = await this.prisma.discoveryTerms.findMany();
+
+    for (const { term } of terms) await this.discover(term);
   }
 
   /**
