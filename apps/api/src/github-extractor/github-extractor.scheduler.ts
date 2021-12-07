@@ -11,7 +11,7 @@ export class GithubExtractorScheduler {
   ) {}
   private logger = new Logger(GithubExtractorScheduler.name);
 
-  @Cron(CronExpression.EVERY_4_HOURS)
+  @Cron(CronExpression.EVERY_DAY_AT_3AM)
   async extract() {
     this.queue.add('extract');
     this.logger.log(
