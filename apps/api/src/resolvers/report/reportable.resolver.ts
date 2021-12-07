@@ -33,7 +33,7 @@ export function ReportableResolver<T extends Type<unknown>>(classRef: T): any {
         data: {
           reason,
           reportableId: reportable.id,
-          reportableType: classRef.name as ReportableType, // TODO the `as` is removable but eh
+          reportableType: classRef.name as ReportableType,
         },
       });
     }
