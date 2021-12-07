@@ -209,12 +209,12 @@ const RepositoryFilters = ({
     dispatch({ type: 'forkStatus', payload: forkStatus });
   };
 
-  const templateStatusChangeHandler = (forkStatus) => {
-    dispatch({ type: 'templateStatus', payload: forkStatus });
+  const templateStatusChangeHandler = (templateStatus) => {
+    dispatch({ type: 'templateStatus', payload: templateStatus });
   };
 
   useEffect(() => {
-    if (loading) return;
+    if (loading || !router.isReady) return;
     // We don't want onApply to get called before the component in order to prevent unnecessary requests
 
     onApply({
