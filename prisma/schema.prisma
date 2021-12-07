@@ -107,6 +107,16 @@ model Language {
   Repositories Repository[]
 }
 
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  type      UserType
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum OwnerType {
   User
   Organization
@@ -121,4 +131,10 @@ enum PlatformType {
 enum ReportableType {
   Owner
   Repository
+}
+
+enum UserType {
+  User
+  Moderator
+  Admin
 }

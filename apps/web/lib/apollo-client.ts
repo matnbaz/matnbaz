@@ -3,7 +3,9 @@ import { relayStylePagination } from '@apollo/client/utilities';
 
 export function createApolloClient() {
   return new ApolloClient({
-    uri: 'http://localhost:3333/graphql',
+    uri:
+      process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
+      'http://localhost:3333/graphql',
     ssrMode: typeof window === 'undefined',
     cache: new InMemoryCache({
       typePolicies: {
