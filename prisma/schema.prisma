@@ -117,7 +117,7 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model DiscoveryTerms {
+model DiscoveryTerm {
   id        String       @id @default(cuid())
   term      String
   platform  PlatformType

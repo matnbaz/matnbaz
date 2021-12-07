@@ -13,7 +13,7 @@ export class GithubDiscovererService {
   private logger = new Logger(GithubDiscovererService.name);
 
   async discoverByPredefinedTerms() {
-    const terms = await this.prisma.discoveryTerms.findMany();
+    const terms = await this.prisma.discoveryTerm.findMany();
 
     for (const { term } of terms) await this.discover(term);
   }
