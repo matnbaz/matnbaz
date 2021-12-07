@@ -1,4 +1,5 @@
 import { Transition } from '@headlessui/react';
+import { useRouter } from 'next/dist/client/router';
 import React, {
   useCallback,
   useEffect,
@@ -128,6 +129,55 @@ const RepositoryFilters = ({
       language?.slug?.toLowerCase().includes(languageSearchInput.toLowerCase())
     );
   }, [languagesNode, languageSearchInput]);
+
+  const router = useRouter();
+  const routerParams = useMemo(() => router.query, [router.query]);
+
+  useEffect(() => {
+    Object.keys(routerParams).forEach(
+      (routerParam: TRepositoryFiltersAction['type']) => {
+        const paramValue = routerParams[routerParam] as string;
+        switch (routerParam) {
+          case 'searchTerm':
+            setRepoSearchInput(paramValue);
+            break;
+          case 'order':
+            dispatch({ type: 'order', payload: repoOrderOptions[paramValue] });
+            break;
+          case 'forkStatus':
+            dispatch({
+              type: 'forkStatus',
+              payload: forkStatusOptions[paramValue],
+            });
+            break;
+          case 'languages':
+            runQuery();
+            break;
+          case 'templateStatus':
+            dispatch({
+              type: 'templateStatus',
+              payload: templateStatusOptions[paramValue],
+            });
+            break;
+          default:
+            dispatch({ type: routerParam, payload: paramValue });
+        }
+      }
+    );
+  }, [JSON.stringify(routerParams)]);
+
+  useEffect(() => {
+    const paramValue = routerParams['languages'] as string;
+    if (paramValue && languagesNode.languages.edges.length) {
+      const splittedParamValue = paramValue.split(',');
+      dispatch({
+        type: 'languages',
+        payload: languages.filter((language) =>
+          splittedParamValue.includes(language.slug)
+        ),
+      });
+    }
+  }, [JSON.stringify(languagesNode)]);
 
   // Filter handlers
 
