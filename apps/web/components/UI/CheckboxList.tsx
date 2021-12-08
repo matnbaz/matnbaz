@@ -51,7 +51,12 @@ const CheckboxList = ({
             {option.name}
             <Input.Checkbox
               className="ml-2"
-              checked={selectedOptions.includes(option)}
+              checked={selectedOptions.some((selectedOption) => {
+                if (selectedOption.key)
+                  return selectedOption.key === option.key;
+                if (selectedOption.id) return selectedOption.id === option.id;
+                return selectedOption.name === option.name;
+              })}
               onChange={(checked) => {
                 if (checked)
                   setSelectedOptions((previousSelectedOptions) => {
