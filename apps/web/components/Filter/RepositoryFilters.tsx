@@ -133,17 +133,30 @@ const RepositoryFilters = ({
   const routerParams = useMemo(() => router.query, [router.query]);
 
   useEffect(() => {
+    // First we get the key of each given param and we loop them
     Object.keys(routerParams).forEach(
+      // And we assume that they are of the type repository filters action
       (routerParam: TRepositoryFiltersAction['type']) => {
+        // If initial state doesn't have the given router param, it means that it's redundant and setting it would be pointless
+        // So we return
+        if (!Object.keys(initialState).includes(routerParam)) return;
+        // At this point we are sure that the given router param does exist in our state
+        // We also get the value assuming they are string
         const paramValue = routerParams[routerParam] as string;
+        // And
         switch (routerParam) {
           case 'order':
-            dispatch({ type: 'order', payload: repoOrderOptions[paramValue] });
+            // If the param value doesn't exist in the order options, we default to the initial state value
+            // The same logic repeats for some of the cases below
+            dispatch({
+              type: 'order',
+              payload: repoOrderOptions[paramValue] || initialState.order,
+            });
             break;
           case 'forkStatus':
             dispatch({
               type: 'forkStatus',
-              payload: forkStatusOptions[paramValue],
+              payload: forkStatusOptions[paramValue] || initialState.forkStatus,
             });
             break;
           case 'languages':
@@ -152,7 +165,9 @@ const RepositoryFilters = ({
           case 'templateStatus':
             dispatch({
               type: 'templateStatus',
-              payload: templateStatusOptions[paramValue],
+              payload:
+                templateStatusOptions[paramValue] ||
+                initialState.templateStatus,
             });
             break;
           default:
@@ -206,8 +221,9 @@ const RepositoryFilters = ({
   };
 
   useEffect(() => {
-    if (loading || !router.isReady) return;
-    // We don't want onApply to get called before the component in order to prevent unnecessary requests
+    // If the router isn't ready, we can't check if url params are existent so we return early
+    // And if languages are loading or the repositories themselves are loading, sending filters will be redundant
+    if (loading || !router.isReady || languagesLoading) return;
 
     onApply({
       after: null,
