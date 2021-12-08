@@ -31,8 +31,15 @@ const CheckboxList = ({
   }, [value]);
 
   useEffect(() => {
+    console.log('called');
     if (selectedOptions) onChange(selectedOptions);
   }, [JSON.stringify(selectedOptions)]);
+
+  const compareOptions = (firstOption: IOption, secondOption: IOption) => {
+    if (firstOption.key) return firstOption.key === secondOption.key;
+    if (firstOption.id) return firstOption.id === secondOption.id;
+    return firstOption.name === secondOption.name;
+  };
 
   return (
     <div className={classNames(className, 'flex flex-col space-y-4 pb-2')}>
@@ -51,12 +58,9 @@ const CheckboxList = ({
             {option.name}
             <Input.Checkbox
               className="ml-2"
-              checked={selectedOptions.some((selectedOption) => {
-                if (selectedOption.key)
-                  return selectedOption.key === option.key;
-                if (selectedOption.id) return selectedOption.id === option.id;
-                return selectedOption.name === option.name;
-              })}
+              checked={selectedOptions.some((selectedOption) =>
+                compareOptions(selectedOption, option)
+              )}
               onChange={(checked) => {
                 if (checked)
                   setSelectedOptions((previousSelectedOptions) => {
@@ -65,7 +69,8 @@ const CheckboxList = ({
                 else {
                   setSelectedOptions((previousSelectedOptions) => {
                     return previousSelectedOptions.filter(
-                      (selectedOption) => option !== selectedOption
+                      (selectedOption) =>
+                        !compareOptions(selectedOption, option)
                     );
                   });
                 }
