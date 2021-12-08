@@ -137,26 +137,34 @@ const RepositoryFilters = ({
     Object.keys(routerParams).forEach(
       // And we assume that they are of the type repository filters action
       (routerParam: TRepositoryFiltersAction['type']) => {
+        const paramValue = routerParams[routerParam];
+        // The param value might be an array so this variable only returns the first element if thats the case
+        // And returns the whole value if its not an array
+        const paramValueFirstElement = Array.isArray(paramValue)
+          ? paramValue[0]
+          : paramValue;
+
         // If initial state doesn't have the given router param, it means that it's redundant and setting it would be pointless
         // So we return
         if (!Object.keys(initialState).includes(routerParam)) return;
         // At this point we are sure that the given router param does exist in our state
-        // We also get the value assuming they are string
-        const paramValue = routerParams[routerParam] as string;
-        // And
+
         switch (routerParam) {
           case 'order':
             // If the param value doesn't exist in the order options, we default to the initial state value
             // The same logic repeats for some of the cases below
             dispatch({
               type: 'order',
-              payload: repoOrderOptions[paramValue] || initialState.order,
+              payload:
+                repoOrderOptions[paramValueFirstElement] || initialState.order,
             });
             break;
           case 'forkStatus':
             dispatch({
               type: 'forkStatus',
-              payload: forkStatusOptions[paramValue] || initialState.forkStatus,
+              payload:
+                forkStatusOptions[paramValueFirstElement] ||
+                initialState.forkStatus,
             });
             break;
           case 'languages':
@@ -166,9 +174,12 @@ const RepositoryFilters = ({
             dispatch({
               type: 'templateStatus',
               payload:
-                templateStatusOptions[paramValue] ||
+                templateStatusOptions[paramValueFirstElement] ||
                 initialState.templateStatus,
             });
+            break;
+          case 'searchTerm':
+            dispatch({ type: 'searchTerm', payload: paramValueFirstElement });
             break;
           default:
             dispatch({ type: routerParam, payload: paramValue });
@@ -178,17 +189,16 @@ const RepositoryFilters = ({
   }, [JSON.stringify(routerParams)]);
 
   useEffect(() => {
-    const paramValue = routerParams['languages'] as string;
-    if (paramValue && languagesNode.languages.edges.length) {
-      const splittedParamValue = paramValue.split(',');
-      dispatch({
-        type: 'languages',
-        payload: languages.filter((language) =>
-          splittedParamValue.includes(language.slug)
-        ),
-      });
-    }
-  }, [JSON.stringify(languagesNode)]);
+    const paramValue = routerParams['languages'];
+    if (!paramValue?.length || !languages?.length) return;
+    const splittedParamValue = paramValue;
+    dispatch({
+      type: 'languages',
+      payload: languages.filter((language) =>
+        splittedParamValue.includes(language.slug)
+      ),
+    });
+  }, [JSON.stringify(languages)]);
 
   // Filter handlers
 
@@ -225,14 +235,19 @@ const RepositoryFilters = ({
     // And if languages are loading or the repositories themselves are loading, sending filters will be redundant
     if (loading || !router.isReady || languagesLoading) return;
 
-    onApply({
-      after: null,
+    const convertedState = {
       languages: debouncedState.languages.map((language) => language.slug),
       order: debouncedState.order.value,
       searchTerm: debouncedState.searchTerm,
       forkStatus: debouncedState.forkStatus.value,
       templateStatus: debouncedState.templateStatus.value,
-    });
+    };
+
+    onApply({ after: null, ...convertedState });
+
+    router.query = convertedState;
+    router.push(router);
+
     filterCtx.setFilters(debouncedState);
     // Dependency has to be stringified state as react can't compare two objects in useEffect
     // So it will always trigger this useEffect regardless of the state changing or not
