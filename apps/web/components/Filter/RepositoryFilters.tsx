@@ -173,9 +173,9 @@ const RepositoryFilters = ({
   const languagesFilterChangeHandler = (
     value: GetLanguagesQuery['languages']['edges'][0]['node'][]
   ) => {
+    console.log(value);
     dispatch({
       type: 'languages',
-      // Since languages filter is based on slug, it should be mapped before changing the state
       payload: value,
     });
   };
@@ -207,6 +207,7 @@ const RepositoryFilters = ({
 
     onApply({ after: null, ...convertedState });
 
+    // Change query params to match the current filters
     router.push({ query: convertedState });
 
     filterCtx.setFilters(debouncedState);
