@@ -245,8 +245,7 @@ const RepositoryFilters = ({
 
     onApply({ after: null, ...convertedState });
 
-    router.query = convertedState;
-    router.push(router);
+    router.push({ query: convertedState });
 
     filterCtx.setFilters(debouncedState);
     // Dependency has to be stringified state as react can't compare two objects in useEffect
