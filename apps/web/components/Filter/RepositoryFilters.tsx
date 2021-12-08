@@ -9,13 +9,17 @@ import React, {
 } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useDebounce } from 'use-debounce';
-import { useFilterContext } from '../../context/filter-context';
 import {
-  ForkStatusType,
+  forkStatusOptions,
+  initialFilters,
+  repoOrderOptions,
+  templateStatusOptions,
+  TRepositoryFiltersState,
+  useRepositoryFilterContext,
+} from '../../context/repository-filter-context';
+import {
   GetLanguagesQuery,
   GetRepositoriesQueryVariables,
-  RepoOrder,
-  TemplateStatusType,
   useGetLanguagesLazyQuery,
 } from '../../lib/graphql-types';
 import LanguagesFilterSkeletonLoader from '../Skeleton Loader/LanguagesFilterSkeletonLoader';
@@ -36,56 +40,13 @@ interface IRepositoryFiltersProps {
   onApply?: (state: GetRepositoriesQueryVariables) => void;
 }
 
-const repoOrderOptions: Record<RepoOrder, { name: string; value: RepoOrder }> =
-  {
-    CREATED_ASC: { name: 'قدیمی‌ترین', value: RepoOrder.CreatedAsc },
-    CREATED_DESC: { name: 'جدید‌ترین', value: RepoOrder.CreatedDesc },
-    PUSHED_ASC: { name: 'قدیمی‌ترین به‌روزرسانی', value: RepoOrder.PushedAsc },
-    PUSHED_DESC: { name: 'جدید‌ترین به‌روزرسانی', value: RepoOrder.PushedDesc },
-    STARS_DESC: { name: 'بیشترین تعداد ستاره', value: RepoOrder.StarsDesc },
-  };
-
-const forkStatusOptions: Record<
-  ForkStatusType,
-  { name: string; value: ForkStatusType }
-> = {
-  ALL: { name: 'همه', value: ForkStatusType.All },
-  FORK: { name: 'فورک', value: ForkStatusType.Fork },
-  SOURCE: { name: 'سورس', value: ForkStatusType.Source },
-};
-
-const templateStatusOptions: Record<
-  TemplateStatusType,
-  { name: string; value: TemplateStatusType }
-> = {
-  ALL: { name: 'همه', value: TemplateStatusType.All },
-  NOT_TEMPLATE: { name: 'غیر قالب', value: TemplateStatusType.NotTemplate },
-  TEMPLATE: { name: 'قالب', value: TemplateStatusType.Template },
-};
-
-export const initialState: TRepositoryFiltersState = {
-  searchTerm: '',
-  languages: [],
-  order: repoOrderOptions['PUSHED_DESC'],
-  forkStatus: forkStatusOptions['ALL'],
-  templateStatus: templateStatusOptions['ALL'],
-};
-
-export type TRepositoryFiltersState = {
-  searchTerm: string | null;
-  languages: GetLanguagesQuery['languages']['edges'][0]['node'][] | null;
-  order: { name: string; value: RepoOrder } | null;
-  forkStatus: { name: string; value: ForkStatusType };
-  templateStatus: { name: string; value: TemplateStatusType };
-};
-
 const reducer = (
   state: TRepositoryFiltersState,
   action: TRepositoryFiltersAction
 ): TRepositoryFiltersState => {
   switch (action.type) {
     case 'clear':
-      return initialState;
+      return initialFilters;
     default:
       return { ...state, [action.type]: action?.payload };
   }
@@ -95,7 +56,7 @@ const RepositoryFilters = ({
   onApply,
   loading = false,
 }: IRepositoryFiltersProps) => {
-  const filterCtx = useFilterContext();
+  const filterCtx = useRepositoryFilterContext();
 
   let [state, dispatch] = useReducer(
     useCallback(reducer, []),
@@ -146,7 +107,7 @@ const RepositoryFilters = ({
 
         // If initial state doesn't have the given router param, it means that it's redundant and setting it would be pointless
         // So we return
-        if (!Object.keys(initialState).includes(routerParam)) return;
+        if (!Object.keys(initialFilters).includes(routerParam)) return;
         // At this point we are sure that the given router param does exist in our state
 
         switch (routerParam) {
@@ -156,7 +117,8 @@ const RepositoryFilters = ({
             dispatch({
               type: 'order',
               payload:
-                repoOrderOptions[paramValueFirstElement] || initialState.order,
+                repoOrderOptions[paramValueFirstElement] ||
+                initialFilters.order,
             });
             break;
           case 'forkStatus':
@@ -164,7 +126,7 @@ const RepositoryFilters = ({
               type: 'forkStatus',
               payload:
                 forkStatusOptions[paramValueFirstElement] ||
-                initialState.forkStatus,
+                initialFilters.forkStatus,
             });
             break;
           case 'languages':
@@ -175,7 +137,7 @@ const RepositoryFilters = ({
               type: 'templateStatus',
               payload:
                 templateStatusOptions[paramValueFirstElement] ||
-                initialState.templateStatus,
+                initialFilters.templateStatus,
             });
             break;
           case 'searchTerm':
@@ -350,7 +312,7 @@ const RepositoryFilters = ({
         </Card>
 
         <Transition
-          show={JSON.stringify(state) !== JSON.stringify(initialState)}
+          show={JSON.stringify(state) !== JSON.stringify(initialFilters)}
           enter="transition-opacity duration-100 ease-in-out"
           enterFrom="opacity-0"
           enterTo="opacity-100"
