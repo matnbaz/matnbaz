@@ -153,11 +153,15 @@ const RepositoryFilters = ({
   useEffect(() => {
     const paramValue = routerParams['languages'];
     if (!paramValue?.length || !languages?.length) return;
-    const splittedParamValue = paramValue;
+    // If there is only one language in filters, it will be returned as a string
+    // And since we treat languages as an array, we convert it to an array if its a string
+    const paramValueArray = Array.isArray(paramValue)
+      ? paramValue
+      : [paramValue];
     dispatch({
       type: 'languages',
       payload: languages.filter((language) =>
-        splittedParamValue.includes(language.slug)
+        paramValueArray.includes(language.slug)
       ),
     });
   }, [JSON.stringify(languages)]);
@@ -173,7 +177,6 @@ const RepositoryFilters = ({
   const languagesFilterChangeHandler = (
     value: GetLanguagesQuery['languages']['edges'][0]['node'][]
   ) => {
-    console.log(value);
     dispatch({
       type: 'languages',
       payload: value,

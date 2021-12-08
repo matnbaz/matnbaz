@@ -31,7 +31,6 @@ const CheckboxList = ({
   }, [value]);
 
   useEffect(() => {
-    console.log('called');
     if (selectedOptions) onChange(selectedOptions);
   }, [JSON.stringify(selectedOptions)]);
 
