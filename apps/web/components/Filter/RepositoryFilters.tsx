@@ -115,8 +115,7 @@ const RepositoryFilters = ({
   ] = useGetLanguagesLazyQuery();
 
   const [languageSearchInput, setLanguageSearchInput] = useState('');
-  const [repoSearchInput, setRepoSearchInput] = useState('');
-  const [debouncedRepoSearchInput] = useDebounce(repoSearchInput, 1000);
+  const [debouncedState] = useDebounce(state, 500);
 
   const languages = useMemo(() => {
     // First the returned languages must be mapped because they are paginated and they have nodes
@@ -138,9 +137,6 @@ const RepositoryFilters = ({
       (routerParam: TRepositoryFiltersAction['type']) => {
         const paramValue = routerParams[routerParam] as string;
         switch (routerParam) {
-          case 'searchTerm':
-            setRepoSearchInput(paramValue);
-            break;
           case 'order':
             dispatch({ type: 'order', payload: repoOrderOptions[paramValue] });
             break;
@@ -184,12 +180,8 @@ const RepositoryFilters = ({
   const searchTermChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setRepoSearchInput(event.target.value);
+    dispatch({ type: 'searchTerm', payload: event.target.value });
   };
-
-  useEffect(() => {
-    dispatch({ type: 'searchTerm', payload: debouncedRepoSearchInput });
-  }, [debouncedRepoSearchInput]);
 
   const languagesFilterChangeHandler = (
     value: GetLanguagesQuery['languages']['edges'][0]['node'][]
@@ -219,16 +211,16 @@ const RepositoryFilters = ({
 
     onApply({
       after: null,
-      languages: state.languages.map((language) => language.slug),
-      order: state.order.value,
-      searchTerm: state.searchTerm,
-      forkStatus: state.forkStatus.value,
-      templateStatus: state.templateStatus.value,
+      languages: debouncedState.languages.map((language) => language.slug),
+      order: debouncedState.order.value,
+      searchTerm: debouncedState.searchTerm,
+      forkStatus: debouncedState.forkStatus.value,
+      templateStatus: debouncedState.templateStatus.value,
     });
-    filterCtx.setFilters(state);
+    filterCtx.setFilters(debouncedState);
     // Dependency has to be stringified state as react can't compare two objects in useEffect
     // So it will always trigger this useEffect regardless of the state changing or not
-  }, [JSON.stringify(state)]);
+  }, [JSON.stringify(debouncedState)]);
 
   return (
     <div className="relative">
@@ -251,7 +243,7 @@ const RepositoryFilters = ({
               placeholder="جستجو..."
               onChange={searchTermChangeHandler}
               icon={AiOutlineSearch}
-              value={repoSearchInput}
+              value={state.searchTerm}
               className="w-full"
             />
           </Collapsible>
