@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useEffect } from 'react';
 import RepositoryFilters from '../components/Filter/RepositoryFilters';
 import MainLayout from '../components/Layout/MainLayout';
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
@@ -23,12 +22,6 @@ const Explore = () => {
       },
     });
   };
-
-  useEffect(() => {
-    if (document.body.clientHeight < window.innerHeight && !loading) {
-      repositoriesLoadMoreHandler();
-    }
-  }, [data]);
 
   if (error)
     return (
@@ -74,6 +67,7 @@ const Explore = () => {
           ) : data.repositories.edges.length ? (
             <RepositoryPreviewList
               repositories={repositories}
+              loading={loading}
               onLoadMore={repositoriesLoadMoreHandler}
             />
           ) : (

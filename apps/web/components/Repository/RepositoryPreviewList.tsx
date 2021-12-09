@@ -5,11 +5,13 @@ import RepositoryPreview from './RepositoryPreview';
 
 interface IRepositoryPreviewListProps {
   repositories: GetRepositoriesQuery['repositories']['edges'];
+  loading?: boolean;
   onLoadMore?: () => void;
 }
 
 const RepositoryPreviewList = ({
   repositories,
+  loading = false,
   onLoadMore,
 }: IRepositoryPreviewListProps) => {
   const mappedRepositories = useMemo(() => {
@@ -20,11 +22,21 @@ const RepositoryPreviewList = ({
       />
     ));
   }, [repositories]);
+
+  // useEffect(() => {
+  //   if (document.body.clientHeight < window.innerHeight && !loading) {
+  //     onLoadMore?.();
+  //   }
+  // }, [JSON.stringify(repositories)]);
+
+  // If pagination is intended for the list, then infinite scroll wrapper is needed
   return onLoadMore ? (
     <InfiniteScroll onLoadMore={onLoadMore}>
       {mappedRepositories}
     </InfiniteScroll>
   ) : (
+    // But if there is no onLoadMore it means that pagination is not needed
+    // So infinite scroll is not needed as well
     <>{mappedRepositories}</>
   );
 };

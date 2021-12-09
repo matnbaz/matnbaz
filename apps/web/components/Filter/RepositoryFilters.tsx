@@ -211,7 +211,13 @@ const RepositoryFilters = ({
     onApply({ after: null, ...convertedState });
 
     // Change query params to match the current filters
-    router.push({ query: convertedState });
+    router.push({
+      // Filter the state so its not equal to the initial state
+      // Because its redundant to have initial state filters in the url
+      query: Object.keys(convertedState)
+        .filter((key) => debouncedState[key] !== initialFilters[key])
+        .reduce((res, key) => ((res[key] = convertedState[key]), res), {}),
+    });
 
     filterCtx.setFilters(debouncedState);
     // Dependency has to be stringified state as react can't compare two objects in useEffect
