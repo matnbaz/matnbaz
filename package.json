@@ -5,7 +5,9 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "docker:build": "docker build . -t iranfoss/iranfoss",
+    "docker:run": "docker run iranfoss/iranfoss"
   },
   "private": true,
   "dependencies": {
@@ -116,6 +118,7 @@
     "typescript": "^4.5.2"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts",
+    "schema": "./prisma/schema.prisma"
   }
 }
