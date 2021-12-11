@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 interface IInfiniteScrollProps {
   children: React.ReactNode;
+  //** Data length is needed to determine if it's needed to load more content incase the screen is too large */
   dataLength: number;
   onLoadMore?: () => void;
 }

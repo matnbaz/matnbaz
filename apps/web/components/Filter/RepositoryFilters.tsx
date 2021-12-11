@@ -37,6 +37,9 @@ type TRepositoryFiltersAction = {
 
 interface IRepositoryFiltersProps {
   loading?: boolean;
+  repositoriesLength: number;
+  refetch: (variables: GetRepositoriesQueryVariables) => void;
+  query: ({ variables: GetRepositoriesQueryVariables }) => void;
   onApply?: (state: GetRepositoriesQueryVariables) => void;
 }
 
@@ -54,6 +57,9 @@ const reducer = (
 
 const RepositoryFilters = ({
   onApply,
+  refetch,
+  query,
+  repositoriesLength,
   loading = false,
 }: IRepositoryFiltersProps) => {
   const filterCtx = useRepositoryFilterContext();
@@ -208,7 +214,12 @@ const RepositoryFilters = ({
       templateStatus: debouncedState.templateStatus.value,
     };
 
-    onApply({ after: null, ...convertedState });
+    // If there are already some repositories, then we need to refetch
+    if (repositoriesLength) refetch(convertedState);
+    // Otherwise it means that we are fetching for the first time, so we avoid calling refetch
+    else query({ variables: convertedState });
+
+    onApply?.(convertedState);
 
     // Change query params to match the current filters
     router.push({
