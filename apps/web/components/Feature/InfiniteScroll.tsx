@@ -2,11 +2,21 @@ import { useEffect, useState } from 'react';
 
 interface IInfiniteScrollProps {
   children: React.ReactNode;
+  dataLength: number;
   onLoadMore?: () => void;
 }
 
-const InfiniteScroll = ({ children, onLoadMore }: IInfiniteScrollProps) => {
+const InfiniteScroll = ({
+  children,
+  dataLength,
+  onLoadMore,
+}: IInfiniteScrollProps) => {
   const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    if (document.body.clientHeight > window.innerHeight) return;
+    setIsFetching(true);
+  }, [dataLength]);
 
   const handleScroll = () => {
     if (

@@ -67,7 +67,6 @@ const Explore = () => {
           ) : data.repositories.edges.length ? (
             <RepositoryPreviewList
               repositories={repositories}
-              loading={loading}
               onLoadMore={repositoriesLoadMoreHandler}
             />
           ) : (
