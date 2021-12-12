@@ -14,6 +14,6 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn nx build api --prod
+RUN yarn nx build server --prod
 
-CMD [ "node", "dist/apps/api/main.js" ]
+CMD [ "node", "dist/apps/server/main.js" ]

@@ -33,7 +33,7 @@ import { AppService } from './app.service';
       },
     }),
     GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), 'apps/api/src/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'apps/server/src/schema.gql'),
       sortSchema: true,
       plugins: [
         ApolloServerPluginCacheControl({ defaultMaxAge: 5 }),
