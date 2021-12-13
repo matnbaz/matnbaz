@@ -72,7 +72,7 @@ const Navbar = ({ className }: INavbarProps) => {
 
               {/* <IconButton
                 className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-900"
-                href="https://t.me/iran_foss"
+                href="https://t.me/matnbaz_net"
                 target="_blank"
                 rel="noreferrer"
               >
