@@ -1,4 +1,4 @@
-import { persianNumbers as persianNumbersFn } from '@iranfoss/common';
+import { persianNumbers as persianNumbersFn } from '@matnbaz/common';
 import { Args, Parent, ResolveField, Resolver } from '@nestjs/graphql';
 import { format, formatDistanceToNow } from 'date-fns-jalali';
 import { DateObject } from '../../models/date.model';

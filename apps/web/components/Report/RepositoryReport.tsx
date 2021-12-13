@@ -26,7 +26,7 @@ const RepositoryReport = ({ repository }: IRepositoryReportProps) => {
     },
   ];
 
-  return repository.fullName !== 'iranfoss/iranfoss' ? (
+  return repository.fullName !== 'matnbaz/matnbaz' ? (
     <Report
       subject={ReportableType.Repository}
       subjectId={repository.id}

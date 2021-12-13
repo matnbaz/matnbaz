@@ -1,4 +1,4 @@
-import { SOCIAL_MEDIA } from '@iranfoss/common';
+import { SOCIAL_MEDIA } from '@matnbaz/common';
 import { HiChevronLeft } from 'react-icons/hi';
 import { SiDiscord } from 'react-icons/si';
 import { IranVector } from '../components/Illustration/IranVector';
@@ -28,7 +28,7 @@ const Index = () => {
                       انجمن دیسکورد
                     </span>
                     <span className="mr-4 text-sm">
-                      به دیسکورد ایران فاس بپیوندید
+                      به دیسکورد متن‌باز بپیوندید
                     </span>
                     <HiChevronLeft
                       className="mr-2 w-5 h-5 text-gray-500"

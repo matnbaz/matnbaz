@@ -1,4 +1,4 @@
-import { persianNumbers } from '@iranfoss/common';
+import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import MainLayout from '../../../components/Layout/MainLayout';

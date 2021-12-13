@@ -36,7 +36,7 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: user
-      POSTGRES_DB: iranfoss
+      POSTGRES_DB: matnbaz
       PG_DATA: /var/lib/postgresql/data
     ports:
       - 5432:5432

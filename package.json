@@ -1,13 +1,13 @@
 {
-  "name": "iranfoss",
+  "name": "matnbaz",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "docker:build": "docker build . -t iranfoss/iranfoss",
-    "docker:run": "docker run iranfoss/iranfoss"
+    "docker:build": "docker build . -t matnbaz/matnbaz",
+    "docker:run": "docker run matnbaz/matnbaz"
   },
   "private": true,
   "dependencies": {

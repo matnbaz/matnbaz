@@ -1,4 +1,4 @@
-import { slugifyLanguage } from '@iranfoss/common';
+import { slugifyLanguage } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { Owner, Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';

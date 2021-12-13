@@ -1,4 +1,4 @@
-import { SOCIAL_MEDIA } from '@iranfoss/common';
+import { SOCIAL_MEDIA } from '@matnbaz/common';
 import Link from 'next/link';
 import {
   SiDiscord,
@@ -41,11 +41,11 @@ export const Footer = (props: FooterProps) => {
               </Link>
               <a
                 className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
-                href={'https://github.com/iranfoss/iranfoss'}
+                href={'https://github.com/matnbaz/matnbaz'}
                 target="_blank"
                 rel="noreferrer"
               >
-                سورس کد ایران فاس
+                سورس کد
               </a>
               <a
                 className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
