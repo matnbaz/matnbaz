@@ -39,7 +39,7 @@ AdminJS.registerAdapter({ Database, Resource });
           adminJsOptions: {
             rootPath: '/admin',
             branding: {
-              companyName: 'Iran FOSS Admin Panel',
+              companyName: 'Matnbaz Admin Panel',
               logo: '',
               softwareBrothers: false,
             },

@@ -22,7 +22,7 @@ export const Footer = (props: FooterProps) => {
                 <div className="flex space-x-4 space-x-reverse items-center font-mono">
                   <SiOpensourceinitiative className="w-8 h-8 dark:text-white text-gray-900" />
                   <h2 dir="ltr" className="text-xl uppercase">
-                    Iran FOSS
+                    Matnbaz
                   </h2>
                 </div>
               </a>

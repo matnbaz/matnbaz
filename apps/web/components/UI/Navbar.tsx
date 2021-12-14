@@ -44,7 +44,7 @@ const Navbar = ({ className }: INavbarProps) => {
                 <SiOpensourceinitiative className="w-10 h-10 dark:text-white text-gray-900" />
 
                 <h2 className="text-2xl font-medium font-mono uppercase">
-                  Iran FOSS
+                  Matnbaz
                 </h2>
               </a>
             </Link>
