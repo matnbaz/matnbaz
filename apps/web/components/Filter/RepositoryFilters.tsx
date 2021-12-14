@@ -37,7 +37,7 @@ type TRepositoryFiltersAction = {
 
 interface IRepositoryFiltersProps {
   loading?: boolean;
-  repositoriesLength: number;
+  called: boolean;
   refetch: (variables: GetRepositoriesQueryVariables) => void;
   query: ({ variables: GetRepositoriesQueryVariables }) => void;
   onApply?: (state: GetRepositoriesQueryVariables) => void;
@@ -59,7 +59,7 @@ const RepositoryFilters = ({
   onApply,
   refetch,
   query,
-  repositoriesLength,
+  called,
   loading = false,
 }: IRepositoryFiltersProps) => {
   const filterCtx = useRepositoryFilterContext();
@@ -215,7 +215,7 @@ const RepositoryFilters = ({
     };
 
     // If there are already some repositories, then we need to refetch
-    if (repositoriesLength) refetch(convertedState);
+    if (called) refetch(convertedState);
     // Otherwise it means that we are fetching for the first time, so we avoid calling refetch
     else query({ variables: convertedState });
 
