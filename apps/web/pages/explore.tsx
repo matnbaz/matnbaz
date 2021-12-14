@@ -4,6 +4,7 @@ import MainLayout from '../components/Layout/MainLayout';
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
 import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loader/RepositoryPreviewSkeletonLoader';
 import Button from '../components/UI/Button/Button';
+import Divider from '../components/UI/Divider';
 import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
 
 const Explore = () => {
@@ -22,6 +23,8 @@ const Explore = () => {
       },
     });
   };
+
+  console.log(data?.repositories);
 
   if (error)
     return (
@@ -47,48 +50,48 @@ const Explore = () => {
       <div className="grid grid-cols-1 md:grid-cols-8 pb-6 gap-6">
         <div className="md:col-span-3 lg:col-span-2">
           <RepositoryFilters
-            repositoriesLength={data?.repositories?.edges.length}
+            called={called}
             query={getRepositories}
             refetch={refetch}
             loading={loading}
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
-          {/* // Network status 4 is when refetch gets called and network status 3 is for when fetchMore gets called
+        {data?.repositories?.edges.length === 0 ? (
+          <div className="flex flex-col space-y-4 md:col-span-5 lg:col-span-6">
+            <h1 className="text-2xl font-semibold">نتیجه ای یافت نشد.</h1>
+            <span className="font-lg">
+              نتیجه ای با فیلتر‌های وارد شده یافت نشد.
+            </span>
+            <Divider />
+            <span className="text-sm text-secondary">
+              می توانید با{' '}
+              <Link href="/submit-user">
+                <a className="text-blue-500 hover:text-blue-400">
+                  ثبت دستی کاربران
+                </a>
+              </Link>{' '}
+              به کاوش بهتر مخزن‌ها کمک کنید.
+            </span>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
+            {/* // Network status 4 is when refetch gets called and network status 3 is for when fetchMore gets called
           // In this case we don't want skeleton loaders to appear when the user is trying to load more data
           // So it checks if it's 4 */}
-          {(loading && networkStatus !== 3) || !called ? (
-            <>
-              {[...Array(6).keys()].map((number) => (
-                <RepositoryPreviewSkeletonLoader key={number} />
-              ))}
-            </>
-          ) : data.repositories.edges.length ? (
-            <RepositoryPreviewList
-              repositories={repositories}
-              onLoadMore={repositoriesLoadMoreHandler}
-            />
-          ) : (
-            <div>
-              <h1 className="text-2xl font-semibold mb-4">
-                نتیجه ای یافت نشد.
-              </h1>
-              <p>
-                <span className="font-bold font-lg">
-                  نتیجه ای با فیلتر‌های وارد شده یافت نشد.
-                </span>
-                <br />
-                می توانید با{' '}
-                <Link href="/submit-user">
-                  <a className="text-blue-500 hover:text-blue-400">
-                    ثبت دستی کاربران
-                  </a>
-                </Link>{' '}
-                به کاوش بهتر مخزن‌ها کمک کنید.
-              </p>
-            </div>
-          )}
-        </div>
+            {(loading && networkStatus !== 3) || !called ? (
+              <>
+                {[...Array(6).keys()].map((number) => (
+                  <RepositoryPreviewSkeletonLoader key={number} />
+                ))}
+              </>
+            ) : (
+              <RepositoryPreviewList
+                repositories={repositories}
+                onLoadMore={repositoriesLoadMoreHandler}
+              />
+            )}
+          </div>
+        )}
       </div>
     </MainLayout>
   );
