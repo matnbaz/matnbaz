@@ -5,9 +5,7 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test",
-    "docker:build": "docker build . -t matnbaz/matnbaz",
-    "docker:run": "docker run matnbaz/matnbaz"
+    "test": "nx test"
   },
   "private": true,
   "dependencies": {

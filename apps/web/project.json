@@ -48,6 +48,16 @@
       "options": {
         "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
       }
+    },
+    "deploy": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "nx build web",
+          "docker build -f ./apps/web/Dockerfile . -t matnbaz/web"
+        ],
+        "parallel": false
+      }
     }
   },
   "tags": []

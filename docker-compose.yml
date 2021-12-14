@@ -1,45 +1,52 @@
 version: '3.7'
 
 services:
-  server:
-    container_name: server
-    build:
+  web:
+    build: 
+      dockerfile: ./apps/web/Dockerfile
       context: .
-      target: development
+      cache_from:
+      - matnbaz:base
+    env_file:
+      - .env
+    ports: 
+      - ${WEB_PORT}:${WEB_PORT}
+    command: yarn start web
+    depends_on:
+      - server
+
+  server:
+    build: 
+      dockerfile: ./apps/server/Dockerfile
+      context: .
+      cache_from:
+      - matnbaz:base
     env_file:
       - .env
     environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}?schema=${DB_SCHEMA}&sslmode=prefer
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}?schema=${DB_SCHEMA}&connect_timeout=300
     ports:
       - ${API_PORT}:${API_PORT}
-      - 9229:9229
-    command: yarn run start server
+      # - 9229:9229 # NodeJS debugging port
+    command: yarn start server
     networks:
       - webnet
     depends_on:
       - redis
       - postgres
+      
   redis:
-    container_name: redis
     image: redis:5
     networks:
       - webnet
+
   postgres:
-    container_name: postgres
     image: postgres:12
     restart: always
     networks:
       - webnet
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: user
-      POSTGRES_DB: matnbaz
       PG_DATA: /var/lib/postgresql/data
-    ports:
-      - 5432:5432
     env_file:
     - .env
     volumes:

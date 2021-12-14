@@ -1,19 +1,8 @@
-FROM node:12-alpine
-
-WORKDIR /workspace
-ENV PORT 3000
-
-COPY package.json yarn.lock ./
-COPY prisma ./prisma
-
-RUN yarn install
-
+FROM node:12 AS builder
 
 # Production use node instead of root
 # USER node
 
+WORKDIR /app/builder
 COPY . .
-
-RUN yarn nx build server --prod
-
-CMD [ "node", "dist/apps/server/main.js" ]
+RUN yarn install
