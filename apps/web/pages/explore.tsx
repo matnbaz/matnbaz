@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import RepositoryFilters from '../components/Filter/RepositoryFilters';
 import MainLayout from '../components/Layout/MainLayout';
+import SubmitUserModal from '../components/Modal/SubmitUserModal';
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
 import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loader/RepositoryPreviewSkeletonLoader';
 import Button from '../components/UI/Button/Button';
@@ -65,11 +65,10 @@ const Explore = () => {
             <Divider />
             <span className="text-sm text-secondary">
               می توانید با{' '}
-              <Link href="/submit-user">
-                <a className="text-blue-500 hover:text-blue-400">
-                  ثبت دستی کاربران
-                </a>
-              </Link>{' '}
+              <SubmitUserModal
+                className="text-blue-500"
+                title="ثبت دستی کاربر"
+              />{' '}
               به کاوش بهتر مخزن‌ها کمک کنید.
             </span>
           </div>
