@@ -100,8 +100,11 @@ const Navbar = ({ className }: INavbarProps) => {
                   className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                 >
-                  {theme === 'dark' && <BsFillMoonFill className="w-5 h-5" />}
-                  {theme === 'light' && <BsFillSunFill className="w-5 h-5" />}
+                  {theme === 'light' ? (
+                    <BsFillMoonFill className="w-5 h-5" />
+                  ) : (
+                    <BsFillSunFill className="w-5 h-5" />
+                  )}
                 </IconButton>
                 <button
                   className="block md:hidden"
