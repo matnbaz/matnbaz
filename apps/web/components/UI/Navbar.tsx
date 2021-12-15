@@ -44,9 +44,7 @@ const Navbar = ({ className }: INavbarProps) => {
               <a className="flex space-x-3 space-x-reverse items-center">
                 <SiOpensourceinitiative className="w-10 h-10 dark:text-white text-gray-900" />
 
-                <h2 className="text-2xl font-medium font-mono uppercase">
-                  Matnbaz
-                </h2>
+                <h2 className="text-3xl font-mono">Matnbaz</h2>
               </a>
             </Link>
             <div className="hidden md:flex items-center space-x-4 space-x-reverse">
