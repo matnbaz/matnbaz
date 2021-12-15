@@ -12,9 +12,9 @@ module.exports = {
         DEFAULT: {
           css: [
             {
-              maxWidth: 'none'
-            }
-          ]
+              maxWidth: 'none',
+            },
+          ],
         },
         light: {
           css: [
@@ -80,30 +80,28 @@ module.exports = {
       }),
       colors: {
         primary: {
-          50: '#f5fafd',
-          100: '#ebf5fb',
-          200: '#cce5f6',
-          300: '#aed6f1',
-          400: '#71b7e6',
-          500: '#3498db',
-          600: '#2f89c5',
-          700: '#2772a4',
-          800: '#1f5b83',
-          900: '#194a6b',
+          50: '#f4f9ff',
+          100: '#e9f4ff',
+          200: '#c7e3ff',
+          300: '#a5d3ff',
+          400: '#62b1ff',
+          500: '#1e90ff',
+          600: '#1b82e6',
+          700: '#176cbf',
+          800: '#125699',
+          900: '#0f477d',
         },
       },
       fontFamily: {
         sans: ['Vazir', ...defaultTheme.fontFamily.sans],
-        mono: ['"Vazir Code"', ...defaultTheme.fontFamily.mono]
+        mono: ['"Vazir Code"', ...defaultTheme.fontFamily.mono],
       },
     },
   },
   variants: {
     extend: {
-      typography: ['dark']
+      typography: ['dark'],
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/typography')],
 };
