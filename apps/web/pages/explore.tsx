@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import HeaderMeta, { IHeaderMetaTags } from '../components/Feature/HeaderMeta';
 import RepositoryFilters from '../components/Filter/RepositoryFilters';
 import MainLayout from '../components/Layout/MainLayout';
 import SubmitUserModal from '../components/Modal/SubmitUserModal';
@@ -8,8 +8,8 @@ import Button from '../components/UI/Button/Button';
 import Divider from '../components/UI/Divider';
 import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
 
-export const exploreMetaTags = {
-  title: 'متن‌باز – کاوش‌گر',
+export const exploreMetaTags: IHeaderMetaTags = {
+  title: 'کاوش‌گر',
   description: 'پروژه های متن باز (Open Source) مختلف ایرانی را پیدا کنید.',
   image: '',
 };
@@ -90,16 +90,9 @@ const Explore = () => {
   );
 
   return (
-    <MainLayout withoutFooter={!error}>
-      <Head>
-        <title>{exploreMetaTags.title}</title>
-        <meta name="description" content={exploreMetaTags.description} />
-        <meta name="og:title" content={exploreMetaTags.title} />
-        <meta name="og:description" content={exploreMetaTags.description} />
-        <meta name="og:image" content={exploreMetaTags.image} />
-      </Head>
-      {page}
-    </MainLayout>
+    <HeaderMeta {...exploreMetaTags}>
+      <MainLayout withoutFooter={!error}>{page}</MainLayout>
+    </HeaderMeta>
   );
 };
 
