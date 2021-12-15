@@ -42,10 +42,10 @@ import { AppService } from './app.service';
       context: ({ req, res }) => ({ req, res }),
       schemaDirectives: {},
       playground: process.env.NODE_ENV === 'development',
-      cors: {
-        credentials: true,
-        origin: true,
-      },
+      // cors: {
+      //   credentials: true,
+      //   origin: true,
+      // },
     }),
     AdminModule,
     ScheduleModule.forRoot(),
