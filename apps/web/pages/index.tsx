@@ -36,7 +36,7 @@ const Index = () => {
                     />
                   </a>
                   <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-                    تمام پروژه‌های متن باز{' '}
+                    تمام پروژه‌های متن‌باز{' '}
                     <span className="text-primary-500">ایرانی</span>{' '}
                     <span className="">در یک جا</span>
                   </h1>
