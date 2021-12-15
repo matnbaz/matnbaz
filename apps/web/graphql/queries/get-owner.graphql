@@ -22,5 +22,6 @@ query GetOwner(
     type
     login
     platformId
+    platform
   }
 }

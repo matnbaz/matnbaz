@@ -1,13 +1,28 @@
 import { SOCIAL_MEDIA } from '@matnbaz/common';
+import Head from 'next/head';
 import { HiChevronLeft } from 'react-icons/hi';
 import { SiDiscord } from 'react-icons/si';
 import { IranVector } from '../components/Illustration/IranVector';
 import MainLayout from '../components/Layout/MainLayout';
 import Button from '../components/UI/Button/Button';
 
+export const indexMetaTags = {
+  title: 'متن باز – تمام پروژه های متن باز ایرانی در یک جا',
+  description:
+    'متن باز سعی دارد تمام پروژه های متن باز (Open Source) ایرانی را در یک محل جمع کرده و پیدا کردن آن ها را برای دیگر ایرانیان آسان تر کند.',
+  image: '',
+};
+
 const Index = () => {
   return (
     <MainLayout>
+      <Head>
+        <meta name="description" content={indexMetaTags.description} />
+        <meta name="og:title" content={indexMetaTags.title} />
+        <meta name="og:description" content={indexMetaTags.description} />
+        <meta name="og:image" content={indexMetaTags.image} />
+      </Head>
+
       <main>
         <div className="pt-10 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
           <div className="mx-auto max-w-7xl lg:px-8">

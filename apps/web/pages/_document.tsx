@@ -1,9 +1,9 @@
 import Document, {
-  Html,
+  DocumentContext,
   Head,
+  Html,
   Main,
   NextScript,
-  DocumentContext,
 } from 'next/document';
 
 class AppDocument extends Document {
@@ -12,6 +12,7 @@ class AppDocument extends Document {
 
     return initialProps;
   }
+
   render() {
     return (
       <Html dir="rtl" id="document" lang="fa">

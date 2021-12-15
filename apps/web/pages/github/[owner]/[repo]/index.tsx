@@ -1,5 +1,6 @@
 import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import {
   AiOutlineBranches,
   AiOutlineCalendar,
@@ -75,6 +76,13 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
 
   return (
     <MainLayout maxWidth={false} withoutPadding>
+      <Head>
+        <title>متن‌باز – {repo.fullName}</title>
+        <meta name="description" content={repo.descriptionLimited} />
+        <meta name="og:title" content={`متن‌باز – ${repo.fullName}`} />
+        <meta name="og:description" content={repo.descriptionLimited} />
+        {/* <meta name="og:image" content={} /> */}
+      </Head>
       <div className="relative flex items-center h-[40rem] md:h-[30rem] w-full bg-gradient-to-bl from-green-500 to-red-500">
         <div className="px-6 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-100/75 dark:bg-gray-900/75 w-full h-full">
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">

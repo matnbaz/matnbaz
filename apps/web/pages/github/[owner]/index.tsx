@@ -1,5 +1,6 @@
 import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import MainLayout from '../../../components/Layout/MainLayout';
 import OwnerReport from '../../../components/Report/OwnerReport';
@@ -36,6 +37,20 @@ const OwnerPage = ({ ownerSlug }) => {
 
   return (
     <MainLayout>
+      <Head>
+        <title>متن‌باز – {owner.login}</title>
+        <meta
+          name="description"
+          content={`پروفایل ${owner.login} از پلتفرم ${owner.platform}`}
+        />
+        <meta name="og:title" content={`متن‌باز – ${owner.login}`} />
+        <meta
+          name="og:description"
+          content={`پروفایل ${owner.login} از پلتفرم ${owner.platform}`}
+        />
+        {/* <meta name="og:image" content={} /> */}
+      </Head>
+
       <div className="px-6 space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4 space-x-reverse">

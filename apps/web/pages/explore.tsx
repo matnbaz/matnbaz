@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import RepositoryFilters from '../components/Filter/RepositoryFilters';
 import MainLayout from '../components/Layout/MainLayout';
 import SubmitUserModal from '../components/Modal/SubmitUserModal';
@@ -6,6 +7,12 @@ import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loader/Repos
 import Button from '../components/UI/Button/Button';
 import Divider from '../components/UI/Divider';
 import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
+
+export const exploreMetaTags = {
+  title: 'متن‌باز – کاوش‌گر',
+  description: 'پروژه های متن باز (Open Source) مختلف ایرانی را پیدا کنید.',
+  image: '',
+};
 
 const Explore = () => {
   const [
@@ -24,74 +31,74 @@ const Explore = () => {
     });
   };
 
-  console.log(data?.repositories);
-
-  if (error)
-    return (
-      <MainLayout>
-        <div className="flex flex-col space-y-6 items-center justify-center h-80">
-          <h1 className="text-5xl font-bold">خطا در بارگیری!</h1>
-          <span className="text-3xl">
-            لطفا چند لحظه بعد دوباره امتحان کنید.
+  const page = error ? (
+    <div className="flex flex-col space-y-6 items-center justify-center h-80">
+      <h1 className="text-5xl font-bold">خطا در بارگیری!</h1>
+      <span className="text-3xl">لطفا چند لحظه بعد دوباره امتحان کنید.</span>
+      <Button.Primary
+        disabled={loading}
+        onClick={() => {
+          refetch();
+        }}
+      >
+        امتحان مجدد
+      </Button.Primary>
+    </div>
+  ) : (
+    <div className="grid grid-cols-1 md:grid-cols-8 pb-6 gap-6">
+      <div className="md:col-span-3 lg:col-span-2">
+        <RepositoryFilters
+          called={called}
+          query={getRepositories}
+          refetch={refetch}
+          loading={loading}
+        />
+      </div>
+      {data?.repositories?.edges.length === 0 ? (
+        <div className="flex flex-col space-y-4 md:col-span-5 lg:col-span-6">
+          <h1 className="text-2xl font-semibold">نتیجه ای یافت نشد.</h1>
+          <span className="font-lg">
+            نتیجه ای با فیلتر‌های وارد شده یافت نشد.
           </span>
-          <Button.Primary
-            disabled={loading}
-            onClick={() => {
-              refetch();
-            }}
-          >
-            امتحان مجدد
-          </Button.Primary>
+          <Divider />
+          <span className="text-sm text-secondary">
+            می توانید با{' '}
+            <SubmitUserModal className="text-blue-500" title="ثبت دستی کاربر" />{' '}
+            به کاوش بهتر مخزن‌ها کمک کنید.
+          </span>
         </div>
-      </MainLayout>
-    );
-  return (
-    <MainLayout withoutFooter>
-      <div className="grid grid-cols-1 md:grid-cols-8 pb-6 gap-6">
-        <div className="md:col-span-3 lg:col-span-2">
-          <RepositoryFilters
-            called={called}
-            query={getRepositories}
-            refetch={refetch}
-            loading={loading}
-          />
-        </div>
-        {data?.repositories?.edges.length === 0 ? (
-          <div className="flex flex-col space-y-4 md:col-span-5 lg:col-span-6">
-            <h1 className="text-2xl font-semibold">نتیجه ای یافت نشد.</h1>
-            <span className="font-lg">
-              نتیجه ای با فیلتر‌های وارد شده یافت نشد.
-            </span>
-            <Divider />
-            <span className="text-sm text-secondary">
-              می توانید با{' '}
-              <SubmitUserModal
-                className="text-blue-500"
-                title="ثبت دستی کاربر"
-              />{' '}
-              به کاوش بهتر مخزن‌ها کمک کنید.
-            </span>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
-            {/* // Network status 4 is when refetch gets called and network status 3 is for when fetchMore gets called
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
+          {/* // Network status 4 is when refetch gets called and network status 3 is for when fetchMore gets called
           // In this case we don't want skeleton loaders to appear when the user is trying to load more data
           // So it checks if it's 4 */}
-            {(loading && networkStatus !== 3) || !called ? (
-              <>
-                {[...Array(6).keys()].map((number) => (
-                  <RepositoryPreviewSkeletonLoader key={number} />
-                ))}
-              </>
-            ) : (
-              <RepositoryPreviewList
-                repositories={repositories}
-                onLoadMore={repositoriesLoadMoreHandler}
-              />
-            )}
-          </div>
-        )}
-      </div>
+          {(loading && networkStatus !== 3) || !called ? (
+            <>
+              {[...Array(6).keys()].map((number) => (
+                <RepositoryPreviewSkeletonLoader key={number} />
+              ))}
+            </>
+          ) : (
+            <RepositoryPreviewList
+              repositories={repositories}
+              onLoadMore={repositoriesLoadMoreHandler}
+            />
+          )}
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <MainLayout withoutFooter={!error}>
+      <Head>
+        <title>{exploreMetaTags.title}</title>
+        <meta name="description" content={exploreMetaTags.description} />
+        <meta name="og:title" content={exploreMetaTags.title} />
+        <meta name="og:description" content={exploreMetaTags.description} />
+        <meta name="og:image" content={exploreMetaTags.image} />
+      </Head>
+      {page}
     </MainLayout>
   );
 };
