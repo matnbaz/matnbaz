@@ -3,7 +3,6 @@ FROM matnbaz:base AS builder
 WORKDIR /app/builder
 COPY . .
 RUN yarn build server --prod
-# RUN yarn prisma db push
 
 FROM matnbaz:base
 

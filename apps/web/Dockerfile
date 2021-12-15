@@ -9,4 +9,4 @@ FROM matnbaz:base
 WORKDIR /app/web
 COPY --from=builder /app/builder ./
 
-CMD [ "yarn", "run", "web", "--prod" ]
+CMD [ "yarn", "nx", "serve", "web", "--prod" ]
