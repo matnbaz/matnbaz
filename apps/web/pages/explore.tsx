@@ -32,9 +32,14 @@ const Explore = () => {
   };
 
   const page = error ? (
-    <div className="flex flex-col space-y-6 items-center justify-center h-80">
-      <h1 className="text-5xl font-bold">خطا در بارگیری!</h1>
-      <span className="text-3xl">لطفا چند لحظه بعد دوباره امتحان کنید.</span>
+    <div className="flex flex-col space-y-7 items-center justify-center h-80">
+      <h1 className="text-5xl font-bold text-red-500 dark:text-red-400">
+        خطای سرور
+      </h1>
+      <span className="text-2xl text-center">
+        درحال حاضر در سرور مشکلی پیش آمده. لطفا چند لحظه بعد دوباره تلاش کنید.
+      </span>
+      <Divider />
       <Button.Primary
         disabled={loading}
         onClick={() => {
