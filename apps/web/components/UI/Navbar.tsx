@@ -20,7 +20,7 @@ const links: { name: string; to: string }[] = [
 ];
 
 const Navbar = ({ className }: INavbarProps) => {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [atFirst, setAtFirst] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -99,12 +99,14 @@ const Navbar = ({ className }: INavbarProps) => {
               <div className="flex space-x-2 space-x-reverse items-center">
                 <IconButton
                   className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  onClick={() =>
+                    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+                  }
                 >
-                  {theme === 'light' ? (
-                    <BsFillMoonFill className="w-5 h-5" />
-                  ) : (
+                  {resolvedTheme === 'light' ? (
                     <BsFillSunFill className="w-5 h-5" />
+                  ) : (
+                    <BsFillMoonFill className="w-5 h-5" />
                   )}
                 </IconButton>
                 <button
