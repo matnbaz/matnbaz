@@ -94,6 +94,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Vazir', ...defaultTheme.fontFamily.sans],
+        mono: ['"Vazir Code"', ...defaultTheme.fontFamily.mono]
       },
     },
   },

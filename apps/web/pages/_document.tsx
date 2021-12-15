@@ -22,6 +22,11 @@ class AppDocument extends Document {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css"
         />
+        <link
+          href="https://cdn.rawgit.com/rastikerdar/vazir-code-font/v1.1.2/dist/font-face.css"
+          rel="stylesheet"
+          type="text/css"
+        />
         <body className="bg-gray-50 dark:bg-gray-900">
           <div id="modal" />
           <Main />
