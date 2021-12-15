@@ -6,6 +6,7 @@ import {
   SiInstagram,
   SiOpensourceinitiative,
   SiTelegram,
+  SiTwitter,
 } from 'react-icons/si';
 import { IconButton } from './IconButton';
 
@@ -64,28 +65,35 @@ export const Footer = (props: FooterProps) => {
               target="_blank"
               rel="noreferrer"
             >
-              <SiGithub className="w-5 h-5" />
+              <SiGithub className="w-4 h-4" />
             </IconButton>
             <IconButton
               href={SOCIAL_MEDIA.telegram}
               target="_blank"
               rel="noreferrer"
             >
-              <SiTelegram className="w-5 h-5" />
+              <SiTelegram className="w-4 h-4" />
             </IconButton>
             <IconButton
               href={SOCIAL_MEDIA.discord}
               target="_blank"
               rel="noreferrer"
             >
-              <SiDiscord className="w-5 h-5" />
+              <SiDiscord className="w-4 h-4" />
+            </IconButton>
+            <IconButton
+              href={SOCIAL_MEDIA.twitter}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <SiTwitter className="w-4 h-4" />
             </IconButton>
             <IconButton
               href={SOCIAL_MEDIA.instagram}
               target="_blank"
               rel="noreferrer"
             >
-              <SiInstagram className="w-5 h-5" />
+              <SiInstagram className="w-4 h-4" />
             </IconButton>
           </div>
         </div>
