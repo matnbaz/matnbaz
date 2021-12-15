@@ -41,6 +41,7 @@ import { AppService } from './app.service';
       ],
       context: ({ req, res }) => ({ req, res }),
       schemaDirectives: {},
+      playground: process.env.NODE_ENV === 'development',
     }),
     AdminModule,
     ScheduleModule.forRoot(),
