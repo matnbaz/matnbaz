@@ -7,6 +7,10 @@ import { DMMFClass } from '@prisma/client/runtime';
 import AdminJS from 'adminjs';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'nestjs-prisma';
+import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
+import { GithubDiscovererScheduler } from '../github-discoverer/github-discoverer.scheduler';
+import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
+import { GithubExtractorScheduler } from '../github-extractor/github-extractor.scheduler';
 import { getResources } from './resources';
 
 AdminJS.registerAdapter({ Database, Resource });
@@ -14,9 +18,19 @@ AdminJS.registerAdapter({ Database, Resource });
 @Module({
   imports: [
     AdminJsModule.createAdminAsync({
-      inject: [PrismaService],
-      useFactory: (prisma: PrismaService) => {
+      imports: [GithubExtractorModule, GithubDiscovererModule],
+      inject: [
+        PrismaService,
+        GithubDiscovererScheduler,
+        GithubExtractorScheduler,
+      ],
+      useFactory: (
+        prisma: PrismaService,
+        ghDiscoverer: GithubDiscovererScheduler,
+        ghExtractor: GithubExtractorScheduler
+      ) => {
         const dmmf = (prisma as any)._dmmf as DMMFClass;
+
         return {
           auth: {
             cookieName: 'admin_auth_cookie',
@@ -43,7 +57,14 @@ AdminJS.registerAdapter({ Database, Resource });
               logo: '',
               softwareBrothers: false,
             },
-            resources: getResources({ dmmf, prisma }),
+            resources: getResources({
+              dmmf,
+              prisma,
+              github: {
+                discoverer: ghDiscoverer,
+                extractor: ghExtractor,
+              },
+            }),
           },
           customLoader: ExpressLoader,
         };

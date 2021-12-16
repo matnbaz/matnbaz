@@ -18,5 +18,6 @@ import { GithubDiscovererService } from './github-discoverer.service';
     GithubDiscovererService,
   ],
   controllers: [GithubDiscovererController],
+  exports: [GithubDiscovererScheduler],
 })
 export class GithubDiscovererModule {}
