@@ -76,42 +76,30 @@ export class GithubDiscovererService {
       ReturnType<OctokitService['rest']['search']['repos']>
     >['data']['items'][0]['owner']
   ) {
-    const existingOwner = await this.prisma.owner.findUnique({
+    console.log(owner.id.toString());
+    await this.prisma.owner.upsert({
       where: {
         platform_platformId: {
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
         },
       },
+      create: {
+        platformId: owner.id.toString(),
+        platform: PlatformType.GitHub,
+        gravatarId: owner.gravatar_id,
+        login: owner.login,
+        type: owner.type as OwnerType,
+        siteAdmin: owner.site_admin,
+      },
+      update: {
+        platformId: owner.id.toString(),
+        platform: PlatformType.GitHub,
+        gravatarId: owner.gravatar_id,
+        login: owner.login,
+        type: owner.type as OwnerType,
+        siteAdmin: owner.site_admin,
+      },
     });
-    if (existingOwner) {
-      this.prisma.owner.update({
-        where: {
-          platform_platformId: {
-            platformId: owner.id.toString(),
-            platform: PlatformType.GitHub,
-          },
-        },
-        data: {
-          platformId: owner.id.toString(),
-          platform: PlatformType.GitHub,
-          gravatarId: owner.gravatar_id,
-          login: owner.login,
-          type: owner.type as OwnerType,
-          siteAdmin: owner.site_admin,
-        },
-      });
-    } else {
-      await this.prisma.owner.create({
-        data: {
-          platformId: owner.id.toString(),
-          platform: PlatformType.GitHub,
-          gravatarId: owner.gravatar_id,
-          login: owner.login,
-          type: owner.type as OwnerType,
-          siteAdmin: owner.site_admin,
-        },
-      });
-    }
   }
 }
