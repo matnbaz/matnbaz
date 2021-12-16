@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useCallback, useMemo, useState } from 'react';
 import {
   PlatformType,
@@ -51,12 +52,15 @@ const SubmitUserForm = () => {
           </Button.Primary>
         </form>
         {data && (
-          <div className="mt-4 text-sm text-green-600">
+          <div
+            className={classNames(
+              'mt-4 text-sm',
+              data.sendSubmission.submission ? 'text-green-600' : 'text-red-600'
+            )}
+          >
             {data.sendSubmission.submission
               ? `درخواست شما با آیدی ${data.sendSubmission.submission.id} ثبت شد. خیلی ممنون!`
-              : data.sendSubmission.userErrors
-              ? data.sendSubmission.userErrors[0].message
-              : ''}
+              : data.sendSubmission.userErrors[0].message || ''}
           </div>
         )}
         {error && (
