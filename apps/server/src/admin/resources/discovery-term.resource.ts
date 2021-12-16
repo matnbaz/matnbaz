@@ -1,6 +1,10 @@
 import { Resource } from './resource-type';
 
-export const discoveryTermResource: Resource = ({ dmmf, prisma, github }) => ({
+export const discoveryTermResource: Resource = ({
+  dmmf,
+  prisma,
+  githubQueue,
+}) => ({
   resource: {
     model: dmmf.modelMap.DiscoveryTerm,
     client: prisma,
@@ -16,7 +20,7 @@ export const discoveryTermResource: Resource = ({ dmmf, prisma, github }) => ({
         variant: 'success',
         handler: async (request, response, data) => {
           try {
-            await github.discoverer.discover();
+            githubQueue.add('discover');
           } catch (error) {
             console.error(error);
           }
@@ -38,7 +42,7 @@ export const discoveryTermResource: Resource = ({ dmmf, prisma, github }) => ({
         variant: 'success',
         handler: async (request, response, data) => {
           try {
-            await github.extractor.extract();
+            await githubQueue.add('extract');
           } catch (error) {
             console.error(error);
           }

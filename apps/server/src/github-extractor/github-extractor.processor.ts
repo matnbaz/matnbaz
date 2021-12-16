@@ -1,9 +1,9 @@
 import { Process, Processor } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
-import { GITHUB_EXTRACTOR_QUEUE } from './constants';
+import { GITHUB_QUEUE } from '../queue';
 import { GithubExtractorService } from './github-extractor.service';
 
-@Processor(GITHUB_EXTRACTOR_QUEUE)
+@Processor(GITHUB_QUEUE)
 export class GithubExtractorProcessor {
   constructor(private readonly extractor: GithubExtractorService) {}
   private logger = new Logger(GithubExtractorProcessor.name);

@@ -71,6 +71,16 @@ export class GithubDiscovererService {
     }
   }
 
+  async addOwner(username: string) {
+    const response = await this.octokit.rest.users.getByUsername({ username });
+
+    this.populateOwner(
+      response.data as Awaited<
+        ReturnType<OctokitService['rest']['search']['repos']>
+      >['data']['items'][0]['owner']
+    );
+  }
+
   async populateOwner(
     owner: Awaited<
       ReturnType<OctokitService['rest']['search']['repos']>

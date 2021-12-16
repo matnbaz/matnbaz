@@ -1,5 +1,3 @@
-export const GITHUB_DISCOVERER_QUEUE = 'github-discoverer';
-
 /**
  * Minimum stars required for discovery
  */
