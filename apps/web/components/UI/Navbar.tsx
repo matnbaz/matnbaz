@@ -31,9 +31,10 @@ const Navbar = ({ className }: INavbarProps) => {
   return (
     <div
       className={classNames(
-        !atFirst &&
-          'md:!bg-white/40 md:dark:!bg-gray-900/40 md:!backdrop-blur-sm',
-        'z-20 fixed w-full transition-colors bg-white/40 dark:bg-gray-900/40 backdrop-blur-sm md:bg-transparent dark:md:bg-transparent md:backdrop-blur-none',
+        !atFirst
+          ? 'bg-white/40 dark:bg-gray-900/40'
+          : 'bg-white/40 dark:bg-gray-900/40 md:bg-transparent dark:md:bg-transparent md:backdrop-blur-none',
+        'z-20 fixed w-full transition-colors backdrop-blur-sm',
         className
       )}
     >
