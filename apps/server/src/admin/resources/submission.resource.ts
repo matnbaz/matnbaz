@@ -16,7 +16,7 @@ export const submissionResource: Resource = ({
         name: 'add',
         isVisible: true,
         actionType: 'record',
-        icon: 'Plus',
+        icon: 'Add',
         component: false,
         variant: 'success',
         handler: async (request, response, data) => {
