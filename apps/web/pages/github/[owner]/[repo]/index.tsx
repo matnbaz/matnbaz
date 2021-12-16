@@ -90,7 +90,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
                 >
                   {repo.fullName}
                 </a>
-                <span className="text-secondary text-sm md:text-base">
+                <span className="text-secondary text-sm md:text-base w-auto md:w-[40rem]">
                   {repo.descriptionLimited}
                 </span>
                 {repo.language && (
