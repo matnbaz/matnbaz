@@ -84,12 +84,11 @@ model Owner {
 }
 
 model Submission {
-  id              String       @id @default(cuid())
-  username        String
-  platform        PlatformType
-  hasBeenResolved Boolean      @default(false)
-  createdAt       DateTime     @default(now())
-  repeatedAt      DateTime     @updatedAt
+  id         String       @id @default(cuid())
+  username   String
+  platform   PlatformType
+  createdAt  DateTime     @default(now())
+  repeatedAt DateTime     @updatedAt
 
   @@unique([platform, username])
 }

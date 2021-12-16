@@ -115,15 +115,14 @@ export const ownerResource: Resource = ({ dmmf, prisma }) => ({
               'Action#handler'
             );
           }
-          await Promise.all(
-            records.map((record) => {
-              resource.update(record.id(), { blockedAt: new Date() });
-              prisma.repository.updateMany({
-                where: { Owner: { id: record.id() } },
-                data: { blockedAt: new Date() },
-              });
-            })
-          );
+          for (const record of records) {
+            await resource.update(record.id(), { blockedAt: new Date() });
+            await prisma.repository.updateMany({
+              where: { Owner: { id: record.id() } },
+              data: { blockedAt: new Date() },
+            });
+          }
+
           return {
             records: records.map((record) =>
               record.toJSON(context.currentAdmin)

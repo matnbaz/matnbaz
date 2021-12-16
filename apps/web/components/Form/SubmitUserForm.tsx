@@ -47,7 +47,7 @@ const SubmitUserForm = () => {
             className="w-full"
             placeholder="GitHub username"
           />
-          <Button.Primary disabled={!isValidated} type="submit">
+          <Button.Primary disabled={!isValidated || loading} type="submit">
             ثبت
           </Button.Primary>
         </form>

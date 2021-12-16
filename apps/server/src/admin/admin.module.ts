@@ -1,16 +1,18 @@
 import ExpressLoader from '@adminjs/express';
 import { AdminModule as AdminJsModule } from '@adminjs/nestjs';
 import { Database, Resource } from '@adminjs/prisma';
+import { BullModule, getQueueToken } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
 import { UserType } from '@prisma/client';
 import { DMMFClass } from '@prisma/client/runtime';
 import AdminJS from 'adminjs';
 import * as bcrypt from 'bcrypt';
+import { Queue } from 'bull';
 import { PrismaService } from 'nestjs-prisma';
 import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
-import { GithubDiscovererScheduler } from '../github-discoverer/github-discoverer.scheduler';
 import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
-import { GithubExtractorScheduler } from '../github-extractor/github-extractor.scheduler';
+import { GITHUB_QUEUE } from '../queue';
 import { getResources } from './resources';
 
 AdminJS.registerAdapter({ Database, Resource });
@@ -18,17 +20,13 @@ AdminJS.registerAdapter({ Database, Resource });
 @Module({
   imports: [
     AdminJsModule.createAdminAsync({
-      imports: [GithubExtractorModule, GithubDiscovererModule],
-      inject: [
-        PrismaService,
-        GithubDiscovererScheduler,
-        GithubExtractorScheduler,
+      imports: [
+        GithubExtractorModule,
+        GithubDiscovererModule,
+        BullModule.registerQueue({ name: GITHUB_QUEUE }),
       ],
-      useFactory: (
-        prisma: PrismaService,
-        ghDiscoverer: GithubDiscovererScheduler,
-        ghExtractor: GithubExtractorScheduler
-      ) => {
+      inject: [PrismaService, ModuleRef, getQueueToken(GITHUB_QUEUE)],
+      useFactory: (prisma: PrismaService, _, githubQueue: Queue) => {
         const dmmf = (prisma as any)._dmmf as DMMFClass;
 
         return {
@@ -60,10 +58,7 @@ AdminJS.registerAdapter({ Database, Resource });
             resources: getResources({
               dmmf,
               prisma,
-              github: {
-                discoverer: ghDiscoverer,
-                extractor: ghExtractor,
-              },
+              githubQueue,
             }),
           },
           customLoader: ExpressLoader,
