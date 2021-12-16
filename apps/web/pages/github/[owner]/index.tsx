@@ -22,6 +22,7 @@ const OwnerPage = ({ ownerSlug }) => {
   const {
     data: { ownerByPlatform: owner },
     fetchMore,
+    loading,
   } = useGetOwnerQuery({
     variables: { owner: ownerSlug, platform: PlatformType.GitHub },
   });
@@ -63,6 +64,7 @@ const OwnerPage = ({ ownerSlug }) => {
           <Divider />
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min pb-6">
             <RepositoryPreviewList
+              loading={loading}
               repositories={owner.repositories.edges}
               onLoadMore={repositoriesLoadMoreHandler}
             />
