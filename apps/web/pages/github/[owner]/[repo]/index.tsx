@@ -163,10 +163,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             <div className="flex flex-col space-y-6">
               <h1 className="text-xl font-bold">پروژه‌های مشابه:</h1>
               {repo.relatedRepos.edges.length > 0 ? (
-                <RepositoryPreviewList
-                  loading={loading}
-                  repositories={repo.relatedRepos.edges}
-                />
+                <RepositoryPreviewList repositories={repo.relatedRepos.edges} />
               ) : (
                 <div className="text-gray-500 dark:text-gray-400 text-sm">
                   پروژه ای یافت نشد.
