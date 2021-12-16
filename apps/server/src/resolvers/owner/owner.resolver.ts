@@ -26,17 +26,22 @@ export class OwnerResolver extends ReportableResolver(Owner) {
 
   @Query(() => Owner, { nullable: true })
   owner(@Args('id', { type: () => ID }) id: string) {
-    return this.prisma.owner.findUnique({
+    return this.prisma.owner.findFirst({
       where: {
         id,
+        blockedAt: null,
       },
     });
   }
 
   @Query(() => Owner, { nullable: true })
   ownerByPlatformId(@Args() { id, platform }: PlatformByIdArgs) {
-    return this.prisma.owner.findUnique({
-      where: { platform_platformId: { platform, platformId: id } },
+    return this.prisma.owner.findFirst({
+      where: {
+        platform,
+        platformId: id,
+        blockedAt: null,
+      },
     });
   }
 
@@ -46,6 +51,7 @@ export class OwnerResolver extends ReportableResolver(Owner) {
       where: {
         login: owner,
         platform,
+        blockedAt: null,
       },
     });
   }
