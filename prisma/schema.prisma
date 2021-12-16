@@ -84,10 +84,14 @@ model Owner {
 }
 
 model Submission {
-  id              String   @id @default(cuid())
-  content         String
-  hasBeenResolved Boolean  @default(false)
-  createdAt       DateTime @default(now())
+  id              String       @id @default(cuid())
+  username        String
+  platform        PlatformType
+  hasBeenResolved Boolean      @default(false)
+  createdAt       DateTime     @default(now())
+  repeatedAt      DateTime     @updatedAt
+
+  @@unique([platform, username])
 }
 
 model Report {

@@ -145,7 +145,7 @@ export type Mutation = {
   reportOwner: Report;
   /** @deprecated Use `report` for now */
   reportRepository: Report;
-  sendSubmission: Submission;
+  sendSubmission: SubmissionPayload;
 };
 
 
@@ -169,7 +169,8 @@ export type MutationReportRepositoryArgs = {
 
 
 export type MutationSendSubmissionArgs = {
-  content: Scalars['String'];
+  platform: PlatformType;
+  username: Scalars['String'];
 };
 
 export type Node = {
@@ -443,9 +444,15 @@ export enum ScriptDirection {
 
 export type Submission = Node & {
   __typename?: 'Submission';
-  content: Scalars['String'];
   id: Scalars['ID'];
-  recordUpdatedAt: DateObject;
+  platform: PlatformType;
+  username: Scalars['String'];
+};
+
+export type SubmissionPayload = {
+  __typename?: 'SubmissionPayload';
+  submission?: Maybe<Submission>;
+  userErrors?: Maybe<Array<UserError>>;
 };
 
 /** The repo type used in filters. */
@@ -498,6 +505,12 @@ export enum TopicOrder {
   RepositoriesDesc = 'REPOSITORIES_DESC'
 }
 
+export type UserError = {
+  __typename?: 'UserError';
+  message: Scalars['String'];
+  path?: Maybe<Array<Scalars['String']>>;
+};
+
 export type FullRepoFragment = { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined };
 
 export type RepoPreviewWithoutOwnerFragment = { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined };
@@ -514,11 +527,12 @@ export type ReportMutationVariables = Exact<{
 export type ReportMutation = { __typename?: 'Mutation', report: { __typename?: 'Report', id: string } };
 
 export type SendSubmissionMutationVariables = Exact<{
-  content: Scalars['String'];
+  username: Scalars['String'];
+  platform: PlatformType;
 }>;
 
 
-export type SendSubmissionMutation = { __typename?: 'Mutation', sendSubmission: { __typename?: 'Submission', id: string } };
+export type SendSubmissionMutation = { __typename?: 'Mutation', sendSubmission: { __typename?: 'SubmissionPayload', submission?: { __typename?: 'Submission', id: string } | null | undefined, userErrors?: Array<{ __typename?: 'UserError', message: string }> | null | undefined } };
 
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -658,9 +672,14 @@ export type ReportMutationHookResult = ReturnType<typeof useReportMutation>;
 export type ReportMutationResult = Apollo.MutationResult<ReportMutation>;
 export type ReportMutationOptions = Apollo.BaseMutationOptions<ReportMutation, ReportMutationVariables>;
 export const SendSubmissionDocument = gql`
-    mutation SendSubmission($content: String!) {
-  sendSubmission(content: $content) {
-    id
+    mutation SendSubmission($username: String!, $platform: PlatformType!) {
+  sendSubmission(username: $username, platform: $platform) {
+    submission {
+      id
+    }
+    userErrors {
+      message
+    }
   }
 }
     `;
@@ -679,7 +698,8 @@ export type SendSubmissionMutationFn = Apollo.MutationFunction<SendSubmissionMut
  * @example
  * const [sendSubmissionMutation, { data, loading, error }] = useSendSubmissionMutation({
  *   variables: {
- *      content: // value for 'content'
+ *      username: // value for 'username'
+ *      platform: // value for 'platform'
  *   },
  * });
  */

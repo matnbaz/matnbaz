@@ -1,5 +1,10 @@
-mutation SendSubmission ($content: String!) {
-    sendSubmission(content: $content) {
-        id
+mutation SendSubmission ($username: String!, $platform: PlatformType!) {
+    sendSubmission(username: $username, platform: $platform) {
+        submission {
+            id
+        }
+        userErrors {
+            message
+        }
     }
 }

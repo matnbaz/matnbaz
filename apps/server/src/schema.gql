@@ -106,7 +106,7 @@ type Mutation {
   report(id: ID!, reason: String!, subject: ReportableType!): Report!
   reportOwner(id: ID!, reason: String!): Report! @deprecated(reason: "Use `report` for now")
   reportRepository(id: ID!, reason: String!): Report! @deprecated(reason: "Use `report` for now")
-  sendSubmission(content: String!): Submission!
+  sendSubmission(platform: PlatformType!, username: String!): SubmissionPayload!
 }
 
 interface Node {
@@ -294,9 +294,14 @@ enum ScriptDirection {
 }
 
 type Submission implements Node {
-  content: String!
   id: ID!
-  recordUpdatedAt: DateObject!
+  platform: PlatformType!
+  username: String!
+}
+
+type SubmissionPayload {
+  submission: Submission
+  userErrors: [UserError!]
 }
 
 """The repo type used in filters."""
@@ -340,4 +345,9 @@ type TopicEdge {
 enum TopicOrder {
   """Order by repositories count in descending direction."""
   REPOSITORIES_DESC
+}
+
+type UserError {
+  message: String!
+  path: [String!]
 }

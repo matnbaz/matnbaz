@@ -1,5 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useSendSubmissionMutation } from '../../lib/graphql-types';
+import {
+  PlatformType,
+  useSendSubmissionMutation,
+} from '../../lib/graphql-types';
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
 
@@ -10,7 +13,7 @@ const SubmitUserForm = () => {
   const sendSubmissionInfo = useCallback(async () => {
     try {
       const { data, errors } = await submit({
-        variables: { content: `Username submission: ${username}` },
+        variables: { username, platform: PlatformType.GitHub },
       });
       if (data) setUsername('');
     } catch (e) {
@@ -49,7 +52,11 @@ const SubmitUserForm = () => {
         </form>
         {data && (
           <div className="mt-4 text-sm text-green-600">
-            درخواست شما با آیدی {data.sendSubmission.id} ثبت شد. خیلی ممنون!
+            {data.sendSubmission.submission
+              ? `درخواست شما با آیدی ${data.sendSubmission.submission.id} ثبت شد. خیلی ممنون!`
+              : data.sendSubmission.userErrors
+              ? data.sendSubmission.userErrors[0].message
+              : ''}
           </div>
         )}
         {error && (
