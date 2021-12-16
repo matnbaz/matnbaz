@@ -11,19 +11,13 @@ interface IExpandableProps {
 const Expandable = ({ children, maxHeight = 2400 }: IExpandableProps) => {
   const expandableRef = useRef(null);
   const [open, setOpen] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     if (expandableRef?.current?.clientHeight > maxHeight) setOpen(false);
-  }, [expandableRef]);
-
-  const router = useRouter();
-
-  // If user navigated to any other page, the expandable should be closed and this useEffect ensures that
-  useEffect(() => {
-    if (open) {
-      setOpen(false);
-    }
-  }, [router.asPath]);
+    // This needs to be re-run if the route changes too
+    // To ensure that the expandable state is based on the current ref and not the old ref
+  }, [expandableRef, router.asPath]);
 
   return (
     <div
