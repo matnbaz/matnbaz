@@ -166,7 +166,6 @@ type Query {
   languages(after: String, before: String, first: Int, last: Int, order: LanguageOrder): LanguageConnection!
   licenses(after: String, before: String, first: Int, last: Int, order: LicenseOrder): LicenseConnection!
   owner(id: ID!): Owner
-  ownerByLogin(login: String!): Owner
   ownerByPlatform(owner: String!, platform: PlatformType!): Owner
   ownerByPlatformId(id: ID!, platform: PlatformType!): Owner
   repositories(

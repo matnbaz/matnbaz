@@ -234,7 +234,6 @@ export type Query = {
   languages: LanguageConnection;
   licenses: LicenseConnection;
   owner?: Maybe<Owner>;
-  ownerByLogin?: Maybe<Owner>;
   ownerByPlatform?: Maybe<Owner>;
   ownerByPlatformId?: Maybe<Owner>;
   repositories: RepositoryConnection;
@@ -272,11 +271,6 @@ export type QueryLicensesArgs = {
 
 export type QueryOwnerArgs = {
   id: Scalars['ID'];
-};
-
-
-export type QueryOwnerByLoginArgs = {
-  login: Scalars['String'];
 };
 
 

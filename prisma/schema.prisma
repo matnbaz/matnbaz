@@ -70,7 +70,7 @@ model Owner {
   id              String       @id @default(cuid())
   platform        PlatformType
   platformId      String
-  login           String       @unique
+  login           String
   gravatarId      String
   type            OwnerType
   siteAdmin       Boolean
@@ -80,6 +80,7 @@ model Owner {
   blockedAt       DateTime?
 
   @@unique([platform, platformId])
+  @@unique([platform, login])
 }
 
 model Submission {

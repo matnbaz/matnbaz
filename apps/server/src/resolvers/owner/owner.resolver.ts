@@ -50,15 +50,6 @@ export class OwnerResolver extends ReportableResolver(Owner) {
     });
   }
 
-  @Query(() => Owner, { nullable: true })
-  ownerByLogin(@Args('login') login: string) {
-    return this.prisma.owner.findUnique({
-      where: {
-        login,
-      },
-    });
-  }
-
   @ResolveField(() => RepositoryConnection, {
     complexity: paginationComplexity,
   })
