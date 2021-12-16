@@ -47,7 +47,7 @@ const RepositoryPreviewList = ({
       {
         // Network status 4 is when refetch gets called and network status 3 is for when fetchMore gets called
         // In this case we don't want skeleton loaders to appear when the user is trying to load more data
-        // So it checks if it's 4
+        // So it checks if it's not 3 (fetchMore)
       }
 
       {(loading && networkStatus !== 3) || !called ? (
