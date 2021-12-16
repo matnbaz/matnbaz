@@ -60,7 +60,7 @@ const SubmitUserForm = () => {
           >
             {data.sendSubmission.submission
               ? `درخواست شما با آیدی ${data.sendSubmission.submission.id} ثبت شد. خیلی ممنون!`
-              : data.sendSubmission.userErrors[0].message || ''}
+              : data.sendSubmission.userErrors[0]?.message || ''}
           </div>
         )}
         {error && (
