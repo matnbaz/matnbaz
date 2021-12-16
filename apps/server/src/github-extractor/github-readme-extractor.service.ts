@@ -42,7 +42,7 @@ export class GithubReadmeExtractorService {
       );
     } catch (e) {
       this.logger.error(
-        `Could not extract the README for ${Owner.login}/${name}`
+        `Could not extract the README for ${Owner.login}/${name}. error message: ${e.message}`
       );
     }
   }

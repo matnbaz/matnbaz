@@ -16,6 +16,7 @@ export class GithubDiscovererService {
     const terms = await this.prisma.discoveryTerm.findMany();
 
     for (const { term } of terms) await this.discover(term);
+    this.logger.log('Finished discovery for all discovery terms');
   }
 
   /**
@@ -27,6 +28,7 @@ export class GithubDiscovererService {
     const repos: Awaited<
       ReturnType<OctokitService['rest']['search']['repos']>
     >['data']['items'] = [];
+    this.logger.log(`Starting the discovery process for term "${term}"`);
 
     let finished = false;
     while (!finished) {
