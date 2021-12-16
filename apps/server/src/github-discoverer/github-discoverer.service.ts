@@ -77,29 +77,35 @@ export class GithubDiscovererService {
     >['data']['items'][0]['owner']
   ) {
     this.logger.log(`Now populating ${owner.login} with the ID of ${owner.id}`);
-    await this.prisma.owner.upsert({
-      where: {
-        platform_platformId: {
+    try {
+      await this.prisma.owner.upsert({
+        where: {
+          platform_platformId: {
+            platformId: owner.id.toString(),
+            platform: PlatformType.GitHub,
+          },
+        },
+        create: {
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
+          gravatarId: owner.gravatar_id,
+          login: owner.login,
+          type: owner.type as OwnerType,
+          siteAdmin: owner.site_admin,
         },
-      },
-      create: {
-        platformId: owner.id.toString(),
-        platform: PlatformType.GitHub,
-        gravatarId: owner.gravatar_id,
-        login: owner.login,
-        type: owner.type as OwnerType,
-        siteAdmin: owner.site_admin,
-      },
-      update: {
-        platformId: owner.id.toString(),
-        platform: PlatformType.GitHub,
-        gravatarId: owner.gravatar_id,
-        login: owner.login,
-        type: owner.type as OwnerType,
-        siteAdmin: owner.site_admin,
-      },
-    });
+        update: {
+          platformId: owner.id.toString(),
+          platform: PlatformType.GitHub,
+          gravatarId: owner.gravatar_id,
+          login: owner.login,
+          type: owner.type as OwnerType,
+          siteAdmin: owner.site_admin,
+        },
+      });
+    } catch (e) {
+      this.logger.error(
+        `Error while populating ${owner.login} with the ID of ${owner.id}: ${e.message}`
+      );
+    }
   }
 }
