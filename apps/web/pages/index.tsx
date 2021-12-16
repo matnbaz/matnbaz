@@ -20,14 +20,14 @@ const Index = () => {
         <main>
           <div className="pt-10 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
             <div className="mx-auto max-w-7xl lg:px-8">
-              <div className="space-y-36">
+              <div className="space-y-12 sm:space-y-36">
                 <div className="mx-auto max-w-md px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right lg:flex lg:items-center">
                   <div className="lg:py-24">
                     <a
                       href={SOCIAL_MEDIA.discord}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center text-white bg-black rounded-full p-1 pl-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
+                      className="hidden sm:inline-flex items-center text-white bg-black rounded-full p-1 pl-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
                     >
                       <span
                         className="px-3 py-0.5 text-xs font-semibold flex items-center space-x- leading-5 tracking-wide rounded-full"
