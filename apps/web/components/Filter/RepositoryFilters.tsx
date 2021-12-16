@@ -91,8 +91,14 @@ const RepositoryFilters = ({
     );
     if (languageSearchInput.length < 1) return mappedLanguages;
     // Then they must be filtered if the user searched for a specific language
-    return mappedLanguages?.filter((language) =>
-      language?.slug?.toLowerCase().includes(languageSearchInput.toLowerCase())
+    return mappedLanguages?.filter(
+      (language) =>
+        language?.slug
+          ?.toLowerCase()
+          .includes(languageSearchInput.toLowerCase()) ||
+        language?.name
+          ?.toLowerCase()
+          .includes(languageSearchInput.toLowerCase())
     );
   }, [languagesNode, languageSearchInput]);
 
