@@ -76,7 +76,7 @@ export class GithubDiscovererService {
       ReturnType<OctokitService['rest']['search']['repos']>
     >['data']['items'][0]['owner']
   ) {
-    console.log(owner.id.toString());
+    this.logger.log(`Now populating ${owner.login} with the ID of ${owner.id}`);
     await this.prisma.owner.upsert({
       where: {
         platform_platformId: {
