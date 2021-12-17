@@ -41,6 +41,7 @@ const SubmitUserForm = () => {
           className="flex items-center space-x-2 space-x-reverse w-full"
         >
           <Input.Text
+            autoFocus
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             dir="ltr"
