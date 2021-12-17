@@ -1,11 +1,16 @@
 import { useMemo } from 'react';
-import { GetRepositoriesQuery } from '../../lib/graphql-types';
+import {
+  GetRepositoriesQuery,
+  GetSearchedRepositoriesQuery,
+} from '../../lib/graphql-types';
 import InfiniteScroll from '../Feature/InfiniteScroll';
 import RepositoryPreviewSkeletonLoader from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
 import RepositoryPreview from './RepositoryPreview';
 
 interface IRepositoryPreviewListProps {
-  repositories: GetRepositoriesQuery['repositories']['edges'];
+  repositories:
+    | GetRepositoriesQuery['repositories']['edges']
+    | GetSearchedRepositoriesQuery['repositories']['edges'];
   loading?: boolean;
 }
 
@@ -42,6 +47,14 @@ const RepositoryPreviewList = ({
     ));
   }, [repositories]);
 
+  const skeletonLoaders = useMemo(
+    () =>
+      [...Array(6).keys()].map((number) => (
+        <RepositoryPreviewSkeletonLoader key={number} />
+      )),
+    []
+  );
+
   // If pagination is intended for the list, then infinite scroll wrapper is needed
   return onLoadMore ? (
     <InfiniteScroll
@@ -54,15 +67,9 @@ const RepositoryPreviewList = ({
         // So it checks if it's not 3 (fetchMore)
       }
 
-      {(loading && networkStatus !== 3) || !called ? (
-        <>
-          {[...Array(6).keys()].map((number) => (
-            <RepositoryPreviewSkeletonLoader key={number} />
-          ))}
-        </>
-      ) : (
-        mappedRepositories
-      )}
+      {(loading && networkStatus !== 3) || !called
+        ? skeletonLoaders
+        : mappedRepositories}
       {networkStatus === 3 &&
         [...Array(2).keys()].map((number) => (
           <RepositoryPreviewSkeletonLoader key={number} />
@@ -71,7 +78,7 @@ const RepositoryPreviewList = ({
   ) : (
     // But if there is no onLoadMore it means that pagination is not needed
     // So infinite scroll is not needed as well
-    <>{mappedRepositories}</>
+    <>{loading ? skeletonLoaders : mappedRepositories}</>
   );
 };
 
