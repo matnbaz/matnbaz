@@ -10,9 +10,7 @@ export default function useClickOutside(callback: any, elementId?: string) {
   });
 
   useEffect(() => {
-    const element = document.getElementById(
-      elementId || 'fabric-canvas-wrapper'
-    );
+    const element = document.getElementById(elementId || '__next');
 
     if (!element) return;
 
