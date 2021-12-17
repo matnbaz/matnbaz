@@ -1,8 +1,8 @@
 import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps } from 'next';
-import Image from 'next/image';
 import HeaderMeta from '../../../components/Feature/HeaderMeta';
 import MainLayout from '../../../components/Layout/MainLayout';
+import OwnerImage from '../../../components/Owner/OwnerImage';
 import OwnerReport from '../../../components/Report/OwnerReport';
 import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
 import Button from '../../../components/UI/Button/Button';
@@ -44,17 +44,16 @@ const OwnerPage = ({ ownerSlug }) => {
         description={`پروفایل ${owner.login} از پلتفرم ${owner.platform}`}
       />
       <div className="px-6 space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 items-center justify-between overflow-hidden">
           <div className="flex items-center space-x-4 space-x-reverse">
-            <Image
-              width={130}
-              height={130}
-              src={`https://avatars.githubusercontent.com/u/${owner.platformId}?v=4`}
-              alt={owner.login}
-              className="rounded-xl"
-            />
-            <div className="flex flex-col space-y-3">
-              <h1 className="text-2xl font-bold">{owner.login}</h1>
+            <div className="flex-shrink-0">
+              <OwnerImage owner={owner} />
+            </div>
+
+            <div className="flex flex-col ">
+              <h1 className="text-xl sm:text-2xl font-bold truncate">
+                {owner.login} gamwewereee
+              </h1>
               <span className="text-secondary text-lg font-extralight">
                 {persianNumbers(owner.repositoriesCount)} پروژه
               </span>

@@ -1,5 +1,6 @@
 import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 import { useMemo } from 'react';
 import {
   AiOutlineBranches,
@@ -90,15 +91,22 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         <div className="px-6 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-300/60 dark:bg-gray-900/75 w-full h-full">
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
             <OwnerImage owner={repo.owner} width={120} height={120} />
-            <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
-              <a
-                className="text-2xl md:text-3xl font-bold text-primary-500 dark:text-primary-400"
-                href={repo.platformUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {repo.fullName}
-              </a>
+            <div className="flex flex-col space-y-2 items-center md:items-start md:mr-6">
+              <div className="text-2xl md:text-3xl font-bold text-primary-500 dark:text-primary-400">
+                <Link href={`/github/${repo.owner.login}`}>
+                  {repo.owner.login}
+                </Link>
+                <span> / </span>
+                <a
+                  className=""
+                  href={`https://github.com/${repo.owner.login}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  // TODO make it platform-agnostic
+                >
+                  {repo.name}
+                </a>
+              </div>
               <span className="text-secondary text-sm md:text-base max-w-[45rem]">
                 {repo.descriptionLimited}
               </span>
