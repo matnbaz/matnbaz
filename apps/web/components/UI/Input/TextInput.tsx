@@ -9,7 +9,7 @@ export interface ITextInputProps extends IInputProps {
 const TextInput = ({ className, icon, ...props }: ITextInputProps) => {
   const IconComponent = icon;
   return (
-    <div className="relative w-full">
+    <div className="relative w-full inline-block">
       <input
         {...props}
         className={classNames(
