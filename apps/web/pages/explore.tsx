@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import HeaderMeta, { IHeaderMetaTags } from '../components/Feature/HeaderMeta';
 import RepositoryFilters from '../components/Filter/RepositoryFilters';
 import MainLayout from '../components/Layout/MainLayout';
@@ -18,10 +19,13 @@ const Explore = () => {
     getRepositories,
     { loading, data, error, fetchMore, refetch, networkStatus, called },
   ] = useGetRepositoriesLazyQuery({ notifyOnNetworkStatusChange: true });
-  const repositories = data?.repositories.edges;
-  const repositoriesPageInfo = data?.repositories.pageInfo;
+  const repositories = useMemo(() => data?.repositories.edges, [data]);
+  const repositoriesPageInfo = useMemo(
+    () => data?.repositories.pageInfo,
+    [data]
+  );
   const repositoriesLoadMoreHandler = () => {
-    if (!repositoriesPageInfo.hasNextPage) return;
+    if (!repositoriesPageInfo?.hasNextPage || !repositoriesPageInfo) return;
 
     fetchMore({
       variables: {
