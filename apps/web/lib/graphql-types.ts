@@ -572,6 +572,14 @@ export type GetRepositoryQueryVariables = Exact<{
 
 export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, relatedRepos: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } }, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: string | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
 
+export type GetSearchedRepositoriesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  searchTerm?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetSearchedRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined } }> | null | undefined } };
+
 export const FullRepoFragmentDoc = gql`
     fragment fullRepo on Repository {
   id
@@ -913,6 +921,50 @@ export function useGetRepositoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetRepositoryQueryHookResult = ReturnType<typeof useGetRepositoryQuery>;
 export type GetRepositoryLazyQueryHookResult = ReturnType<typeof useGetRepositoryLazyQuery>;
 export type GetRepositoryQueryResult = Apollo.QueryResult<GetRepositoryQuery, GetRepositoryQueryVariables>;
+export const GetSearchedRepositoriesDocument = gql`
+    query GetSearchedRepositories($first: Int = 5, $searchTerm: String) {
+  repositories(first: $first, searchTerm: $searchTerm) {
+    edges {
+      node {
+        id
+        fullName
+        platformUrl
+        platform
+        descriptionLimited
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSearchedRepositoriesQuery__
+ *
+ * To run a query within a React component, call `useGetSearchedRepositoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSearchedRepositoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSearchedRepositoriesQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      searchTerm: // value for 'searchTerm'
+ *   },
+ * });
+ */
+export function useGetSearchedRepositoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>(GetSearchedRepositoriesDocument, options);
+      }
+export function useGetSearchedRepositoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>(GetSearchedRepositoriesDocument, options);
+        }
+export type GetSearchedRepositoriesQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesQuery>;
+export type GetSearchedRepositoriesLazyQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesLazyQuery>;
+export type GetSearchedRepositoriesQueryResult = Apollo.QueryResult<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {
