@@ -4,18 +4,22 @@ import InfiniteScroll from '../Feature/InfiniteScroll';
 import RepositoryPreviewSkeletonLoader from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
 import RepositoryPreview from './RepositoryPreview';
 
-interface IRepositoryPreviewListPropsWithoutPagination {
+interface IRepositoryPreviewListProps {
   repositories: GetRepositoriesQuery['repositories']['edges'];
-  loading?: never;
+  loading?: boolean;
+}
+
+interface IRepositoryPreviewListPropsWithoutPagination
+  extends IRepositoryPreviewListProps {
   networkStatus?: never;
   called?: never;
   onLoadMore?: never;
 }
 
-interface IRepositoryPreviewListPropsWithPagination {
-  repositories: GetRepositoriesQuery['repositories']['edges'];
-  onLoadMore?: () => void;
+interface IRepositoryPreviewListPropsWithPagination
+  extends IRepositoryPreviewListProps {
   loading: boolean;
+  onLoadMore?: () => void;
   networkStatus?: number;
   called?: boolean;
 }
