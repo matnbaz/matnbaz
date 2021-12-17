@@ -13,12 +13,11 @@ export const aboutMetaTags: IHeaderMetaTags = {
   title: 'درباره',
   description:
     'درباره انگیزه ما از ساخت متن باز، نحوه کار آن، چشم انداز و آینده پروژه بخوانید.',
-  image: '',
 };
 
 const About: NextPage<AboutProps> = ({ about }) => {
   return (
-    <HeaderMeta {...aboutMetaTags}>
+    <HeaderMeta {...aboutMetaTags} withBanner>
       <MainLayout>
         <div
           className="prose dark:prose-light max-w-4xl mx-auto my-5"

@@ -11,7 +11,6 @@ import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
 export const exploreMetaTags: IHeaderMetaTags = {
   title: 'کاوش‌گر',
   description: 'پروژه های متن باز (Open Source) مختلف ایرانی را پیدا کنید.',
-  image: '',
 };
 
 const Explore = () => {
@@ -90,7 +89,7 @@ const Explore = () => {
   );
 
   return (
-    <HeaderMeta {...exploreMetaTags}>
+    <HeaderMeta {...exploreMetaTags} withBanner>
       <MainLayout withoutFooter={!error}>{page}</MainLayout>
     </HeaderMeta>
   );

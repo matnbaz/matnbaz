@@ -9,7 +9,7 @@ import { SubmissionPayload } from './submission.payload';
 export class SubmissionResolver {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Throttle(5)
+  @Throttle(20)
   @Mutation(() => SubmissionPayload)
   async sendSubmission(
     @Args('username') username: string,
