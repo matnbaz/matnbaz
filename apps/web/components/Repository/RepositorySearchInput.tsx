@@ -63,7 +63,7 @@ const RepositorySearchInput = () => {
         placeholder="جستجوی مخزن..."
         className={classNames(
           searchTerm.length > 0 ? 'md:w-[17rem] lg:w-[25rem]' : 'md:w-48',
-          'transition-width w-full duration-500 ease-in-out shadow-none backdrop-blur-sm'
+          'transition-width w-full duration-500 ease-in-out !shadow-none backdrop-blur-sm'
         )}
         icon={AiOutlineSearch}
         onChange={(event) => {
