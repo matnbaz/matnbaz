@@ -10,15 +10,22 @@ import RepositoryPreviewList from './RepositoryPreviewList';
 
 const RepositorySearchInput = () => {
   const router = useRouter();
+
   const [getSearchResult, { loading, data, refetch, called }] =
     useGetSearchedRepositoriesLazyQuery({
+      // We don't want this to affect the cache so we disable it
       fetchPolicy: 'no-cache',
       notifyOnNetworkStatusChange: true,
     });
+
   const [searchTerm, setSearchTerm] = useState('');
+
   const [inputFocused, setInputFocused] = useState(false);
+
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const dropdownClickOutsideRef = useClickOutside(() => {
     setDropdownOpen(false);
   });
@@ -27,13 +34,14 @@ const RepositorySearchInput = () => {
   }, [debouncedSearchTerm]);
 
   useEffect(() => {
+    // If the length is too short, then search wont happen
     if (debouncedSearchTerm.trim().length < 2) return;
     if (!called) getSearchResult({ variables: queryVariables });
     else refetch(queryVariables);
-    setDropdownOpen(true);
   }, [debouncedSearchTerm]);
 
   useEffect(() => {
+    // If the user focused on the input then the dropdown should open
     if (inputFocused) setDropdownOpen(true);
   }, [inputFocused]);
 
@@ -42,7 +50,9 @@ const RepositorySearchInput = () => {
       className="w-full md:w-auto relative"
       onSubmit={(event) => {
         event.preventDefault();
+        // If the user submitted the form (pressed enter) then we will redirect them to the explore page
         router.push({ pathname: '/explore', query: { searchTerm } });
+        setDropdownOpen(false);
       }}
     >
       <Input.Text
