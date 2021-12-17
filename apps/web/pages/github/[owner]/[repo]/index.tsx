@@ -92,7 +92,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             <OwnerImage owner={repo.owner} width={120} height={120} />
             <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
               <a
-                className="text-2xl md:text-3xl font-bold text-primary-500 dark:text-primary-400"
+                className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400"
                 href={repo.platformUrl}
                 target="_blank"
                 rel="noreferrer"
