@@ -47,7 +47,7 @@ const OwnerPage = ({ ownerSlug }) => {
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 items-center justify-between overflow-hidden">
           <div className="flex items-center space-x-4 space-x-reverse">
             <div className="flex-shrink-0">
-              <OwnerImage owner={owner} />
+              <OwnerImage owner={owner} withoutLink />
             </div>
 
             <div className="flex flex-col ">
