@@ -99,7 +99,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
                 <span> / </span>
                 <a
                   className=""
-                  href={`https://github.com/${repo.owner.login}`}
+                  href={repo.platformUrl}
                   target="_blank"
                   rel="noreferrer"
                   // TODO make it platform-agnostic
