@@ -52,7 +52,7 @@ const OwnerPage = ({ ownerSlug }) => {
 
             <div className="flex flex-col ">
               <h1 className="text-xl sm:text-2xl font-bold truncate">
-                {owner.login} gamwewereee
+                {owner.login}
               </h1>
               <span className="text-secondary text-lg font-extralight">
                 {persianNumbers(owner.repositoriesCount)} پروژه
