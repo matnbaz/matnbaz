@@ -12,7 +12,11 @@ function CustomApp({ Component, pageProps }: AppProps) {
     <ThemeProvider attribute="class">
       <ApolloProvider client={client}>
         <RepositoryFilterContextWrapper>
-          <NextNProgress options={{ showSpinner: false }} height={2} />
+          <NextNProgress
+            options={{ showSpinner: false }}
+            height={2}
+            color="#1E90FF"
+          />
           <Component {...pageProps} />
         </RepositoryFilterContextWrapper>
       </ApolloProvider>
