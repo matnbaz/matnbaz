@@ -5,6 +5,7 @@ import HeaderMeta from '../../../components/Feature/HeaderMeta';
 import MainLayout from '../../../components/Layout/MainLayout';
 import OwnerReport from '../../../components/Report/OwnerReport';
 import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
+import Button from '../../../components/UI/Button/Button';
 import Divider from '../../../components/UI/Divider';
 import { initializeApollo } from '../../../lib/apollo';
 import {
@@ -59,7 +60,16 @@ const OwnerPage = ({ ownerSlug }) => {
               </span>
             </div>
           </div>
-          <OwnerReport owner={owner} />
+          <div className="flex items-center space-x-2 space-x-reverse">
+            <Button.Ghost
+              href={`https://github.com/${owner.login}`}
+              target="_blank"
+            >
+              {/* TODO: Change based on platform */}
+              مشاهده صفحه
+            </Button.Ghost>
+            <OwnerReport owner={owner} />
+          </div>
         </div>
         <Divider />
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min pb-6">
