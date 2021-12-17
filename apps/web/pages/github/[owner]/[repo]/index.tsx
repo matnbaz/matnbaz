@@ -151,8 +151,8 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         </div>
       </div>
       <div className="p-5 sm:p-8">
-        <div className="grid grid-cols-1 gap-6 max-w-4xl mx-auto">
-          <Card padded border="desktop">
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6 mx-auto">
+          <Card padded border="all" className="col-span-1 lg:col-span-5">
             {repo.readmeHtml ? (
               <Expandable>
                 <div
@@ -168,8 +168,8 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             )}
           </Card>
 
-          <div className="flex flex-col space-y-6">
-            <h1 className="text-xl font-bold">پروژه‌های مشابه:</h1>
+          <div className="flex flex-col space-y-6 col-span-1 lg:col-span-2">
+            <h1 className="text-base text-secondary">پروژه‌های مشابه</h1>
             {repo.relatedRepos.edges.length > 0 ? (
               <RepositoryPreviewList repositories={repo.relatedRepos.edges} />
             ) : (
