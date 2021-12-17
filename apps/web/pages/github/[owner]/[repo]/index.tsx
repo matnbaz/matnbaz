@@ -92,7 +92,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
             <OwnerImage owner={repo.owner} width={120} height={120} />
             <div className="flex flex-col space-y-2 items-center md:items-start md:mr-6">
-              <div className="text-2xl md:text-3xl font-bold text-primary-500 dark:text-primary-400">
+              <div className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">
                 <Link href={`/github/${repo.owner.login}`}>
                   {repo.owner.login}
                 </Link>
