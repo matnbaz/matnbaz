@@ -22,7 +22,7 @@ const RepositorySearchInput = () => {
 
   const [inputFocused, setInputFocused] = useState(false);
 
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
