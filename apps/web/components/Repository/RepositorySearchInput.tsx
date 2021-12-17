@@ -45,6 +45,11 @@ const RepositorySearchInput = () => {
     if (inputFocused) setDropdownOpen(true);
   }, [inputFocused]);
 
+  useEffect(() => {
+    // If the route is changed, then we close the dropdown
+    setDropdownOpen(false);
+  }, [router.asPath]);
+
   return (
     <form
       className="w-full md:w-auto relative"
@@ -52,7 +57,6 @@ const RepositorySearchInput = () => {
         event.preventDefault();
         // If the user submitted the form (pressed enter) then we will redirect them to the explore page
         router.push({ pathname: '/explore', query: { searchTerm } });
-        setDropdownOpen(false);
       }}
     >
       <Input.Text
