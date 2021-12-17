@@ -11,14 +11,13 @@ export const submitUserMetaTags: IHeaderMetaTags = {
 
 const SubmitUser = () => {
   return (
-    <HeaderMeta {...submitUserMetaTags} withBanner>
-      <MainLayout>
-        <Card padded border="none" className="max-w-lg mx-auto">
-          <h1 className="text-4xl font-bold">ثبت کاربر</h1>
-          <SubmitUserForm />
-        </Card>
-      </MainLayout>
-    </HeaderMeta>
+    <MainLayout>
+      <HeaderMeta {...submitUserMetaTags} withBanner />
+      <Card padded border="none" className="max-w-lg mx-auto">
+        <h1 className="text-4xl font-bold">ثبت کاربر</h1>
+        <SubmitUserForm />
+      </Card>
+    </MainLayout>
   );
 };
 

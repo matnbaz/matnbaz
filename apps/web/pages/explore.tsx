@@ -89,9 +89,10 @@ const Explore = () => {
   );
 
   return (
-    <HeaderMeta {...exploreMetaTags} withBanner>
-      <MainLayout withoutFooter={!error}>{page}</MainLayout>
-    </HeaderMeta>
+    <MainLayout withoutFooter={!error}>
+      <HeaderMeta {...exploreMetaTags} withBanner />
+      {page}
+    </MainLayout>
   );
 };
 

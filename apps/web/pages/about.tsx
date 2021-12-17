@@ -17,14 +17,13 @@ export const aboutMetaTags: IHeaderMetaTags = {
 
 const About: NextPage<AboutProps> = ({ about }) => {
   return (
-    <HeaderMeta {...aboutMetaTags} withBanner>
-      <MainLayout>
-        <div
-          className="prose dark:prose-light max-w-4xl mx-auto my-5"
-          dangerouslySetInnerHTML={{ __html: about }}
-        />
-      </MainLayout>
-    </HeaderMeta>
+    <MainLayout>
+      <HeaderMeta {...aboutMetaTags} withBanner />
+      <div
+        className="prose dark:prose-light max-w-4xl mx-auto my-5"
+        dangerouslySetInnerHTML={{ __html: about }}
+      />
+    </MainLayout>
   );
 };
 

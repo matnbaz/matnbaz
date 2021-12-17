@@ -81,99 +81,98 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
   );
 
   return (
-    <HeaderMeta title={repo.fullName} description={repo.descriptionLimited}>
-      <MainLayout maxWidth={false} withoutPadding>
-        <div
-          className="relative flex items-center h-[40rem] md:h-[30rem] w-full"
-          style={{ background: chosenGradient }}
-        >
-          <div className="px-6 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-100/75 dark:bg-gray-900/75 w-full h-full">
-            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
-              <OwnerImage owner={repo.owner} width={120} height={120} />
-              <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
-                <a
-                  className="text-2xl md:text-3xl font-bold text-primary-500 dark:text-primary-400"
-                  href={repo.platformUrl}
-                  target="_blank"
-                  rel="noreferrer"
+    <MainLayout maxWidth={false} withoutPadding>
+      <HeaderMeta title={repo.fullName} description={repo.descriptionLimited} />
+      <div
+        className="relative flex items-center h-[40rem] md:h-[30rem] w-full"
+        style={{ background: chosenGradient }}
+      >
+        <div className="px-6 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-100/75 dark:bg-gray-900/75 w-full h-full">
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
+            <OwnerImage owner={repo.owner} width={120} height={120} />
+            <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
+              <a
+                className="text-2xl md:text-3xl font-bold text-primary-500 dark:text-primary-400"
+                href={repo.platformUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {repo.fullName}
+              </a>
+              <span className="text-secondary text-sm md:text-base max-w-[45rem]">
+                {repo.descriptionLimited}
+              </span>
+              {repo.language && (
+                <span
+                  className="px-1.5 py-1 rounded-lg text-xs border-2"
+                  style={{ borderColor: repo.language.color }}
+                  dir="ltr"
                 >
-                  {repo.fullName}
-                </a>
-                <span className="text-secondary text-sm md:text-base max-w-[45rem]">
-                  {repo.descriptionLimited}
+                  {repo.language.name}
                 </span>
-                {repo.language && (
-                  <span
-                    className="px-1.5 py-1 rounded-lg text-xs border-2"
-                    style={{ borderColor: repo.language.color }}
-                    dir="ltr"
-                  >
-                    {repo.language.name}
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0  items-center lg:items-end justify-between w-full px-4 pb-4">
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:flex lg:space-x-12 lg:space-x-reverse items-center">
-                {statistics.map(({ name, icon: Icon, value }) =>
-                  value === null || value === undefined ? null : (
-                    <div
-                      key={name}
-                      className="flex flex-col space-y-3 items-center lg:items-start"
-                    >
-                      <span className="text-xs text-secondary">{name}</span>
-                      <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-xs md:text-base">
-                        <Icon className="w-5 h-5" />
-
-                        <span className="font-bold">{value}</span>
-                      </div>
-                    </div>
-                  )
-                )}
-              </div>
-
-              <div className="flex items-center space-x-2 space-x-reverse">
-                <Button.Ghost href={repo.platformUrl} target="_blank">
-                  مشاهده مخزن
-                </Button.Ghost>
-
-                <RepositoryReport repository={repo} />
-              </div>
+              )}
             </div>
           </div>
-        </div>
-        <div className="p-5 sm:p-8">
-          <div className="grid grid-cols-1 gap-6 max-w-7xl mx-auto">
-            <Card padded border="desktop">
-              {repo.readmeHtml ? (
-                <Expandable>
+          <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0  items-center lg:items-end justify-between w-full px-4 pb-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:flex lg:space-x-12 lg:space-x-reverse items-center">
+              {statistics.map(({ name, icon: Icon, value }) =>
+                value === null || value === undefined ? null : (
                   <div
-                    dir="ltr"
-                    className="prose dark:prose-light overflow-y-auto"
-                    dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
-                  ></div>
-                </Expandable>
-              ) : (
-                <h1 className="text-lg font-thin text-secondary">
-                  فایل readme برای نمایش وجود ندارد.
-                </h1>
-              )}
-            </Card>
+                    key={name}
+                    className="flex flex-col space-y-3 items-center lg:items-start"
+                  >
+                    <span className="text-xs text-secondary">{name}</span>
+                    <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-xs md:text-base">
+                      <Icon className="w-5 h-5" />
 
-            <div className="flex flex-col space-y-6">
-              <h1 className="text-xl font-bold">پروژه‌های مشابه:</h1>
-              {repo.relatedRepos.edges.length > 0 ? (
-                <RepositoryPreviewList repositories={repo.relatedRepos.edges} />
-              ) : (
-                <div className="text-gray-500 dark:text-gray-400 text-sm">
-                  پروژه ای یافت نشد.
-                </div>
+                      <span className="font-bold">{value}</span>
+                    </div>
+                  </div>
+                )
               )}
+            </div>
+
+            <div className="flex items-center space-x-2 space-x-reverse">
+              <Button.Ghost href={repo.platformUrl} target="_blank">
+                مشاهده مخزن
+              </Button.Ghost>
+
+              <RepositoryReport repository={repo} />
             </div>
           </div>
         </div>
-      </MainLayout>
-    </HeaderMeta>
+      </div>
+      <div className="p-5 sm:p-8">
+        <div className="grid grid-cols-1 gap-6 max-w-7xl mx-auto">
+          <Card padded border="desktop">
+            {repo.readmeHtml ? (
+              <Expandable>
+                <div
+                  dir="ltr"
+                  className="prose dark:prose-light overflow-y-auto"
+                  dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
+                ></div>
+              </Expandable>
+            ) : (
+              <h1 className="text-lg font-thin text-secondary">
+                فایل readme برای نمایش وجود ندارد.
+              </h1>
+            )}
+          </Card>
+
+          <div className="flex flex-col space-y-6">
+            <h1 className="text-xl font-bold">پروژه‌های مشابه:</h1>
+            {repo.relatedRepos.edges.length > 0 ? (
+              <RepositoryPreviewList repositories={repo.relatedRepos.edges} />
+            ) : (
+              <div className="text-gray-500 dark:text-gray-400 text-sm">
+                پروژه ای یافت نشد.
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </MainLayout>
   );
 };
 
