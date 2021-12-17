@@ -22,7 +22,7 @@ const TextInput = ({
           className,
           icon && 'pr-8',
           !noBorder && 'border',
-          'rounded-md border-gray-300 shadow-sm px-4 py-2 bg-transparent dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-500'
+          'placeholder:text-slate-600 dark:placeholder:text-slate-400 rounded-md border-gray-300 shadow-sm px-4 py-2 bg-transparent dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-500'
         )}
       />
       {icon && (
