@@ -62,8 +62,8 @@ const RepositorySearchInput = () => {
       <Input.Text
         placeholder="جستجوی مخزن..."
         className={classNames(
-          searchTerm.length > 0 ? 'md:w-[17rem] lg:w-[25rem]' : 'md:w-40',
-          'transition-all w-full duration-500 ease-in-out'
+          searchTerm.length > 0 ? 'md:w-[17rem] lg:w-[25rem]' : 'md:w-48',
+          'transition-all w-full duration-500 ease-in-out shadow-none'
         )}
         icon={AiOutlineSearch}
         onChange={(event) => {
