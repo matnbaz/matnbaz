@@ -15,7 +15,7 @@ const OwnerImage = ({
   width,
   height,
   className,
-  withoutLink = true,
+  withoutLink = false,
 }: IOwnerImageProps) => {
   const ImageComponent = useMemo(
     () => (
