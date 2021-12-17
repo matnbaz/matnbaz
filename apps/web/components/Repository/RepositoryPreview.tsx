@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+import { useMemo } from 'react';
 import {
   AiOutlineBranches,
   AiOutlineExclamationCircle,
@@ -10,23 +12,38 @@ interface IRepositoryPreviewProps {
   repository: GetRepositoriesQuery['repositories']['edges'][0]['node'];
 }
 const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
-  const statistics = [
-    {
-      name: 'تعداد مشکلات',
-      icon: AiOutlineExclamationCircle,
-      value: +repository.openIssuesCount,
-    },
-    {
-      name: 'فورک‌ها',
-      icon: AiOutlineBranches,
-      value: +repository.forksCount,
-    },
-    {
-      name: 'ستاره‌ها',
-      icon: AiOutlineStar,
-      value: +repository.stargazersCount,
-    },
-  ];
+  const statistics = useMemo(
+    () => [
+      {
+        name: 'تعداد مشکلات',
+        icon: AiOutlineExclamationCircle,
+        value: +repository.openIssuesCount,
+      },
+      {
+        name: 'فورک‌ها',
+        icon: AiOutlineBranches,
+        value: +repository.forksCount,
+      },
+      {
+        name: 'ستاره‌ها',
+        icon: AiOutlineStar,
+        value: +repository.stargazersCount,
+      },
+    ],
+    [repository]
+  );
+
+  const hasStatistics = useMemo(
+    () =>
+      statistics.every(
+        (statistic) =>
+          statistic.value !== null &&
+          statistic.value !== undefined &&
+          !isNaN(statistic.value)
+      ),
+    [statistics]
+  );
+
   return (
     <Card padded href={`/github/${repository.fullName}`}>
       <div className="relative h-full">
@@ -42,7 +59,10 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
           </span>
         )}
         <div
-          className="flex flex-col md:flex-row md:space-x-3 items-start space-y-2 pb-4 md:pb-12"
+          className={classNames(
+            'flex flex-col md:flex-row md:space-x-3 items-start space-y-2',
+            hasStatistics && 'pb-4 md:pb-12'
+          )}
           dir="ltr"
         >
           {repository.owner && (
@@ -77,15 +97,16 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
           )}
 
           <div className="flex flex-col sm:flex-row space-x-6 space-y-3 sm:space-y-0 space-x-reverse mr-auto">
-            {statistics.map((statistic) => (
-              <div
-                key={statistic.name}
-                className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
-              >
-                <span>{statistic.value.toLocaleString('fa')}</span>
-                <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
-              </div>
-            ))}
+            {hasStatistics &&
+              statistics.map((statistic) => (
+                <div
+                  key={statistic.name}
+                  className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
+                >
+                  <span>{statistic.value.toLocaleString('fa')}</span>
+                  <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
+                </div>
+              ))}
           </div>
         </div>
       </div>
