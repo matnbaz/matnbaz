@@ -4,9 +4,15 @@ import { IInputProps } from './Input';
 
 export interface ITextInputProps extends IInputProps {
   icon?: IconType;
+  noBorder?: boolean;
 }
 
-const TextInput = ({ className, icon, ...props }: ITextInputProps) => {
+const TextInput = ({
+  className,
+  icon,
+  noBorder = false,
+  ...props
+}: ITextInputProps) => {
   const IconComponent = icon;
   return (
     <div className="relative w-full inline-block">
@@ -15,7 +21,8 @@ const TextInput = ({ className, icon, ...props }: ITextInputProps) => {
         className={classNames(
           className,
           icon && 'pr-8',
-          'rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-transparent dark:border-gray-600 backdrop-blur-sm text-sm font-medium text-gray-700 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-500'
+          !noBorder && 'border',
+          'rounded-md border-gray-300 shadow-sm px-4 py-2 bg-transparent dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-500'
         )}
       />
       {icon && (
