@@ -1,4 +1,3 @@
-import { SOCIAL_MEDIA } from '@matnbaz/common';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
 import { useTheme } from 'next-themes';
@@ -6,7 +5,8 @@ import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
-import { SiDiscord, SiOpensourceinitiative } from 'react-icons/si';
+import { SiOpensourceinitiative } from 'react-icons/si';
+import RepositorySearchInput from '../Repository/RepositorySearchInput';
 import Divider from './Divider';
 import { IconButton } from './IconButton';
 interface INavbarProps {
@@ -37,14 +37,14 @@ const Navbar = ({ className }: INavbarProps) => {
         className
       )}
     >
-      <div className="flex flex-col w-full max-w-[92rem] mx-auto py-6 px-8 space-y-6">
+      <div className="flex flex-col w-full max-w-full md:max-w-[92rem] mx-auto py-3 md:py-6 px-2 md:px-8  space-y-6">
         <div className="flex w-full justify-between items-center">
-          <div className="flex items-center space-x-8 space-x-reverse">
+          <div className="flex items-center space-x-8 space-x-reverse ml-4 md:ml-0">
             <Link href="/">
               <a className="flex space-x-3 space-x-reverse items-center">
                 <SiOpensourceinitiative className="w-10 h-10 dark:text-white text-gray-900" />
 
-                <h2 className="text-3xl font-mono">Matnbaz</h2>
+                <h2 className="hidden md:block text-3xl font-mono">Matnbaz</h2>
               </a>
             </Link>
             <div className="hidden md:flex items-center space-x-4 space-x-reverse">
@@ -58,41 +58,10 @@ const Navbar = ({ className }: INavbarProps) => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 space-x-reverse">
-            <div className="hidden md:block">
-              {/* <IconButton
-                className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-900"
-                href="https://github.com/matnbaz"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <SiGithub className="w-5 h-5" />
-              </IconButton> */}
-
-              {/* <IconButton
-                className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-900"
-                href="https://t.me/matnbaz_net"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <SiTelegram className="w-5 h-5" />
-              </IconButton> */}
-
-              <IconButton
-                className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-900"
-                href={SOCIAL_MEDIA.discord}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <SiDiscord className="w-5 h-5" />
-              </IconButton>
+          <div className="flex items-center space-x-2 space-x-reverse w-full md:w-auto">
+            <div className="w-full md:w-auto">
+              <RepositorySearchInput />
             </div>
-
-            <div
-              className="h-6 dark:bg-gray-400 bg-gray-500 opacity-50 hidden md:block"
-              style={{ width: '1px' }}
-            />
-
             {mounted && (
               <div className="flex space-x-2 space-x-reverse items-center">
                 <IconButton
