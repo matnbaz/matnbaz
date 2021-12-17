@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useDebounce } from 'use-debounce';
+import useClickOutside from '../../hooks/use-click-outside';
 import { useGetSearchedRepositoriesLazyQuery } from '../../lib/graphql-types';
 import Input from '../UI/Input/Input';
 import RepositoryPreviewList from './RepositoryPreviewList';
@@ -18,6 +19,9 @@ const RepositorySearchInput = () => {
   const [inputFocused, setInputFocused] = useState(false);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownClickOutsideRef = useClickOutside(() => {
+    setDropdownOpen(false);
+  });
   const queryVariables = useMemo(() => {
     return { first: 5, searchTerm: debouncedSearchTerm };
   }, [debouncedSearchTerm]);
@@ -31,7 +35,6 @@ const RepositorySearchInput = () => {
 
   useEffect(() => {
     if (inputFocused) setDropdownOpen(true);
-    else setDropdownOpen(false);
   }, [inputFocused]);
 
   return (
@@ -60,7 +63,10 @@ const RepositorySearchInput = () => {
         }}
       />
       {dropdownOpen && searchTerm.length > 2 && (
-        <div className="absolute overflow-y-auto w-full left-1/2 -translate-x-1/2 max-h-96 bg-gray-800 rounded-lg top-12 p-4 flex flex-col space-y-4">
+        <div
+          ref={dropdownClickOutsideRef}
+          className="absolute overflow-y-auto w-full left-1/2 -translate-x-1/2 max-h-96 bg-gray-100 dark:bg-gray-800 rounded-lg top-12 p-4 flex flex-col space-y-4"
+        >
           {data?.repositories?.edges.length === 0 ? (
             <span className="text-secondary">نتیجه ای یافت نشد</span>
           ) : (
