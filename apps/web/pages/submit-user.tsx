@@ -7,12 +7,11 @@ export const submitUserMetaTags: IHeaderMetaTags = {
   title: 'ثبت کاربر',
   description:
     'در اینجا می توانید کاربران و گروه های ایرانی که می شناسید اما توسط سایت پیدا نشده را معرفی کنید.',
-  image: '',
 };
 
 const SubmitUser = () => {
   return (
-    <HeaderMeta {...submitUserMetaTags}>
+    <HeaderMeta {...submitUserMetaTags} withBanner>
       <MainLayout>
         <Card padded border="none" className="max-w-lg mx-auto">
           <h1 className="text-4xl font-bold">ثبت کاربر</h1>

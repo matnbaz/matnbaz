@@ -5,6 +5,7 @@ export interface IHeaderMetaTags {
   title?: string;
   description?: string;
   image?: string;
+  withBanner?: boolean;
 }
 
 interface IHeaderMetaProps extends IHeaderMetaTags {
@@ -18,6 +19,7 @@ const HeaderMeta = ({
   description,
   image,
   children,
+  withBanner = false,
 }: IHeaderMetaProps) => {
   const fullTitle = useMemo(() => titlePrefix + title, [title, titlePrefix]);
   return (
@@ -35,7 +37,15 @@ const HeaderMeta = ({
             <meta name="description" content={description} />
           </>
         )}
-        {image && <meta name="og:image" content={image} />}
+        {withBanner ? (
+          <>
+            <meta name="og:image" content="https://matnbaz.net/banner.jpg" />
+            <meta property="og:image:width" content="1280" />
+            <meta property="og:image:height" content="640" />
+          </>
+        ) : (
+          image && <meta name="og:image" content={image} />
+        )}
       </Head>
       {children}
     </>

@@ -10,12 +10,11 @@ export const indexMetaTags: IHeaderMetaTags = {
   title: 'تمام پروژه های متن باز ایرانی در یک جا',
   description:
     'متن باز سعی دارد تمام پروژه های متن باز (Open Source) ایرانی را در یک محل جمع کرده و پیدا کردن آن ها را برای دیگر ایرانیان آسان تر کند.',
-  image: '',
 };
 
 const Index = () => {
   return (
-    <HeaderMeta {...indexMetaTags}>
+    <HeaderMeta {...indexMetaTags} withBanner>
       <MainLayout>
         <main>
           <div className="pt-10 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
