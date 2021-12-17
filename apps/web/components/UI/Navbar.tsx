@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
+import { CgClose } from 'react-icons/cg';
 import { SiOpensourceinitiative } from 'react-icons/si';
 import RepositorySearchInput from '../Repository/RepositorySearchInput';
-import Divider from './Divider';
 import { IconButton } from './IconButton';
 interface INavbarProps {
   className?: string;
@@ -33,7 +33,7 @@ const Navbar = ({ className }: INavbarProps) => {
       className={classNames(
         atFirst &&
           'md:bg-transparent dark:md:bg-transparent md:backdrop-blur-none',
-        'z-20 fixed w-full transition-colors backdrop-blur-sm bg-white/40 dark:bg-gray-900/40',
+        'z-20 fixed w-full transition-colors backdrop-blur-sm bg-white/50 dark:bg-gray-900/50',
         className
       )}
     >
@@ -58,7 +58,7 @@ const Navbar = ({ className }: INavbarProps) => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 space-x-reverse w-full md:w-auto">
+          <div className="flex items-center space-x-4 space-x-reverse w-full md:w-auto">
             <div className="w-full md:w-auto">
               <RepositorySearchInput />
             </div>
@@ -76,14 +76,18 @@ const Navbar = ({ className }: INavbarProps) => {
                     <BsFillMoonFill className="w-5 h-5" />
                   )}
                 </IconButton>
-                <button
-                  className="block md:hidden"
+                <IconButton
+                  className="block md:hidden dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
                   onClick={() => {
                     setMenuOpen((previousMenuOpen) => !previousMenuOpen);
                   }}
                 >
-                  <AiOutlineMenu className="w-5 h-5" />
-                </button>
+                  {menuOpen ? (
+                    <CgClose className="w-5 h-5" />
+                  ) : (
+                    <AiOutlineMenu className="w-5 h-5" />
+                  )}
+                </IconButton>
               </div>
             )}
           </div>
@@ -92,18 +96,16 @@ const Navbar = ({ className }: INavbarProps) => {
         <div
           className={classNames(
             menuOpen ? 'block' : 'hidden',
-            'space-y-6 md:hidden'
+            'md:hidden border-b border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700'
           )}
         >
           {links.map((link, index) => (
             <Fragment key={link.name}>
-              <div>
+              <div className="py-4">
                 <Link href={link.to}>
                   <a>{link.name}</a>
                 </Link>
               </div>
-              {/* The last element can't have a divider so we check if it's not the last iteration */}
-              {index < links.length - 1 && <Divider />}
             </Fragment>
           ))}
         </div>
