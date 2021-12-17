@@ -5,12 +5,12 @@ export interface IHeaderMetaTags {
   title?: string;
   description?: string;
   image?: string;
-  withBanner?: boolean;
 }
 
 interface IHeaderMetaProps extends IHeaderMetaTags {
   titlePrefix?: string;
   children: React.ReactNode;
+  withBanner?: boolean;
 }
 
 const HeaderMeta = ({
