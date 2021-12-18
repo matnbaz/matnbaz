@@ -45,7 +45,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
 
   const statistics = [
     {
-      name: 'تعداد مشکلات',
+      name: 'موضوع‌ها',
       icon: AiOutlineExclamationCircle,
       value: persianNumbers(+repo.openIssuesCount),
     },

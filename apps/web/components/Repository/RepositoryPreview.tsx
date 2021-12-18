@@ -15,7 +15,7 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
   const statistics = useMemo(
     () => [
       {
-        name: 'تعداد مشکلات',
+        name: 'موضوع‌ها',
         icon: AiOutlineExclamationCircle,
         value: +repository.openIssuesCount,
       },
