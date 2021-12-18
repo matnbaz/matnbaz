@@ -36,6 +36,7 @@ model Repository {
   name            String
   description     String?
   readme          String?
+  readmeHtml      String?
   defaultBranch   String
   homePage        String?
   mirrorUrl       String?

@@ -1,6 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
+import { marked, Renderer } from 'marked';
 import { PrismaService } from 'nestjs-prisma';
+import * as emoji from 'node-emoji';
 
 @Injectable()
 export class GithubReadmeExtractorService {
@@ -31,10 +33,18 @@ export class GithubReadmeExtractorService {
       const response = await axios.get(
         `https://raw.githubusercontent.com/${Owner.login}/${name}/${defaultBranch}/README.md`
       );
+      const readme = response.data;
 
       await this.prisma.repository.update({
         where: { id },
-        data: { readme: response.data },
+        data: {
+          readme,
+          readmeHtml: this.renderReadme(
+            readme,
+            `${Owner.login}/${name}`,
+            defaultBranch
+          ),
+        },
       });
 
       this.logger.log(
@@ -45,5 +55,33 @@ export class GithubReadmeExtractorService {
         `Could not extract the README for ${Owner.login}/${name}. error message: ${e.message}`
       );
     }
+  }
+
+  renderReadme(readme: string, fullName: string, defaultBranch: string) {
+    const repoRawUrl = `https://github.com/${fullName}/raw/${defaultBranch}`;
+
+    const renderer = new Renderer();
+    const ogImageRender = renderer.image.bind(renderer);
+    const ogHtmlRender = renderer.html.bind(renderer);
+    renderer.image = (href, ...rest) => {
+      return ogImageRender(
+        href.startsWith('http')
+          ? href
+          : repoRawUrl + (href.startsWith('/') ? href : '/' + href),
+        ...rest
+      );
+    };
+    renderer.html = (html) =>
+      ogHtmlRender(
+        html.replace(/src="(?!https?:\/\/)/g, `src="${repoRawUrl}/`)
+      );
+
+    const readmeHtml = marked.parse(emoji.emojify(readme), {
+      gfm: true,
+      baseUrl: repoRawUrl,
+      renderer,
+    });
+
+    return readmeHtml;
   }
 }

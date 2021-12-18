@@ -10,9 +10,8 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import * as P from '@prisma/client';
-import { marked, Renderer } from 'marked';
 import { PrismaService } from 'nestjs-prisma';
-import * as emoji from 'node-emoji';
+import { GithubReadmeExtractorService } from '../../github-extractor/github-readme-extractor.service';
 import { PlatformByIdArgs } from '../../models/args/platform-by-id.args';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { DateObject } from '../../models/date.model';
@@ -36,7 +35,10 @@ import { TemplateStatusType } from './enums/template-status-type.enum';
 
 @Resolver(() => Repository)
 export class RepositoryResolver extends ReportableResolver(Repository) {
-  constructor(private readonly prisma: PrismaService) {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly githubReadmeExtractor: GithubReadmeExtractorService
+  ) {
     super();
   }
 
@@ -271,33 +273,15 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
 
   @ResolveField(() => String, { nullable: true })
   async readmeHtml(@Parent() repo: P.Repository) {
-    const { readme } = repo;
-    if (!readme) return readme;
+    const { readme, readmeHtml, defaultBranch } = repo;
+    if (!readme) return null;
+    if (readmeHtml) return readmeHtml;
 
-    const repoRawUrl =
-      (await this.platformUrl(repo)) + 'raw/' + repo.defaultBranch;
-
-    const renderer = new Renderer();
-    const ogImageRender = renderer.image.bind(renderer);
-    const ogHtmlRender = renderer.html.bind(renderer);
-    renderer.image = (href, ...rest) => {
-      return ogImageRender(
-        href.startsWith('http')
-          ? href
-          : repoRawUrl + (href.startsWith('/') ? href : '/' + href),
-        ...rest
-      );
-    };
-    renderer.html = (html) =>
-      ogHtmlRender(
-        html.replace(/src="(?!https?:\/\/)/g, `src="${repoRawUrl}/`)
-      );
-
-    return marked.parse(emoji.emojify(readme), {
-      gfm: true,
-      baseUrl: repoRawUrl,
-      renderer,
-    });
+    return this.githubReadmeExtractor.renderReadme(
+      readme,
+      await this.fullName(repo),
+      defaultBranch
+    );
   }
 
   @ResolveField(() => String, { nullable: true })

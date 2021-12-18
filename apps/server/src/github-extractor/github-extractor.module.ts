@@ -17,6 +17,6 @@ import { GithubReadmeExtractorService } from './github-readme-extractor.service'
     GithubReadmeExtractorService,
   ],
   controllers: [GithubExtractorController],
-  exports: [GithubExtractorScheduler],
+  exports: [GithubExtractorScheduler, GithubReadmeExtractorService],
 })
 export class GithubExtractorModule {}
