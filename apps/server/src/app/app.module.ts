@@ -28,7 +28,7 @@ import { AppService } from './app.service';
       isGlobal: true,
       prismaServiceOptions: {
         prismaOptions: {
-          log: process.env.NODE_ENV === 'development' ? ['query'] : [],
+          // log: process.env.NODE_ENV === 'development' ? ['query'] : [],
         },
       },
     }),

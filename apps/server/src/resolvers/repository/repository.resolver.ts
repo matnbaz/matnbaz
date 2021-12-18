@@ -1,4 +1,5 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
+import { CacheControl } from '@exonest/graphql-cache-control';
 import { PaginationArgs } from '@exonest/graphql-connections';
 import {
   Args,
@@ -39,6 +40,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     super();
   }
 
+  @CacheControl({ maxAge: 180 })
   @Query(() => Repository, { nullable: true })
   repositoryById(@Args('id', { type: () => ID }) id: string) {
     return this.prisma.repository.findUnique({
@@ -48,6 +50,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     });
   }
 
+  @CacheControl({ maxAge: 180 })
   @Query(() => Repository, { nullable: true })
   repositoryByPlatformId(@Args() { id, platform }: PlatformByIdArgs) {
     return this.prisma.repository.findFirst({
@@ -59,6 +62,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     });
   }
 
+  @CacheControl({ maxAge: 180 })
   @Query(() => Repository, { nullable: true })
   repositoryByPlatform(@Args() { owner, repo, platform }: PlatformArgs) {
     return this.prisma.repository.findFirst({
@@ -148,6 +152,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     );
   }
 
+  @CacheControl({ inheritMaxAge: true })
   @ResolveField(() => Owner, { nullable: true })
   owner(@Parent() { id }: P.Repository) {
     return this.prisma.repository
@@ -201,18 +206,21 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
       .Topics();
   }
 
+  @CacheControl({ inheritMaxAge: true })
   @ResolveField(() => Language, { nullable: true })
   language(@Parent() { languageId }: P.Repository) {
     if (!languageId) return null;
     return this.prisma.language.findUnique({ where: { id: languageId } });
   }
 
+  @CacheControl({ inheritMaxAge: true })
   @ResolveField(() => License, { nullable: true })
   license(@Parent() { licenseId }: P.Repository) {
     if (!licenseId) return null;
     return this.prisma.license.findUnique({ where: { id: licenseId } });
   }
 
+  @CacheControl({ inheritMaxAge: true })
   @ResolveField(() => RepositoryConnection, {
     complexity: paginationComplexity,
   })
