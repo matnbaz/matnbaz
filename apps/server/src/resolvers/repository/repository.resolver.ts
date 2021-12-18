@@ -266,17 +266,28 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     const { readme } = repo;
     if (!readme) return readme;
 
-    const baseUrl =
+    const repoRawUrl =
       (await this.platformUrl(repo)) + 'raw/' + repo.defaultBranch;
 
     const renderer = new Renderer();
     const ogImageRender = renderer.image.bind(renderer);
-    renderer.image = (href, ...rest) =>
-      ogImageRender(href.startsWith('/') ? baseUrl + href : href, ...rest);
+    const ogHtmlRender = renderer.html.bind(renderer);
+    renderer.image = (href, ...rest) => {
+      return ogImageRender(
+        href.startsWith('http')
+          ? href
+          : repoRawUrl + (href.startsWith('/') ? href : '/' + href),
+        ...rest
+      );
+    };
+    renderer.html = (html) =>
+      ogHtmlRender(
+        html.replace(/src="(?!https?:\/\/)/g, `src="${repoRawUrl}/`)
+      );
 
     return marked.parse(emoji.emojify(readme), {
       gfm: true,
-      baseUrl,
+      baseUrl: repoRawUrl,
       renderer,
     });
   }
