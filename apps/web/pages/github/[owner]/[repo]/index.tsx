@@ -91,15 +91,15 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         <div className="px-6 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-300/60 dark:bg-gray-900/75 w-full h-full">
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
             <OwnerImage owner={repo.owner} width={120} height={120} />
-            <div className="flex flex-col space-y-2 items-center md:items-start md:mr-6">
+            <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
               <div className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">
                 <Link href={`/github/${repo.owner.login}`}>
                   {repo.owner.login}
                 </Link>
-                <span> / </span>
+                <span className="text-secondary"> / </span>
                 <a
                   className=""
-                  href={repo.platformUrl}
+                  href={`https://github.com/${repo.owner.login}`}
                   target="_blank"
                   rel="noreferrer"
                   // TODO make it platform-agnostic
@@ -151,8 +151,8 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         </div>
       </div>
       <div className="p-5 sm:p-8">
-        <div className="grid grid-cols-1 gap-6 max-w-4xl mx-auto">
-          <Card padded border="desktop">
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6 mx-auto">
+          <Card padded border="all" className="col-span-1 lg:col-span-5">
             {repo.readmeHtml ? (
               <Expandable>
                 <div
@@ -168,8 +168,8 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             )}
           </Card>
 
-          <div className="flex flex-col space-y-6">
-            <h1 className="text-xl font-bold">پروژه‌های مشابه:</h1>
+          <div className="flex flex-col space-y-6 col-span-1 lg:col-span-2">
+            <h1 className="text-base text-secondary">پروژه‌های مشابه</h1>
             {repo.relatedRepos.edges.length > 0 ? (
               <RepositoryPreviewList repositories={repo.relatedRepos.edges} />
             ) : (
