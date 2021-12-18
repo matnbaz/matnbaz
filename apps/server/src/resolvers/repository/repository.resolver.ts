@@ -277,6 +277,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     if (!readme) return null;
     if (readmeHtml) return readmeHtml;
 
+    // For backward compatibility (not every readme is rendered in production right now)
     return this.githubReadmeExtractor.renderReadme(
       readme,
       await this.fullName(repo),
