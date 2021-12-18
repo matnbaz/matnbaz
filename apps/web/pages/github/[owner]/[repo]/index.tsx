@@ -151,8 +151,8 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         </div>
       </div>
       <div className="p-5 sm:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6 mx-auto">
-          <Card padded border="all" className="col-span-1 lg:col-span-5">
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-6 max-w-7xl mx-auto">
+          <Card padded border="all" className="col-span-1 lg:col-span-4">
             {repo.readmeHtml ? (
               <Expandable>
                 <div
