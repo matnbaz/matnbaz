@@ -88,7 +88,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         className="relative flex items-center h-[40rem] md:h-[30rem] w-full"
         style={{ background: chosenGradient }}
       >
-        <div className="px-6 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-300/60 dark:bg-gray-900/75 w-full h-full">
+        <div className="px-6 space-y-4 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-300/60 dark:bg-gray-900/75 w-full h-full">
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
             <OwnerImage owner={repo.owner} width={120} height={120} />
             <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
@@ -122,16 +122,16 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             </div>
           </div>
           <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0  items-center lg:items-end justify-between w-full px-4 pb-4">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:flex lg:space-x-12 lg:space-x-reverse items-center">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:flex lg:space-x-8 xl:space-x-10 lg:space-x-reverse xl:space-x-reverse items-start">
               {statistics.map(({ name, icon: Icon, value }) =>
                 value === null || value === undefined ? null : (
                   <div
                     key={name}
-                    className="flex flex-col space-y-3 items-center lg:items-start"
+                    className="flex flex-col space-y-3 items-center lg:items-start lg:max-w-[9rem] xl:max-w-none"
                   >
                     <span className="text-xs text-secondary">{name}</span>
                     <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-xs md:text-base">
-                      <Icon className="w-5 h-5" />
+                      <Icon className="w-5 h-5 flex-shrink-0" />
 
                       <span className="font-bold">{value}</span>
                     </div>
@@ -140,7 +140,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
               )}
             </div>
 
-            <div className="flex items-center space-x-2 space-x-reverse">
+            <div className="flex items-center space-x-2 space-x-reverse flex-shrink-0">
               <Button.Ghost href={repo.platformUrl} target="_blank">
                 مشاهده مخزن
               </Button.Ghost>
