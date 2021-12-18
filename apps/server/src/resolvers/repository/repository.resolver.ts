@@ -227,15 +227,19 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     complexity: paginationComplexity,
   })
   async relatedRepos(
-    @Parent() { id, name }: P.Repository,
+    @Parent() repo: P.Repository,
     @Args() pagination: PaginationArgs
   ) {
+    const { id, name } = repo;
     const topics = await this.prisma.repository
       .findUnique({ where: { id } })
       .Topics();
+    const owner = await this.owner(repo);
+
     return findManyCursorConnection(
       (args) =>
         this.prisma.repository.findMany({
+          orderBy: { pushedAt: 'desc' },
           where: {
             blockedAt: null,
             id: { not: id },
@@ -246,6 +250,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
                 },
               },
               { name: { contains: name.split('-')[0] } },
+              { Owner: { id: owner.id } },
             ],
           },
           ...args,
