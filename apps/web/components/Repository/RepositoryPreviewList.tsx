@@ -49,7 +49,7 @@ const RepositoryPreviewList = ({
 
   const skeletonLoaders = useMemo(
     () =>
-      [...Array(6).keys()].map((number) => (
+      [...Array(8).keys()].map((number) => (
         <RepositoryPreviewSkeletonLoader key={number} />
       )),
     []
