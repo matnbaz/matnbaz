@@ -54,7 +54,7 @@ const RepositorySearchInput = () => {
 
   useEffect(() => {
     document.addEventListener('keydown', (event) => {
-      if (event.key !== '/' || event.ctrlKey || event.metaKey) return;
+      if (!['/', 'k'].includes(event.key) || event.metaKey) return;
       if (
         /^(?:input|textarea|select|button)$/i.test(
           (event.target as { tagName?: string }).tagName
