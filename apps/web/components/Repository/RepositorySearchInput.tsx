@@ -77,6 +77,7 @@ const RepositorySearchInput = () => {
         event.preventDefault();
         // If the user submitted the form (pressed enter) then we will redirect them to the explore page
         router.push({ pathname: '/explore', query: { searchTerm } });
+        setSearchTerm('');
       }}
     >
       <Input.Text
@@ -85,6 +86,7 @@ const RepositorySearchInput = () => {
           searchTerm.length > 0 ? 'md:w-[17rem] lg:w-[25rem]' : 'md:w-48',
           'transition-width w-full duration-500 ease-in-out !shadow-none backdrop-blur-sm'
         )}
+        value={searchTerm}
         icon={AiOutlineSearch}
         onChange={(event) => {
           setSearchTerm(event.target.value);
