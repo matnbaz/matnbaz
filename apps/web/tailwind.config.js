@@ -11,11 +11,18 @@ module.exports = {
       transitionProperty: {
         'width': 'width'
       },
+
       typography: (theme) => ({
         DEFAULT: {
           css: [
             {
               maxWidth: 'none',
+              ul: {
+                padding: '0 1.625em'
+              },
+              li: {
+                padding: '0 0.375em'
+              }
             },
           ],
         },
