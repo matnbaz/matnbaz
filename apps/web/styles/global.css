@@ -28,3 +28,7 @@
 .prose img {
   display: inline;
 }
+
+* {
+  @apply scroll-mt-24 scroll-smooth;
+}

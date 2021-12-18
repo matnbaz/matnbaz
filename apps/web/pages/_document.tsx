@@ -27,7 +27,7 @@ class AppDocument extends Document {
           rel="stylesheet"
           type="text/css"
         />
-        <body className="bg-gray-50 dark:bg-gray-900 scroll-smooth">
+        <body className="bg-gray-50 dark:bg-gray-900">
           <div id="modal" />
           <Main />
           <NextScript />
