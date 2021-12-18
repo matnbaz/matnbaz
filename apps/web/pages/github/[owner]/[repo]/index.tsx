@@ -157,7 +157,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
               <Expandable>
                 <div
                   dir="ltr"
-                  className="prose dark:prose-light overflow-y-auto"
+                  className="prose dark:prose-invert overflow-y-auto"
                   dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
                 ></div>
               </Expandable>
@@ -259,7 +259,7 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
 //     <div className="md:col-span-5 lg:col-span-6">
 //       {repo.readmeHtml && (
 //         <div
-//           className="prose dark:prose-light"
+//           className="prose dark:prose-invert"
 //           dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
 //         ></div>
 //       )}
