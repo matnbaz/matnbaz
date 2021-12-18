@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useDebounce } from 'use-debounce';
 import useClickOutside from '../../hooks/use-click-outside';
@@ -33,6 +33,8 @@ const RepositorySearchInput = () => {
     return { first: 5, searchTerm: debouncedSearchTerm };
   }, [debouncedSearchTerm]);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     // If the length is too short, then search wont happen
     if (debouncedSearchTerm.trim().length < 2) return;
@@ -49,6 +51,24 @@ const RepositorySearchInput = () => {
     // If the route is changed, then we close the dropdown
     setDropdownOpen(false);
   }, [router.asPath]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== '/' || event.ctrlKey || event.metaKey) return;
+      if (
+        /^(?:input|textarea|select|button)$/i.test(
+          (event.target as { tagName?: string }).tagName
+        )
+      )
+        return;
+
+      if (inputRef?.current) {
+        event.preventDefault();
+        inputRef?.current.select();
+        inputRef?.current.focus();
+      }
+    });
+  }, []);
 
   return (
     <form
@@ -75,6 +95,7 @@ const RepositorySearchInput = () => {
         onBlur={() => {
           setInputFocused(false);
         }}
+        ref={inputRef}
       />
       {dropdownOpen && searchTerm.length > 2 && (
         <div

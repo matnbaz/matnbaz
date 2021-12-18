@@ -13,7 +13,7 @@ const Input = ({ ...props }: ITextInputProps) => {
   return <TextInput {...props} />;
 };
 
-Input.Text = TextInput;
+Input.Text = TextInput as any;
 Input.Checkbox = CheckboxInput;
 Input.Radio = RadioInput;
 Input.Textarea = TextareaInput;
