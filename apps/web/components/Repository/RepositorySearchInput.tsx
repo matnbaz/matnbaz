@@ -104,15 +104,15 @@ const RepositorySearchInput = () => {
           ref={dropdownClickOutsideRef}
           className="absolute overflow-y-auto w-full left-1/2 -translate-x-1/2 max-h-96 bg-gray-100 dark:bg-gray-800 rounded-lg top-12 p-4 flex flex-col space-y-4"
         >
-          {loading || data?.repositories?.edges.length > 0 ? (
+          {loading ||
+          data?.repositories?.edges.length > 0 ||
+          debouncedSearchTerm !== searchTerm ? (
             <RepositoryPreviewList
-              loading={loading}
+              loading={loading || debouncedSearchTerm !== searchTerm}
               repositories={data?.repositories?.edges}
             />
-          ) : debouncedSearchTerm === searchTerm ? (
-            <span className="text-secondary">نتیجه ای یافت نشد.</span>
           ) : (
-            <span className="text-secondary">عبارتی وارد کنید...</span>
+            <span className="text-secondary">نتیجه ای یافت نشد.</span>
           )}
         </div>
       )}
