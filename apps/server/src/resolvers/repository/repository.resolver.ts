@@ -9,7 +9,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import * as P from '@prisma/client';
-import { marked } from 'marked';
+import { marked, Renderer } from 'marked';
 import { PrismaService } from 'nestjs-prisma';
 import * as emoji from 'node-emoji';
 import { PlatformByIdArgs } from '../../models/args/platform-by-id.args';
@@ -266,11 +266,18 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     const { readme } = repo;
     if (!readme) return readme;
 
-    const baseUrl = await this.platformUrl(repo);
+    const baseUrl =
+      (await this.platformUrl(repo)) + 'raw/' + repo.defaultBranch;
+
+    const renderer = new Renderer();
+    const ogImageRender = renderer.image.bind(renderer);
+    renderer.image = (href, ...rest) =>
+      ogImageRender(href.startsWith('/') ? baseUrl + href : href, ...rest);
 
     return marked.parse(emoji.emojify(readme), {
       gfm: true,
       baseUrl,
+      renderer,
     });
   }
 
