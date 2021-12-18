@@ -86,8 +86,10 @@ const RepositorySearchInput = () => {
               loading={loading}
               repositories={data?.repositories?.edges}
             />
+          ) : debouncedSearchTerm === searchTerm ? (
+            <span className="text-secondary">نتیجه ای یافت نشد.</span>
           ) : (
-            <span className="text-secondary">نتیجه ای یافت نشد</span>
+            <span className="text-secondary">عبارتی وارد کنید...</span>
           )}
         </div>
       )}
