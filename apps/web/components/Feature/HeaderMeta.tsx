@@ -14,7 +14,7 @@ interface IHeaderMetaProps extends IHeaderMetaTags {
 
 const HeaderMeta = ({
   title,
-  titlePrefix = 'متن‌باز – ',
+  titlePrefix = ' – متن‌باز',
   description,
   image,
 
