@@ -293,9 +293,11 @@ const RepositoryFilters = ({
                 onChange={languagesFilterChangeHandler}
               />
             ) : (
-              <div className="mt-4 text-sm text-secondary">
-                <span>نتیجه ای پیدا نشد.</span>
-              </div>
+              !languagesLoading && (
+                <div className="mt-4 text-sm text-secondary">
+                  <span>نتیجه ای پیدا نشد.</span>
+                </div>
+              )
             )}
             {error && (
               <div className="flex flex-col space-y-2 items-center mt-2">
