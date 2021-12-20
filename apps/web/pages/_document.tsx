@@ -27,6 +27,19 @@ class AppDocument extends Document {
           rel="stylesheet"
           type="text/css"
         />
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');`,
+              }}
+            />
+          </>
+        )}
         <body className="bg-gray-50 dark:bg-gray-900">
           <div id="modal" />
           <Main />
