@@ -97,10 +97,10 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
                   {repo.owner.login}
                 </Link>
                 <span className="text-secondary"> / </span>
+                {/* eslint-disable-next-line react/jsx-no-target-blank */}
                 <a
                   href={repo.platformUrl}
                   target="_blank"
-                  rel="noreferrer"
                   // TODO make it platform-agnostic
                 >
                   {repo.name}

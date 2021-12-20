@@ -1,3 +1,4 @@
+import { SOCIAL_MEDIA } from '@matnbaz/common';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
 import { useTheme } from 'next-themes';
@@ -13,10 +14,11 @@ interface INavbarProps {
   className?: string;
 }
 
-const links: { name: string; to: string }[] = [
+const links = [
   { name: 'کاوش‌گر', to: '/explore' },
   { name: 'درباره', to: '/about' },
   { name: 'ثبت کاربر', to: '/submit-user' },
+  { name: 'انجمن دیسکورد', to: SOCIAL_MEDIA.discord, external: true },
 ];
 
 const Navbar = ({ className }: INavbarProps) => {
@@ -48,10 +50,10 @@ const Navbar = ({ className }: INavbarProps) => {
               </a>
             </Link>
             <div className="hidden md:flex items-center space-x-4 space-x-reverse">
-              {links.map((link) => (
-                <div key={link.name}>
-                  <Link href={link.to}>
-                    <a>{link.name}</a>
+              {links.map(({ name, to, external }) => (
+                <div key={name}>
+                  <Link href={to}>
+                    <a target={external ? '_blank' : ''}>{name}</a>
                   </Link>
                 </div>
               ))}
@@ -99,11 +101,11 @@ const Navbar = ({ className }: INavbarProps) => {
             'md:hidden border-b border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700'
           )}
         >
-          {links.map((link, index) => (
-            <Fragment key={link.name}>
+          {links.map(({ name, to, external }, index) => (
+            <Fragment key={name}>
               <div className="py-4">
-                <Link href={link.to}>
-                  <a>{link.name}</a>
+                <Link href={to}>
+                  <a target={external ? '_blank' : ''}>{name}</a>
                 </Link>
               </div>
             </Fragment>

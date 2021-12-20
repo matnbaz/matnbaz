@@ -4,8 +4,10 @@ import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { BaseRedisCache } from 'apollo-server-cache-redis';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core/dist/plugin/cacheControl';
 import responseCachePlugin from 'apollo-server-plugin-response-cache';
+import * as Redis from 'ioredis';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
 import { AdminModule } from '../admin/admin.module';
@@ -35,6 +37,9 @@ import { AppService } from './app.service';
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'apps/server/src/schema.gql'),
       sortSchema: true,
+      cache: new BaseRedisCache({
+        client: new Redis(),
+      }),
       plugins: [
         ApolloServerPluginCacheControl({ defaultMaxAge: 5 }),
         responseCachePlugin(),
