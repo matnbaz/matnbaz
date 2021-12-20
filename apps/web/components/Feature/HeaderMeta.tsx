@@ -20,7 +20,7 @@ const HeaderMeta = ({
 
   withBanner = false,
 }: IHeaderMetaProps) => {
-  const fullTitle = useMemo(() => titlePrefix + title, [title, titlePrefix]);
+  const fullTitle = useMemo(() => title + titlePrefix, [title, titlePrefix]);
   return (
     <Head>
       <meta name="og:site_name" content="متن‌باز" />
