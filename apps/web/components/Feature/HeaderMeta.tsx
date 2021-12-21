@@ -14,13 +14,13 @@ interface IHeaderMetaProps extends IHeaderMetaTags {
 
 const HeaderMeta = ({
   title,
-  titlePrefix = 'متن‌باز – ',
+  titlePrefix = ' – متن‌باز',
   description,
   image,
 
   withBanner = false,
 }: IHeaderMetaProps) => {
-  const fullTitle = useMemo(() => titlePrefix + title, [title, titlePrefix]);
+  const fullTitle = useMemo(() => title + titlePrefix, [title, titlePrefix]);
   return (
     <Head>
       <meta name="og:site_name" content="متن‌باز" />
