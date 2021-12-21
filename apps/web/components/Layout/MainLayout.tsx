@@ -51,7 +51,7 @@ export const MainLayout = ({
         {children}
       </div>
 
-      <div className="fixed inset-x-0 bottom-0">
+      <div className="fixed inset-x-0 bottom-0 z-20">
         <Transition
           show={showBanner}
           enter="transition duration-700 ease-in-out"
