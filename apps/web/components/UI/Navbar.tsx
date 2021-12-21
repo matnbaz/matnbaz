@@ -3,6 +3,7 @@ import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
@@ -30,6 +31,8 @@ const Navbar = ({ className }: INavbarProps) => {
     setAtFirst(currPos.y > -20);
   });
   useEffect(() => setMounted(true), []);
+  const { pathname } = useRouter();
+
   return (
     <div
       className={classNames(
@@ -53,7 +56,17 @@ const Navbar = ({ className }: INavbarProps) => {
               {links.map(({ name, to, external }) => (
                 <div key={name}>
                   <Link href={to}>
-                    <a target={external ? '_blank' : ''}>{name}</a>
+                    <a
+                      className={classNames(
+                        pathname === to
+                          ? 'text-black dark:text-white font-bold'
+                          : 'text-secondary',
+                        'hover:text-black dark:hover:text-white'
+                      )}
+                      target={external ? '_blank' : ''}
+                    >
+                      {name}
+                    </a>
                   </Link>
                 </div>
               ))}
