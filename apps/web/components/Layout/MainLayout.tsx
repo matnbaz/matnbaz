@@ -1,4 +1,5 @@
 import { Transition } from '@headlessui/react';
+import { Timer } from '@matnbaz/common';
 import classNames from 'classnames';
 import { useCallback, useEffect, useState } from 'react';
 import { HiX } from 'react-icons/hi';
@@ -14,7 +15,7 @@ interface IMainLayoutProps {
 }
 
 const DISMISS_SUPPORT_BANNER = 'DISMISS_SUPPORT_BANNER';
-const TIME_BEFORE_BANNER_APPEARS = 50000;
+const TIME_BEFORE_BANNER_APPEARS = 25000;
 
 export const MainLayout = ({
   children,
@@ -23,14 +24,24 @@ export const MainLayout = ({
   withoutPadding = false,
 }: IMainLayoutProps) => {
   const [showBanner, setShowBanner] = useState(false);
-  const [timeoutTimer, setTimeoutTimer] = useState<NodeJS.Timeout>();
+  const [timeoutTimer, setTimeoutTimer] = useState<Timer>();
 
   useEffect(() => {
-    if (!localStorage.getItem(DISMISS_SUPPORT_BANNER) && !timeoutTimer) {
-      setTimeoutTimer(
-        setTimeout(() => setShowBanner(true), TIME_BEFORE_BANNER_APPEARS)
-      );
-    }
+    if (localStorage.getItem(DISMISS_SUPPORT_BANNER) || timeoutTimer) return;
+
+    const timer = new Timer(
+      () => setShowBanner(true),
+      TIME_BEFORE_BANNER_APPEARS
+    );
+    setTimeoutTimer(timer);
+    const onVisibilityChange = () =>
+      timer.isPaused() ? timer.resume() : timer.pause();
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => {
+      timer.pause();
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
   }, []);
 
   const dismissBanner = useCallback(() => {
