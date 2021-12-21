@@ -65,7 +65,7 @@ export const MainLayout = ({
             text="کمک (غیر مالی یا مالی) شما برای متن‌باز خیلی ارزش دارد."
             mobile="کمک شما برای متن‌باز خیلی ارزش دارد."
             icon={HiX}
-            url="about#کمک-و-حمایت"
+            url="/about#کمک-و-حمایت"
             cta="اطلاعات بیشتر"
             theme="red"
             onDismiss={() => dismissBanner()}
