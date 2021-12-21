@@ -44,6 +44,6 @@
   - [Twitter](https://twitter.com/matnbaz_net)
   - [Instagram](https://instagram.com/matnbaz_net)
   - [Discord Community](https://discord.gg/SNHSYWsKYQ)
-- سازندگان پروژه را در گیت‌های دنبال کنید:
+- سازندگان پروژه را در گیت‌هاب دنبال کنید:
   - [@alitnk](https://github.com/alitnk)
   - [@kasraghoreyshi](https://github.com/kasraghoreyshi)
