@@ -50,7 +50,7 @@ const Index = () => {
                   </h1>
                   <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     با استفاده از بخش کاوش‌گر سایت می‌توانید پروژه‌های متن‌باز
-                    (open source) ایرانی را کشف کنید. اگر شما هم کار متن‌باز
+                    (open-source) ایرانی را کشف کنید. اگر شما هم کار متن‌باز
                     کرده‌اید، به احتمال زیاد اسم خود را پیدا خواهید کرد!
                   </p>
                   <div className="mt-10 sm:mt-12">
