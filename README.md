@@ -21,7 +21,7 @@
 
 یکی از اهداف ما ساخت یک انجمن فعال و دوستانه است. در انجمن دیسکورد متن‌باز کاربران می توانند با افراد دیگر آشنا شوند، برای انجام پروژه‌های متن‌باز همکار جمع کنند و...
 
-[به انجمن متن‌باز بپیوندید](https://discord.gg/SNHSYWsKYQ)
+[به انجمن متن‌باز بپیوندید](https://discord.link/matnbaz)
 
 # آینده
 
@@ -43,7 +43,7 @@
   - [Telegram](https://t.me/matnbaz_net)
   - [Twitter](https://twitter.com/matnbaz_net)
   - [Instagram](https://instagram.com/matnbaz_net)
-  - [Discord Community](https://discord.gg/SNHSYWsKYQ)
+  - [Discord Community](https://discord.link/matnbaz)
 - سازندگان پروژه را در گیت‌هاب دنبال کنید:
   - [@alitnk](https://github.com/alitnk)
   - [@kasraghoreyshi](https://github.com/kasraghoreyshi)
