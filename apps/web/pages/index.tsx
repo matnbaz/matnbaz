@@ -1,4 +1,4 @@
-import { SOCIAL_MEDIA } from '@matnbaz/common';
+import { socialMedia } from '@matnbaz/common';
 import { HiChevronLeft } from 'react-icons/hi';
 import { SiDiscord } from 'react-icons/si';
 import HeaderMeta, { IHeaderMetaTags } from '../components/Feature/HeaderMeta';
@@ -23,7 +23,7 @@ const Index = () => {
               <div className="mx-auto max-w-md px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right lg:flex lg:items-center">
                 <div className="lg:py-24">
                   <a
-                    href={SOCIAL_MEDIA.discord}
+                    href={socialMedia.discord}
                     target="_blank"
                     rel="noreferrer"
                     className="hidden sm:inline-flex items-center text-white bg-black rounded-full p-1 pl-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"

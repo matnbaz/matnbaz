@@ -1,4 +1,4 @@
-import { SOCIAL_MEDIA } from '@matnbaz/common';
+import { socialMedia } from '@matnbaz/common';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
 import { useTheme } from 'next-themes';
@@ -19,7 +19,7 @@ const links = [
   { name: 'کاوش‌گر', to: '/explore' },
   { name: 'درباره', to: '/about' },
   { name: 'ثبت کاربر', to: '/submit-user' },
-  { name: 'انجمن دیسکورد', to: SOCIAL_MEDIA.discord, external: true },
+  { name: 'انجمن دیسکورد', to: socialMedia.discord, external: true },
 ];
 
 const Navbar = ({ className }: INavbarProps) => {

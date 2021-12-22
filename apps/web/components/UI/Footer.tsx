@@ -1,4 +1,4 @@
-import { SOCIAL_MEDIA } from '@matnbaz/common';
+import { socialMedia } from '@matnbaz/common';
 import Link from 'next/link';
 import {
   SiDiscord,
@@ -50,7 +50,7 @@ export const Footer = (props: FooterProps) => {
               </a>
               <a
                 className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
-                href={SOCIAL_MEDIA.discord}
+                href={socialMedia.discord}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -61,35 +61,35 @@ export const Footer = (props: FooterProps) => {
 
           <div className="flex items-center justify-center">
             <IconButton
-              href={SOCIAL_MEDIA.github}
+              href={socialMedia.github}
               target="_blank"
               rel="noreferrer"
             >
               <SiGithub className="w-4 h-4" />
             </IconButton>
             <IconButton
-              href={SOCIAL_MEDIA.telegram}
+              href={socialMedia.telegram}
               target="_blank"
               rel="noreferrer"
             >
               <SiTelegram className="w-4 h-4" />
             </IconButton>
             <IconButton
-              href={SOCIAL_MEDIA.discord}
+              href={socialMedia.discord}
               target="_blank"
               rel="noreferrer"
             >
               <SiDiscord className="w-4 h-4" />
             </IconButton>
             <IconButton
-              href={SOCIAL_MEDIA.twitter}
+              href={socialMedia.twitter}
               target="_blank"
               rel="noreferrer"
             >
               <SiTwitter className="w-4 h-4" />
             </IconButton>
             <IconButton
-              href={SOCIAL_MEDIA.instagram}
+              href={socialMedia.instagram}
               target="_blank"
               rel="noreferrer"
             >
