@@ -12,10 +12,12 @@ import {
 import * as P from '@prisma/client';
 import * as GithubColors from 'github-colors';
 import { PrismaService } from 'nestjs-prisma';
+import { Color } from '../../models/color.model';
 import { LanguageConnection } from '../../models/connections/language.connection';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { Language } from '../../models/language.model';
 import { paginationComplexity } from '../../plugins/pagination-complexity';
+import { createColorObject } from '../color/utils';
 import { LanguageIdArgs } from './args/language-id.args';
 import { LanguageOrderArgs } from './args/language-order.args';
 import { LanguageSlugArgs } from './args/language-slug.args';
@@ -59,9 +61,9 @@ export class LanguageResolver {
     return this.prisma.language.findUnique({ where: { id } });
   }
 
-  @ResolveField(() => String, { nullable: true })
+  @ResolveField(() => Color, { nullable: true })
   color(@Parent() { name }: P.Language) {
-    return GithubColors.get(name)?.color;
+    return createColorObject(GithubColors.get(name)?.color);
   }
 
   @ResolveField(() => RepositoryConnection, {

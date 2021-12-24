@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ColorModule } from './color/color.module';
 import { DateModule } from './date/date.module';
 import { LanguageModule } from './language/language.module';
 import { LicenseModule } from './license/license.module';
@@ -18,6 +19,7 @@ import { TopicModule } from './topic/topic.module';
     ReportModule,
     SubmissionModule,
     DateModule,
+    ColorModule,
   ],
 })
 export class ResolverModule {}

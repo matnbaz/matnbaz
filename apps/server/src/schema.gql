@@ -14,6 +14,13 @@ enum ArchiveStatusType {
   NOT_ARCHIVED
 }
 
+type Color {
+  blue: String!
+  green: String!
+  hexString: String!
+  red: String!
+}
+
 type DateObject {
   difference(persianNumbers: Boolean = true): String!
   formatted(format: String = "d MMMM yyyy", persianNumbers: Boolean = true): String!
@@ -38,7 +45,7 @@ enum ForkStatusType {
 }
 
 type Language implements Node {
-  color: String
+  color: Color
   description: String
   id: ID!
   name: String!
