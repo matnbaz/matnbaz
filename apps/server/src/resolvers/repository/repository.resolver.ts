@@ -89,8 +89,10 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
       templateStatus,
     }: RepoFilterArgs,
     @Args() { searchTerm }: RepoSearchArgs,
-    @Args() { order = RepoOrder.PUSHED_DESC }: RepoOrderArgs
+    @Args() { order }: RepoOrderArgs
   ) {
+    order = order || RepoOrder.PUSHED_DESC;
+
     return findManyCursorConnection(
       (args) =>
         this.prisma.repository.findMany({
