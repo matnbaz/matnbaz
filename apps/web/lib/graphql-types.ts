@@ -30,7 +30,7 @@ export enum ArchiveStatusType {
 export type Color = {
   __typename?: 'Color';
   hexString: Scalars['String'];
-  rgb: Rgba;
+  rgba: Rgba;
 };
 
 export type DateObject = {

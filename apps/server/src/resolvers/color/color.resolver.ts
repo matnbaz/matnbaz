@@ -6,7 +6,7 @@ import { colorHexToDecimal } from './utils';
 @Resolver(() => Color)
 export class ColorResolver {
   @ResolveField(() => RGBA)
-  rgb(@Parent() { hexString }: Color) {
+  rgba(@Parent() { hexString }: Color) {
     const rgb = colorHexToDecimal(hexString);
     return {
       red: rgb[0],

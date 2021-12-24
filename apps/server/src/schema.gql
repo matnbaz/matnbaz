@@ -16,7 +16,7 @@ enum ArchiveStatusType {
 
 type Color {
   hexString: String!
-  rgb: RGBA!
+  rgba: RGBA!
 }
 
 type DateObject {
