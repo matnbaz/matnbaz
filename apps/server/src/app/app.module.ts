@@ -45,7 +45,7 @@ import { AppService } from './app.service';
         responseCachePlugin(),
       ],
       context: ({ req, res }) => ({ req, res }),
-      schemaDirectives: {},
+      debug: process.env.NODE_ENV !== 'production',
       playground: process.env.NODE_ENV === 'development',
       cors: {
         credentials: true,
