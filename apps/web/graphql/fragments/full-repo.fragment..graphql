@@ -21,7 +21,9 @@ fragment fullRepo on Repository {
   readmeHtml
   language {
     name
-    color
+    color {
+      hexString
+    }
   }
   license {
     name

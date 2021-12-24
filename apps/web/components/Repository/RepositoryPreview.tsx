@@ -90,7 +90,9 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
                 </span>
                 <div
                   className="rounded-full w-2 h-2"
-                  style={{ backgroundColor: repository.language.color }}
+                  style={{
+                    backgroundColor: repository.language.color.hexString,
+                  }}
                 />
               </>
             </div>

@@ -112,7 +112,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
               {repo.language && (
                 <span
                   className="px-1.5 py-1 rounded-lg text-xs border-2"
-                  style={{ borderColor: repo.language.color }}
+                  style={{ borderColor: repo.language.color.hexString }}
                   dir="ltr"
                 >
                   {repo.language.name}

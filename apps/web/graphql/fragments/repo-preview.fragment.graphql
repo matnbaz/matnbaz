@@ -9,7 +9,9 @@ fragment repoPreviewWithoutOwner on Repository {
   openIssuesCount
   language {
     name
-    color
+    color {
+      hexString
+    }
   }
   isNew
 }
