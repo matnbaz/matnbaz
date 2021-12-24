@@ -29,10 +29,8 @@ export enum ArchiveStatusType {
 
 export type Color = {
   __typename?: 'Color';
-  blue: Scalars['String'];
-  green: Scalars['String'];
   hexString: Scalars['String'];
-  red: Scalars['String'];
+  rgb: Rgba;
 };
 
 export type DateObject = {
@@ -344,6 +342,14 @@ export type QueryTopicsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   order?: InputMaybe<TopicOrder>;
+};
+
+export type Rgba = {
+  __typename?: 'RGBA';
+  alpha: Scalars['Float'];
+  blue: Scalars['Int'];
+  green: Scalars['Int'];
+  red: Scalars['Int'];
 };
 
 /** You can order repositories with one of these options. */

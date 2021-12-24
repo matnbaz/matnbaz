@@ -1,20 +1,18 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
 import { Color } from '../../models/color.model';
+import { RGBA } from '../../models/rgba.model';
+import { colorHexToDecimal } from './utils';
 
 @Resolver(() => Color)
 export class ColorResolver {
-  @ResolveField(() => String)
-  red(@Parent() { hexString }: Color) {
-    return hexString.slice(1, 3);
-  }
-
-  @ResolveField(() => String)
-  green(@Parent() { hexString }: Color) {
-    return hexString.slice(3, 5);
-  }
-
-  @ResolveField(() => String)
-  blue(@Parent() { hexString }: Color) {
-    return hexString.slice(5, 7);
+  @ResolveField(() => RGBA)
+  rgb(@Parent() { hexString }: Color) {
+    const rgb = colorHexToDecimal(hexString);
+    return {
+      red: rgb[0],
+      green: rgb[1],
+      blue: rgb[2],
+      alpha: 1,
+    };
   }
 }

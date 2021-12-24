@@ -15,10 +15,8 @@ enum ArchiveStatusType {
 }
 
 type Color {
-  blue: String!
-  green: String!
   hexString: String!
-  red: String!
+  rgb: RGBA!
 }
 
 type DateObject {
@@ -198,6 +196,13 @@ type Query {
   topic(name: String!): Topic
   topicById(id: ID!): Topic
   topics(after: String, before: String, first: Int, last: Int, order: TopicOrder): TopicConnection!
+}
+
+type RGBA {
+  alpha: Float!
+  blue: Int!
+  green: Int!
+  red: Int!
 }
 
 """You can order repositories with one of these options."""
