@@ -63,7 +63,8 @@ export class LanguageResolver {
 
   @ResolveField(() => Color, { nullable: true })
   color(@Parent() { name }: P.Language) {
-    return createColorObject(GithubColors.get(name)?.color);
+    const color = GithubColors.get(name)?.color;
+    return color ? createColorObject(GithubColors.get(name)?.color) : null;
   }
 
   @ResolveField(() => RepositoryConnection, {
