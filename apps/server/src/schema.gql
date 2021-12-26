@@ -107,6 +107,11 @@ enum LicenseOrder {
   REPOSITORIES_DESC
 }
 
+type Metadata {
+  totalOwnersCount: Float!
+  totalReposCount: Float!
+}
+
 type Mutation {
   report(id: ID!, reason: String!, subject: ReportableType!): Report!
   reportOwner(id: ID!, reason: String!): Report! @deprecated(reason: "Use `report` for now")
@@ -170,6 +175,7 @@ type Query {
   language(slug: String!): Language
   languages(after: String, before: String, first: Int, last: Int, order: LanguageOrder): LanguageConnection!
   licenses(after: String, before: String, first: Int, last: Int, order: LicenseOrder): LicenseConnection!
+  metadata: Metadata!
   owner(id: ID!): Owner
   ownerByPlatform(owner: String!, platform: PlatformType!): Owner
   ownerByPlatformId(id: ID!, platform: PlatformType!): Owner
