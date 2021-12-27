@@ -15,7 +15,7 @@ interface IMainLayoutProps {
 }
 
 const DISMISS_SUPPORT_BANNER = 'DISMISS_SUPPORT_BANNER';
-const TIME_BEFORE_BANNER_APPEARS = 40000;
+const TIME_BEFORE_BANNER_APPEARS = 800000;
 
 export const MainLayout = ({
   children,
