@@ -144,6 +144,14 @@ export enum LicenseOrder {
   RepositoriesDesc = 'REPOSITORIES_DESC'
 }
 
+export type Metadata = {
+  __typename?: 'Metadata';
+  totalLanguagesCount: Scalars['Int'];
+  totalOwnersCount: Scalars['Float'];
+  totalReposCount: Scalars['Float'];
+  totalTopicsCount: Scalars['Int'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   report: Report;
@@ -240,6 +248,7 @@ export type Query = {
   language?: Maybe<Language>;
   languages: LanguageConnection;
   licenses: LicenseConnection;
+  metadata: Metadata;
   owner?: Maybe<Owner>;
   ownerByPlatform?: Maybe<Owner>;
   ownerByPlatformId?: Maybe<Owner>;
@@ -593,6 +602,11 @@ export type GetSearchedRepositoriesQueryVariables = Exact<{
 
 
 export type GetSearchedRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined } }> | null | undefined } };
+
+export type MetadataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MetadataQuery = { __typename?: 'Query', metadata: { __typename?: 'Metadata', totalOwnersCount: number, totalReposCount: number, totalTopicsCount: number } };
 
 export const FullRepoFragmentDoc = gql`
     fragment fullRepo on Repository {
@@ -984,6 +998,42 @@ export function useGetSearchedRepositoriesLazyQuery(baseOptions?: Apollo.LazyQue
 export type GetSearchedRepositoriesQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesQuery>;
 export type GetSearchedRepositoriesLazyQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesLazyQuery>;
 export type GetSearchedRepositoriesQueryResult = Apollo.QueryResult<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>;
+export const MetadataDocument = gql`
+    query Metadata {
+  metadata {
+    totalOwnersCount
+    totalReposCount
+    totalTopicsCount
+  }
+}
+    `;
+
+/**
+ * __useMetadataQuery__
+ *
+ * To run a query within a React component, call `useMetadataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMetadataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMetadataQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMetadataQuery(baseOptions?: Apollo.QueryHookOptions<MetadataQuery, MetadataQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MetadataQuery, MetadataQueryVariables>(MetadataDocument, options);
+      }
+export function useMetadataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MetadataQuery, MetadataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MetadataQuery, MetadataQueryVariables>(MetadataDocument, options);
+        }
+export type MetadataQueryHookResult = ReturnType<typeof useMetadataQuery>;
+export type MetadataLazyQueryHookResult = ReturnType<typeof useMetadataLazyQuery>;
+export type MetadataQueryResult = Apollo.QueryResult<MetadataQuery, MetadataQueryVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {

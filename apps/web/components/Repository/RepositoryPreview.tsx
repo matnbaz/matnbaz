@@ -10,8 +10,12 @@ import OwnerImage from '../Owner/OwnerImage';
 import Card from '../UI/Card';
 interface IRepositoryPreviewProps {
   repository: GetRepositoriesQuery['repositories']['edges'][0]['node'];
+  sendToPlatform?: boolean;
 }
-const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
+const RepositoryPreview = ({
+  repository,
+  sendToPlatform = false,
+}: IRepositoryPreviewProps) => {
   const statistics = useMemo(
     () => [
       {
@@ -45,7 +49,14 @@ const RepositoryPreview = ({ repository }: IRepositoryPreviewProps) => {
   );
 
   return (
-    <Card padded href={`/github/${repository.fullName}`}>
+    <Card
+      padded
+      href={
+        sendToPlatform
+          ? `https://github.com/${repository.fullName}`
+          : `/github/${repository.fullName}`
+      }
+    >
       <div className="relative h-full">
         {/* Platform Logo */}
         {/* <img

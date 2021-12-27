@@ -33,7 +33,12 @@ const Card = ({
   if (href)
     return (
       <Link href={href} passHref>
-        <a className={cardClasses} {...props} onClick={onClick}>
+        <a
+          className={cardClasses}
+          target={href.match(/https?:\/\//) ? '_blank' : undefined}
+          {...props}
+          onClick={onClick}
+        >
           {children}
         </a>
       </Link>

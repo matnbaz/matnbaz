@@ -1,10 +1,17 @@
 import { socialMedia } from '@matnbaz/common';
+import { useEffect, useState } from 'react';
 import { HiChevronLeft } from 'react-icons/hi';
 import { SiDiscord } from 'react-icons/si';
 import HeaderMeta, { IHeaderMetaTags } from '../components/Feature/HeaderMeta';
-import { IranVector } from '../components/Illustration/IranVector';
 import MainLayout from '../components/Layout/MainLayout';
+import RepositoryPreview from '../components/Repository/RepositoryPreview';
+import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loader/RepositoryPreviewSkeletonLoader';
 import Button from '../components/UI/Button/Button';
+import {
+  OwnerType,
+  PlatformType,
+  useMetadataQuery,
+} from '../lib/graphql-types';
 
 export const indexMetaTags: IHeaderMetaTags = {
   title: 'تمام پروژه های متن باز ایرانی در یک جا',
@@ -14,70 +21,95 @@ export const indexMetaTags: IHeaderMetaTags = {
 
 const Index = () => {
   return (
-    <MainLayout>
+    <MainLayout maxWidth={false} withoutPadding>
       <HeaderMeta {...indexMetaTags} withBanner />
       <main>
-        <div className="pt-10 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden">
-          <div className="mx-auto max-w-7xl lg:px-8">
-            <div className="space-y-12 sm:space-y-36">
-              <div className="mx-auto max-w-md px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right lg:flex lg:items-center">
-                <div className="lg:py-24">
-                  <a
-                    href={socialMedia.discord}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hidden sm:inline-flex items-center text-white bg-black rounded-full p-1 pl-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
-                  >
-                    <span
-                      className="px-3 py-0.5 text-xs font-semibold flex items-center space-x- leading-5 tracking-wide rounded-full"
-                      style={{ backgroundColor: '#5865F2' }}
-                    >
-                      <SiDiscord className="ml-2" />
-                      انجمن دیسکورد
-                    </span>
-                    <span className="mr-4 text-sm">
-                      به دیسکورد متن‌باز بپیوندید
-                    </span>
-                    <HiChevronLeft
-                      className="mr-2 w-5 h-5 text-gray-500"
-                      aria-hidden="true"
-                    />
-                  </a>
-                  <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-                    تمام پروژه‌های متن‌باز{' '}
-                    <span className="text-primary-500">ایرانی</span>{' '}
-                    <span className="">در یک جا</span>
-                  </h1>
-                  <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    با استفاده از بخش کاوش‌گر سایت می‌توانید پروژه‌های متن‌باز
-                    (open-source) ایرانی را کشف کنید. اگر شما هم کار متن‌باز
-                    کرده‌اید، به احتمال زیاد اسم خود را پیدا خواهید کرد!
-                  </p>
-                  <div className="mt-10 sm:mt-12">
-                    <div className="mt-3 sm:mt-0 sm:mr-3 space-x-3 space-x-reverse">
-                      <Button.Primary href="/explore" size="lg">
-                        برو به کاوش‌گر
-                      </Button.Primary>
-                      <Button.Outline href="/about" size="lg">
-                        درباره پروژه
-                      </Button.Outline>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:relative my-auto">
-                <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
-                  <IranVector />
-                  <div className="font-mono text-xl sm:text-2xl text-center lg:-mt-10">
-                    Iran{' '}
-                    <span className="text-red-500 animate-pulse">{'♥'}</span>{' '}
-                    Open-Source Software
-                  </div>
+        <div className="lg:overflow-hidden mb-12 sm:mb-24">
+          <div className="m-auto py-10 sm:py-24 2xl:py-32 px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right lg:flex lg:items-center">
+            <div className="lg:py-24">
+              <a
+                href={socialMedia.discord}
+                target="_blank"
+                rel="noreferrer"
+                className="hidden sm:inline-flex items-center text-white bg-black rounded-full p-1 pl-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
+              >
+                <span
+                  className="px-3 py-0.5 text-xs font-semibold flex items-center space-x- leading-5 tracking-wide rounded-full"
+                  style={{ backgroundColor: '#5865F2' }}
+                >
+                  <SiDiscord className="ml-2" />
+                  انجمن دیسکورد
+                </span>
+                <span className="mr-4 text-sm">
+                  به دیسکورد متن‌باز بپیوندید
+                </span>
+                <HiChevronLeft
+                  className="mr-2 w-5 h-5 text-secondary"
+                  aria-hidden="true"
+                />
+              </a>
+              <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
+                تمام پروژه‌های متن‌باز{' '}
+                <span className="text-primary-500">ایرانی</span>{' '}
+                <span className="">در یک جا</span>
+              </h1>
+              <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                با استفاده از بخش کاوش‌گر سایت می‌توانید پروژه‌های متن‌باز
+                (open-source) ایرانی را کشف کنید. اگر شما هم کار متن‌باز
+                کرده‌اید، به احتمال زیاد اسم خود را پیدا خواهید کرد!
+              </p>
+              <div className="mt-10 sm:mt-12">
+                <div className="mt-3 sm:mt-0 sm:mr-3 space-x-3 space-x-reverse">
+                  <Button.Primary href="/explore" size="lg">
+                    برو به کاوش‌گر
+                  </Button.Primary>
+                  <Button.Outline href="/about" size="lg">
+                    درباره پروژه
+                  </Button.Outline>
                 </div>
               </div>
             </div>
           </div>
+
+          <div className="">
+            <SiteStats />
+          </div>
+
+          <div className="m-auto max-w-7xl mt-12 sm:mt-24">
+            <div className="grid grid-cols-2 items-center gap-12">
+              <RepositorySection />
+              <div>
+                <h2 className="text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
+                  سورس‌کد متن‌باز
+                </h2>
+                <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  سورس کد متن‌باز را می‌توانید در این مخزن گیت‌هاب مشاهده کنید.
+                  <br />
+                  با ستاره دادن می‌توانید به پیشرفت و بیشتر شناخته‌شدن پروژه کمک
+                  کنید.
+                  {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                  <a target="_blank" href="https://github.com/matnbaz/matnbaz">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      className="mt-2"
+                      alt="دادن ستاره در گیت‌هاب"
+                      src="https://img.shields.io/github/stars/matnbaz/matnbaz?style=social"
+                    />
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* <div className="m-auto max-w-7xl lg:relative my-auto mt-12 sm:mt-32">
+            <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
+              <IranVector />
+              <div className="font-mono text-xl sm:text-2xl text-center lg:-mt-10">
+                Iran <span className="text-red-500 animate-pulse">{'♥'}</span>{' '}
+                Open-Source Software
+              </div>
+            </div>
+          </div> */}
         </div>
 
         {/* More main page content here... */}
@@ -87,3 +119,112 @@ const Index = () => {
 };
 
 export default Index;
+
+const RepositorySection = () => {
+  const [repo, setRepo] = useState(null);
+  useEffect(() => {
+    const main = async () => {
+      const response = await fetch(
+        `https://api.github.com/repos/matnbaz/matnbaz`
+      );
+      const json = await response.json();
+      setRepo(json);
+    };
+
+    main();
+  }, []);
+
+  return repo ? (
+    <RepositoryPreview
+      sendToPlatform
+      repository={{
+        id: repo.id.toString(),
+        isNew: false,
+        platform: PlatformType.GitHub,
+        owner: {
+          login: repo.owner.login,
+          platformId: repo.owner.id,
+          type:
+            repo.owner.type === 'Organization'
+              ? OwnerType.Organization
+              : OwnerType.User,
+        },
+        descriptionLimited: repo.description,
+        forksCount: repo.forks_count,
+        openIssuesCount: repo.open_issues_count,
+        stargazersCount: repo.stargazers_count,
+        fullName: repo.full_name,
+        language: {
+          __typename: 'Language',
+          name: repo.language,
+          color: {
+            hexString: '#1e90ff',
+          },
+        },
+      }}
+    />
+  ) : (
+    <RepositoryPreviewSkeletonLoader />
+  );
+};
+
+const SiteStats = () => {
+  const { data } = useMetadataQuery();
+
+  return (
+    <div className="bg-gray-50 dark:bg-gray-800 py-8 sm:py-12">
+      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-4xl mx-auto text-center">
+                      <h2 className="text-3xl font-extrabold sm:text-4xl">
+                        آمار متن‌باز
+                      </h2>
+                      <p className="mt-3 text-xl text-secondary sm:mt-4">
+                        تمام پروژه ها از پس از تایید صلاحیت خودکار و با توجه به
+                        معیار های خاص به متن‌باز اضافه می‌شوند.
+                      </p>
+                    </div>
+                  </div> */}
+      <div className="">
+        <div className="relative">
+          <div className="absolute inset-0 h-1/2" />
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <dl className="sm:grid sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x sm:divide-x-reverse divide-gray-200 dark:divide-gray-700">
+                <div className="flex flex-col p-6 text-center">
+                  <dt className="order-2 mt-2 text-lg leading-6 font-medium text-secondary">
+                    پروژه
+                  </dt>
+                  <dd className="order-1 text-5xl font-extrabold">
+                    {data
+                      ? data.metadata.totalReposCount.toLocaleString('fa')
+                      : '۰'}
+                  </dd>
+                </div>
+                <div className="flex flex-col p-6 text-center">
+                  <dt className="order-2 mt-2 text-lg leading-6 font-medium text-secondary">
+                    سازنده
+                  </dt>
+                  <dd className="order-1 text-5xl font-extrabold">
+                    {data
+                      ? data.metadata.totalOwnersCount.toLocaleString('fa')
+                      : '۰'}
+                  </dd>
+                </div>
+                <div className="flex flex-col p-6 text-center">
+                  <dt className="order-2 mt-2 text-lg leading-6 font-medium text-secondary">
+                    موضوع
+                  </dt>
+                  <dd className="order-1 text-5xl font-extrabold">
+                    {data
+                      ? data.metadata.totalTopicsCount.toLocaleString('fa')
+                      : '۰'}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
