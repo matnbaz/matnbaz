@@ -51,4 +51,30 @@ export class MetadataResolver {
 
     return ownersCount;
   }
+
+  @ResolveField(() => Int)
+  async totalTopicsCount() {
+    const topicsCount = await this.cacheManager.wrap(
+      'totalTopicsCount',
+      () => {
+        return this.prisma.topic.count();
+      },
+      { ttl: this.CACHE_TTL }
+    );
+
+    return topicsCount;
+  }
+
+  @ResolveField(() => Int)
+  async totalLanguagesCount() {
+    const languagesCount = await this.cacheManager.wrap(
+      'totalLanguagesCount',
+      () => {
+        return this.prisma.language.count();
+      },
+      { ttl: this.CACHE_TTL }
+    );
+
+    return languagesCount;
+  }
 }

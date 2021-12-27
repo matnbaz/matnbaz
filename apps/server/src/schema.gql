@@ -108,8 +108,10 @@ enum LicenseOrder {
 }
 
 type Metadata {
+  totalLanguagesCount: Int!
   totalOwnersCount: Float!
   totalReposCount: Float!
+  totalTopicsCount: Int!
 }
 
 type Mutation {
