@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Link, { LinkProps } from 'next/link';
-import { DOMAttributes, useMemo } from 'react';
+import { CSSProperties, DOMAttributes, useMemo } from 'react';
 interface ICardProps
   extends DOMAttributes<HTMLDivElement | HTMLAnchorElement | LinkProps> {
   children: React.ReactNode;
@@ -8,6 +8,7 @@ interface ICardProps
   onClick?: () => void;
   colored?: boolean;
   padded?: boolean;
+  style?: CSSProperties;
   border?: 'desktop' | 'all' | 'none';
   href?: string;
 }

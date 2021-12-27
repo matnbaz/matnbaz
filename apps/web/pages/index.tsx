@@ -1,12 +1,40 @@
 import { socialMedia } from '@matnbaz/common';
 import { useEffect, useState } from 'react';
 import { HiChevronLeft } from 'react-icons/hi';
-import { SiDiscord } from 'react-icons/si';
+import { IconType } from 'react-icons/lib';
+import {
+  SiAngular,
+  SiC,
+  SiCplusplus,
+  SiCsharp,
+  SiDart,
+  SiDiscord,
+  SiDjango,
+  SiDotnet,
+  SiElixir,
+  SiFlutter,
+  SiGo,
+  SiJava,
+  SiJavascript,
+  SiKotlin,
+  SiLaravel,
+  SiNodedotjs,
+  SiPhp,
+  SiPython,
+  SiReact,
+  SiRuby,
+  SiRubyonrails,
+  SiRust,
+  SiSvelte,
+  SiTypescript,
+  SiVuedotjs,
+} from 'react-icons/si';
 import HeaderMeta, { IHeaderMetaTags } from '../components/Feature/HeaderMeta';
 import MainLayout from '../components/Layout/MainLayout';
 import RepositoryPreview from '../components/Repository/RepositoryPreview';
 import RepositoryPreviewSkeletonLoader from '../components/Skeleton Loader/RepositoryPreviewSkeletonLoader';
 import Button from '../components/UI/Button/Button';
+import Card from '../components/UI/Card';
 import {
   OwnerType,
   PlatformType,
@@ -77,8 +105,11 @@ const Index = () => {
             </div>
           </div> */}
 
-          {/* TODO: push this section down so the loading 0 won't show up on large screens */}
-          <div className="">
+          <div className="my-10">
+            <Technologies />
+          </div>
+
+          <div className="bg-gray-50 dark:bg-gray-800 py-8 sm:py-12 space-y-4">
             <SiteStats />
           </div>
 
@@ -172,18 +203,18 @@ const SiteStats = () => {
   const { data } = useMetadataQuery();
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-800 py-8 sm:py-12">
+    <div>
       {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-4xl mx-auto text-center">
-                      <h2 className="text-3xl font-extrabold sm:text-4xl">
-                        آمار متن‌باز
-                      </h2>
-                      <p className="mt-3 text-xl text-secondary sm:mt-4">
-                        تمام پروژه ها از پس از تایید صلاحیت خودکار و با توجه به
-                        معیار های خاص به متن‌باز اضافه می‌شوند.
-                      </p>
-                    </div>
-                  </div> */}
+                      <div className="max-w-4xl mx-auto text-center">
+                        <h2 className="text-3xl font-extrabold sm:text-4xl">
+                          آمار متن‌باز
+                        </h2>
+                        <p className="mt-3 text-xl text-secondary sm:mt-4">
+                          تمام پروژه ها از پس از تایید صلاحیت خودکار و با توجه به
+                          معیار های خاص به متن‌باز اضافه می‌شوند.
+                        </p>
+                      </div>
+                    </div> */}
       <div className="">
         <div className="relative">
           <div className="absolute inset-0 h-1/2" />
@@ -231,6 +262,212 @@ const SiteStats = () => {
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const Technologies = () => {
+  const technologies: {
+    name: string;
+    slug: string;
+    icon: IconType;
+    color: string;
+    type: 'language' | 'topic';
+  }[] = [
+    {
+      name: 'JavaScript',
+      slug: 'javascript',
+      icon: SiJavascript,
+      color: '#F7DF1E',
+      type: 'language',
+    },
+    {
+      name: 'Python',
+      slug: 'python',
+      icon: SiPython,
+      color: '#3776AB',
+      type: 'language',
+    },
+    {
+      name: 'PHP',
+      slug: 'php',
+      icon: SiPhp,
+      color: '#777BB4',
+      type: 'language',
+    },
+    {
+      name: 'Java',
+      slug: 'java',
+      icon: SiJava,
+      color: '#007396',
+      type: 'language',
+    },
+    {
+      name: 'Go',
+      slug: 'go',
+      icon: SiGo,
+      color: '#00ADD8',
+      type: 'language',
+    },
+    {
+      name: 'C',
+      slug: 'c',
+      icon: SiC,
+      color: '#A8B9CC',
+      type: 'language',
+    },
+    {
+      name: 'C#',
+      slug: 'csharp',
+      icon: SiCsharp,
+      color: '#239120',
+      type: 'language',
+    },
+    {
+      name: 'C++',
+      slug: 'cplusplus',
+      icon: SiCplusplus,
+      color: '#00599C',
+      type: 'language',
+    },
+    {
+      name: 'TypeScript',
+      slug: 'typescript',
+      icon: SiTypescript,
+      color: '#3178C6',
+      type: 'language',
+    },
+    {
+      name: 'Ruby',
+      slug: 'ruby',
+      icon: SiRuby,
+      color: '#CC342D',
+      type: 'language',
+    },
+    {
+      name: 'Rust',
+      slug: 'rust',
+      icon: SiRust,
+      color: '#000000',
+      type: 'language',
+    },
+    {
+      name: 'Dart',
+      slug: 'dart',
+      icon: SiDart,
+      color: '#0175C2',
+      type: 'language',
+    },
+    {
+      name: 'Kotlin',
+      slug: 'kotlin',
+      icon: SiKotlin,
+      color: '#7F52FF',
+      type: 'language',
+    },
+    {
+      name: 'Elixir',
+      slug: 'elixir',
+      icon: SiElixir,
+      color: '#4B275F',
+      type: 'language',
+    },
+    {
+      name: 'Laravel',
+      slug: 'laravel',
+      icon: SiLaravel,
+      color: '#FF2D20',
+      type: 'topic',
+    },
+    {
+      name: 'Flutter',
+      slug: 'flutter',
+      icon: SiFlutter,
+      color: '#02569B',
+      type: 'topic',
+    },
+    {
+      name: 'Node.js',
+      slug: 'nodejs',
+      icon: SiNodedotjs,
+      color: '#339933',
+      type: 'topic',
+    },
+    {
+      name: 'React',
+      slug: 'react',
+      icon: SiReact,
+      color: '#61DAFB',
+      type: 'topic',
+    },
+    {
+      name: 'Vue.js',
+      slug: 'vuejs',
+      icon: SiVuedotjs,
+      color: '#4FC08D',
+      type: 'topic',
+    },
+    {
+      name: 'Ruby on Rails',
+      slug: 'ruby-on-rails',
+      icon: SiRubyonrails,
+      color: '#CC0000',
+      type: 'topic',
+    },
+    {
+      name: 'Angular',
+      slug: 'angular',
+      icon: SiAngular,
+      color: '#DD0031',
+      type: 'topic',
+    },
+    {
+      name: 'Svelte',
+      slug: 'svelte',
+      icon: SiSvelte,
+      color: '#FF3E00',
+      type: 'topic',
+    },
+    {
+      name: 'Django',
+      slug: 'django',
+      icon: SiDjango,
+      color: '#339933',
+      type: 'topic',
+    },
+    {
+      name: '.NET',
+      slug: 'dotnet',
+      icon: SiDotnet,
+      color: '#512BD4',
+      type: 'topic',
+    },
+  ];
+
+  return (
+    <div className="flex items-center gap-10 flex-wrap justify-center">
+      {technologies.map(({ name, slug, icon: Icon, color, type }) => (
+        <Card
+          key={slug}
+          border="none"
+          padded
+          style={{ backgroundColor: color }}
+          className="text-white w-40 hover:scale-110 transition"
+          href={
+            type === 'language'
+              ? `/explore?languages=${slug}`
+              : type === 'topic'
+              ? `/explore?topics=${slug}`
+              : ''
+          }
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <Icon className="w-14 h-14 mx-auto" />
+          <div dir="ltr" className="text-center font-medium mt-4">
+            {name}
+          </div>
+        </Card>
+      ))}
     </div>
   );
 };
