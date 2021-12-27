@@ -25,7 +25,7 @@ const Index = () => {
       <HeaderMeta {...indexMetaTags} withBanner />
       <main>
         <div className="lg:overflow-hidden mb-12 sm:mb-24">
-          <div className="m-auto py-10 sm:py-24 2xl:py-32 px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right lg:flex lg:items-center">
+          <div className="m-auto py-24 2xl:py-32 px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right lg:flex lg:items-center">
             <div className="lg:py-24">
               <a
                 href={socialMedia.discord}
@@ -75,10 +75,9 @@ const Index = () => {
             <SiteStats />
           </div>
 
-          <div className="m-auto max-w-7xl mt-12 sm:mt-24">
-            <div className="grid grid-cols-2 items-center gap-12">
-              <RepositorySection />
-              <div>
+          <div className="m-auto max-w-7xl mt-12 sm:mt-24 px-6">
+            <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
+              <div className="sm:col-start-2">
                 <h2 className="text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
                   سورس‌کد متن‌باز
                 </h2>
@@ -97,6 +96,10 @@ const Index = () => {
                     />
                   </a>
                 </p>
+              </div>
+
+              <div className="sm:col-start-auto">
+                <RepositorySection />
               </div>
             </div>
           </div>
@@ -197,7 +200,7 @@ const SiteStats = () => {
                   <dd className="order-1 text-5xl font-extrabold">
                     {data
                       ? data.metadata.totalReposCount.toLocaleString('fa')
-                      : '۰'}
+                      : '...'}
                   </dd>
                 </div>
                 <div className="flex flex-col p-6 text-center">
@@ -207,7 +210,7 @@ const SiteStats = () => {
                   <dd className="order-1 text-5xl font-extrabold">
                     {data
                       ? data.metadata.totalOwnersCount.toLocaleString('fa')
-                      : '۰'}
+                      : '...'}
                   </dd>
                 </div>
                 <div className="flex flex-col p-6 text-center">
@@ -217,7 +220,7 @@ const SiteStats = () => {
                   <dd className="order-1 text-5xl font-extrabold">
                     {data
                       ? data.metadata.totalTopicsCount.toLocaleString('fa')
-                      : '۰'}
+                      : '...'}
                   </dd>
                 </div>
               </dl>

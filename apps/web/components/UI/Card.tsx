@@ -27,7 +27,7 @@ const Card = ({
       colored && 'bg-gray-200 dark:bg-gray-800',
       padded && 'px-2.5 py-3 sm:px-5 sm:py-4',
       border === 'all' ? 'border' : border === 'desktop' ? 'sm:border' : '',
-      'rounded-lg border-gray-200 dark:border-gray-700'
+      'rounded-lg border-gray-200 dark:border-gray-700 block'
     );
   }, [className, colored, padded, border]);
   if (href)
