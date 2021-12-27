@@ -71,6 +71,13 @@ const Index = () => {
             </div>
           </div>
 
+          {/* <div className="m-auto max-w-7xl lg:relative my-12">
+            <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
+              <IranVector />
+            </div>
+          </div> */}
+
+          {/* TODO: push this section down so the loading 0 won't show up on large screens */}
           <div className="">
             <SiteStats />
           </div>
@@ -103,16 +110,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-
-          {/* <div className="m-auto max-w-7xl lg:relative my-auto mt-12 sm:mt-32">
-            <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
-              <IranVector />
-              <div className="font-mono text-xl sm:text-2xl text-center lg:-mt-10">
-                Iran <span className="text-red-500 animate-pulse">{'♥'}</span>{' '}
-                Open-Source Software
-              </div>
-            </div>
-          </div> */}
         </div>
 
         {/* More main page content here... */}
@@ -198,9 +195,11 @@ const SiteStats = () => {
                     پروژه
                   </dt>
                   <dd className="order-1 text-5xl font-extrabold">
-                    {data
-                      ? data.metadata.totalReposCount.toLocaleString('fa')
-                      : '...'}
+                    {data ? (
+                      data.metadata.totalReposCount.toLocaleString('fa')
+                    ) : (
+                      <span className="animate-pulse">۰</span>
+                    )}
                   </dd>
                 </div>
                 <div className="flex flex-col p-6 text-center">
@@ -208,9 +207,11 @@ const SiteStats = () => {
                     سازنده
                   </dt>
                   <dd className="order-1 text-5xl font-extrabold">
-                    {data
-                      ? data.metadata.totalOwnersCount.toLocaleString('fa')
-                      : '...'}
+                    {data ? (
+                      data.metadata.totalOwnersCount.toLocaleString('fa')
+                    ) : (
+                      <span className="animate-pulse">۰</span>
+                    )}
                   </dd>
                 </div>
                 <div className="flex flex-col p-6 text-center">
@@ -218,9 +219,11 @@ const SiteStats = () => {
                     موضوع
                   </dt>
                   <dd className="order-1 text-5xl font-extrabold">
-                    {data
-                      ? data.metadata.totalTopicsCount.toLocaleString('fa')
-                      : '...'}
+                    {data ? (
+                      data.metadata.totalTopicsCount.toLocaleString('fa')
+                    ) : (
+                      <span className="animate-pulse">۰</span>
+                    )}
                   </dd>
                 </div>
               </dl>
