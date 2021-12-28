@@ -15,6 +15,7 @@ enum ArchiveStatusType {
 }
 
 type Collection implements Node {
+  color: Color
   description: String
   id: ID!
   name: String!

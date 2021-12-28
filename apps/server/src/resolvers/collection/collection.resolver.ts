@@ -7,14 +7,16 @@ import {
   Parent,
   Query,
   ResolveField,
-  Resolver,
+  Resolver
 } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { Collection } from '../../models/collection.model';
+import { Color } from '../../models/color.model';
 import { CollectionConnection } from '../../models/connections/collection.connection';
 import { RepositoryConnection } from '../../models/connections/repository.connection';
 import { paginationComplexity } from '../../plugins/pagination-complexity';
+import { createColorObject } from '../color/utils';
 import { CollectionIdArgs } from './args/collection-id.args';
 import { CollectionSlugArgs } from './args/collection-slug.args';
 
@@ -82,5 +84,10 @@ export class CollectionResolver {
         .findUnique({ where: { id } })
         .Collects({ select: { id: true } })
     ).length;
+  }
+
+  @ResolveField(() => Color, {nullable:true})
+  color(@Parent() { color }: P.Collection) {
+    return color ? createColorObject(color) : null;
   }
 }

@@ -147,6 +147,7 @@ model Collection {
   terms         String[]
   Topics        Topic[]
   Owners        Owner[]
+  color         String?
   Language      Language?             @relation(fields: [languageId], references: [id])
   languageId    String?
   minStargazers Int?
