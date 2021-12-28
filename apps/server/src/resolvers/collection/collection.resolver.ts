@@ -28,7 +28,7 @@ export class CollectionResolver {
     return findManyCursorConnection(
       (args) =>
         this.prisma.collection.findMany({
-          orderBy: { Collects: { _count: 'asc' } },
+          orderBy: { Collects: { _count: 'desc' } },
           ...args,
         }),
       () => this.prisma.collection.count(),
