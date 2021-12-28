@@ -138,18 +138,19 @@ model DiscoveryTerm {
 }
 
 model Collection {
-  id         String                @id @default(cuid())
-  name       String
-  slug       String                @unique
-  terms      String[]
-  Topics     Topic[]
-  Language   Language?             @relation(fields: [languageId], references: [id])
-  languageId String?
-  Blacklist  CollectionBlacklist[]
-  Whitelist  CollectionWhitelist[]
-  Collects   Collect[]
-  createdAt  DateTime              @default(now())
-  updatedAt  DateTime              @updatedAt
+  id          String                @id @default(cuid())
+  name        String
+  slug        String                @unique
+  description String?
+  terms       String[]
+  Topics      Topic[]
+  Language    Language?             @relation(fields: [languageId], references: [id])
+  languageId  String?
+  Blacklist   CollectionBlacklist[]
+  Whitelist   CollectionWhitelist[]
+  Collects    Collect[]
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
 }
 
 model CollectionBlacklist {

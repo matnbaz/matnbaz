@@ -15,6 +15,7 @@ enum ArchiveStatusType {
 }
 
 type Collection implements Node {
+  description: String
   id: ID!
   name: String!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
