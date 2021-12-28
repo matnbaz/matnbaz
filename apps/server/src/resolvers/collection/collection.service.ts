@@ -62,10 +62,20 @@ export class CollectionService {
 
                   // Terms
                   ...terms.map((term) => ({
-                    name: {
-                      contains: term,
-                      mode: Prisma.QueryMode.insensitive,
-                    },
+                    OR: [
+                      {
+                        name: {
+                          contains: term,
+                          mode: Prisma.QueryMode.insensitive,
+                        },
+                      },
+                      {
+                        description: {
+                          contains: term,
+                          mode: Prisma.QueryMode.insensitive,
+                        },
+                      },
+                    ],
                   })),
                 ],
               },
