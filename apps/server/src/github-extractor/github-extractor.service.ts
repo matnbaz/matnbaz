@@ -21,7 +21,20 @@ export class GithubExtractorService {
     });
 
     this.logger.log(`${owners.length} owners found.`);
-    for (const owner of owners) await this.extractRepos(owner);
+    let i = 0;
+    setInterval(
+      () =>
+        this.logger.log(
+          `${i}/${owners.length} (~${
+            Math.floor((i / owners.length) * 10000) / 100
+          }%) current target: ${owners[i].login}`
+        ),
+      25000
+    );
+    for (const owner of owners) {
+      i++;
+      await this.extractRepos(owner);
+    }
   }
 
   private async extractRepos(owner: Owner) {
