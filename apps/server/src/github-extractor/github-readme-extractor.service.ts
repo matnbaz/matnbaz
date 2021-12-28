@@ -28,28 +28,39 @@ export class GithubReadmeExtractorService {
           Owner: { select: { login: true } },
         },
       });
-    // `https://raw.githubusercontent.com/alitnk/monopay/main/README.md`
+    const readme = await this.getReadmeFromGithub(
+      Owner.login,
+      name,
+      defaultBranch
+    );
+    await this.prisma.repository.update({
+      where: { id },
+      data: {
+        readme,
+        readmeHtml: this.renderReadme(
+          readme,
+          `${Owner.login}/${name}`,
+          defaultBranch
+        ),
+      },
+    });
+  }
+
+  async getReadmeFromGithub(ownerLogin, repoName, defaultBranch) {
     try {
       const response = await axios.get(
-        `https://raw.githubusercontent.com/${Owner.login}/${name}/${defaultBranch}/README.md`
+        `https://raw.githubusercontent.com/${ownerLogin}/${repoName}/${defaultBranch}/README.md`
       );
-      const readme = response.data;
-
-      await this.prisma.repository.update({
-        where: { id },
-        data: {
-          readme,
-          readmeHtml: this.renderReadme(
-            readme,
-            `${Owner.login}/${name}`,
-            defaultBranch
-          ),
-        },
-      });
+      return response.data;
     } catch (e) {
-      this.logger.error(
-        `Could not extract the README for ${Owner.login}/${name}. error message: ${e.message}`
-      );
+      try {
+        const response = await axios.get(
+          `https://raw.githubusercontent.com/${ownerLogin}/${repoName}/${defaultBranch}/readme.md`
+        );
+        return response.data;
+      } catch (e) {
+        return null;
+      }
     }
   }
 
