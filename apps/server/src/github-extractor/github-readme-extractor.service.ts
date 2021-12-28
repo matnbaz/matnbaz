@@ -63,30 +63,37 @@ export class GithubReadmeExtractorService {
   }
 
   renderReadme(readme: string, fullName: string, defaultBranch: string) {
-    const repoRawUrl = `https://github.com/${fullName}/raw/${defaultBranch}`;
+    try {
+      const repoRawUrl = `https://github.com/${fullName}/raw/${defaultBranch}`;
 
-    const renderer = new Renderer();
-    const ogImageRender = renderer.image.bind(renderer);
-    const ogHtmlRender = renderer.html.bind(renderer);
-    renderer.image = (href, ...rest) => {
-      return ogImageRender(
-        href.startsWith('http')
-          ? href
-          : repoRawUrl + (href.startsWith('/') ? href : '/' + href),
-        ...rest
+      const renderer = new Renderer();
+      const ogImageRender = renderer.image.bind(renderer);
+      const ogHtmlRender = renderer.html.bind(renderer);
+      renderer.image = (href, ...rest) => {
+        return ogImageRender(
+          href.startsWith('http')
+            ? href
+            : repoRawUrl + (href.startsWith('/') ? href : '/' + href),
+          ...rest
+        );
+      };
+      renderer.html = (html) =>
+        ogHtmlRender(
+          html.replace(/src="(?!https?:\/\/)/g, `src="${repoRawUrl}/`)
+        );
+
+      const readmeHtml = marked.parse(emoji.emojify(readme), {
+        gfm: true,
+        baseUrl: repoRawUrl,
+        renderer,
+      });
+
+      return readmeHtml;
+    } catch (e) {
+      this.logger.error(
+        `There was a problem rendering markdown for ${fullName}.`
       );
-    };
-    renderer.html = (html) =>
-      ogHtmlRender(
-        html.replace(/src="(?!https?:\/\/)/g, `src="${repoRawUrl}/`)
-      );
-
-    const readmeHtml = marked.parse(emoji.emojify(readme), {
-      gfm: true,
-      baseUrl: repoRawUrl,
-      renderer,
-    });
-
-    return readmeHtml;
+      return 'مشکلی در هنگام تبدیل مارکداون به‌وجود آمد.';
+    }
   }
 }
