@@ -46,16 +46,21 @@ export class CollectionResolver {
     @Args() pagination: PaginationArgs,
     @Parent() { id }: P.Collection
   ) {
+    const collectionQuery = this.prisma.collection.findUnique({
+      where: { id },
+      select: { id: true },
+    });
+
     return findManyCursorConnection(
       async (args) =>
         (
-          await this.prisma.collect.findMany({
-            where: { Collection: { id } },
+          await collectionQuery.Collects({
             include: { Repository: true },
             ...args,
           })
-        ).map((collect) => collect.Repository),
-      () => this.prisma.collect.count({ where: { Collection: { id } } }),
+        ).map((item) => item.Repository),
+      async () =>
+        (await collectionQuery.Collects({ select: { id: true } })).length,
       pagination
     );
   }
