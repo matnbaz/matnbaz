@@ -91,7 +91,7 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
 }) => {
   if (typeof owner !== 'string')
     return {
-      redirect: { permanent: false, destination: '/' },
+      notfound: true,
       props: { ownerSlug: '' },
     };
 
@@ -112,7 +112,7 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
 
   if (!ownerByPlatform)
     return {
-      redirect: { permanent: false, destination: '/' },
+      notfound: true,
       props: { ownerSlug: owner },
     };
 
