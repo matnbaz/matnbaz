@@ -3,7 +3,7 @@ import { Resource } from './resource-type';
 export const discoveryTermResource: Resource = ({
   dmmf,
   prisma,
-  githubQueue,
+  queues: { github: githubQueue },
 }) => ({
   resource: {
     model: dmmf.modelMap.DiscoveryTerm,

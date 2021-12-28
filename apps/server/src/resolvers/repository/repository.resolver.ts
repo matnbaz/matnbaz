@@ -129,7 +129,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
             OR: searchTerm
               ? [
                   {
-                    name: { contains: searchTerm, mode: 'insensitive' },
+                    name: { contains: searchTerm, mode: 'insensitive' }, // TODO use `Prisma.QueryMode.insensitive` enum
                   },
                   {
                     Owner: {
