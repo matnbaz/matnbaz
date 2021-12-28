@@ -87,32 +87,26 @@ export class CollectionService {
               ...Owners.map(({ id }) => ({ Owner: { id } })),
 
               // Archive
-              typeof archived !== 'undefined' ? { archived } : undefined,
+              archived !== null ? { archived } : undefined,
 
               // Template
-              typeof template !== 'undefined'
-                ? { isTemplate: template }
-                : undefined,
+              template !== null ? { isTemplate: template } : undefined,
 
               // Minimum stargazers
-              typeof minStargazers !== 'undefined'
+              minStargazers !== null
                 ? { stargazersCount: { gte: minStargazers } }
                 : undefined,
 
               // Minimum forks
-              typeof minForks !== 'undefined'
-                ? { forksCount: { gte: minForks } }
-                : undefined,
+              minForks !== null ? { forksCount: { gte: minForks } } : undefined,
 
               // Creation date
-              typeof minCreatedAt !== 'undefined' ||
-              typeof maxCreatedAt !== 'undefined'
+              minCreatedAt !== null || maxCreatedAt !== null
                 ? { createdAt: { gte: minCreatedAt, lte: maxCreatedAt } }
                 : undefined,
 
               // Last push date
-              typeof minPushedAt !== 'undefined' ||
-              typeof maxPushedAt !== 'undefined'
+              minPushedAt !== null || maxPushedAt !== null
                 ? { pushedAt: { gte: minPushedAt, lte: maxPushedAt } }
                 : undefined,
 
