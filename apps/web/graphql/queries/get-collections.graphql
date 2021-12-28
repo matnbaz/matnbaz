@@ -1,0 +1,17 @@
+query GetCollections($count: Int, $after: String) {
+  collections(first: $count, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        name
+        slug
+        description
+        repositoriesCount
+      }
+    }
+  }
+}
