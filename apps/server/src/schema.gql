@@ -19,6 +19,7 @@ type Collection implements Node {
   id: ID!
   name: String!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
+  repositoriesCount: Int!
   slug: String!
 }
 

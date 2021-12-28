@@ -1,7 +1,14 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { CacheControl } from '@exonest/graphql-cache-control';
 import { PaginationArgs } from '@exonest/graphql-connections';
-import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { Collection } from '../../models/collection.model';
@@ -15,6 +22,7 @@ import { CollectionSlugArgs } from './args/collection-slug.args';
 export class CollectionResolver {
   constructor(private readonly prisma: PrismaService) {}
 
+  @CacheControl({ maxAge: 1800 })
   @Query(() => CollectionConnection)
   collections(@Args() pagination: PaginationArgs) {
     return findManyCursorConnection(
@@ -38,7 +46,7 @@ export class CollectionResolver {
     return this.prisma.collection.findUnique({ where: { id } });
   }
 
-  @CacheControl({ maxAge: 1800 })
+  @CacheControl({ inheritMaxAge: true })
   @ResolveField(() => RepositoryConnection, {
     complexity: paginationComplexity,
   })
@@ -63,5 +71,11 @@ export class CollectionResolver {
         (await collectionQuery.Collects({ select: { id: true } })).length,
       pagination
     );
+  }
+
+  @CacheControl({ inheritMaxAge: true })
+  @ResolveField(() => Int)
+  repositoriesCount(@Parent() { id }: P.Collection) {
+    return this.prisma.collect.count({ where: { Collection: { id } } });
   }
 }
