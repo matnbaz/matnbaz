@@ -60,9 +60,6 @@ export class CollectionService {
               {
                 //// Discovery filters
                 OR: [
-                  // Language
-                  Language ? { languageId: Language.id } : undefined,
-
                   // Topics
                   ...Topics.map(({ name }) => ({
                     Topics: { some: { name } },
@@ -88,6 +85,9 @@ export class CollectionService {
                 ],
               },
               //// Restriction filters
+
+              // Language
+              Language ? { languageId: Language.id } : undefined,
 
               // Owners
               ...Owners.map(({ id }) => ({ Owner: { id } })),
