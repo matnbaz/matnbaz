@@ -38,7 +38,16 @@ const CollectionsPage = () => {
                   href={`/collections/${slug}`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {/* <Icon className="w-14 h-14 mx-auto" /> */}
+                  <img
+                    alt={name}
+                    src={`https://simpleicons.org/icons/${
+                      // Temporary fix for "Vue.js" and "Node.js"
+                      name.includes('.')
+                        ? name.replace(/\./g, 'dot').toLowerCase()
+                        : slug
+                    }.svg`}
+                    className="w-14 h-14 mx-auto brightness-0 invert"
+                  />
                   <div dir="ltr" className="text-center font-medium mt-4">
                     {name}
                   </div>
