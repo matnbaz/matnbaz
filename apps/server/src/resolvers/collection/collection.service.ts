@@ -24,8 +24,25 @@ export class CollectionService {
         Whitelist: true,
         Topics: true,
         Language: true,
+        Owners: true,
       },
     });
+    const {
+      Blacklist,
+      Language,
+      Owners,
+      Topics,
+      Whitelist,
+      archived,
+      maxCreatedAt,
+      maxPushedAt,
+      minCreatedAt,
+      minPushedAt,
+      minForks,
+      minStargazers,
+      template,
+      terms,
+    } = collection;
 
     const repos = await this.prisma.repository.findMany({
       where: {
@@ -33,14 +50,18 @@ export class CollectionService {
           {
             AND: [
               {
+                //// Discovery filters
                 OR: [
-                  ...collection.Topics.map(({ name }) => ({
+                  // Language
+                  Language ? { languageId: Language.id } : undefined,
+
+                  // Topics
+                  ...Topics.map(({ name }) => ({
                     Topics: { some: { name } },
                   })),
-                  collection.languageId
-                    ? { languageId: collection.languageId }
-                    : undefined,
-                  ...collection.terms.map((term) => ({
+
+                  // Terms
+                  ...terms.map((term) => ({
                     name: {
                       contains: term,
                       mode: Prisma.QueryMode.insensitive,
@@ -48,19 +69,54 @@ export class CollectionService {
                   })),
                 ],
               },
+              //// Restriction filters
 
+              // Owners
+              ...Owners.map(({ id }) => ({ Owner: { id } })),
+
+              // Archive
+              typeof archived !== 'undefined' ? { archived } : undefined,
+
+              // Template
+              typeof template !== 'undefined'
+                ? { isTemplate: template }
+                : undefined,
+
+              // Minimum stargazers
+              typeof minStargazers !== 'undefined'
+                ? { stargazersCount: { gte: minStargazers } }
+                : undefined,
+
+              // Minimum forks
+              typeof minForks !== 'undefined'
+                ? { forksCount: { gte: minForks } }
+                : undefined,
+
+              // Creation date
+              typeof minCreatedAt !== 'undefined' ||
+              typeof maxCreatedAt !== 'undefined'
+                ? { createdAt: { gte: minCreatedAt, lte: maxCreatedAt } }
+                : undefined,
+
+              // Last push date
+              typeof minPushedAt !== 'undefined' ||
+              typeof maxPushedAt !== 'undefined'
+                ? { pushedAt: { gte: minPushedAt, lte: maxPushedAt } }
+                : undefined,
+
+              // Blacklist
               {
                 id: {
-                  notIn: collection.Blacklist.map(
-                    ({ repositoryId }) => repositoryId
-                  ),
+                  notIn: Blacklist.map(({ repositoryId }) => repositoryId),
                 },
               },
             ],
           },
+
+          // Whitelist
           {
             id: {
-              in: collection.Whitelist.map(({ repositoryId }) => repositoryId),
+              in: Whitelist.map(({ repositoryId }) => repositoryId),
             },
           },
         ],
