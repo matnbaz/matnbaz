@@ -42,12 +42,14 @@ export class CollectionResolver {
     @Parent() { id }: P.Collection
   ) {
     return findManyCursorConnection(
-      (args) =>
-        this.prisma.collect.findMany({
-          where: { Collection: { id } },
-          include: { Repository: true },
-          ...args,
-        }),
+      async (args) =>
+        (
+          await this.prisma.collect.findMany({
+            where: { Collection: { id } },
+            include: { Repository: true },
+            ...args,
+          })
+        ).map((collect) => collect.Repository),
       () => this.prisma.collect.count({ where: { Collection: { id } } }),
       pagination
     );
