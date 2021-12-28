@@ -75,7 +75,11 @@ export class CollectionResolver {
 
   @CacheControl({ inheritMaxAge: true })
   @ResolveField(() => Int)
-  repositoriesCount(@Parent() { id }: P.Collection) {
-    return this.prisma.collect.count({ where: { Collection: { id } } });
+  async repositoriesCount(@Parent() { id }: P.Collection) {
+    return (
+      await this.prisma.collection
+        .findUnique({ where: { id } })
+        .Collects({ select: { id: true } })
+    ).length;
   }
 }
