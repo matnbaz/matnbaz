@@ -29,7 +29,7 @@ const CollectionsPage = () => {
             <SkeletonLoaderShape shape="rectangle" width="20px" height="20px" />
           ) : (
             data.collections.edges.map(
-              ({ node: { name, slug, repositoriesCount, color } }) => (
+              ({ node: { name, slug, repositoriesCount, color, image } }) => (
                 <Card
                   key={slug}
                   border="none"
@@ -41,17 +41,15 @@ const CollectionsPage = () => {
                   )}
                   href={`/collections/${slug}`}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    alt={name}
-                    src={`https://simpleicons.org/icons/${
-                      // Temporary fix for "Vue.js" and "Node.js"
-                      name.includes('.')
-                        ? name.replace(/\./g, 'dot').toLowerCase()
-                        : slug
-                    }.svg`}
-                    className="w-14 h-14 mx-auto brightness-0 invert"
-                  />
+                  {/* eslint-disable @next/next/no-img-element */}
+                  {image && (
+                    <img
+                      alt={name}
+                      src={image}
+                      className="w-14 h-14 mx-auto brightness-0 invert"
+                    />
+                  )}
+                  {/* eslint-enable @next/next/no-img-element */}
                   <div dir="ltr" className="text-center font-medium mt-4">
                     {name}
                   </div>

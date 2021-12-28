@@ -9,6 +9,7 @@ query GetCollection(
     slug
     description
     repositoriesCount
+    image
     color {
       hexString
     }
