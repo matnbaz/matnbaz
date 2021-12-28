@@ -9,6 +9,9 @@ query GetCollection(
     slug
     description
     repositoriesCount
+    color {
+      hexString
+    }
     repositories(first: $reposCount, after: $reposAfter) {
       pageInfo {
         hasNextPage

@@ -11,6 +11,9 @@ query GetCollections($count: Int, $after: String) {
         slug
         description
         repositoriesCount
+        color {
+          hexString
+        }
       }
     }
   }

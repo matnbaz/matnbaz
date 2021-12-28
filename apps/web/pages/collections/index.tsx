@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import HeaderMeta from '../../components/Feature/HeaderMeta';
 import MainLayout from '../../components/Layout/MainLayout';
 import SkeletonLoaderShape from '../../components/Skeleton Loader/SkeletonLoaderShape';
@@ -28,13 +29,16 @@ const CollectionsPage = () => {
             <SkeletonLoaderShape shape="rectangle" width="20px" height="20px" />
           ) : (
             data.collections.edges.map(
-              ({ node: { name, slug, repositoriesCount } }) => (
+              ({ node: { name, slug, repositoriesCount, color } }) => (
                 <Card
                   key={slug}
                   border="none"
                   padded
-                  style={{ backgroundColor: 'transparent' }}
-                  className="text-white w-40 hover:scale-110 transition"
+                  style={color && { backgroundColor: color.hexString }}
+                  className={classNames(
+                    'text-white w-40 hover:scale-110 transition',
+                    !color && 'bg-gray-100 dark:bg-gray-800'
+                  )}
                   href={`/collections/${slug}`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
