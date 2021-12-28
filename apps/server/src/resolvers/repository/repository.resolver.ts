@@ -71,8 +71,10 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
       where: {
         blockedAt: null,
         platform,
-        name: { mode: 'insensitive', equals: repo },
-        Owner: { login: { mode: 'insensitive', equals: owner } },
+        name: { mode: P.Prisma.QueryMode.insensitive, equals: repo },
+        Owner: {
+          login: { mode: P.Prisma.QueryMode.insensitive, equals: owner },
+        },
       },
     });
   }
@@ -129,13 +131,16 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
             OR: searchTerm
               ? [
                   {
-                    name: { contains: searchTerm, mode: 'insensitive' }, // TODO use `Prisma.QueryMode.insensitive` enum
+                    name: {
+                      contains: searchTerm,
+                      mode: P.Prisma.QueryMode.insensitive,
+                    },
                   },
                   {
                     Owner: {
                       login: {
                         contains: searchTerm,
-                        mode: 'insensitive',
+                        mode: P.Prisma.QueryMode.insensitive,
                       },
                     },
                   },
