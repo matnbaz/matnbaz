@@ -18,6 +18,7 @@ type Collection implements Node {
   color: Color
   description: String
   id: ID!
+  image: String
   name: String!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int!
