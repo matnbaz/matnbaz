@@ -68,8 +68,8 @@ model Topic {
   name         String       @unique
   Repositories Repository[]
   createdAt    DateTime     @default(now())
-  Collection   Collection?  @relation(fields: [collectionId], references: [id])
-  collectionId String?
+  // Used in these collections
+  Collections  Collection[]
 }
 
 model Owner {
@@ -84,6 +84,8 @@ model Owner {
   extractedAt     DateTime     @default(now())
   recordUpdatedAt DateTime     @updatedAt
   blockedAt       DateTime?
+  // Featured in these - owner-specific - collections
+  Collections     Collection[]
 
   @@unique([platform, platformId])
   @@unique([platform, login])
@@ -138,19 +140,28 @@ model DiscoveryTerm {
 }
 
 model Collection {
-  id          String                @id @default(cuid())
-  name        String
-  slug        String                @unique
-  description String?
-  terms       String[]
-  Topics      Topic[]
-  Language    Language?             @relation(fields: [languageId], references: [id])
-  languageId  String?
-  Blacklist   CollectionBlacklist[]
-  Whitelist   CollectionWhitelist[]
-  Collects    Collect[]
-  createdAt   DateTime              @default(now())
-  updatedAt   DateTime              @updatedAt
+  id            String                @id @default(cuid())
+  name          String
+  slug          String                @unique
+  description   String?
+  terms         String[]
+  Topics        Topic[]
+  Owners        Owner[]
+  Language      Language?             @relation(fields: [languageId], references: [id])
+  languageId    String?
+  minStargazers Int?
+  minForks      Int?
+  archived      Boolean?
+  template      Boolean?
+  minCreatedAt  DateTime?
+  maxCreatedAt  DateTime?
+  minPushedAt   DateTime?
+  maxPushedAt   DateTime?
+  Blacklist     CollectionBlacklist[]
+  Whitelist     CollectionWhitelist[]
+  Collects      Collect[]
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
 }
 
 model CollectionBlacklist {
