@@ -92,7 +92,6 @@ export const getServerSideProps: GetServerSideProps<CollectionPageProps> =
         slug: collectionSlug,
       },
     });
-    console.log(collection);
 
     if (!collection)
       return {
