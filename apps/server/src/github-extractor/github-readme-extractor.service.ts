@@ -37,11 +37,9 @@ export class GithubReadmeExtractorService {
       where: { id },
       data: {
         readme,
-        readmeHtml: this.renderReadme(
-          readme,
-          `${Owner.login}/${name}`,
-          defaultBranch
-        ),
+        readmeHtml: readme
+          ? this.renderReadme(readme, `${Owner.login}/${name}`, defaultBranch)
+          : undefined,
       },
     });
   }
