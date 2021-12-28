@@ -63,6 +63,7 @@ export class CollectionResolver {
       async (args) =>
         (
           await collectionQuery.Collects({
+            orderBy: { Repository: { stargazersCount: 'desc' } },
             include: { Repository: true },
             ...args,
           })
