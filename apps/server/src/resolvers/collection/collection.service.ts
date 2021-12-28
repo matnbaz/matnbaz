@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 
@@ -6,12 +6,18 @@ import { PrismaService } from 'nestjs-prisma';
 export class CollectionService {
   constructor(private readonly prisma: PrismaService) {}
 
+  logger = new Logger(CollectionService.name);
+
   async collectAllCollections() {
     const collections = await this.prisma.collection.findMany({
       select: { id: true },
     });
 
     for (const { id } of collections) await this.collect(id);
+
+    this.logger.log(
+      'Finished collecting repositories for all the collections.'
+    );
   }
 
   /**
