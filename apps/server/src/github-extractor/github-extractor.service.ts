@@ -20,10 +20,11 @@ export class GithubExtractorService {
       where: { platform: 'GitHub', blockedAt: null },
     });
 
-    this.logger.log(`${owners.length} owners found.`);
+    this.logger.log(`${owners.length} owners found. Extracting now...`);
     let i = 0;
     setInterval(
       () =>
+        owners[i] &&
         this.logger.log(
           `${i}/${owners.length} (~${
             Math.floor((i / owners.length) * 10000) / 100
