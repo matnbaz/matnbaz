@@ -59,14 +59,9 @@ export class GithubDiscovererService {
 
     for (const { owner, ...repo } of repos) {
       if (repo.stargazers_count < MINIMUM_STARS) {
-        this.logger.warn(
-          `repo ${repo.full_name} with ${repo.stargazers_count} stars disqualified.`
-        );
+        // Disqualified
         continue;
       }
-      this.logger.log(
-        `repo ${repo.full_name} with ${repo.stargazers_count} stars qualified.`
-      );
       this.populateOwner(owner);
     }
   }
@@ -86,7 +81,6 @@ export class GithubDiscovererService {
       ReturnType<OctokitService['rest']['search']['repos']>
     >['data']['items'][0]['owner']
   ) {
-    this.logger.log(`Now populating ${owner.login} with the ID of ${owner.id}`);
     try {
       await this.prisma.owner.upsert({
         where: {

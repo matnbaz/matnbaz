@@ -46,10 +46,6 @@ export class GithubReadmeExtractorService {
           ),
         },
       });
-
-      this.logger.log(
-        `Successfully extracted and updated README for ${Owner.login}/${name}`
-      );
     } catch (e) {
       this.logger.error(
         `Could not extract the README for ${Owner.login}/${name}. error message: ${e.message}`
