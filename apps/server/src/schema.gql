@@ -14,6 +14,31 @@ enum ArchiveStatusType {
   NOT_ARCHIVED
 }
 
+type Collection implements Node {
+  id: ID!
+  name: String!
+  repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
+  slug: String!
+}
+
+"""Nice name, isn't it?"""
+type CollectionConnection {
+  """A list of edges"""
+  edges: [CollectionEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A Collection edge."""
+type CollectionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of CollectionEdge."""
+  node: Collection!
+}
+
 type Color {
   hexString: String!
   rgba: RGBA!
@@ -174,6 +199,9 @@ enum PlatformType {
 }
 
 type Query {
+  collection(slug: String!): Collection
+  collectionById(id: ID!): Collection
+  collections(after: String, before: String, first: Int, last: Int): CollectionConnection!
   language(slug: String!): Language
   languages(after: String, before: String, first: Int, last: Int, order: LanguageOrder): LanguageConnection!
   licenses(after: String, before: String, first: Int, last: Int, order: LicenseOrder): LicenseConnection!
