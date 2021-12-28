@@ -17,7 +17,7 @@ export class GithubExtractorService {
 
   async extractAllOwners() {
     const owners = await this.prisma.owner.findMany({
-      where: { platform: 'GitHub' },
+      where: { platform: 'GitHub', blockedAt: null },
     });
 
     this.logger.log(`${owners.length} owners found.`);
