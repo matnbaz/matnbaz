@@ -259,9 +259,9 @@ const data = [
   {
     name: 'Awesome Lists',
     slug: 'awesome-lists',
-    color: '#4FC08D',
+    color: '#FC60A8',
     description:
-      'ویو‌جی‌اس یک فریم‌ورک جاوا‌اسکریپتی متن‌باز فرانت‌اند است که برای ساخت رابط‌های کاربری و برنامه‌های تک‌صفحه‌ای استفاده می‌شود.',
+      'Awesome Lists حرکتی‌ست که Sindre Sorhus در پلتفرم گیت‌هاب شروع کرد که در آن از موضوعات مختلف لیست‌هایی از لینک‌های مفید جمع‌آوری می‌شود.',
     image: 'https://simpleicons.org/icons/awesomelists.svg',
     Topics: {
       connect: ['awesome-list'].map((topic) => ({
