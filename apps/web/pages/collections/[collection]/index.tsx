@@ -49,7 +49,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
               <img
                 src={collection.image}
                 alt={collection.name}
-                className="brightness-0 invert w-24 h-24"
+                className="brightness-0 invert w-20 h-20"
               />
             </div>
 
