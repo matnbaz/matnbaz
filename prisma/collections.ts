@@ -10,7 +10,7 @@ const data = [
     description:
       'تایپ‌اسکریپت یک زبان برنامه‌نویسی است که توسط مایکروسافت توسعه یافته و نگهداری می‌شود و یک تایپینگ اختیاری استاتیک به جاوا‌اسکریپت اضافه می‌کند.',
     image: 'https://simpleicons.org/icons/typescript.svg',
-    Language: { connect: { slug: 'typescript' } },
+    Languages: { connect: { slug: 'typescript' } },
   },
   {
     name: 'JavaScript',
@@ -19,7 +19,7 @@ const data = [
     description:
       'جاوا‌اسکریپت یک زبان برنامه‌نویسی است که در کنار HTML و CSS یکی از فناوری‌های اصلی شبکه جهانی وب است و برای بیش‌تر تعاملی کردن سایت‌ها کاربرد دارد.',
     image: 'https://simpleicons.org/icons/javascript.svg',
-    Language: { connect: { slug: 'javascript' } },
+    Languages: { connect: { slug: 'javascript' } },
   },
   {
     name: 'PHP',
@@ -28,7 +28,7 @@ const data = [
     description:
       'پی‌اچ‌پی یک زبان برنامه‌نویسی همه منظوره است که برای توسعه وب طراحی شده است و می‌تواند با HTML ادغام شود.',
     image: 'https://simpleicons.org/icons/php.svg',
-    Language: { connect: { slug: 'php' } },
+    Languages: { connect: { slug: 'php' } },
   },
   {
     name: 'Python',
@@ -37,7 +37,7 @@ const data = [
     description:
       'پایتون یک زبان برنامه‌نویسی همه‌منظوره سطح بالا مفسری است و فلسفه طراحی آن بر خوانایی کد تاکید می‌کند.',
     image: 'https://simpleicons.org/icons/python.svg',
-    Language: { connect: { slug: 'python' } },
+    Languages: { connect: { slug: 'python' } },
   },
   {
     name: 'Swift',
@@ -46,7 +46,7 @@ const data = [
     description:
       'سوئیفت یک زبان برنامه‌نویسی کامپایل‌شده چند‌منظوره و چند‌پارادایم است که توسط شرکت اپل و جامعه اپن‌سورس توسعه یافته اشت.',
     image: 'https://simpleicons.org/icons/swift.svg',
-    Language: { connect: { slug: 'swift' } },
+    Languages: { connect: { slug: 'swift' } },
   },
   {
     name: 'Lua',
@@ -55,7 +55,7 @@ const data = [
     description:
       'لوآ یک زبان برنامه‌نویسی سبک‌وزن، سطح‌بالا و چند‌پارادایم است که عمدتا برای استفاده به‌صورت جاسازه شده (امبد) در برنامه‌ها است.',
     image: 'https://simpleicons.org/icons/lua.svg',
-    Language: { connect: { slug: 'lua' } },
+    Languages: { connect: { slug: 'lua' } },
   },
   {
     name: 'Dart',
@@ -64,7 +64,7 @@ const data = [
     description:
       'دارت یک زبان برنامه‌نویسی توسعه داده شده توسط گوگل است که برای توسعه سمت کلاینت کاربرد دارد، مانند وب و موبایل.',
     image: 'https://simpleicons.org/icons/dart.svg',
-    Language: { connect: { slug: 'dart' } },
+    Languages: { connect: { slug: 'dart' } },
   },
   {
     name: 'Rust',
@@ -73,7 +73,7 @@ const data = [
     description:
       'راست یک زبان برنامه‌نویسی چند‌پارادایم و همه‌منظوره اسست که برای کارایی و ایمنی ساخته شده است و از لحاظ نحوی شبیه به C++ است.',
     image: 'https://simpleicons.org/icons/rust.svg',
-    Language: { connect: { slug: 'rust' } },
+    Languages: { connect: { slug: 'rust' } },
   },
   {
     name: 'Kotlin',
@@ -82,7 +82,7 @@ const data = [
     description:
       'کاتلین یک زبان برنامه‌نویسی چند‌پلتفرمی، تایپ ایستا و همه‌منظوره است که برای تعامل کامل با جاوا طراحی شده است.',
     image: 'https://simpleicons.org/icons/kotlin.svg',
-    Language: { connect: { slug: 'kotlin' } },
+    Languages: { connect: { slug: 'kotlin' } },
   },
   {
     name: 'Elixir',
@@ -91,7 +91,7 @@ const data = [
     description:
       'الیکسیر یک زبان برنامه‌نویسی فانکشنال، همزمان و همه‌منظوره است که بالای اِرلنگ ساخته می‌شود و ابسترکشن‌های مشابهی را برای ساخت برنامه‌ها به اشتراک می‌گذارد.',
     image: 'https://simpleicons.org/icons/elixir.svg',
-    Language: { connect: { slug: 'elixir' } },
+    Languages: { connect: { slug: 'elixir' } },
   },
   {
     name: 'Go',
@@ -100,7 +100,7 @@ const data = [
     description:
       'گو یک زبان برنامه‌نویسی تایپ‌شده و کامپایل‌شده است که توسط گوگل طراحی شده است. از لحاظ ساختاری شبیه C است اما با ایمنی حافظه، جمع‌آوری زباله و تایپ ساختاری و...',
     image: 'https://simpleicons.org/icons/go.svg',
-    Language: { connect: { slug: 'go' } },
+    Languages: { connect: { slug: 'go' } },
   },
   {
     name: 'Ruby',
@@ -109,7 +109,7 @@ const data = [
     description:
       'روبی یک زبان برنامه‌نویسی تعبیر‌شده، سطح‌بالا و همه‌منظوره است که از چندین پارادایم برنامه‌نویسی پشتیبانی می‌کند و بر بهره‌وری و سادگی برنامه‌نویسی تاکید دارد.',
     image: 'https://simpleicons.org/icons/ruby.svg',
-    Language: { connect: { slug: 'ruby' } },
+    Languages: { connect: { slug: 'ruby' } },
   },
   {
     name: 'Java',
@@ -118,7 +118,7 @@ const data = [
     description:
       'جاوا یک زبان برنامه‌نویسی سطح‌بالا، مبتنی بر کلاس و شی‌گرا است که به گونه‌ای طراحی شده است که تا حد امکان وابستگی‌های پیاده سازی کم‌تری داشته باشد.',
     image: 'https://simpleicons.org/icons/java.svg',
-    Language: { connect: { slug: 'java' } },
+    Languages: { connect: { slug: 'java' } },
   },
   {
     name: 'C',
@@ -127,7 +127,7 @@ const data = [
     description:
       'سی یک زبان برنامه‌نویسی کامپیوتری همه‌منظوره و رویه‌ای است که از برنامه‌نویسی ساخت یافته، دامنه متغیر واژگانی و بازگشت، با سیستم نوع ایستا پشتیبانی می‌کند.',
     image: 'https://simpleicons.org/icons/c.svg',
-    Language: { connect: { slug: 'c' } },
+    Languages: { connect: { slug: 'c' } },
   },
   {
     name: 'C++',
@@ -136,7 +136,7 @@ const data = [
     description:
       'سی++ یک زبان برنامه‌نویسی همه‌منظوره است که به‌عنوان گسترش‌دهنده زبان سی، یا "سی به‌همراه کلاس‌ها" ساخته شده است.',
     image: 'https://simpleicons.org/icons/cplusplus.svg',
-    Language: { connect: { slug: 'cplusplus' } },
+    Languages: { connect: { slug: 'cplusplus' } },
   },
   {
     name: 'C#',
@@ -145,7 +145,7 @@ const data = [
     description:
       'سی‌شارپ یک زبان برنامه‌نویسی همه‌منظوره و چند‌پارادایم است که در زمینه‌های مختلفی کاربرد دارد.',
     image: 'https://simpleicons.org/icons/csharp.svg',
-    Language: { connect: { slug: 'csharp' } },
+    Languages: { connect: { slug: 'csharp' } },
   },
   {
     name: 'Laravel',
@@ -156,7 +156,7 @@ const data = [
     image: 'https://simpleicons.org/icons/laravel.svg',
     Topics: { connect: ['laravel'].map((topic) => ({ name: topic })) },
     terms: ['laravel', 'لاراول'],
-    Language: { connect: { slug: 'php' } },
+    Languages: { connect: { slug: 'php' } },
   },
   {
     name: '.NET',
@@ -177,7 +177,7 @@ const data = [
     image: 'https://simpleicons.org/icons/django.svg',
     Topics: { connect: ['django'].map((topic) => ({ name: topic })) },
     terms: ['django', 'جنگو'],
-    Language: { connect: { slug: 'python' } },
+    Languages: { connect: { slug: 'python' } },
   },
   {
     name: 'Node.js',
@@ -310,7 +310,7 @@ const data = [
         name: topic,
       })),
     },
-    Languages: { Languages: { connect: { slug: 'typescript' } } },
+    Languages: { connect: { slug: 'typescript' } },
     terms: ['nestjs', 'nest.js', 'nest'],
   },
 ];
