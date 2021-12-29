@@ -85,7 +85,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
     <MainLayout maxWidth={false} withoutPadding>
       <HeaderMeta title={repo.fullName} description={repo.descriptionLimited} />
       <div
-        className="relative flex items-center h-[40rem] md:h-[30rem] w-full"
+        className="relative flex items-center md:min-h-[30rem] w-full"
         style={{ background: chosenGradient }}
       >
         <div className="px-6 space-y-4 lg:space-y-0 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-300/60 dark:bg-gray-900/75 w-full h-full">
