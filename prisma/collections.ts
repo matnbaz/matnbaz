@@ -240,7 +240,7 @@ const data = [
         name: topic,
       })),
     },
-    terms: ['react', 'react-native', 'ری‌اکت نیتیو'],
+    terms: ['react-native', 'ری‌اکت نیتیو'],
   },
   {
     name: 'Vue.js',
