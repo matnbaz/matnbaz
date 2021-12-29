@@ -1,4 +1,3 @@
-import { socialMedia } from '@matnbaz/common';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
 import { useTheme } from 'next-themes';
@@ -15,11 +14,11 @@ interface INavbarProps {
   className?: string;
 }
 
-const links = [
+const links: { name: string; to: string; external?: boolean }[] = [
   { name: 'کاوش‌گر', to: '/explore' },
+  { name: 'کالکشن‌ها', to: '/collections' },
   { name: 'درباره', to: '/about' },
   { name: 'ثبت کاربر', to: '/submit-user' },
-  { name: 'انجمن دیسکورد', to: socialMedia.discord, external: true },
 ];
 
 const Navbar = ({ className }: INavbarProps) => {
