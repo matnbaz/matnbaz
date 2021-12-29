@@ -31,13 +31,13 @@ export class CollectionService {
         Blacklist: true,
         Whitelist: true,
         Topics: true,
-        Language: true,
+        Languages: true,
         Owners: true,
       },
     });
     const {
       Blacklist,
-      Language,
+      Languages,
       Owners,
       Topics,
       Whitelist,
@@ -87,10 +87,10 @@ export class CollectionService {
               //// Restriction filters
 
               // Language
-              Language ? { languageId: Language.id } : undefined,
+              { OR: Languages.map(({ id }) => ({ languageId: id })) },
 
               // Owners
-              ...Owners.map(({ id }) => ({ Owner: { id } })),
+              { OR: Owners.map(({ id }) => ({ Owner: { id } })) },
 
               // Archive
               archived !== null ? { archived } : undefined,

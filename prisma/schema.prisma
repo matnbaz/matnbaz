@@ -149,8 +149,7 @@ model Collection {
   Owners        Owner[]
   color         String?
   image         String?
-  Language      Language?             @relation(fields: [languageId], references: [id])
-  languageId    String?
+  Languages     Language[]
   minStargazers Int?
   minForks      Int?
   archived      Boolean?
