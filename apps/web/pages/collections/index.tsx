@@ -22,21 +22,27 @@ const CollectionsPage = () => {
         title="کالکشن‌ها"
         description="کالکشن های مختلف از پروژه های اوپن سورس ایرانی / فارسی"
       />
-      <div className="px-6 space-y-6">
-        <div className="grid gap-10 grid-cols-2 md:grid-cols-12">
-          {loading ? (
-            <SkeletonLoaderShape shape="rectangle" width="20px" height="20px" />
-          ) : (
-            data.collections.edges.map(({ node }, index) => (
-              <CollectionPreview
-                isBig
-                className={index < 6 ? 'col-span-4' : 'col-span-3'}
-                key={node.id}
-                collection={node}
-              />
-            ))
-          )}
-        </div>
+
+      <div>
+        <h1 className="text-4xl font-bold text-center">کالکشن ها</h1>
+      </div>
+      <div className="mt-12 grid gap-10 md:grid-cols-12">
+        {loading ? (
+          <SkeletonLoaderShape shape="rectangle" width="20px" height="20px" />
+        ) : (
+          data.collections.edges.map(({ node }, index) => (
+            <CollectionPreview
+              isBig
+              className={
+                index < 6
+                  ? 'md:col-span-6 lg:col-span-4'
+                  : 'md:col-span-4 lg:col-span-3'
+              }
+              key={node.id}
+              collection={node}
+            />
+          ))
+        )}
       </div>
     </MainLayout>
   );

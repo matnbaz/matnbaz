@@ -41,10 +41,17 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
         title={collection.name}
         description={collection.description}
       />
-      <div className="px-6 space-y-6">
+      <div className="space-y-6">
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 items-center justify-between overflow-hidden">
-          <div className="flex items-center space-x-4 space-x-reverse">
-            <div className="flex-shrink-0">{/* Image */}</div>
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 items-center sm:space-x-4 sm:space-x-reverse">
+            <div className="flex-shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={collection.image}
+                alt={collection.name}
+                className="brightness-0 invert w-24 h-24"
+              />
+            </div>
 
             <div className="flex flex-col ">
               <h1 className="text-2xl sm:text-4xl font-bold truncate">
