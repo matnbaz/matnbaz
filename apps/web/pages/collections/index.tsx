@@ -1,8 +1,7 @@
-import classNames from 'classnames';
+import { CollectionPreview } from '../../components/Collection/CollectionPreview';
 import HeaderMeta from '../../components/Feature/HeaderMeta';
 import MainLayout from '../../components/Layout/MainLayout';
 import SkeletonLoaderShape from '../../components/Skeleton Loader/SkeletonLoaderShape';
-import Card from '../../components/UI/Card';
 import { useGetCollectionsQuery } from '../../lib/graphql-types';
 
 const CollectionsPage = () => {
@@ -24,38 +23,18 @@ const CollectionsPage = () => {
         description="کالکشن های مختلف از پروژه های اوپن سورس ایرانی / فارسی"
       />
       <div className="px-6 space-y-6">
-        <div className="flex items-center gap-10 flex-wrap justify-center">
+        <div className="grid gap-10 grid-cols-2 md:grid-cols-12">
           {loading ? (
             <SkeletonLoaderShape shape="rectangle" width="20px" height="20px" />
           ) : (
-            data.collections.edges.map(
-              ({ node: { name, slug, repositoriesCount, color, image } }) => (
-                <Card
-                  key={slug}
-                  border="none"
-                  padded
-                  style={color && { backgroundColor: color.hexString }}
-                  className={classNames(
-                    'text-white w-40 hover:scale-110 transition',
-                    !color && 'bg-gray-100 dark:bg-gray-800'
-                  )}
-                  href={`/collections/${slug}`}
-                >
-                  {/* eslint-disable @next/next/no-img-element */}
-                  {image && (
-                    <img
-                      alt={name}
-                      src={image}
-                      className="w-14 h-14 mx-auto brightness-0 invert"
-                    />
-                  )}
-                  {/* eslint-enable @next/next/no-img-element */}
-                  <div dir="ltr" className="text-center font-medium mt-4">
-                    {name}
-                  </div>
-                </Card>
-              )
-            )
+            data.collections.edges.map(({ node }, index) => (
+              <CollectionPreview
+                isBig
+                className={index < 6 ? 'col-span-4' : 'col-span-3'}
+                key={node.id}
+                collection={node}
+              />
+            ))
           )}
         </div>
       </div>
