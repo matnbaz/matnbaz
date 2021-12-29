@@ -229,6 +229,20 @@ const data = [
     ],
   },
   {
+    name: 'React Native',
+    slug: 'react-native',
+    color: '#61DAFB',
+    description:
+      'ری‌اکت نیتیو یک فریمورک طراحی رابط کاربری ساخته شده توسط متا (فیس‌بوک) است که برای توسعه برنامه‌های کاربردی اندروید، iOS، ویندوز و... کاربرد دارد.',
+    image: 'https://simpleicons.org/icons/react.svg',
+    Topics: {
+      connect: ['react-native', 'reactnative'].map((topic) => ({
+        name: topic,
+      })),
+    },
+    terms: ['react', 'react-native', 'ری‌اکت نیتیو'],
+  },
+  {
     name: 'Vue.js',
     slug: 'vuejs',
     color: '#4FC08D',
@@ -241,6 +255,20 @@ const data = [
       })),
     },
     terms: ['vue', 'vue.js', 'vuejs', 'ویو جی‌اس', 'ویو.جی‌اس'],
+  },
+  {
+    name: 'Awesome Lists',
+    slug: 'awesome-lists',
+    color: '#4FC08D',
+    description:
+      'ویو‌جی‌اس یک فریم‌ورک جاوا‌اسکریپتی متن‌باز فرانت‌اند است که برای ساخت رابط‌های کاربری و برنامه‌های تک‌صفحه‌ای استفاده می‌شود.',
+    image: 'https://simpleicons.org/icons/awesomelists.svg',
+    Topics: {
+      connect: ['awesome-list'].map((topic) => ({
+        name: topic,
+      })),
+    },
+    terms: ['awesome-'],
   },
   {
     name: 'Svelte',
