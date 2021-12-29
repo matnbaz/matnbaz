@@ -27,20 +27,44 @@ export enum ArchiveStatusType {
   NotArchived = 'NOT_ARCHIVED'
 }
 
+export type Collect = Node & {
+  __typename?: 'Collect';
+  collection: Collection;
+  id: Scalars['ID'];
+  repository: Repository;
+};
+
+export type CollectConnection = {
+  __typename?: 'CollectConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<CollectEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A Collect edge. */
+export type CollectEdge = {
+  __typename?: 'CollectEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of CollectEdge. */
+  node: Collect;
+};
+
 export type Collection = Node & {
   __typename?: 'Collection';
+  collects: CollectConnection;
   color?: Maybe<Color>;
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   image?: Maybe<Scalars['String']>;
   name: Scalars['String'];
-  repositories: RepositoryConnection;
   repositoriesCount: Scalars['Int'];
   slug: Scalars['String'];
 };
 
 
-export type CollectionRepositoriesArgs = {
+export type CollectionCollectsArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
@@ -283,6 +307,7 @@ export enum PlatformType {
 
 export type Query = {
   __typename?: 'Query';
+  collect: Collect;
   collection?: Maybe<Collection>;
   collectionById?: Maybe<Collection>;
   collections: CollectionConnection;
@@ -300,6 +325,11 @@ export type Query = {
   topic?: Maybe<Topic>;
   topicById?: Maybe<Topic>;
   topics: TopicConnection;
+};
+
+
+export type QueryCollectArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -623,7 +653,7 @@ export type GetCollectionQueryVariables = Exact<{
 }>;
 
 
-export type GetCollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', id: string, name: string, slug: string, description?: string | null | undefined, repositoriesCount: number, image?: string | null | undefined, color?: { __typename?: 'Color', hexString: string } | null | undefined, repositories: { __typename?: 'RepositoryConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined } } | null | undefined };
+export type GetCollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', id: string, name: string, slug: string, description?: string | null | undefined, repositoriesCount: number, image?: string | null | undefined, color?: { __typename?: 'Color', hexString: string } | null | undefined, collects: { __typename?: 'CollectConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'CollectEdge', node: { __typename?: 'Collect', repository: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } } }> | null | undefined } } | null | undefined };
 
 export type GetCollectionsQueryVariables = Exact<{
   count?: InputMaybe<Scalars['Int']>;
@@ -839,14 +869,16 @@ export const GetCollectionDocument = gql`
     color {
       hexString
     }
-    repositories(first: $reposCount, after: $reposAfter) {
+    collects(first: $reposCount, after: $reposAfter) {
       pageInfo {
         hasNextPage
         endCursor
       }
       edges {
         node {
-          ...repoPreview
+          repository {
+            ...repoPreview
+          }
         }
       }
     }
@@ -1227,6 +1259,7 @@ export type MetadataQueryResult = Apollo.QueryResult<MetadataQuery, MetadataQuer
       const result: PossibleTypesResultData = {
   "possibleTypes": {
     "Node": [
+      "Collect",
       "Collection",
       "Language",
       "License",

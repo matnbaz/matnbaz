@@ -16,7 +16,7 @@ export function createApolloClient() {
         },
         Collection: {
           fields: {
-            repositories: relayStylePagination(),
+            collects: relayStylePagination(),
           },
         },
         Owner: {
