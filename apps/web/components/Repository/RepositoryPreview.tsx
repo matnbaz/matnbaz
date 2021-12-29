@@ -75,10 +75,7 @@ const RepositoryPreview = ({
         >
           {repository.owner && (
             <div>
-              <OwnerImage
-                withoutLink={props.disabled}
-                owner={repository.owner}
-              />
+              <OwnerImage withoutLink owner={repository.owner} />
             </div>
           )}
           <div className="flex flex-col space-y-2 h-full w-full text-left overflow-hidden">
@@ -141,10 +138,7 @@ const RepositoryPreview = ({
         >
           {repository.owner && (
             <div>
-              <OwnerImage
-                withoutLink={props.disabled}
-                owner={repository.owner}
-              />
+              <OwnerImage withoutLink owner={repository.owner} />
             </div>
           )}
           <div className="flex flex-col space-y-2 h-full w-full text-left overflow-hidden">
