@@ -14,8 +14,8 @@ import { PrismaService } from 'nestjs-prisma';
 import { createColorObject } from '../color/utils';
 import { Collection } from '../models/collection.model';
 import { Color } from '../models/color.model';
+import { CollectConnection } from '../models/connections/collect.connection';
 import { CollectionConnection } from '../models/connections/collection.connection';
-import { RepositoryConnection } from '../models/connections/repository.connection';
 import { paginationComplexity } from '../plugins/pagination-complexity';
 import { CollectionIdArgs } from './args/collection-id.args';
 import { CollectionSlugArgs } from './args/collection-slug.args';
@@ -49,13 +49,10 @@ export class CollectionResolver {
   }
 
   @CacheControl({ inheritMaxAge: true })
-  @ResolveField(() => RepositoryConnection, {
+  @ResolveField(() => CollectConnection, {
     complexity: paginationComplexity,
   })
-  repositories(
-    @Args() pagination: PaginationArgs,
-    @Parent() { id }: P.Collection
-  ) {
+  collects(@Args() pagination: PaginationArgs, @Parent() { id }: P.Collection) {
     const collectionQuery = this.prisma.collection.findUnique({
       where: { id },
       select: { id: true },
@@ -63,13 +60,10 @@ export class CollectionResolver {
 
     return findManyCursorConnection(
       async (args) =>
-        (
-          await collectionQuery.Collects({
-            orderBy: { Repository: { stargazersCount: 'desc' } },
-            include: { Repository: true },
-            ...args,
-          })
-        ).map((item) => item.Repository),
+        collectionQuery.Collects({
+          orderBy: { Repository: { stargazersCount: 'desc' } },
+          ...args,
+        }),
       async () =>
         (await collectionQuery.Collects({ select: { id: true } })).length,
       pagination

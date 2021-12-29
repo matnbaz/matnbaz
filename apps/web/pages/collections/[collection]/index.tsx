@@ -18,7 +18,6 @@ interface CollectionPageProps {
 const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
   const {
     data: { collection },
-    error,
     fetchMore,
     loading,
   } = useGetCollectionQuery({

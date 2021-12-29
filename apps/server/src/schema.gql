@@ -14,13 +14,36 @@ enum ArchiveStatusType {
   NOT_ARCHIVED
 }
 
+type Collect implements Node {
+  collection: Collection!
+  id: ID!
+  repository: Repository!
+}
+
+type CollectConnection {
+  """A list of edges"""
+  edges: [CollectEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A Collect edge."""
+type CollectEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of CollectEdge."""
+  node: Collect!
+}
+
 type Collection implements Node {
+  collects(after: String, before: String, first: Int, last: Int): CollectConnection!
   color: Color
   description: String
   id: ID!
   image: String
   name: String!
-  repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int!
   slug: String!
 }
@@ -203,6 +226,7 @@ enum PlatformType {
 }
 
 type Query {
+  collect(id: ID!): Collect!
   collection(slug: String!): Collection
   collectionById(id: ID!): Collection
   collections(after: String, before: String, first: Int, last: Int): CollectionConnection!

@@ -13,14 +13,16 @@ query GetCollection(
     color {
       hexString
     }
-    repositories(first: $reposCount, after: $reposAfter) {
+    collects(first: $reposCount, after: $reposAfter) {
       pageInfo {
         hasNextPage
         endCursor
       }
       edges {
         node {
-          ...repoPreview
+          repository {
+            ...repoPreview
+          }
         }
       }
     }

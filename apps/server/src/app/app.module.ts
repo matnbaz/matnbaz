@@ -11,6 +11,7 @@ import * as Redis from 'ioredis';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
 import { AdminModule } from '../admin/admin.module';
+import { CollectModule } from '../collect/collect.module';
 import { CollectionModule } from '../collection/collection.module';
 import { ColorModule } from '../color/color.module';
 import { DateModule } from '../date/date.module';
@@ -79,11 +80,12 @@ import { AppService } from './app.service';
     RepositoryModule,
     TopicModule,
     ReportModule,
+    SubmissionModule,
     DateModule,
     ColorModule,
     MetadataModule,
     CollectionModule,
-    SubmissionModule,
+    CollectModule,
   ],
   controllers: [AppController],
   providers: [
