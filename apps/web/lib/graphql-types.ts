@@ -27,6 +27,68 @@ export enum ArchiveStatusType {
   NotArchived = 'NOT_ARCHIVED'
 }
 
+export type Collect = Node & {
+  __typename?: 'Collect';
+  collection: Collection;
+  id: Scalars['ID'];
+  repository: Repository;
+};
+
+export type CollectConnection = {
+  __typename?: 'CollectConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<CollectEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A Collect edge. */
+export type CollectEdge = {
+  __typename?: 'CollectEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of CollectEdge. */
+  node: Collect;
+};
+
+export type Collection = Node & {
+  __typename?: 'Collection';
+  collects: CollectConnection;
+  color?: Maybe<Color>;
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  repositoriesCount: Scalars['Int'];
+  slug: Scalars['String'];
+};
+
+
+export type CollectionCollectsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+/** Nice name, isn't it? */
+export type CollectionConnection = {
+  __typename?: 'CollectionConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<CollectionEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A Collection edge. */
+export type CollectionEdge = {
+  __typename?: 'CollectionEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of CollectionEdge. */
+  node: Collection;
+};
+
 export type Color = {
   __typename?: 'Color';
   hexString: Scalars['String'];
@@ -245,6 +307,10 @@ export enum PlatformType {
 
 export type Query = {
   __typename?: 'Query';
+  collect: Collect;
+  collection?: Maybe<Collection>;
+  collectionById?: Maybe<Collection>;
+  collections: CollectionConnection;
   language?: Maybe<Language>;
   languages: LanguageConnection;
   licenses: LicenseConnection;
@@ -259,6 +325,29 @@ export type Query = {
   topic?: Maybe<Topic>;
   topicById?: Maybe<Topic>;
   topics: TopicConnection;
+};
+
+
+export type QueryCollectArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCollectionArgs = {
+  slug: Scalars['String'];
+};
+
+
+export type QueryCollectionByIdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCollectionsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -557,6 +646,23 @@ export type SendSubmissionMutationVariables = Exact<{
 
 export type SendSubmissionMutation = { __typename?: 'Mutation', sendSubmission: { __typename?: 'SubmissionPayload', submission?: { __typename?: 'Submission', id: string } | null | undefined, userErrors?: Array<{ __typename?: 'UserError', message: string }> | null | undefined } };
 
+export type GetCollectionQueryVariables = Exact<{
+  slug: Scalars['String'];
+  reposCount?: InputMaybe<Scalars['Int']>;
+  reposAfter?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetCollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', id: string, name: string, slug: string, description?: string | null | undefined, repositoriesCount: number, image?: string | null | undefined, color?: { __typename?: 'Color', hexString: string } | null | undefined, collects: { __typename?: 'CollectConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'CollectEdge', node: { __typename?: 'Collect', repository: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } } }> | null | undefined } } | null | undefined };
+
+export type GetCollectionsQueryVariables = Exact<{
+  count?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetCollectionsQuery = { __typename?: 'Query', collections: { __typename?: 'CollectionConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'CollectionEdge', node: { __typename?: 'Collection', id: string, name: string, slug: string, description?: string | null | undefined, repositoriesCount: number, image?: string | null | undefined, color?: { __typename?: 'Color', hexString: string } | null | undefined } }> | null | undefined } };
+
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -751,6 +857,116 @@ export function useSendSubmissionMutation(baseOptions?: Apollo.MutationHookOptio
 export type SendSubmissionMutationHookResult = ReturnType<typeof useSendSubmissionMutation>;
 export type SendSubmissionMutationResult = Apollo.MutationResult<SendSubmissionMutation>;
 export type SendSubmissionMutationOptions = Apollo.BaseMutationOptions<SendSubmissionMutation, SendSubmissionMutationVariables>;
+export const GetCollectionDocument = gql`
+    query GetCollection($slug: String!, $reposCount: Int = 12, $reposAfter: String) {
+  collection(slug: $slug) {
+    id
+    name
+    slug
+    description
+    repositoriesCount
+    image
+    color {
+      hexString
+    }
+    collects(first: $reposCount, after: $reposAfter) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          repository {
+            ...repoPreview
+          }
+        }
+      }
+    }
+  }
+}
+    ${RepoPreviewFragmentDoc}`;
+
+/**
+ * __useGetCollectionQuery__
+ *
+ * To run a query within a React component, call `useGetCollectionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCollectionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCollectionQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      reposCount: // value for 'reposCount'
+ *      reposAfter: // value for 'reposAfter'
+ *   },
+ * });
+ */
+export function useGetCollectionQuery(baseOptions: Apollo.QueryHookOptions<GetCollectionQuery, GetCollectionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCollectionQuery, GetCollectionQueryVariables>(GetCollectionDocument, options);
+      }
+export function useGetCollectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCollectionQuery, GetCollectionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCollectionQuery, GetCollectionQueryVariables>(GetCollectionDocument, options);
+        }
+export type GetCollectionQueryHookResult = ReturnType<typeof useGetCollectionQuery>;
+export type GetCollectionLazyQueryHookResult = ReturnType<typeof useGetCollectionLazyQuery>;
+export type GetCollectionQueryResult = Apollo.QueryResult<GetCollectionQuery, GetCollectionQueryVariables>;
+export const GetCollectionsDocument = gql`
+    query GetCollections($count: Int, $after: String) {
+  collections(first: $count, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        name
+        slug
+        description
+        repositoriesCount
+        image
+        color {
+          hexString
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetCollectionsQuery__
+ *
+ * To run a query within a React component, call `useGetCollectionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCollectionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCollectionsQuery({
+ *   variables: {
+ *      count: // value for 'count'
+ *      after: // value for 'after'
+ *   },
+ * });
+ */
+export function useGetCollectionsQuery(baseOptions?: Apollo.QueryHookOptions<GetCollectionsQuery, GetCollectionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCollectionsQuery, GetCollectionsQueryVariables>(GetCollectionsDocument, options);
+      }
+export function useGetCollectionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCollectionsQuery, GetCollectionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCollectionsQuery, GetCollectionsQueryVariables>(GetCollectionsDocument, options);
+        }
+export type GetCollectionsQueryHookResult = ReturnType<typeof useGetCollectionsQuery>;
+export type GetCollectionsLazyQueryHookResult = ReturnType<typeof useGetCollectionsLazyQuery>;
+export type GetCollectionsQueryResult = Apollo.QueryResult<GetCollectionsQuery, GetCollectionsQueryVariables>;
 export const GetLanguagesDocument = gql`
     query GetLanguages {
   languages {
@@ -1043,6 +1259,8 @@ export type MetadataQueryResult = Apollo.QueryResult<MetadataQuery, MetadataQuer
       const result: PossibleTypesResultData = {
   "possibleTypes": {
     "Node": [
+      "Collect",
+      "Collection",
       "Language",
       "License",
       "Owner",

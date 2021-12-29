@@ -85,11 +85,11 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
     <MainLayout maxWidth={false} withoutPadding>
       <HeaderMeta title={repo.fullName} description={repo.descriptionLimited} />
       <div
-        className="relative flex items-center h-[40rem] md:h-[30rem] w-full"
+        className="relative flex items-center md:h-[30rem] w-full"
         style={{ background: chosenGradient }}
       >
         <div className="px-6 space-y-4 lg:space-y-0 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-300/60 dark:bg-gray-900/75 w-full h-full">
-          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
+          <div className="flex text-center flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
             <OwnerImage owner={repo.owner} width={120} height={120} />
             <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
               <div className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">
@@ -189,7 +189,7 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
   async ({ query: { owner, repo }, res }) => {
     if (typeof owner !== 'string' || typeof repo !== 'string')
       return {
-        redirect: { permanent: false, destination: '/' },
+        notfound: true,
         props: { ownerSlug: '', repoSlug: '' },
       };
 
@@ -211,7 +211,7 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
 
     if (!repositoryByPlatform)
       return {
-        redirect: { permanent: false, destination: '/' },
+        notfound: true,
         props: { ownerSlug: '', repoSlug: '' },
       };
     return {
@@ -222,46 +222,3 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
       },
     };
   };
-
-//   <div className="space-y-10">
-//   <div
-//     className="mx-10 flex justify-center space-x-8 items-center"
-//     dir="ltr"
-//   >
-//     <Image
-//       width={100}
-//       height={100}
-//       src={`https://avatars.githubusercontent.com/u/${repo.owner.platformId}?v=4`}
-//       alt={`عکس ${repo.owner.login}`}
-//       className={`w-16 h-16 ${
-//         repo.owner.type === 'User' ? 'rounded-full' : 'rounded-lg'
-//       }`}
-//     />
-//     <h1 className="font-bold text-5xl">{repo.fullName}</h1>
-//   </div>
-
-//   <div className="grid grid-cols-1 md:grid-cols-8 pt-4 px-6 pb-6 gap-6">
-//     <div className="md:col-span-3 lg:col-span-2">
-//       <div className="space-y-1">
-//         {statistics.map(({ name, icon: Icon, value }) => (
-//           <div
-//             key={name}
-//             className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-lg"
-//           >
-//             <Icon className="w-6 h-6" />
-//             <span>{name}:</span>
-//             <span className="font-bold">{value}</span>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//     <div className="md:col-span-5 lg:col-span-6">
-//       {repo.readmeHtml && (
-//         <div
-//           className="prose dark:prose-invert"
-//           dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
-//         ></div>
-//       )}
-//     </div>
-//   </div>
-// </div>

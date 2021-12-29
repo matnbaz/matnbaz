@@ -1,4 +1,3 @@
-import { socialMedia } from '@matnbaz/common';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
 import { useTheme } from 'next-themes';
@@ -8,18 +7,18 @@ import { Fragment, useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { CgClose } from 'react-icons/cg';
-import { SiOpensourceinitiative } from 'react-icons/si';
+import { OpenSource } from '../Icons/OpenSource';
 import RepositorySearchInput from '../Repository/RepositorySearchInput';
 import { IconButton } from './IconButton';
 interface INavbarProps {
   className?: string;
 }
 
-const links = [
+const links: { name: string; to: string; external?: boolean }[] = [
   { name: 'کاوش‌گر', to: '/explore' },
+  { name: 'کالکشن‌ها', to: '/collections' },
   { name: 'درباره', to: '/about' },
   { name: 'ثبت کاربر', to: '/submit-user' },
-  { name: 'انجمن دیسکورد', to: socialMedia.discord, external: true },
 ];
 
 const Navbar = ({ className }: INavbarProps) => {
@@ -47,9 +46,11 @@ const Navbar = ({ className }: INavbarProps) => {
           <div className="flex items-center space-x-8 space-x-reverse ml-4 md:ml-0">
             <Link href="/">
               <a className="flex space-x-3 space-x-reverse items-center">
-                <SiOpensourceinitiative className="w-10 h-10 dark:text-white text-gray-900" />
+                <OpenSource className="w-10 h-10 dark:text-white text-gray-900" />
 
-                <h2 className="hidden md:block text-3xl font-mono">Matnbaz</h2>
+                <h2 className="hidden md:block text-3xl font-extrabold">
+                  متن‌باز
+                </h2>
               </a>
             </Link>
             <div className="hidden md:flex items-center space-x-4 space-x-reverse">

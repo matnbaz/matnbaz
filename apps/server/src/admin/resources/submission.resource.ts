@@ -4,7 +4,7 @@ import { Resource } from './resource-type';
 export const submissionResource: Resource = ({
   dmmf,
   prisma,
-  githubQueue,
+  queues: { github: githubQueue },
 }) => ({
   resource: {
     model: dmmf.modelMap.Submission,

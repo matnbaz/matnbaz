@@ -35,7 +35,7 @@ const OwnerImage = ({
   return withoutLink ? (
     ImageComponent
   ) : (
-    <Link href={`/github/${owner.login}`} passHref>
+    <Link href={`/github/${owner.login}`}>
       <a>{ImageComponent}</a>
     </Link>
   );

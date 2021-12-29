@@ -41,6 +41,7 @@ const RepositoryPreviewList = ({
   const mappedRepositories = useMemo(() => {
     return repositories?.map((repository) => (
       <RepositoryPreview
+        padded
         repository={repository.node}
         key={repository.node.id}
       />

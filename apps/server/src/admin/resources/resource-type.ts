@@ -5,7 +5,10 @@ import { PrismaService } from 'nestjs-prisma';
 export interface ResourceContext {
   dmmf: DMMFClass;
   prisma: PrismaService;
-  githubQueue: Queue;
+  queues: {
+    github: Queue;
+    main: Queue;
+  };
 }
 
 export type Resource = (context: ResourceContext) => ResourceWithOptions;

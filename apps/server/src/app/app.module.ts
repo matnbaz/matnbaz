@@ -11,12 +11,23 @@ import * as Redis from 'ioredis';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
 import { AdminModule } from '../admin/admin.module';
+import { CollectModule } from '../collect/collect.module';
+import { CollectionModule } from '../collection/collection.module';
+import { ColorModule } from '../color/color.module';
+import { DateModule } from '../date/date.module';
 import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
 import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
 import { HybridThrottlerGuard } from '../hybrid-throttler.guard';
+import { LanguageModule } from '../language/language.module';
+import { LicenseModule } from '../license/license.module';
+import { MetadataModule } from '../metadata/metadata.module';
 import { OctokitModule } from '../octokit/octokit.module';
+import { OwnerModule } from '../owner/owner.module';
 import { ComplexityPlugin } from '../plugins/complexity.plugin';
-import { ResolverModule } from '../resolvers/resolver.module';
+import { ReportModule } from '../report/report.module';
+import { RepositoryModule } from '../repository/repository.module';
+import { SubmissionModule } from '../submission/submission.module';
+import { TopicModule } from '../topic/topic.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -63,7 +74,18 @@ import { AppService } from './app.service';
     OctokitModule,
     GithubDiscovererModule,
     GithubExtractorModule,
-    ResolverModule,
+    LanguageModule,
+    LicenseModule,
+    OwnerModule,
+    RepositoryModule,
+    TopicModule,
+    ReportModule,
+    SubmissionModule,
+    DateModule,
+    ColorModule,
+    MetadataModule,
+    CollectionModule,
+    CollectModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,0 +1,30 @@
+query GetCollection(
+  $slug: String!
+  $reposCount: Int = 12
+  $reposAfter: String
+) {
+  collection(slug: $slug) {
+    id
+    name
+    slug
+    description
+    repositoriesCount
+    image
+    color {
+      hexString
+    }
+    collects(first: $reposCount, after: $reposAfter) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          repository {
+            ...repoPreview
+          }
+        }
+      }
+    }
+  }
+}

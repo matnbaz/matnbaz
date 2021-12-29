@@ -12,7 +12,7 @@ import { Queue } from 'bull';
 import { PrismaService } from 'nestjs-prisma';
 import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
 import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
-import { GITHUB_QUEUE } from '../queue';
+import { GITHUB_QUEUE, MAIN_QUEUE } from '../queue';
 import { getResources } from './resources';
 
 AdminJS.registerAdapter({ Database, Resource });
@@ -23,10 +23,21 @@ AdminJS.registerAdapter({ Database, Resource });
       imports: [
         GithubExtractorModule,
         GithubDiscovererModule,
+        BullModule.registerQueue({ name: MAIN_QUEUE }),
         BullModule.registerQueue({ name: GITHUB_QUEUE }),
       ],
-      inject: [PrismaService, ModuleRef, getQueueToken(GITHUB_QUEUE)],
-      useFactory: (prisma: PrismaService, _, githubQueue: Queue) => {
+      inject: [
+        PrismaService,
+        ModuleRef,
+        getQueueToken(MAIN_QUEUE),
+        getQueueToken(GITHUB_QUEUE),
+      ],
+      useFactory: (
+        prisma: PrismaService,
+        _,
+        mainQueue: Queue,
+        githubQueue: Queue
+      ) => {
         const dmmf = (prisma as any)._dmmf as DMMFClass;
 
         return {
@@ -58,7 +69,10 @@ AdminJS.registerAdapter({ Database, Resource });
             resources: getResources({
               dmmf,
               prisma,
-              githubQueue,
+              queues: {
+                main: mainQueue,
+                github: githubQueue,
+              },
             }),
           },
           customLoader: ExpressLoader,

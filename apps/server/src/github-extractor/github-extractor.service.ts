@@ -17,25 +17,44 @@ export class GithubExtractorService {
 
   async extractAllOwners() {
     const owners = await this.prisma.owner.findMany({
-      where: { platform: 'GitHub' },
+      where: { platform: 'GitHub', blockedAt: null },
     });
 
-    this.logger.log(`${owners.length} owners found.`);
-    for (const owner of owners) await this.extractRepos(owner);
+    this.logger.log(`${owners.length} owners found. Extracting now...`);
+    let i = 0;
+    setInterval(
+      () =>
+        owners[i] &&
+        this.logger.log(
+          `${i}/${owners.length} (~${
+            Math.floor((i / owners.length) * 10000) / 100
+          }%) current target: ${owners[i].login}`
+        ),
+      25000
+    );
+    for (const owner of owners) {
+      i++;
+      await this.extractRepos(owner);
+    }
   }
 
   private async extractRepos(owner: Owner) {
-    this.logger.log(`Now extracting ${owner.login}'s repositories...'`);
-    const response = await this.octokit.rest.repos.listForUser({
-      per_page: 100,
-      username: owner.login,
-    });
+    try {
+      const response = await this.octokit.rest.repos.listForUser({
+        per_page: 100,
+        username: owner.login,
+      });
 
-    const repos = response.data;
+      const repos = response.data;
 
-    for (const repo of repos) {
-      const repoInDb = await this.populateRepo(repo);
-      if (repoInDb) await this.readmeExtractor.extractReadme(repoInDb.id);
+      for (const repo of repos) {
+        const repoInDb = await this.populateRepo(repo);
+        if (repoInDb) await this.readmeExtractor.extractReadme(repoInDb.id);
+      }
+    } catch (e) {
+      this.logger.error(
+        `Error occured while extracting repos for ${owner.login}. ${e.message}`
+      );
     }
   }
 
@@ -48,15 +67,11 @@ export class GithubExtractorService {
     ReturnType<OctokitService['rest']['repos']['listForUser']>
   >['data'][0]) {
     if (repo.stargazers_count < MINIMUM_STARS) {
-      this.logger.warn(
-        `repo ${repo.full_name} with ${repo.stargazers_count} stars was disqualified due to low stars.`
-      );
+      // Disqualified
       return;
     }
     if (repo.description && repo.description.length > 256) {
-      this.logger.warn(
-        `repo ${repo.full_name} with ${repo.stargazers_count} stars was disqualified due to long description.`
-      );
+      // Disqualified (description too long)
       return;
     }
 
@@ -151,10 +166,6 @@ export class GithubExtractorService {
       create: repoData,
       update: repoData,
     });
-
-    this.logger.log(
-      `repo ${repo.full_name} with ${repo.stargazers_count} stars was qualified and populated.`
-    );
 
     return repoInDb;
   }

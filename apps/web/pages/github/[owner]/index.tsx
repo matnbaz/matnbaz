@@ -43,14 +43,14 @@ const OwnerPage = ({ ownerSlug }) => {
         title={owner.login}
         description={`پروفایل ${owner.login} از پلتفرم ${owner.platform}`}
       />
-      <div className="px-6 space-y-6">
+      <div className="space-y-6">
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 items-center justify-between overflow-hidden">
           <div className="flex items-center space-x-4 space-x-reverse">
             <div className="flex-shrink-0">
               <OwnerImage owner={owner} withoutLink />
             </div>
 
-            <div className="flex flex-col ">
+            <div className="flex flex-col">
               <h1 className="text-xl sm:text-2xl font-bold truncate">
                 {owner.login}
               </h1>
@@ -91,7 +91,7 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
 }) => {
   if (typeof owner !== 'string')
     return {
-      redirect: { permanent: false, destination: '/' },
+      notfound: true,
       props: { ownerSlug: '' },
     };
 
@@ -112,7 +112,7 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
 
   if (!ownerByPlatform)
     return {
-      redirect: { permanent: false, destination: '/' },
+      notfound: true,
       props: { ownerSlug: owner },
     };
 

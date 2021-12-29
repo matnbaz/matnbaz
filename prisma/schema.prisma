@@ -11,43 +11,46 @@ datasource db {
 }
 
 model Repository {
-  id              String       @id @default(cuid())
-  platform        PlatformType
-  platformId      String
-  size            Int
-  stargazersCount Int
-  watchersCount   Int
-  forksCount      Int
-  openIssuesCount Int
-  hasIssues       Boolean
-  hasProjects     Boolean
-  hasWiki         Boolean
-  hasPages        Boolean
-  archived        Boolean
-  disabled        Boolean
-  allowForking    Boolean
-  isFork          Boolean
-  isTemplate      Boolean
-  createdAt       DateTime
-  updatedAt       DateTime
-  pushedAt        DateTime
-  extractedAt     DateTime     @default(now())
-  recordUpdatedAt DateTime     @updatedAt
-  name            String
-  description     String?
-  readme          String?
-  readmeHtml      String?
-  defaultBranch   String
-  homePage        String?
-  mirrorUrl       String?
-  Owner           Owner        @relation(fields: [ownerId], references: [id])
-  ownerId         String
-  Language        Language?    @relation(fields: [languageId], references: [id])
-  languageId      String?
-  License         License?     @relation(fields: [licenseId], references: [id])
-  licenseId       String?
-  Topics          Topic[]
-  blockedAt       DateTime?
+  id                   String                @id @default(cuid())
+  platform             PlatformType
+  platformId           String
+  size                 Int
+  stargazersCount      Int
+  watchersCount        Int
+  forksCount           Int
+  openIssuesCount      Int
+  hasIssues            Boolean
+  hasProjects          Boolean
+  hasWiki              Boolean
+  hasPages             Boolean
+  archived             Boolean
+  disabled             Boolean
+  allowForking         Boolean
+  isFork               Boolean
+  isTemplate           Boolean
+  createdAt            DateTime
+  updatedAt            DateTime
+  pushedAt             DateTime
+  extractedAt          DateTime              @default(now())
+  recordUpdatedAt      DateTime              @updatedAt
+  name                 String
+  description          String?
+  readme               String?
+  readmeHtml           String?
+  defaultBranch        String
+  homePage             String?
+  mirrorUrl            String?
+  Owner                Owner                 @relation(fields: [ownerId], references: [id])
+  ownerId              String
+  Language             Language?             @relation(fields: [languageId], references: [id])
+  languageId           String?
+  License              License?              @relation(fields: [licenseId], references: [id])
+  licenseId            String?
+  Topics               Topic[]
+  blockedAt            DateTime?
+  CollectionBlacklists CollectionBlacklist[]
+  CollectionWhitelists CollectionWhitelist[]
+  Collects             Collect[]
 
   @@unique([platform, platformId])
 }
@@ -65,6 +68,8 @@ model Topic {
   name         String       @unique
   Repositories Repository[]
   createdAt    DateTime     @default(now())
+  // Used in these collections
+  Collections  Collection[]
 }
 
 model Owner {
@@ -79,6 +84,8 @@ model Owner {
   extractedAt     DateTime     @default(now())
   recordUpdatedAt DateTime     @updatedAt
   blockedAt       DateTime?
+  // Featured in these - owner-specific - collections
+  Collections     Collection[]
 
   @@unique([platform, platformId])
   @@unique([platform, login])
@@ -110,6 +117,7 @@ model Language {
   slug         String       @unique
   description  String?
   Repositories Repository[]
+  Collections  Collection[]
 }
 
 model User {
@@ -129,6 +137,63 @@ model DiscoveryTerm {
   createdAt DateTime     @default(now())
 
   @@unique([term, platform])
+}
+
+model Collection {
+  id            String                @id @default(cuid())
+  name          String
+  slug          String                @unique
+  description   String?
+  terms         String[]
+  Topics        Topic[]
+  Owners        Owner[]
+  color         String?
+  image         String?
+  Languages     Language[]
+  minStargazers Int?
+  minForks      Int?
+  archived      Boolean?
+  template      Boolean?
+  minCreatedAt  DateTime?
+  maxCreatedAt  DateTime?
+  minPushedAt   DateTime?
+  maxPushedAt   DateTime?
+  Blacklist     CollectionBlacklist[]
+  Whitelist     CollectionWhitelist[]
+  Collects      Collect[]
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+}
+
+model CollectionBlacklist {
+  id           String     @id @default(cuid())
+  Collection   Collection @relation(fields: [collectionId], references: [id])
+  Repository   Repository @relation(fields: [repositoryId], references: [id])
+  collectionId String
+  repositoryId String
+  createdAt    DateTime   @default(now())
+
+  @@unique([collectionId, repositoryId])
+}
+
+model CollectionWhitelist {
+  id           String     @id @default(cuid())
+  Collection   Collection @relation(fields: [collectionId], references: [id])
+  Repository   Repository @relation(fields: [repositoryId], references: [id])
+  collectionId String
+  repositoryId String
+  createdAt    DateTime   @default(now())
+
+  @@unique([collectionId, repositoryId])
+}
+
+model Collect {
+  id           String     @id @default(cuid())
+  Collection   Collection @relation(fields: [collectionId], references: [id])
+  Repository   Repository @relation(fields: [repositoryId], references: [id])
+  collectionId String
+  repositoryId String
+  createdAt    DateTime   @default(now())
 }
 
 enum OwnerType {
