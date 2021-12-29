@@ -298,6 +298,21 @@ const data = [
     },
     terms: ['angular', 'angular.js', 'angularjs', 'انگولار', 'انگیولار'],
   },
+  {
+    name: 'NestJS',
+    slug: 'nest-js',
+    color: '#E0234E',
+    image: 'https://simpleicons.org/icons/nestjs.svg',
+    description:
+      'نست‌جی‌اس یک فریمورک پیشرو و محبوب نود‌جی‌اس برای ساخت برنامه‌های کاربردی کارآمد و مقیا‌س‌پذیر در سمت سرور است.',
+    Topics: {
+      connect: ['nestjs', 'nest'].map((topic) => ({
+        name: topic,
+      })),
+    },
+    Languages: { Languages: { connect: { slug: 'typescript' } } },
+    terms: ['nestjs', 'nest.js', 'nest'],
+  },
 ];
 
 const main = async () => {
