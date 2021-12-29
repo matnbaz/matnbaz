@@ -32,7 +32,7 @@ const CollectionsPage = () => {
         ) : (
           data.collections.edges.map(({ node }, index) => (
             <CollectionPreview
-              isBig
+              variation="big"
               className={
                 index < 6
                   ? 'md:col-span-6 lg:col-span-4'
