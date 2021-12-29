@@ -239,7 +239,7 @@ const SiteStats = () => {
   const { data } = useMetadataQuery();
 
   return (
-    <div className="sm:border-y border-gray-200 dark:border-gray-700 mt-12 sm:mt-24 space-y-4">
+    <div className="sm:border-y border-gray-200 dark:border-gray-700 space-y-4">
       <div className="relative">
         <div className="absolute inset-0 h-1/2" />
         <div className="relative mx-auto px-4 sm:px-0 sm:flex sm:justify-center">
