@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Card, { ICardProps } from '../UI/Card';
 
-export interface CollectionPreviewProps
+export interface ICollectionPreviewProps
   extends Omit<ICardProps, 'children' | 'href' | 'border'> {
   collection: {
     name: string;
@@ -21,7 +21,7 @@ export const CollectionPreview = ({
   variation = 'default',
   className,
   ...props
-}: CollectionPreviewProps) => {
+}: ICollectionPreviewProps) => {
   const { name, slug, color, image, description, repositoriesCount } =
     collection;
   return (

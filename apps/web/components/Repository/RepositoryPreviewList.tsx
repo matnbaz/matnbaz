@@ -51,7 +51,7 @@ const RepositoryPreviewList = ({
   const skeletonLoaders = useMemo(
     () =>
       [...Array(8).keys()].map((number) => (
-        <RepositoryPreviewSkeletonLoader key={number} />
+        <RepositoryPreviewSkeletonLoader padded key={number} />
       )),
     []
   );
@@ -73,7 +73,7 @@ const RepositoryPreviewList = ({
         : mappedRepositories}
       {networkStatus === 3 &&
         [...Array(2).keys()].map((number) => (
-          <RepositoryPreviewSkeletonLoader key={number} />
+          <RepositoryPreviewSkeletonLoader padded key={number} />
         ))}
     </InfiniteScroll>
   ) : (
