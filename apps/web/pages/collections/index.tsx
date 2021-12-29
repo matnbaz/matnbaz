@@ -24,7 +24,7 @@ const CollectionsPage = () => {
       />
 
       <div>
-        <h1 className="text-4xl font-bold text-center">کالکشن ها</h1>
+        <h1 className="text-4xl font-bold text-center">کالکشن‌ها</h1>
       </div>
       <div className="mt-12 grid gap-10 md:grid-cols-12">
         {loading ? (
