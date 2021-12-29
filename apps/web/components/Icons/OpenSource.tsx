@@ -9,6 +9,7 @@ export const OpenSource = ({ className, ...props }: OpenSourceProps) => {
       className={classNames(className, 'fill-current')}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 255.42 247.25"
+      stroke="none"
     >
       <g>
         <path d="M143.05,167.71a42.79,42.79,0,1,0-30.68,0L83.55,242.84a123.22,123.22,0,1,1,88.32,0l-28.82-75.13" />
