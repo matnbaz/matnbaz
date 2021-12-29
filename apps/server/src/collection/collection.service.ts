@@ -57,6 +57,7 @@ export class CollectionService {
         OR: [
           {
             AND: [
+              { blockedAt: null },
               {
                 //// Discovery filters
                 OR: [
