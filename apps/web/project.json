@@ -20,12 +20,6 @@
         "root": "apps/web",
         "outputPath": "dist/apps/web"
       },
-      "dependsOn": [
-        {
-          "projects": "self",
-          "target": "build-sitemap"
-        }
-      ],
       "configurations": {
         "production": {}
       }
