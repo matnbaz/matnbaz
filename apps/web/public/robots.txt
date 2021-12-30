@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: http://localhost:4200
-
-# Sitemaps
-Sitemap: http://localhost:4200/sitemap.xml
