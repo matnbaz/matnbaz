@@ -189,8 +189,7 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
   async ({ query: { owner, repo }, res }) => {
     if (typeof owner !== 'string' || typeof repo !== 'string')
       return {
-        notfound: true,
-        props: { ownerSlug: '', repoSlug: '' },
+        notFound: true,
       };
 
     const apolloClient = initializeApollo();
@@ -211,8 +210,7 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
 
     if (!repositoryByPlatform)
       return {
-        notfound: true,
-        props: { ownerSlug: '', repoSlug: '' },
+        notFound: true,
       };
     return {
       props: {

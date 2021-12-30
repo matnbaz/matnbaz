@@ -83,8 +83,7 @@ export const getServerSideProps: GetServerSideProps<CollectionPageProps> =
   async ({ query: { collection: collectionSlug }, res }) => {
     if (typeof collectionSlug !== 'string')
       return {
-        notfound: true,
-        props: { collectionSlug: '' },
+        notFound: true,
       };
 
     const apolloClient = initializeApollo();
@@ -103,8 +102,7 @@ export const getServerSideProps: GetServerSideProps<CollectionPageProps> =
 
     if (!collection)
       return {
-        notfound: true,
-        props: { collectionSlug },
+        notFound: true,
       };
 
     return {
