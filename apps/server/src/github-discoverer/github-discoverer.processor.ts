@@ -15,6 +15,7 @@ export class GithubDiscovererProcessor {
     this.discoverer.discoverByPredefinedTerms();
   }
 
+  // TODO: this should perhaps be in a different service
   @Process('add-owner')
   async addOwnerProcess(job: Job) {
     if (!job.data.username) {

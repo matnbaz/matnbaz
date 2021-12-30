@@ -79,6 +79,8 @@ model Owner {
   login           String
   gravatarId      String
   type            OwnerType
+  // The reason why this user is added, could be because of having a persian repo, having "Iran" in profile location, having been suggested by submissions, etc.
+  reason          String?
   siteAdmin       Boolean
   Repositories    Repository[]
   extractedAt     DateTime     @default(now())
