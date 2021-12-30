@@ -30,7 +30,7 @@ export class GithubExtractorService {
             Math.floor((i / owners.length) * 10000) / 100
           }%) current target: ${owners[i].login}`
         ),
-      25000
+      60000
     );
     for (const owner of owners) {
       i++;
