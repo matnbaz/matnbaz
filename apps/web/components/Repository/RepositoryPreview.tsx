@@ -8,6 +8,7 @@ import {
 import { GetRepositoriesQuery } from '../../lib/graphql-types';
 import OwnerImage from '../Owner/OwnerImage';
 import Card, { ICardProps } from '../UI/Card';
+
 export interface IRepositoryPreviewProps
   extends Omit<ICardProps, 'children' | 'href'> {
   repository: GetRepositoriesQuery['repositories']['edges'][0]['node'];
@@ -95,7 +96,7 @@ const RepositoryPreview = ({
                 <div
                   className="rounded-full w-2 h-2"
                   style={{
-                    backgroundColor: repository.language.color.hexString,
+                    backgroundColor: repository.language.color?.hexString,
                   }}
                 />
               </>
@@ -162,7 +163,7 @@ const RepositoryPreview = ({
                 <div
                   className="rounded-full w-2 h-2"
                   style={{
-                    backgroundColor: repository.language.color.hexString,
+                    backgroundColor: repository.language.color?.hexString,
                   }}
                 />
               </>
