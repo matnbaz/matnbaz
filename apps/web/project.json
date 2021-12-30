@@ -3,6 +3,15 @@
   "sourceRoot": "apps/web",
   "projectType": "application",
   "targets": {
+    "build-sitemap": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["next-sitemap --config apps/web/next-sitemap.js"]
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
     "build": {
       "executor": "@nrwl/next:build",
       "outputs": ["{options.outputPath}"],
@@ -11,6 +20,12 @@
         "root": "apps/web",
         "outputPath": "dist/apps/web"
       },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build-sitemap"
+        }
+      ],
       "configurations": {
         "production": {}
       }
@@ -26,7 +41,13 @@
           "buildTarget": "web:build:production",
           "dev": false
         }
-      }
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build-sitemap"
+        }
+      ]
     },
     "export": {
       "executor": "@nrwl/next:export",
