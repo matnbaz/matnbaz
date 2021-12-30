@@ -91,8 +91,7 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
 }) => {
   if (typeof owner !== 'string')
     return {
-      notfound: true,
-      props: { ownerSlug: '' },
+      notFound: true,
     };
 
   const apolloClient = initializeApollo();
@@ -112,8 +111,7 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
 
   if (!ownerByPlatform)
     return {
-      notfound: true,
-      props: { ownerSlug: owner },
+      notFound: true,
     };
 
   return {

@@ -17,7 +17,7 @@ export const indexMetaTags: IHeaderMetaTags = {
 const Index = () => {
   return (
     <MainLayout maxWidth={false} withoutPadding>
-      <HeaderMeta {...indexMetaTags} withBanner />
+      <HeaderMeta {...indexMetaTags} reversePrefix withBanner />
       <main>
         <div className="overflow-hidden mb-12 sm:mb-24">
           <div className="m-auto h-screen px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right flex items-center">

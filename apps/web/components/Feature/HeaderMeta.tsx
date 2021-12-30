@@ -9,18 +9,29 @@ export interface IHeaderMetaTags {
 
 interface IHeaderMetaProps extends IHeaderMetaTags {
   titlePrefix?: string;
+  reversePrefix?: boolean;
   withBanner?: boolean;
+  banner?: string;
+  bannerWidth?: number;
+  bannerHeight?: number;
 }
 
 const HeaderMeta = ({
   title,
-  titlePrefix = ' – متن‌باز',
+  titlePrefix = 'متن‌باز',
+  reversePrefix = false,
   description,
   image,
-
+  banner = 'https://matnbaz.net/banner.jpg',
   withBanner = false,
+  bannerWidth = 1280,
+  bannerHeight = 640,
 }: IHeaderMetaProps) => {
-  const fullTitle = useMemo(() => title + titlePrefix, [title, titlePrefix]);
+  const fullTitle = useMemo(
+    () =>
+      reversePrefix ? `${titlePrefix} – ${title}` : `${title} – ${titlePrefix}`,
+    [reversePrefix, title, titlePrefix]
+  );
   return (
     <Head>
       <meta name="og:site_name" content="متن‌باز" />
@@ -44,17 +55,10 @@ const HeaderMeta = ({
       )}
       {withBanner ? (
         <>
-          <meta name="og:image" content="https://matnbaz.net/banner.jpg" />
-          <meta
-            name="og:image:alt"
-            content="متن‌باز – تمام پروژه‌های متن‌باز ایرانی در یک جا"
-          />
-          <meta
-            name="twitter:image:src"
-            content="https://matnbaz.net/banner.jpg"
-          />
-          <meta name="og:image:width" content="1280" />
-          <meta name="og:image:height" content="640" />
+          <meta name="og:image" content={banner} />
+          <meta name="twitter:image:src" content={banner} />
+          <meta name="og:image:width" content={bannerWidth.toString()} />
+          <meta name="og:image:height" content={bannerHeight.toString()} />
         </>
       ) : (
         image && <meta name="og:image" content={image} />

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>http://localhost:4200</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-30T12:10:25.525Z</lastmod></url>
+<url><loc>http://localhost:4200/about</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-30T12:10:25.526Z</lastmod></url>
+<url><loc>http://localhost:4200/collections</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-30T12:10:25.526Z</lastmod></url>
+<url><loc>http://localhost:4200/explore</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-30T12:10:25.526Z</lastmod></url>
+<url><loc>http://localhost:4200/submit-user</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-12-30T12:10:25.526Z</lastmod></url>
+</urlset>

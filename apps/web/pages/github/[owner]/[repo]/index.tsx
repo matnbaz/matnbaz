@@ -89,10 +89,10 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         style={{ background: chosenGradient }}
       >
         <div className="px-6 space-y-4 lg:space-y-0 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-300/60 dark:bg-gray-900/75 w-full h-full">
-          <div className="flex text-center flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
             <OwnerImage owner={repo.owner} width={120} height={120} />
             <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
-              <div className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">
+              <div className="text-center text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">
                 <Link href={`/github/${repo.owner.login}`}>
                   {repo.owner.login}
                 </Link>
@@ -189,8 +189,7 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
   async ({ query: { owner, repo }, res }) => {
     if (typeof owner !== 'string' || typeof repo !== 'string')
       return {
-        notfound: true,
-        props: { ownerSlug: '', repoSlug: '' },
+        notFound: true,
       };
 
     const apolloClient = initializeApollo();
@@ -211,8 +210,7 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
 
     if (!repositoryByPlatform)
       return {
-        notfound: true,
-        props: { ownerSlug: '', repoSlug: '' },
+        notFound: true,
       };
     return {
       props: {
