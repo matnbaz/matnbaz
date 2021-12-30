@@ -9,18 +9,24 @@ export interface IHeaderMetaTags {
 
 interface IHeaderMetaProps extends IHeaderMetaTags {
   titlePrefix?: string;
+  reversePrefix?: boolean;
   withBanner?: boolean;
 }
 
 const HeaderMeta = ({
   title,
-  titlePrefix = ' – متن‌باز',
+  titlePrefix = 'متن‌باز',
+  reversePrefix = false,
   description,
   image,
 
   withBanner = false,
 }: IHeaderMetaProps) => {
-  const fullTitle = useMemo(() => title + titlePrefix, [title, titlePrefix]);
+  const fullTitle = useMemo(
+    () =>
+      reversePrefix ? `${titlePrefix} – ${title}` : `${title} – ${titlePrefix}`,
+    [reversePrefix, title, titlePrefix]
+  );
   return (
     <Head>
       <meta name="og:site_name" content="متن‌باز" />
