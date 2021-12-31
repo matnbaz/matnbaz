@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -64,28 +65,33 @@ model License {
 }
 
 model Topic {
-  id           String       @id @default(cuid())
-  name         String       @unique
-  Repositories Repository[]
-  createdAt    DateTime     @default(now())
+  id                 String       @id @default(cuid())
+  name               String       @unique
+  Repositories       Repository[]
+  createdAt          DateTime     @default(now())
   // Used in these collections
-  Collections  Collection[]
+  Collections        Collection[] @relation("topics")
+  CollectionExcluded Collection[] @relation("topics_excluded")
+
 }
 
 model Owner {
-  id              String       @id @default(cuid())
-  platform        PlatformType
-  platformId      String
-  login           String
-  gravatarId      String
-  type            OwnerType
-  siteAdmin       Boolean
-  Repositories    Repository[]
-  extractedAt     DateTime     @default(now())
-  recordUpdatedAt DateTime     @updatedAt
-  blockedAt       DateTime?
-  // Featured in these - owner-specific - collections
-  Collections     Collection[]
+  id                  String       @id @default(cuid())
+  platform            PlatformType
+  platformId          String
+  login               String
+  gravatarId          String
+  type                OwnerType
+  // The reason why this user is added, could be because of having a persian repo, having "Iran" in profile location, having been suggested by submissions, etc.
+  reason              String?
+  siteAdmin           Boolean
+  Repositories        Repository[]
+  extractedAt         DateTime     @default(now())
+  recordUpdatedAt     DateTime     @updatedAt
+  blockedAt           DateTime?
+  // Featured in these collections
+  Collections         Collection[] @relation("owners")
+  CollectionsExcluded Collection[] @relation("owners_excluded")
 
   @@unique([platform, platformId])
   @@unique([platform, login])
@@ -112,12 +118,13 @@ model Report {
 }
 
 model Language {
-  id           String       @id @default(cuid())
-  name         String
-  slug         String       @unique
-  description  String?
-  Repositories Repository[]
-  Collections  Collection[]
+  id                  String       @id @default(cuid())
+  name                String
+  slug                String       @unique
+  description         String?
+  Repositories        Repository[]
+  Collections         Collection[] @relation("collections")
+  CollectionsExcluded Collection[] @relation("collections_excluded")
 }
 
 model User {
@@ -140,29 +147,37 @@ model DiscoveryTerm {
 }
 
 model Collection {
-  id            String                @id @default(cuid())
-  name          String
-  slug          String                @unique
-  description   String?
-  terms         String[]
-  Topics        Topic[]
-  Owners        Owner[]
-  color         String?
-  image         String?
-  Languages     Language[]
-  minStargazers Int?
-  minForks      Int?
-  archived      Boolean?
-  template      Boolean?
-  minCreatedAt  DateTime?
-  maxCreatedAt  DateTime?
-  minPushedAt   DateTime?
-  maxPushedAt   DateTime?
-  Blacklist     CollectionBlacklist[]
-  Whitelist     CollectionWhitelist[]
-  Collects      Collect[]
-  createdAt     DateTime              @default(now())
-  updatedAt     DateTime              @updatedAt
+  id                  String                @id @default(cuid())
+  name                String
+  slug                String                @unique
+  description         String?
+  color               String?
+  image               String?
+  // Title and description
+  terms               String[]
+  termsExcluded       String[]
+  // Readme
+  readmeTerms         String[]
+  readmeTermsExcluded String[]
+  Topics              Topic[]               @relation("topics")
+  TopicsExcluded      Topic[]               @relation("topics_excluded")
+  Owners              Owner[]               @relation("owners")
+  OwnersExcluded      Owner[]               @relation("owners_excluded")
+  Languages           Language[]            @relation("collections")
+  LanguagesExcluded   Language[]            @relation("collections_excluded")
+  minStargazers       Int?
+  minForks            Int?
+  archived            Boolean?
+  template            Boolean?
+  minCreatedAt        DateTime?
+  maxCreatedAt        DateTime?
+  minPushedAt         DateTime?
+  maxPushedAt         DateTime?
+  Blacklist           CollectionBlacklist[]
+  Whitelist           CollectionWhitelist[]
+  Collects            Collect[]
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
 }
 
 model CollectionBlacklist {

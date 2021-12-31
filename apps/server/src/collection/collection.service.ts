@@ -1,3 +1,4 @@
+import { nullToUndefined } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
@@ -31,15 +32,21 @@ export class CollectionService {
         Blacklist: true,
         Whitelist: true,
         Topics: true,
+        TopicsExcluded: true,
         Languages: true,
+        LanguagesExcluded: true,
         Owners: true,
+        OwnersExcluded: true,
       },
     });
     const {
       Blacklist,
       Languages,
+      LanguagesExcluded,
       Owners,
+      OwnersExcluded,
       Topics,
+      TopicsExcluded,
       Whitelist,
       archived,
       maxCreatedAt,
@@ -50,80 +57,127 @@ export class CollectionService {
       minStargazers,
       template,
       terms,
+      termsExcluded,
+      readmeTerms,
+      readmeTermsExcluded,
     } = collection;
 
     const repos = await this.prisma.repository.findMany({
       where: {
+        blockedAt: null,
+
         OR: [
+          // AND:
           {
             AND: [
-              { blockedAt: null },
               {
-                //// Discovery filters
-                OR: [
-                  // Topics
-                  ...Topics.map(({ name }) => ({
-                    Topics: { some: { name } },
-                  })),
-
-                  // Terms
-                  ...terms.map((term) => ({
-                    OR: [
-                      {
-                        name: {
-                          contains: term,
-                          mode: Prisma.QueryMode.insensitive,
-                        },
-                      },
-                      {
-                        description: {
-                          contains: term,
-                          mode: Prisma.QueryMode.insensitive,
-                        },
-                      },
-                    ],
-                  })),
-                ],
-              },
-              //// Restriction filters
-
-              // Language
-              { OR: Languages.map(({ id }) => ({ languageId: id })) },
-
-              // Owners
-              { OR: Owners.map(({ id }) => ({ Owner: { id } })) },
-
-              // Archive
-              archived !== null ? { archived } : undefined,
-
-              // Template
-              template !== null ? { isTemplate: template } : undefined,
-
-              // Minimum stargazers
-              minStargazers !== null
-                ? { stargazersCount: { gte: minStargazers } }
-                : undefined,
-
-              // Minimum forks
-              minForks !== null ? { forksCount: { gte: minForks } } : undefined,
-
-              // Creation date
-              minCreatedAt !== null || maxCreatedAt !== null
-                ? { createdAt: { gte: minCreatedAt, lte: maxCreatedAt } }
-                : undefined,
-
-              // Last push date
-              minPushedAt !== null || maxPushedAt !== null
-                ? { pushedAt: { gte: minPushedAt, lte: maxPushedAt } }
-                : undefined,
-
-              // Blacklist
-              {
-                id: {
-                  notIn: Blacklist.map(({ repositoryId }) => repositoryId),
+                // Archive
+                archived: nullToUndefined(archived, (archived) => archived),
+                // Template
+                isTemplate: nullToUndefined(template),
+                // Minimum stargazers
+                stargazersCount: nullToUndefined(minStargazers, (v) => ({
+                  gte: v,
+                })),
+                // Minimum forks
+                forksCount: nullToUndefined(minForks, (v) => ({ gte: v })),
+                // Creation date
+                createdAt: {
+                  gte: nullToUndefined(minCreatedAt),
+                  lte: nullToUndefined(maxCreatedAt),
+                },
+                // Last push date
+                pushedAt: {
+                  gte: nullToUndefined(minPushedAt),
+                  lte: nullToUndefined(maxPushedAt),
                 },
               },
+              {
+                // Owners
+                OR: Owners.map(({ id }) => ({ Owner: { id } })),
+              },
+              {
+                // Language
+                OR: Languages.map(({ id }) => ({ Language: { id } })),
+              },
             ],
+
+            OR: [
+              // Topics
+              {
+                OR: Topics.map(({ name }) => ({ Topics: { some: { name } } })),
+              },
+
+              // Terms
+              {
+                OR: terms.map((term) => ({
+                  name: {
+                    contains: term,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+
+                  description: {
+                    contains: term,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                })),
+              },
+
+              // README Terms
+              {
+                OR: readmeTerms.map((term) => ({
+                  readme: {
+                    contains: term,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                })),
+              },
+            ],
+
+            NOT: [
+              {
+                // Language
+                OR: LanguagesExcluded.map(({ id }) => ({ Language: { id } })),
+              },
+              {
+                // Owners
+                OR: OwnersExcluded.map(({ id }) => ({ Owner: { id } })),
+              },
+              {
+                // Topics
+                OR: TopicsExcluded.map(({ name }) => ({
+                  Topics: { some: { name } },
+                })),
+              },
+              {
+                // Terms
+                OR: termsExcluded.map((term) => ({
+                  name: {
+                    search: term,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+
+                  description: {
+                    search: term,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                })),
+              },
+
+              {
+                // README Terms
+                OR: readmeTermsExcluded.map((term) => ({
+                  readme: {
+                    contains: term,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                })),
+              },
+            ],
+
+            id: {
+              notIn: Blacklist.map(({ repositoryId }) => repositoryId),
+            },
           },
 
           // Whitelist

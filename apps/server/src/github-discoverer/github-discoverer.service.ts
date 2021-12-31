@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { OwnerType, PlatformType } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
+import { OwnerReason } from '../owner/constants';
 import { MINIMUM_STARS } from './constants';
 
 @Injectable()
@@ -62,7 +63,7 @@ export class GithubDiscovererService {
         // Disqualified
         continue;
       }
-      this.populateOwner(owner);
+      this.populateOwner(owner, OwnerReason.PERSIAN_REPOSITORY);
     }
   }
 
@@ -72,14 +73,16 @@ export class GithubDiscovererService {
     this.populateOwner(
       response.data as Awaited<
         ReturnType<OctokitService['rest']['search']['repos']>
-      >['data']['items'][0]['owner']
+      >['data']['items'][0]['owner'],
+      OwnerReason.SUBMISSION
     );
   }
 
   async populateOwner(
     owner: Awaited<
       ReturnType<OctokitService['rest']['search']['repos']>
-    >['data']['items'][0]['owner']
+    >['data']['items'][0]['owner'],
+    reason: OwnerReason
   ) {
     try {
       await this.prisma.owner.upsert({
@@ -90,6 +93,7 @@ export class GithubDiscovererService {
           },
         },
         create: {
+          reason,
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
           gravatarId: owner.gravatar_id,
@@ -98,6 +102,7 @@ export class GithubDiscovererService {
           siteAdmin: owner.site_admin,
         },
         update: {
+          reason: OwnerReason.PERSIAN_REPOSITORY,
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
           gravatarId: owner.gravatar_id,

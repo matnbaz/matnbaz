@@ -31,6 +31,17 @@ const data = [
     Languages: { connect: { slug: 'php' } },
   },
   {
+    name: 'PHP Minus Laravel',
+    slug: 'php-minus-laravel',
+    color: '#777BB4',
+    description:
+      'این کالکشن برای افرادی‌ست که از پی‌اچ‌پی استفاده می‌کنند اما از فریم‌ورک لاراول استفاده نمی‌کنند.',
+    image: 'https://simpleicons.org/icons/php.svg',
+    Languages: { connect: { slug: 'php' } },
+    TopicsExcluded: { connect: ['laravel'].map((topic) => ({ name: topic })) },
+    termsExcluded: ['laravel', 'لاراول', 'لاراولی'],
+  },
+  {
     name: 'Python',
     slug: 'python',
     color: '#3776AB',
