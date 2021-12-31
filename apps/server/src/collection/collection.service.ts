@@ -190,8 +190,6 @@ export class CollectionService {
       },
     });
 
-    console.log(collection.name, repos.length);
-
     await this.prisma.$transaction([
       this.prisma.collect.deleteMany({
         where: { Collection: { id: collection.id } },
