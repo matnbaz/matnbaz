@@ -16,8 +16,4 @@ export class CollectionScheduler {
       `The cronjob for collections got called, the job is now in the queue.`
     );
   }
-
-  async flushQueue() {
-    this.queue.removeJobs('*');
-  }
 }

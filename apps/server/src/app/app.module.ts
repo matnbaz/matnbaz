@@ -17,6 +17,8 @@ import { ColorModule } from '../color/color.module';
 import { DateModule } from '../date/date.module';
 import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
 import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
+import { GithubLocationModule } from '../github-location/github-location.module';
+import { GithubModule } from '../github/github.module';
 import { HybridThrottlerGuard } from '../hybrid-throttler.guard';
 import { LanguageModule } from '../language/language.module';
 import { LicenseModule } from '../license/license.module';
@@ -72,7 +74,9 @@ import { AppService } from './app.service';
       },
     }),
     OctokitModule,
+    GithubModule,
     GithubDiscovererModule,
+    GithubLocationModule,
     GithubExtractorModule,
     LanguageModule,
     LicenseModule,

@@ -153,12 +153,12 @@ export class CollectionService {
                 // Terms
                 OR: termsExcluded.map((term) => ({
                   name: {
-                    search: term,
+                    contains: term,
                     mode: Prisma.QueryMode.insensitive,
                   },
 
                   description: {
-                    search: term,
+                    contains: term,
                     mode: Prisma.QueryMode.insensitive,
                   },
                 })),

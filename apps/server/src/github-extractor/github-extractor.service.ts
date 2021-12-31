@@ -70,7 +70,7 @@ export class GithubExtractorService {
       // Disqualified
       return;
     }
-    if (repo.description && repo.description.length > 256) {
+    if (repo.description && repo.description.length > 512) {
       // Disqualified (description too long)
       return;
     }

@@ -40,6 +40,7 @@ const data = [
     Languages: { connect: { slug: 'php' } },
     TopicsExcluded: { connect: ['laravel'].map((topic) => ({ name: topic })) },
     termsExcluded: ['laravel', 'لاراول', 'لاراولی'],
+    readmeTermsExcluded: ['laravel', 'لاراول', 'لاراولی'],
   },
   {
     name: 'Python',
@@ -166,7 +167,8 @@ const data = [
       'لاراول یک فریم‌ورک آزاد و متن‌باز برای پی‌اچ‌پی است که برای توسعه برنامه‌های کاربردی وب با الگور معماری MVC ساخته شده است.',
     image: 'https://simpleicons.org/icons/laravel.svg',
     Topics: { connect: ['laravel'].map((topic) => ({ name: topic })) },
-    terms: ['laravel', 'لاراول'],
+    terms: ['laravel', 'لاراول', 'لاراولی'],
+    readmeTerms: ['laravel', 'لاراولی', 'لاراول'],
     Languages: { connect: { slug: 'php' } },
   },
   {
@@ -230,6 +232,11 @@ const data = [
         name: topic,
       })),
     },
+    TopicsExcluded: {
+      connect: ['react-native', 'native'].map((topic) => ({
+        name: topic,
+      })),
+    },
     terms: [
       'react',
       'react.js',
@@ -238,6 +245,8 @@ const data = [
       'ری‌اکت.جی‌اس',
       'ری اکت',
     ],
+    termsExcluded: ['react-native', 'react native', 'native'],
+    readmeTermsExcluded: ['react-native', 'react native', 'native'],
   },
   {
     name: 'React Native',
@@ -251,7 +260,7 @@ const data = [
         name: topic,
       })),
     },
-    terms: ['react-native', 'ری‌اکت نیتیو'],
+    terms: ['react-native', 'react native', 'ری‌اکت نیتیو'],
   },
   {
     name: 'Vue.js',
