@@ -232,6 +232,11 @@ const data = [
         name: topic,
       })),
     },
+    TopicsExcluded: {
+      connect: ['react-native', 'native'].map((topic) => ({
+        name: topic,
+      })),
+    },
     terms: [
       'react',
       'react.js',
@@ -240,6 +245,8 @@ const data = [
       'ری‌اکت.جی‌اس',
       'ری اکت',
     ],
+    termsExcluded: ['react-native', 'react native', 'native'],
+    readmeTermsExcluded: ['react-native', 'react native', 'native'],
   },
   {
     name: 'React Native',
@@ -253,7 +260,7 @@ const data = [
         name: topic,
       })),
     },
-    terms: ['react-native', 'ری‌اکت نیتیو'],
+    terms: ['react-native', 'react native', 'ری‌اکت نیتیو'],
   },
   {
     name: 'Vue.js',
