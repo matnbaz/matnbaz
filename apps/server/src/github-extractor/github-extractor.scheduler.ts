@@ -16,8 +16,4 @@ export class GithubExtractorScheduler {
       `The cronjob for GitHub's extraction got called, the job is now in the queue.`
     );
   }
-
-  async flushQueue() {
-    this.queue.removeJobs('*');
-  }
 }
