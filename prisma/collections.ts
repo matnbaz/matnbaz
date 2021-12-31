@@ -40,6 +40,7 @@ const data = [
     Languages: { connect: { slug: 'php' } },
     TopicsExcluded: { connect: ['laravel'].map((topic) => ({ name: topic })) },
     termsExcluded: ['laravel', 'لاراول', 'لاراولی'],
+    readmeTermsExcluded: ['laravel', 'لاراول', 'لاراولی'],
   },
   {
     name: 'Python',
@@ -166,7 +167,8 @@ const data = [
       'لاراول یک فریم‌ورک آزاد و متن‌باز برای پی‌اچ‌پی است که برای توسعه برنامه‌های کاربردی وب با الگور معماری MVC ساخته شده است.',
     image: 'https://simpleicons.org/icons/laravel.svg',
     Topics: { connect: ['laravel'].map((topic) => ({ name: topic })) },
-    terms: ['laravel', 'لاراول'],
+    terms: ['laravel', 'لاراول', 'لاراولی'],
+    readmeTerms: ['laravel', 'لاراولی', 'لاراول'],
     Languages: { connect: { slug: 'php' } },
   },
   {
