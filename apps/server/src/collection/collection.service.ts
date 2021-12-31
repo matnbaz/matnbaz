@@ -69,37 +69,38 @@ export class CollectionService {
         OR: [
           // AND:
           {
-            // Archive
-            archived: nullToUndefined(archived, (archived) => archived),
-
-            // Template
-            isTemplate: nullToUndefined(template),
-
-            // Minimum stargazers
-            stargazersCount: nullToUndefined(minStargazers, (v) => ({
-              gte: v,
-            })),
-
-            // Minimum forks
-            forksCount: nullToUndefined(minForks, (v) => ({ gte: v })),
-
-            // Creation date
-            createdAt: {
-              gte: nullToUndefined(minCreatedAt),
-              lte: nullToUndefined(maxCreatedAt),
-            },
-
-            // Last push date
-            pushedAt: {
-              gte: nullToUndefined(minPushedAt),
-              lte: nullToUndefined(maxPushedAt),
-            },
-
-            // Owners
-            ...Owners.map(({ id }) => ({ Owner: { id } })),
-
-            // Language
-            ...Languages.map(({ id }) => ({ languageId: id })),
+            AND: [
+              {
+                // Archive
+                archived: nullToUndefined(archived, (archived) => archived),
+                // Template
+                isTemplate: nullToUndefined(template),
+                // Minimum stargazers
+                stargazersCount: nullToUndefined(minStargazers, (v) => ({
+                  gte: v,
+                })),
+                // Minimum forks
+                forksCount: nullToUndefined(minForks, (v) => ({ gte: v })),
+                // Creation date
+                createdAt: {
+                  gte: nullToUndefined(minCreatedAt),
+                  lte: nullToUndefined(maxCreatedAt),
+                },
+                // Last push date
+                pushedAt: {
+                  gte: nullToUndefined(minPushedAt),
+                  lte: nullToUndefined(maxPushedAt),
+                },
+              },
+              {
+                // Owners
+                OR: Owners.map(({ id }) => ({ Owner: { id } })),
+              },
+              {
+                // Language
+                OR: Languages.map(({ id }) => ({ Language: { id } })),
+              },
+            ],
 
             OR: [
               // Topics
@@ -133,37 +134,49 @@ export class CollectionService {
               },
             ],
 
-            NOT: {
-              // Language
-              ...LanguagesExcluded.map(({ id }) => ({ languageId: id })),
-
-              // Owners
-              ...OwnersExcluded.map(({ id }) => ({ Owner: { id } })),
-
-              // Terms
-              ...termsExcluded.map((term) => ({
-                name: {
-                  contains: term,
-                  mode: Prisma.QueryMode.insensitive,
-                },
-
-                description: {
-                  contains: term,
-                  mode: Prisma.QueryMode.insensitive,
-                },
-              })),
-
-              // README Terms
-              ...readmeTermsExcluded.map((term) => ({
-                readme: {
-                  notIn: term,
-                  mode: Prisma.QueryMode.insensitive,
-                },
-              })),
-
-              id: {
-                notIn: Blacklist.map(({ repositoryId }) => repositoryId),
+            NOT: [
+              {
+                // Language
+                OR: LanguagesExcluded.map(({ id }) => ({ Language: { id } })),
               },
+              {
+                // Owners
+                OR: OwnersExcluded.map(({ id }) => ({ Owner: { id } })),
+              },
+              {
+                // Topics
+                OR: TopicsExcluded.map(({ name }) => ({
+                  Topics: { some: { name } },
+                })),
+              },
+              {
+                // Terms
+                OR: termsExcluded.map((term) => ({
+                  name: {
+                    search: term,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+
+                  description: {
+                    search: term,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                })),
+              },
+
+              {
+                // README Terms
+                OR: readmeTermsExcluded.map((term) => ({
+                  readme: {
+                    contains: term,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                })),
+              },
+            ],
+
+            id: {
+              notIn: Blacklist.map(({ repositoryId }) => repositoryId),
             },
           },
 
@@ -176,6 +189,8 @@ export class CollectionService {
         ],
       },
     });
+
+    console.log(collection.name, repos.length);
 
     await this.prisma.$transaction([
       this.prisma.collect.deleteMany({
