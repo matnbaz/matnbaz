@@ -3,6 +3,30 @@
   "sourceRoot": "apps/server/src",
   "projectType": "application",
   "targets": {
+    "build-cli": {
+      "executor": "@nrwl/node:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "webpackConfig": "apps/server/webpack.config.js",
+        "outputPath": "dist/apps/server-cli",
+        "main": "apps/server/src/cli.ts",
+        "tsConfig": "apps/server/tsconfig.app.json",
+        "assets": ["apps/server/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/server/src/environments/environment.ts",
+              "with": "apps/server/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
     "build": {
       "executor": "@nrwl/node:build",
       "outputs": ["{options.outputPath}"],
