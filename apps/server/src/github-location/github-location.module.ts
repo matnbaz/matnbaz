@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { GithubModule } from '../github/github.module';
 import { OctokitModule } from '../octokit/octokit.module';
 import { GITHUB_QUEUE } from '../queue';
-import { GithubLocationController } from './github-location.controller';
+import { GithubLocationCommand } from './github-location.command';
 import { GithubLocationProcessor } from './github-location.processor';
 import { GithubLocationScheduler } from './github-location.scheduler';
 import { GithubLocationService } from './github-location.service';
@@ -18,8 +18,8 @@ import { GithubLocationService } from './github-location.service';
     GithubLocationProcessor,
     GithubLocationScheduler,
     GithubLocationService,
+    GithubLocationCommand,
   ],
-  controllers: [GithubLocationController],
   exports: [],
 })
 export class GithubLocationModule {}

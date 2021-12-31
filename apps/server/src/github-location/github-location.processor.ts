@@ -13,9 +13,6 @@ export class GithubLocationProcessor {
     this.logger.log(
       'Starting the discovery of repositories based on location...'
     );
-    await this.locationService.getIranianOwners('followers', 'desc');
-    await this.locationService.getIranianOwners('repositories', 'desc');
-    await this.locationService.getIranianOwners('joined', 'asc');
-    await this.locationService.getIranianOwners('joined', 'desc');
+    await this.locationService.getIranianOwnersVoraciously();
   }
 }

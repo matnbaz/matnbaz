@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { GithubModule } from '../github/github.module';
 import { OctokitModule } from '../octokit/octokit.module';
 import { GITHUB_QUEUE } from '../queue';
-import { GithubDiscovererController } from './github-discoverer.controller';
+import { GithubDiscovererCommand } from './github-discoverer.command';
 import { GithubDiscovererProcessor } from './github-discoverer.processor';
 import { GithubDiscovererScheduler } from './github-discoverer.scheduler';
 import { GithubDiscovererService } from './github-discoverer.service';
@@ -18,8 +18,8 @@ import { GithubDiscovererService } from './github-discoverer.service';
     GithubDiscovererProcessor,
     GithubDiscovererScheduler,
     GithubDiscovererService,
+    GithubDiscovererCommand,
   ],
-  controllers: [GithubDiscovererController],
   exports: [],
 })
 export class GithubDiscovererModule {}

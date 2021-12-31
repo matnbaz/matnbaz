@@ -11,6 +11,16 @@ export class GithubLocationService {
   ) {}
   logger = new Logger(GithubLocationService.name);
 
+  /**
+   * Gets as much as it can
+   */
+  async getIranianOwnersVoraciously() {
+    await this.getIranianOwners('followers', 'desc');
+    await this.getIranianOwners('repositories', 'desc');
+    await this.getIranianOwners('joined', 'asc');
+    await this.getIranianOwners('joined', 'desc');
+  }
+
   async getIranianOwners(
     sort: 'repositories' | 'joined' | 'followers' = 'followers',
     order: 'asc' | 'desc' = 'desc'
