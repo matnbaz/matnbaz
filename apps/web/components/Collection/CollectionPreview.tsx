@@ -58,11 +58,11 @@ export const CollectionPreview = ({
           />
         )}
         {/* eslint-enable @next/next/no-img-element */}
-        <div
-          dir="ltr"
-          className="text-center text-sm sm:text-lg sm:font-bold mt-4"
-        >
-          {name}
+        <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
+          <span dir="ltr">{name}</span>{' '}
+          {repositoriesCount && (
+            <> &mdash; {repositoriesCount.toLocaleString('fa')} پروژه</>
+          )}
         </div>
         {variation === 'big' && description && (
           <p className="mt-2 text-center text-medium">{description}</p>
