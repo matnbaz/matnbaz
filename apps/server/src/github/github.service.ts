@@ -13,7 +13,10 @@ export class GithubService {
   private logger = new Logger(GithubService.name);
 
   async addOwner(username: string) {
-    const response = await this.octokit.rest.users.getByUsername({ username });
+    const response = await this.octokit.rest.users.getByUsername({
+      username,
+      request: { timeout: 10000 },
+    });
 
     this.populateOwner(
       response.data as Awaited<

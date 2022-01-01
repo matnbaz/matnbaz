@@ -38,6 +38,7 @@ export class GithubLocationService {
         order,
         per_page: 100,
         page,
+        request: { timeout: 10000 },
       });
 
       page++;

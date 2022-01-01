@@ -106,7 +106,10 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
                   {repo.name}
                 </a>
               </div>
-              <span className="text-secondary text-sm md:text-base max-w-[45rem]">
+              <span
+                className="text-secondary text-sm md:text-base max-w-[45rem]"
+                dir={repo.descriptionDirection.toLowerCase()}
+              >
                 {repo.descriptionLimited}
               </span>
               {repo.language && (
@@ -155,7 +158,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             {repo.readmeHtml ? (
               <Expandable>
                 <div
-                  dir="ltr"
+                  dir={repo.readmeDirection.toLowerCase()}
                   className="prose dark:prose-invert overflow-y-auto"
                   dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
                 ></div>

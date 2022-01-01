@@ -1,3 +1,4 @@
+export * from './lib/guess-direction';
 export * from './lib/humanly-readable-date';
 export * from './lib/null-to-undefined';
 export * from './lib/persian-numbers';

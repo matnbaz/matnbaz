@@ -1,6 +1,7 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { CacheControl } from '@exonest/graphql-cache-control';
 import { PaginationArgs } from '@exonest/graphql-connections';
+import { guessDirection } from '@matnbaz/common';
 import {
   Args,
   ID,
@@ -274,27 +275,8 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
   descriptionDirection(
     @Parent() { description }: P.Repository
   ): ScriptDirection {
-    // We check if the first 5 characters include any persian words
     if (!description || description.length < 5) return ScriptDirection.LTR;
-    return description
-      .slice(0, 4)
-      .match(/[\u0600-\u06FF\uFB8A\u067E\u0686\u06AF\u200C\u200F]/g)
-      ? ScriptDirection.RTL
-      : ScriptDirection.LTR;
-  }
-
-  @ResolveField(() => String, { nullable: true })
-  async readmeHtml(@Parent() repo: P.Repository) {
-    const { readme, readmeHtml, defaultBranch } = repo;
-    if (!readme) return null;
-    if (readmeHtml) return readmeHtml;
-
-    // For backward compatibility (not every readme is rendered in production right now)
-    return this.githubReadmeExtractor.renderReadme(
-      readme,
-      await this.fullName(repo),
-      defaultBranch
-    );
+    return guessDirection(description.slice(0, 4)) as ScriptDirection;
   }
 
   @ResolveField(() => String, { nullable: true })
@@ -316,6 +298,26 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     );
 
     return trimmedString.length > 0 ? trimmedString + '...' : null;
+  }
+
+  @ResolveField(() => String, { nullable: true })
+  async readmeHtml(@Parent() repo: P.Repository) {
+    const { readme, readmeHtml, defaultBranch } = repo;
+    if (!readme) return null;
+    if (readmeHtml) return readmeHtml;
+
+    // For backward compatibility (not every readme is rendered in production right now)
+    return this.githubReadmeExtractor.renderReadme(
+      readme,
+      await this.fullName(repo),
+      defaultBranch
+    );
+  }
+
+  @ResolveField(() => ScriptDirection)
+  readmeDirection(@Parent() { readme }: P.Repository): ScriptDirection {
+    if (!readme) return ScriptDirection.LTR;
+    return guessDirection(readme) as ScriptDirection;
   }
 
   @ResolveField(() => DateObject)
