@@ -316,8 +316,8 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
 
   @ResolveField(() => ScriptDirection)
   readmeDirection(@Parent() { readme }: P.Repository): ScriptDirection {
-    if (!readme || readme.length < 5) return ScriptDirection.LTR;
-    return guessDirection(readme.slice(0, 64)) as ScriptDirection;
+    if (!readme) return ScriptDirection.LTR;
+    return guessDirection(readme) as ScriptDirection;
   }
 
   @ResolveField(() => DateObject)
