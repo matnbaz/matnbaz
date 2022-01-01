@@ -52,8 +52,21 @@ model Repository {
   CollectionBlacklists CollectionBlacklist[]
   CollectionWhitelists CollectionWhitelist[]
   Collects             Collect[]
+  Statistics           RepositoryStatistic[]
 
   @@unique([platform, platformId])
+}
+
+model RepositoryStatistic {
+  id              String     @id @default(cuid())
+  createdAt       DateTime   @default(now())
+  size            Int
+  stargazersCount Int
+  watchersCount   Int
+  forksCount      Int
+  openIssuesCount Int
+  Repository      Repository @relation(fields: [repositoryId], references: [id])
+  repositoryId    String
 }
 
 model License {
@@ -96,6 +109,12 @@ model Owner {
   @@unique([platform, platformId])
   @@unique([platform, login])
 }
+
+// TODO: owner statistics (contribution, followers, etc.)
+// model OwnerStatistic {
+//   id              String   @id @default(cuid())
+//   createdAt       DateTime @default(now())
+// }
 
 model Submission {
   id         String       @id @default(cuid())

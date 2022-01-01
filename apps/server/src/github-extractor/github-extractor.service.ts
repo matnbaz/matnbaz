@@ -171,6 +171,17 @@ export class GithubExtractorService {
       update: repoData,
     });
 
+    await this.prisma.repositoryStatistic.create({
+      data: {
+        forksCount: repo.forks_count,
+        openIssuesCount: repo.open_issues_count,
+        size: repo.size,
+        stargazersCount: repo.stargazers_count,
+        watchersCount: repo.watchers_count,
+        Repository: { connect: { id: repoInDb.id } },
+      },
+    });
+
     return repoInDb;
   }
 }
