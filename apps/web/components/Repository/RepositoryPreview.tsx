@@ -147,7 +147,10 @@ const RepositoryPreview = ({
               {repository.fullName}
             </div>
 
-            <p className="text-secondary text-sm">
+            <p
+              className="text-secondary text-sm"
+              dir={repository.descriptionDirection.toLowerCase()}
+            >
               {repository.descriptionLimited}
             </p>
           </div>

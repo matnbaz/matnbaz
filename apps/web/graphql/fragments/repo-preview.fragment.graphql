@@ -4,6 +4,7 @@ fragment repoPreviewWithoutOwner on Repository {
   platformUrl
   platform
   descriptionLimited
+  descriptionDirection
   stargazersCount
   forksCount
   openIssuesCount

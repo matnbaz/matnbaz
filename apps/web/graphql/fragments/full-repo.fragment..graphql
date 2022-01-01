@@ -5,6 +5,7 @@ fragment fullRepo on Repository {
   platformUrl
   platform
   descriptionLimited
+  descriptionDirection
   archived
   isTemplate
   defaultBranch
@@ -19,6 +20,7 @@ fragment fullRepo on Repository {
   forksCount
   openIssuesCount
   readmeHtml
+  readmeDirection
   language {
     name
     color {
