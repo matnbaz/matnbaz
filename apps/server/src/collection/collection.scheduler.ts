@@ -11,7 +11,7 @@ export class CollectionScheduler {
 
   @Cron(CronExpression.EVERY_DAY_AT_6AM)
   async collect() {
-    this.queue.add('collect');
+    await this.queue.add('collect');
     this.logger.log(
       `The cronjob for collections got called, the job is now in the queue.`
     );

@@ -14,7 +14,5 @@ export class GithubLocationProcessor {
       'Starting the discovery of repositories based on location...'
     );
     await this.locationService.getIranianOwnersVoraciously();
-
-    return {};
   }
 }

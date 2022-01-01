@@ -11,7 +11,7 @@ export class GithubLocationScheduler {
 
   @Cron(CronExpression.EVERY_DAY_AT_4AM)
   async discoverByLocation() {
-    this.queue.add('discover-by-location');
+    await this.queue.add('discover-by-location');
     this.logger.log(
       `The cronjob for GitHub's user location-based user discovery got called, the job is now in the queue.`
     );

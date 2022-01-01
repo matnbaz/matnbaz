@@ -13,7 +13,5 @@ export class GithubDiscovererProcessor {
     this.logger.log('Starting the extraction of repositories...');
 
     await this.discoverer.discoverByPredefinedTerms();
-
-    return {};
   }
 }

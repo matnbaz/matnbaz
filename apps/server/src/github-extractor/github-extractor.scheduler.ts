@@ -11,7 +11,7 @@ export class GithubExtractorScheduler {
 
   @Cron(CronExpression.EVERY_DAY_AT_3AM)
   async extract() {
-    this.queue.add('extract');
+    await this.queue.add('extract');
     this.logger.log(
       `The cronjob for GitHub's extraction got called, the job is now in the queue.`
     );

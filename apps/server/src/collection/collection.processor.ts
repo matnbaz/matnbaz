@@ -13,7 +13,5 @@ export class CollectionProcessor {
     this.logger.log('Starting collecting the repositories...');
 
     await this.collector.collectAllCollections();
-
-    return {};
   }
 }

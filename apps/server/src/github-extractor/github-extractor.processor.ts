@@ -13,7 +13,5 @@ export class GithubExtractorProcessor {
     this.logger.log('Starting the extraction of repositories...');
 
     await this.extractor.extractAllOwners();
-
-    return {};
   }
 }
