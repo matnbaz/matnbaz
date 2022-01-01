@@ -11,6 +11,7 @@ export class CollectionProcessor {
   @Process('collect')
   async collectProcess() {
     this.logger.log('Starting collecting the repositories...');
-    this.collector.collectAllCollections();
+
+    await this.collector.collectAllCollections();
   }
 }

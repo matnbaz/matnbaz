@@ -11,6 +11,7 @@ export class GithubDiscovererProcessor {
   @Process('discover')
   async discoverProcess() {
     this.logger.log('Starting the extraction of repositories...');
-    this.discoverer.discoverByPredefinedTerms();
+
+    await this.discoverer.discoverByPredefinedTerms();
   }
 }

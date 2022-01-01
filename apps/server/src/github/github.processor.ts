@@ -18,6 +18,6 @@ export class GithubProcessor {
       return;
     }
 
-    this.githubService.addOwner(job.data.username);
+    await this.githubService.addOwner(job.data.username);
   }
 }

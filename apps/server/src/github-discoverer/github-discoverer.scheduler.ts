@@ -11,7 +11,7 @@ export class GithubDiscovererScheduler {
 
   @Cron(CronExpression.EVERY_DAY_AT_2AM)
   async discover() {
-    this.queue.add('discover');
+    await this.queue.add('discover');
     this.logger.log(
       `The cronjob for GitHub's discovery got called, the job is now in the queue.`
     );
