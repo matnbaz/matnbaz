@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { OwnerType, PlatformType } from '../../lib/graphql-types';
+import {
+  OwnerType,
+  PlatformType,
+  ScriptDirection,
+} from '../../lib/graphql-types';
 import RepositoryPreviewSkeletonLoader from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
 import RepositoryPreview, {
   IRepositoryPreviewProps,
@@ -59,6 +63,7 @@ export const RepositoryPreviewFromGithub = ({
             hexString: commonColorsTable[repo.language] || '#1e90ff',
           },
         },
+        descriptionDirection: ScriptDirection.Ltr,
       }}
       {...props}
     />
