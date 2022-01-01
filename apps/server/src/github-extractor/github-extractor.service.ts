@@ -44,9 +44,9 @@ export class GithubExtractorService {
   private async extractRepos(owner: Owner) {
     try {
       const response = await this.octokit.rest.repos.listForUser({
-        request: { timeout: 10000 },
         per_page: 100,
         username: owner.login,
+        request: { timeout: 10000 },
       });
 
       const repos = response.data;

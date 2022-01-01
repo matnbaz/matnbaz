@@ -39,6 +39,7 @@ export class GithubDiscovererService {
         per_page: 100,
         page,
         sort: 'stars',
+        request: { timeout: 10000 },
       });
 
       page++;
