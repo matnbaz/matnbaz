@@ -17,7 +17,10 @@ export class GithubExtractorService {
 
   async extractAllOwners() {
     const owners = await this.prisma.owner.findMany({
-      where: { platform: 'GitHub', blockedAt: null },
+      where: {
+        platform: 'GitHub',
+        blockedAt: null,
+      },
     });
 
     this.logger.log(`${owners.length} owners found. Extracting now...`);
@@ -41,6 +44,7 @@ export class GithubExtractorService {
   private async extractRepos(owner: Owner) {
     try {
       const response = await this.octokit.rest.repos.listForUser({
+        request: { timeout: 10000 },
         per_page: 100,
         username: owner.login,
       });
