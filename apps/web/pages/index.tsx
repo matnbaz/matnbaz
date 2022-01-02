@@ -162,6 +162,7 @@ const Index = () => {
                   <CollectionPreview
                     disabled
                     className="order-4 flex-shrink-0 translate-x-4"
+                    style={{ zIndex: 1 }}
                     collection={{
                       name: 'Flutter',
                       slug: 'flutter',
@@ -172,6 +173,7 @@ const Index = () => {
                   <CollectionPreview
                     disabled
                     className="order-2 flex-shrink-0 -translate-x-4"
+                    style={{ zIndex: 1 }}
                     collection={{
                       name: 'React',
                       slug: 'react',
@@ -182,6 +184,7 @@ const Index = () => {
                   <CollectionPreview
                     disabled
                     className="order-3 flex-shrink-0 scale-110"
+                    style={{ zIndex: 2 }}
                     collection={{
                       name: 'JavaScript',
                       slug: 'javascript',
