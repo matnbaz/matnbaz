@@ -52,7 +52,7 @@ class AppDocument extends Document {
             />
           </>
         )}
-        <body className="bg-white dark:bg-gray-900 selection:bg-primary-400 selection:text-gray-900">
+        <body className="bg-white dark:bg-gray-900 selection:bg-primary-400 selection:text-gray-900 text-black dark:text-white">
           <div id="modal" />
           <Main />
           <NextScript />
