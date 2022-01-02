@@ -31,21 +31,18 @@ export class GithubExtractorService {
       );
     }, 60000);
     while (ownersCount > completedCount) {
-      const owners = await this.prisma.owner.findMany({
+      for (const owner of await this.prisma.owner.findMany({
         where: {
           platform: 'GitHub',
           blockedAt: null,
         },
         cursor: lastOwnerId && { id: lastOwnerId },
         take: 100,
-      });
-
-      for (const owner of owners) {
+      })) {
         await this.extractRepos(owner);
         completedCount++;
+        lastOwnerId = owner.id;
       }
-
-      lastOwnerId = owners[owners.length - 1].id;
     }
   }
 
