@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
@@ -12,47 +9,50 @@ datasource db {
 }
 
 model Repository {
-  id                   String                @id @default(cuid())
-  platform             PlatformType
-  platformId           String
-  size                 Int
-  stargazersCount      Int
-  watchersCount        Int
-  forksCount           Int
-  openIssuesCount      Int
-  hasIssues            Boolean
-  hasProjects          Boolean
-  hasWiki              Boolean
-  hasPages             Boolean
-  archived             Boolean
-  disabled             Boolean
-  allowForking         Boolean
-  isFork               Boolean
-  isTemplate           Boolean
-  createdAt            DateTime
-  updatedAt            DateTime
-  pushedAt             DateTime
-  extractedAt          DateTime              @default(now())
-  recordUpdatedAt      DateTime              @updatedAt
-  name                 String
-  description          String?
-  readme               String?
-  readmeHtml           String?
-  defaultBranch        String
-  homePage             String?
-  mirrorUrl            String?
-  Owner                Owner                 @relation(fields: [ownerId], references: [id])
-  ownerId              String
-  Language             Language?             @relation(fields: [languageId], references: [id])
-  languageId           String?
-  License              License?              @relation(fields: [licenseId], references: [id])
-  licenseId            String?
-  Topics               Topic[]
-  blockedAt            DateTime?
-  CollectionBlacklists CollectionBlacklist[]
-  CollectionWhitelists CollectionWhitelist[]
-  Collects             Collect[]
-  Statistics           RepositoryStatistic[]
+  id                    String                @id @default(cuid())
+  platform              PlatformType
+  platformId            String
+  size                  Int
+  stargazersCount       Int
+  watchersCount         Int
+  forksCount            Int
+  openIssuesCount       Int
+  weeklyTrendIndicator  Float                 @default(1)
+  monthlyTrendIndicator Float                 @default(1)
+  yearlyTrendIndicator  Float                 @default(1)
+  hasIssues             Boolean
+  hasProjects           Boolean
+  hasWiki               Boolean
+  hasPages              Boolean
+  archived              Boolean
+  disabled              Boolean
+  allowForking          Boolean
+  isFork                Boolean
+  isTemplate            Boolean
+  createdAt             DateTime
+  updatedAt             DateTime
+  pushedAt              DateTime
+  extractedAt           DateTime              @default(now())
+  recordUpdatedAt       DateTime              @updatedAt
+  name                  String
+  description           String?
+  readme                String?
+  readmeHtml            String?
+  defaultBranch         String
+  homePage              String?
+  mirrorUrl             String?
+  ownerId               String
+  languageId            String?
+  licenseId             String?
+  blockedAt             DateTime?
+  Language              Language?             @relation(fields: [languageId], references: [id])
+  License               License?              @relation(fields: [licenseId], references: [id])
+  Owner                 Owner                 @relation(fields: [ownerId], references: [id])
+  Collects              Collect[]
+  CollectionBlacklists  CollectionBlacklist[]
+  CollectionWhitelists  CollectionWhitelist[]
+  Statistics            RepositoryStatistic[]
+  Topics                Topic[]
 
   @@unique([platform, platformId])
 }
@@ -65,9 +65,15 @@ model RepositoryStatistic {
   watchersCount   Int
   forksCount      Int
   openIssuesCount Int
-  Repository      Repository @relation(fields: [repositoryId], references: [id])
   repositoryId    String
+  Repository      Repository @relation(fields: [repositoryId], references: [id])
 }
+
+// TODO: owner statistics (contribution, followers, etc.)
+// model OwnerStatistic {
+//   id              String   @id @default(cuid())
+//   createdAt       DateTime @default(now())
+// }
 
 model License {
   id           String       @id @default(cuid())
@@ -80,12 +86,10 @@ model License {
 model Topic {
   id                 String       @id @default(cuid())
   name               String       @unique
-  Repositories       Repository[]
   createdAt          DateTime     @default(now())
-  // Used in these collections
+  Repositories       Repository[]
   Collections        Collection[] @relation("topics")
   CollectionExcluded Collection[] @relation("topics_excluded")
-
 }
 
 model Owner {
@@ -95,26 +99,18 @@ model Owner {
   login               String
   gravatarId          String
   type                OwnerType
-  // The reason why this user is added, could be because of having a persian repo, having "Iran" in profile location, having been suggested by submissions, etc.
   reason              String?
   siteAdmin           Boolean
-  Repositories        Repository[]
   extractedAt         DateTime     @default(now())
   recordUpdatedAt     DateTime     @updatedAt
   blockedAt           DateTime?
-  // Featured in these collections
+  Repositories        Repository[]
   Collections         Collection[] @relation("owners")
   CollectionsExcluded Collection[] @relation("owners_excluded")
 
-  @@unique([platform, platformId])
   @@unique([platform, login])
+  @@unique([platform, platformId])
 }
-
-// TODO: owner statistics (contribution, followers, etc.)
-// model OwnerStatistic {
-//   id              String   @id @default(cuid())
-//   createdAt       DateTime @default(now())
-// }
 
 model Submission {
   id         String       @id @default(cuid())
@@ -133,7 +129,6 @@ model Report {
   reportableType  ReportableType
   hasBeenResolved Boolean        @default(false)
   createdAt       DateTime       @default(now())
-
 }
 
 model Language {
@@ -172,18 +167,10 @@ model Collection {
   description         String?
   color               String?
   image               String?
-  // Title and description
   terms               String[]
   termsExcluded       String[]
-  // Readme
   readmeTerms         String[]
   readmeTermsExcluded String[]
-  Topics              Topic[]               @relation("topics")
-  TopicsExcluded      Topic[]               @relation("topics_excluded")
-  Owners              Owner[]               @relation("owners")
-  OwnersExcluded      Owner[]               @relation("owners_excluded")
-  Languages           Language[]            @relation("collections")
-  LanguagesExcluded   Language[]            @relation("collections_excluded")
   minStargazers       Int?
   minForks            Int?
   archived            Boolean?
@@ -192,42 +179,48 @@ model Collection {
   maxCreatedAt        DateTime?
   minPushedAt         DateTime?
   maxPushedAt         DateTime?
-  Blacklist           CollectionBlacklist[]
-  Whitelist           CollectionWhitelist[]
-  Collects            Collect[]
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
+  Collects            Collect[]
+  Blacklist           CollectionBlacklist[]
+  Whitelist           CollectionWhitelist[]
+  Languages           Language[]            @relation("collections")
+  LanguagesExcluded   Language[]            @relation("collections_excluded")
+  Owners              Owner[]               @relation("owners")
+  OwnersExcluded      Owner[]               @relation("owners_excluded")
+  Topics              Topic[]               @relation("topics")
+  TopicsExcluded      Topic[]               @relation("topics_excluded")
 }
 
 model CollectionBlacklist {
   id           String     @id @default(cuid())
-  Collection   Collection @relation(fields: [collectionId], references: [id])
-  Repository   Repository @relation(fields: [repositoryId], references: [id])
   collectionId String
   repositoryId String
   createdAt    DateTime   @default(now())
+  Collection   Collection @relation(fields: [collectionId], references: [id])
+  Repository   Repository @relation(fields: [repositoryId], references: [id])
 
   @@unique([collectionId, repositoryId])
 }
 
 model CollectionWhitelist {
   id           String     @id @default(cuid())
-  Collection   Collection @relation(fields: [collectionId], references: [id])
-  Repository   Repository @relation(fields: [repositoryId], references: [id])
   collectionId String
   repositoryId String
   createdAt    DateTime   @default(now())
+  Collection   Collection @relation(fields: [collectionId], references: [id])
+  Repository   Repository @relation(fields: [repositoryId], references: [id])
 
   @@unique([collectionId, repositoryId])
 }
 
 model Collect {
   id           String     @id @default(cuid())
-  Collection   Collection @relation(fields: [collectionId], references: [id])
-  Repository   Repository @relation(fields: [repositoryId], references: [id])
   collectionId String
   repositoryId String
   createdAt    DateTime   @default(now())
+  Collection   Collection @relation(fields: [collectionId], references: [id])
+  Repository   Repository @relation(fields: [repositoryId], references: [id])
 }
 
 enum OwnerType {

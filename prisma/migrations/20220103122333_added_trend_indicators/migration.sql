@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Repository" ADD COLUMN     "monthlyTrendIndicator" DOUBLE PRECISION NOT NULL DEFAULT 1,
+ADD COLUMN     "weeklyTrendIndicator" DOUBLE PRECISION NOT NULL DEFAULT 1,
+ADD COLUMN     "yearlyTrendIndicator" DOUBLE PRECISION NOT NULL DEFAULT 1;
