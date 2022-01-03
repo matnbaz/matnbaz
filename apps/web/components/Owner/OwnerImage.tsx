@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo } from 'react';
 interface IOwnerImageProps {
@@ -19,7 +18,8 @@ const OwnerImage = ({
 }: IOwnerImageProps) => {
   const ImageComponent = useMemo(
     () => (
-      <Image
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
         width={width || 100}
         height={height || 100}
         src={`https://avatars.githubusercontent.com/u/${owner.platformId}?v=4`}
