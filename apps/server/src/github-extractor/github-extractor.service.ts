@@ -47,30 +47,48 @@ export class GithubExtractorService {
     }
   }
 
-  private async extractRepos(owner: { login: string }) {
-    try {
-      const response = await this.octokit.rest.repos.listForUser({
-        per_page: 100,
-        username: owner.login,
-        request: { timeout: 4000 },
-      });
+  private extractRepos(owner: { login: string }) {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        this.logger.warn(
+          `extracting ${owner.login}'s repos taking too long. skipping...`
+        );
+        resolve();
+      }, 2000); // Max timeout
 
-      const repos = response.data;
+      this.octokit.rest.repos
+        .listForUser({
+          per_page: 100,
+          username: owner.login,
+          request: { timeout: 4000 },
+        })
+        .then((response) => {
+          const repos = response.data;
 
-      for (const repo of repos) {
-        // Disqualified (low stars)
-        if (repo.stargazers_count < MINIMUM_STARS) continue;
+          for (const repo of repos) {
+            // Disqualified (low stars)
+            if (repo.stargazers_count < MINIMUM_STARS) continue;
 
-        // Disqualified (description too long)
-        if (repo.description && repo.description.length > 512) continue;
+            // Disqualified (description too long)
+            if (repo.description && repo.description.length > 512) continue;
 
-        const repoInDb = await this.githubService.populateRepo(repo);
-        if (repoInDb) await this.readmeExtractor.extractReadme(repoInDb.id);
-      }
-    } catch (e) {
-      this.logger.error(
-        `Error occured while extracting repos for ${owner.login}. ${e.message}`
-      );
-    }
+            this.githubService
+              .populateRepo(repo)
+              .then((repoInDb) => {
+                if (repoInDb)
+                  this.readmeExtractor
+                    .extractReadme(repoInDb.id)
+                    .finally(() => resolve());
+              })
+              .catch(() => resolve());
+          }
+        })
+        .catch((e) => {
+          this.logger.error(
+            `Error occured while extracting repos for ${owner.login}. ${e.message}`
+          );
+          resolve();
+        });
+    });
   }
 }
