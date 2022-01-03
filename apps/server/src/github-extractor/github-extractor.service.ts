@@ -39,8 +39,7 @@ export class GithubExtractorService {
         cursor: lastOwnerId && { id: lastOwnerId },
         take: 100,
       })) {
-        this.extractRepos(owner);
-        await new Promise((r) => setTimeout(r, 2000));
+        await this.extractRepos(owner);
         completedCount++;
         lastOwnerId = owner.id;
       }
@@ -48,47 +47,55 @@ export class GithubExtractorService {
   }
 
   private extractRepos(owner: { login: string }) {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        this.logger.warn(
-          `extracting ${owner.login}'s repos taking too long. skipping...`
-        );
-        resolve();
-      }, 20000); // Max timeout
+    return Promise.race([
+      new Promise<void>((resolve) => {
+        this.octokit.rest.repos
+          .listForUser({
+            per_page: 100,
+            username: owner.login,
+            request: { timeout: 4000 },
+          })
+          .then((response) => {
+            const repos = response.data;
+            Promise.all(
+              repos.map(
+                (repo) =>
+                  new Promise<void>((_resolve) => {
+                    // Disqualified (low stars)
+                    if (repo.stargazers_count < MINIMUM_STARS) _resolve();
 
-      this.octokit.rest.repos
-        .listForUser({
-          per_page: 100,
-          username: owner.login,
-          request: { timeout: 4000 },
-        })
-        .then((response) => {
-          const repos = response.data;
+                    // Disqualified (description too long)
+                    if (repo.description && repo.description.length > 512)
+                      _resolve();
 
-          for (const repo of repos) {
-            // Disqualified (low stars)
-            if (repo.stargazers_count < MINIMUM_STARS) continue;
+                    this.githubService
+                      .populateRepo(repo)
+                      .then((repoInDb) => {
+                        if (repoInDb)
+                          this.readmeExtractor
+                            .extractReadme(repoInDb.id)
+                            .finally(() => _resolve());
+                      })
+                      .catch(() => _resolve());
+                  })
+              )
+            )
+              .then(() => resolve())
+              .catch((e) => {
+                this.logger.error(
+                  `Error occured while extracting repos for ${owner.login}. ${e.message}`
+                );
+                resolve();
+              });
+          });
+      }),
+      new Promise<void>((resolve) => {
+        setTimeout(() => {
+          // `extracting ${owner.login}'s repos taking too long. skipping...`
 
-            // Disqualified (description too long)
-            if (repo.description && repo.description.length > 512) continue;
-
-            this.githubService
-              .populateRepo(repo)
-              .then((repoInDb) => {
-                if (repoInDb)
-                  this.readmeExtractor
-                    .extractReadme(repoInDb.id)
-                    .finally(() => resolve());
-              })
-              .catch(() => resolve());
-          }
-        })
-        .catch((e) => {
-          this.logger.error(
-            `Error occured while extracting repos for ${owner.login}. ${e.message}`
-          );
           resolve();
-        });
-    });
+        }, 20000);
+      }),
+    ]);
   }
 }
