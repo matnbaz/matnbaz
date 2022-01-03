@@ -20,6 +20,7 @@ export const CollectionPreview = ({
   collection,
   variation = 'default',
   className,
+  style = {},
   ...props
 }: ICollectionPreviewProps) => {
   const { name, slug, color, image, description, repositoriesCount } =
@@ -28,7 +29,7 @@ export const CollectionPreview = ({
     <Card
       key={slug}
       border="none"
-      style={color && { backgroundColor: color.hexString }}
+      style={color && { backgroundColor: color.hexString, ...style }}
       className={classNames(
         'text-white',
         !color && 'bg-gray-100 dark:bg-gray-800 flex flex-col items-center',
