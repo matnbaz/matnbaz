@@ -22,7 +22,7 @@ export class GithubExtractorService {
     let completedCount = 0;
     this.logger.log(`${ownersCount} owners found. Extracting now...`);
 
-    setInterval(() => {
+    const interval = setInterval(() => {
       const completedPercentage =
         Math.floor((completedCount / ownersCount) * 10000) / 100;
       this.logger.log(
@@ -44,6 +44,8 @@ export class GithubExtractorService {
         lastOwnerId = owner.id;
       }
     }
+
+    clearInterval(interval);
   }
 
   private extractRepos(owner: { login: string }) {
