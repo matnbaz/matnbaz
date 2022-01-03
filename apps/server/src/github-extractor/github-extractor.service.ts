@@ -53,7 +53,7 @@ export class GithubExtractorService {
           .listForUser({
             per_page: 100,
             username: owner.login,
-            request: { timeout: 4000 },
+            request: { timeout: 5000 },
           })
           .then((response) => {
             const repos = response.data;
@@ -90,11 +90,8 @@ export class GithubExtractorService {
           });
       }),
       new Promise<void>((resolve) => {
-        setTimeout(() => {
-          // `extracting ${owner.login}'s repos taking too long. skipping...`
-
-          resolve();
-        }, 20000);
+        // `extracting ${owner.login}'s repos taking too long. skipping...`
+        setTimeout(() => resolve(), 20000);
       }),
     ]);
   }
