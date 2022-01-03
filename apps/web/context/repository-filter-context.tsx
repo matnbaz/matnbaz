@@ -13,14 +13,13 @@ import {
 } from '../lib/graphql-types';
 
 export const repoOrderOptions: Record<
-  RepoOrder,
+  string,
   { name: string; value: RepoOrder }
 > = {
-  CREATED_ASC: { name: 'قدیمی‌ترین', value: RepoOrder.CreatedAsc },
-  CREATED_DESC: { name: 'جدید‌ترین', value: RepoOrder.CreatedDesc },
-  PUSHED_ASC: { name: 'قدیمی‌ترین به‌روزرسانی', value: RepoOrder.PushedAsc },
-  PUSHED_DESC: { name: 'جدید‌ترین به‌روزرسانی', value: RepoOrder.PushedDesc },
+  TRENDING_WEEKLY: { name: 'رشد در مدت اخیر', value: RepoOrder.TrendingWeekly },
   STARS_DESC: { name: 'بیشترین تعداد ستاره', value: RepoOrder.StarsDesc },
+  CREATED_DESC: { name: 'جدید‌ترین', value: RepoOrder.CreatedDesc },
+  PUSHED_DESC: { name: 'جدید‌ترین به‌روزرسانی', value: RepoOrder.PushedDesc },
 };
 
 export const forkStatusOptions: Record<
@@ -52,7 +51,7 @@ export type TRepositoryFiltersState = {
 export const initialFilters: TRepositoryFiltersState = {
   searchTerm: '',
   languages: [],
-  order: repoOrderOptions['PUSHED_DESC'],
+  order: repoOrderOptions['TRENDING_WEEKLY'],
   forkStatus: forkStatusOptions['ALL'],
   templateStatus: templateStatusOptions['ALL'],
 };

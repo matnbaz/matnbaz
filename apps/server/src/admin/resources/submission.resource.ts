@@ -59,6 +59,52 @@ export const submissionResource: Resource = ({
           };
         },
       },
+
+      bulkAdd: {
+        name: 'bulkAdd',
+        isVisible: true,
+        actionType: 'bulk',
+        icon: 'Add',
+        component: false,
+        variant: 'success',
+        handler: async (request, response, context) => {
+          const { records, resource, h } = context;
+          if (!records || !records.length) {
+            throw new NotFoundError(
+              'no records were selected.',
+              'Action#handler'
+            );
+          }
+
+          await Promise.all(
+            records.map(async (record) => {
+              const submission = await prisma.submission.findUnique({
+                where: { id: record.id() },
+              });
+
+              if (submission) {
+                githubQueue.add('add-owner', { username: submission.username });
+                await resource.delete(record.id());
+              }
+
+              return record;
+            })
+          );
+
+          return {
+            records: records.map((record) =>
+              record.toJSON(context.currentAdmin)
+            ),
+            notice: {
+              message: `Successfully added ${records.length} actions to the queue.`,
+              type: 'success',
+            },
+            redirectUrl: h.resourceUrl({
+              resourceId: resource._decorated?.id() || resource.id(),
+            }),
+          };
+        },
+      },
     },
   },
 });

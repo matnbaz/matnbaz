@@ -1,6 +1,7 @@
 import { slugifyLanguage } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { OwnerType, PlatformType, Prisma } from '@prisma/client';
+import { subDays } from 'date-fns-jalali';
 import { PrismaService } from 'nestjs-prisma';
 import * as emoji from 'node-emoji';
 import { OctokitService } from '../octokit/octokit.service';
@@ -114,6 +115,21 @@ export class GithubService {
       updatedAt: repo.updated_at,
       watchersCount: repo.watchers_count,
       mirrorUrl: repo.mirror_url,
+      weeklyTrendIndicator: await this.calculateTrendIndicator(
+        repo.id.toString(),
+        repo.stargazers_count,
+        'weekly'
+      ),
+      monthlyTrendIndicator: await this.calculateTrendIndicator(
+        repo.id.toString(),
+        repo.stargazers_count,
+        'monthly'
+      ),
+      yearlyTrendIndicator: await this.calculateTrendIndicator(
+        repo.id.toString(),
+        repo.stargazers_count,
+        'yearly'
+      ),
       Topics: {
         connectOrCreate: topics.map((topicName) => ({
           where: { name: topicName },
@@ -180,5 +196,40 @@ export class GithubService {
     });
 
     return repoInDb;
+  }
+
+  private async calculateTrendIndicator(
+    platformId: string,
+    currentStargazersCount: number,
+    interval: 'yearly' | 'monthly' | 'weekly'
+  ) {
+    const statistics = await this.prisma.repositoryStatistic.findMany({
+      where: {
+        Repository: {
+          platform: PlatformType.GitHub,
+          platformId,
+        },
+        createdAt: {
+          gte: subDays(
+            new Date(),
+            interval === 'weekly'
+              ? 7
+              : interval === 'monthly'
+              ? 30
+              : interval === 'yearly'
+              ? 365
+              : 1
+          ),
+          lte: new Date(),
+        },
+      },
+      select: { stargazersCount: true },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    const respectiveStatStarCount =
+      statistics.length > 0 ? statistics[0].stargazersCount : 1;
+
+    return currentStargazersCount / respectiveStatStarCount;
   }
 }

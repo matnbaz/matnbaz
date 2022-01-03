@@ -35,13 +35,7 @@
           "buildTarget": "web:build:production",
           "dev": false
         }
-      },
-      "dependsOn": [
-        {
-          "projects": "self",
-          "target": "build-sitemap"
-        }
-      ]
+      }
     },
     "export": {
       "executor": "@nrwl/next:export",

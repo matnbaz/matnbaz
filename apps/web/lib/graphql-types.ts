@@ -461,7 +461,13 @@ export enum RepoOrder {
   /** Order by last push's date in descending direction. */
   PushedDesc = 'PUSHED_DESC',
   /** Order by most stars in descending direction. */
-  StarsDesc = 'STARS_DESC'
+  StarsDesc = 'STARS_DESC',
+  /** Order by trendy-ness in monthly scope. */
+  TrendingMonthly = 'TRENDING_MONTHLY',
+  /** Order by trendy-ness in weekly scope. */
+  TrendingWeekly = 'TRENDING_WEEKLY',
+  /** Order by trendy-ness in yearly scope. */
+  TrendingYearly = 'TRENDING_YEARLY'
 }
 
 export type Report = Node & {

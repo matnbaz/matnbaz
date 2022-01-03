@@ -94,7 +94,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     @Args() { searchTerm }: RepoSearchArgs,
     @Args() { order }: RepoOrderArgs
   ) {
-    order = order || RepoOrder.PUSHED_DESC;
+    order = order || RepoOrder.TRENDING_WEEKLY;
 
     return findManyCursorConnection(
       (args) =>
@@ -154,6 +154,15 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
             [RepoOrder.PUSHED_ASC]: { pushedAt: 'asc' as const },
             [RepoOrder.PUSHED_DESC]: { pushedAt: 'desc' as const },
             [RepoOrder.STARS_DESC]: { stargazersCount: 'desc' as const },
+            [RepoOrder.TRENDING_WEEKLY]: {
+              weeklyTrendIndicator: 'desc' as const,
+            },
+            [RepoOrder.TRENDING_MONTHLY]: {
+              monthlyTrendIndicator: 'desc' as const,
+            },
+            [RepoOrder.TRENDING_YEARLY]: {
+              yearlyTrendIndicator: 'desc' as const,
+            },
           }[order],
           ...args,
         }),

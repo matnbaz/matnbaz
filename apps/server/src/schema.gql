@@ -285,6 +285,15 @@ enum RepoOrder {
 
   """Order by most stars in descending direction."""
   STARS_DESC
+
+  """Order by trendy-ness in monthly scope."""
+  TRENDING_MONTHLY
+
+  """Order by trendy-ness in weekly scope."""
+  TRENDING_WEEKLY
+
+  """Order by trendy-ness in yearly scope."""
+  TRENDING_YEARLY
 }
 
 type Report implements Node {
