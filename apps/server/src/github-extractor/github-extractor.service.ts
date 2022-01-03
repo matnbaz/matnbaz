@@ -54,7 +54,7 @@ export class GithubExtractorService {
           `extracting ${owner.login}'s repos taking too long. skipping...`
         );
         resolve();
-      }, 2000); // Max timeout
+      }, 20000); // Max timeout
 
       this.octokit.rest.repos
         .listForUser({
