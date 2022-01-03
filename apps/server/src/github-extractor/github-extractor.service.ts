@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Owner } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { GithubService } from '../github/github.service';
 import { OctokitService } from '../octokit/octokit.service';
@@ -36,22 +35,24 @@ export class GithubExtractorService {
           platform: 'GitHub',
           blockedAt: null,
         },
+        select: { id: true, login: true },
         cursor: lastOwnerId && { id: lastOwnerId },
         take: 100,
       })) {
-        await this.extractRepos(owner);
+        this.extractRepos(owner);
+        await new Promise((r) => setTimeout(r, 2000));
         completedCount++;
         lastOwnerId = owner.id;
       }
     }
   }
 
-  private async extractRepos(owner: Owner) {
+  private async extractRepos(owner: { login: string }) {
     try {
       const response = await this.octokit.rest.repos.listForUser({
         per_page: 100,
         username: owner.login,
-        request: { timeout: 10000 },
+        request: { timeout: 4000 },
       });
 
       const repos = response.data;
