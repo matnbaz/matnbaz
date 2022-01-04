@@ -228,8 +228,10 @@ export class GithubService {
     });
 
     const respectiveStatStarCount =
-      statistics.length > 0 ? statistics[0].stargazersCount : 1;
+      statistics.length > 0
+        ? statistics[0].stargazersCount
+        : currentStargazersCount;
 
-    return currentStargazersCount / respectiveStatStarCount;
+    return currentStargazersCount - respectiveStatStarCount;
   }
 }
