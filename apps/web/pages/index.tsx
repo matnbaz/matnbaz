@@ -97,14 +97,14 @@ const Index = () => {
             <div className="max-w-7xl mx-auto py-4 px-4 sm:py-8 sm:px-6 lg:px-8">
               <div className="lg:grid lg:grid-cols-2 lg:gap-8">
                 <div>
-                  <h2 className="max-w-md text-2xl md:text-3xl font-extrabold text-center lg:max-w-xl lg:text-right">
-                    حامیان مالی شگفت‌انگیز متن‌باز
+                  <h2 className="max-w-md text-2xl md:text-3xl font-extrabold text-center lg:max-w-xl">
+                    اسپانسر‌های متن‌باز
                   </h2>
                   <a
                     className="mt-1 text-sm text-secondary text-center block"
                     href={sponsorshipUrl}
                   >
-                    برای اسپانسر شدن و اطلاعات بیش‌تر کلیک کنید.
+                    اطلاعات بیش‌تر
                   </a>
                 </div>
                 <div className="flow-root self-center mt-8 lg:mt-0">
