@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 import { GithubService } from '../github/github.service';
 import { OctokitService } from '../octokit/octokit.service';
-import { MINIMUM_STARS } from './constants';
+import { MINIMUM_STARS } from '../repo-requirements';
 import { GithubReadmeExtractorService } from './github-readme-extractor.service';
 @Injectable()
 export class GithubExtractorService {
