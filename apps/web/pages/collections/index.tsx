@@ -26,7 +26,7 @@ const CollectionsPage = () => {
       <div>
         <h1 className="text-4xl font-bold text-center">کالکشن‌ها</h1>
       </div>
-      <div className="mt-12 grid gap-10 md:grid-cols-12">
+      <div className="my-12 grid gap-10 md:grid-cols-12">
         {loading ? (
           <>
             {Array.from(Array(6).keys()).map((i) => (
