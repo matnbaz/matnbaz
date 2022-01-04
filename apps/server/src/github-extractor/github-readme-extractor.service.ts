@@ -19,29 +19,33 @@ export class GithubReadmeExtractorService {
   }
 
   async extractReadme(id: string) {
-    const { Owner, defaultBranch, name } =
-      await this.prisma.repository.findUnique({
+    try {
+      const { Owner, defaultBranch, name } =
+        await this.prisma.repository.findUnique({
+          where: { id },
+          select: {
+            name: true,
+            defaultBranch: true,
+            Owner: { select: { login: true } },
+          },
+        });
+      const readme = await this.getReadmeFromGithub(
+        Owner.login,
+        name,
+        defaultBranch
+      );
+      await this.prisma.repository.update({
         where: { id },
-        select: {
-          name: true,
-          defaultBranch: true,
-          Owner: { select: { login: true } },
+        data: {
+          readme,
+          readmeHtml: readme
+            ? this.renderReadme(readme, `${Owner.login}/${name}`, defaultBranch)
+            : undefined,
         },
       });
-    const readme = await this.getReadmeFromGithub(
-      Owner.login,
-      name,
-      defaultBranch
-    );
-    await this.prisma.repository.update({
-      where: { id },
-      data: {
-        readme,
-        readmeHtml: readme
-          ? this.renderReadme(readme, `${Owner.login}/${name}`, defaultBranch)
-          : undefined,
-      },
-    });
+    } catch (e) {
+      //
+    }
   }
 
   async getReadmeFromGithub(ownerLogin, repoName, defaultBranch) {
