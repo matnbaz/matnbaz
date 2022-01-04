@@ -64,11 +64,12 @@ export class GithubExtractorService {
                 (repo) =>
                   new Promise<void>((_resolve) => {
                     // Disqualified (low stars)
-                    if (repo.stargazers_count < MINIMUM_STARS) _resolve();
+                    if (repo.stargazers_count < MINIMUM_STARS)
+                      return _resolve();
 
                     // Disqualified (description too long)
                     if (repo.description && repo.description.length > 512)
-                      _resolve();
+                      return _resolve();
 
                     this.githubService
                       .populateRepo(repo)
