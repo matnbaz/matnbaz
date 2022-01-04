@@ -3,7 +3,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { GithubService } from '../github/github.service';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
-import { MINIMUM_STARS } from './constants';
+import { MINIMUM_STARS } from '../repo-requirements';
 
 @Injectable()
 export class GithubDiscovererService {

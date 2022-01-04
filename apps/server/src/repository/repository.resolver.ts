@@ -24,6 +24,7 @@ import { Owner } from '../models/owner.model';
 import { Repository } from '../models/repository.model';
 import { Topic } from '../models/topic.model';
 import { paginationComplexity } from '../plugins/pagination-complexity';
+import { MINIMUM_STARS } from '../repo-requirements';
 import { ReportableResolver } from '../report/reportable.resolver';
 import { PlatformArgs } from './args/platform.args';
 import { RepoFilterArgs } from './args/repo-filter.args';
@@ -59,6 +60,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     return this.prisma.repository.findFirst({
       where: {
         blockedAt: null,
+        stargazersCount: { gte: MINIMUM_STARS },
         platform,
         platformId: id,
       },
@@ -101,6 +103,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
         this.prisma.repository.findMany({
           where: {
             blockedAt: null,
+            stargazersCount: { gte: MINIMUM_STARS },
             isFork: {
               [ForkStatusType.FORK]: true,
               [ForkStatusType.SOURCE]: false,
@@ -259,6 +262,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
           orderBy: { pushedAt: 'desc' },
           where: {
             blockedAt: null,
+            stargazersCount: { gte: MINIMUM_STARS },
             id: { not: id },
             OR: [
               {
