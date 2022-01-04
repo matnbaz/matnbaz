@@ -294,7 +294,7 @@ const Index = () => {
                 <a href={socialMedia.discord} target="_blank" rel="noreferrer">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    className="mx-auto"
+                    className="mx-auto rounded-md"
                     src="https://discordapp.com/api/guilds/912032955956871188/widget.png?style=banner3"
                     alt="Discord banner"
                   />
