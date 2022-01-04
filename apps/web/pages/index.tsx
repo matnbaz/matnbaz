@@ -1,7 +1,7 @@
 import { socialMedia } from '@matnbaz/common';
 import Image from 'next/image';
 import { HiChevronDown, HiChevronLeft } from 'react-icons/hi';
-import { SiDiscord, SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
+import { SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
 import { CollectionPreview } from '../components/Collection/CollectionPreview';
 import HeaderMeta, { IHeaderMetaTags } from '../components/Feature/HeaderMeta';
 import MainLayout from '../components/Layout/MainLayout';
@@ -28,7 +28,7 @@ const Index = () => {
           <div className="h-screen min-h-[50rem] md:min-h-[40rem] flex flex-col items-center">
             <div className="m-auto px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right flex items-center">
               <div className="">
-                <a
+                {/* <a
                   href={socialMedia.discord}
                   target="_blank"
                   rel="noreferrer"
@@ -43,6 +43,24 @@ const Index = () => {
                   </span>
                   <span className="mr-4 text-sm">
                     به دیسکورد متن‌باز بپیوندید
+                  </span>
+                  <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
+                </a> */}
+                <a
+                  href={socialMedia.telegram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hidden sm:inline-flex items-center text-white bg-black rounded-full p-1 pl-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
+                >
+                  <span
+                    className="px-3 py-0.5 text-xs font-semibold flex items-center space-x- leading-5 tracking-wide rounded-full"
+                    style={{ backgroundColor: '#26A5E4' }}
+                  >
+                    <SiTelegram className="ml-2" />
+                    <span dir="ltr">@matnbaz_net</span>
+                  </span>
+                  <span className="mr-4 text-sm">
+                    به کانال تلگرام ما بپیوندید
                   </span>
                   <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
                 </a>
