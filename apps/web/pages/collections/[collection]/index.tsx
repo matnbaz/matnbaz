@@ -49,7 +49,10 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
             alt={collection.name}
             className="brightness-0 dark:invert w-24 h-24 mx-auto"
           />
-          <h1 className="mt-4 text-center text-2xl sm:text-4xl font-bold truncate">
+          <h1
+            className="mt-4 text-center text-2xl sm:text-4xl font-bold truncate"
+            dir="ltr"
+          >
             {collection.name}
           </h1>
           <p className="mt-2 text-center text-secondary text-lg">
