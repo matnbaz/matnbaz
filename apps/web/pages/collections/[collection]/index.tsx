@@ -2,7 +2,6 @@ import { GetServerSideProps, NextPage } from 'next';
 import HeaderMeta from '../../../components/Feature/HeaderMeta';
 import MainLayout from '../../../components/Layout/MainLayout';
 import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
-import Divider from '../../../components/UI/Divider';
 import { RandomPromotionBanner } from '../../../components/UI/RandomPromotionBanner';
 import { initializeApollo } from '../../../lib/apollo';
 import {
@@ -42,7 +41,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
         description={collection.description}
       />
 
-      <div className="space-y-6">
+      <div className="space-y-10">
         <div className="">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -57,7 +56,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
             {collection.description}
           </p>
         </div>
-        <Divider />
+
         <div className="grid gap-6 pb-6 max-w-3xl mx-auto">
           <RepositoryPreviewList
             loading={loading}
