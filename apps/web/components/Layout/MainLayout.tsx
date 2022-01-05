@@ -1,9 +1,4 @@
-import { Transition } from '@headlessui/react';
-import { Timer } from '@matnbaz/common';
 import classNames from 'classnames';
-import { useCallback, useEffect, useState } from 'react';
-import { HiX } from 'react-icons/hi';
-import { Banner } from '../UI/Banner';
 import { Footer } from '../UI/Footer';
 import Navbar from '../UI/Navbar';
 
@@ -23,31 +18,31 @@ export const MainLayout = ({
   withoutFooter = false,
   withoutPadding = false,
 }: IMainLayoutProps) => {
-  const [showBanner, setShowBanner] = useState(false);
-  const [timeoutTimer, setTimeoutTimer] = useState<Timer>();
+  // const [showBanner, setShowBanner] = useState(false);
+  // const [timeoutTimer, setTimeoutTimer] = useState<Timer>();
 
-  useEffect(() => {
-    if (localStorage.getItem(DISMISS_SUPPORT_BANNER) || timeoutTimer) return;
+  // useEffect(() => {
+  //   if (localStorage.getItem(DISMISS_SUPPORT_BANNER) || timeoutTimer) return;
 
-    const timer = new Timer(
-      () => setShowBanner(true),
-      TIME_BEFORE_BANNER_APPEARS
-    );
-    setTimeoutTimer(timer);
-    const onVisibilityChange = () =>
-      timer.isPaused() ? timer.resume() : timer.pause();
+  //   const timer = new Timer(
+  //     () => setShowBanner(true),
+  //     TIME_BEFORE_BANNER_APPEARS
+  //   );
+  //   setTimeoutTimer(timer);
+  //   const onVisibilityChange = () =>
+  //     timer.isPaused() ? timer.resume() : timer.pause();
 
-    document.addEventListener('visibilitychange', onVisibilityChange);
-    return () => {
-      timer.pause();
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-    };
-  }, []);
+  //   document.addEventListener('visibilitychange', onVisibilityChange);
+  //   return () => {
+  //     timer.pause();
+  //     document.removeEventListener('visibilitychange', onVisibilityChange);
+  //   };
+  // }, []);
 
-  const dismissBanner = useCallback(() => {
-    localStorage.setItem(DISMISS_SUPPORT_BANNER, 'true');
-    setShowBanner(false);
-  }, []);
+  // const dismissBanner = useCallback(() => {
+  //   localStorage.setItem(DISMISS_SUPPORT_BANNER, 'true');
+  //   setShowBanner(false);
+  // }, []);
 
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -62,7 +57,7 @@ export const MainLayout = ({
         {children}
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-20">
+      {/* <div className="fixed inset-x-0 bottom-0 z-20">
         <Transition
           show={showBanner}
           enter="transition duration-700 ease-in-out"
@@ -82,11 +77,11 @@ export const MainLayout = ({
             onDismiss={() => dismissBanner()}
           />
         </Transition>
-      </div>
+      </div> */}
 
       <div>
         {!withoutFooter && <Footer />}
-        {showBanner && <Banner icon={HiX} theme="red" className="invisible" />}
+        {/* {showBanner && <Banner icon={HiX} theme="red" className="invisible" />} */}
       </div>
     </div>
   );

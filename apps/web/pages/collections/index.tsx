@@ -1,6 +1,7 @@
 import { CollectionPreview } from '../../components/Collection/CollectionPreview';
 import HeaderMeta from '../../components/Feature/HeaderMeta';
 import MainLayout from '../../components/Layout/MainLayout';
+import { PageHeader } from '../../components/Layout/PageHeader';
 import CollectionPreviewSkeletonLoader from '../../components/Skeleton Loader/CollectionPreviewSkeletonLoader';
 import { useGetCollectionsQuery } from '../../lib/graphql-types';
 
@@ -23,10 +24,9 @@ const CollectionsPage = () => {
         description="کالکشن های مختلف از پروژه های اوپن سورس ایرانی / فارسی"
       />
 
-      <div>
-        <h1 className="text-4xl font-bold text-center">کالکشن‌ها</h1>
-      </div>
-      <div className="mt-12 grid gap-10 md:grid-cols-12">
+      <PageHeader title="کالکشن‌ها" />
+
+      <div className="mb-12 grid gap-10 md:grid-cols-12">
         {loading ? (
           <>
             {Array.from(Array(6).keys()).map((i) => (

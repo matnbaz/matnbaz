@@ -11,6 +11,8 @@ interface IRepositoryPreviewListProps {
   repositories:
     | GetRepositoriesQuery['repositories']['edges']
     | GetSearchedRepositoriesQuery['repositories']['edges'];
+  adsFrequency?: number;
+  adsTemplate?: () => JSX.Element;
   loading?: boolean;
 }
 
@@ -34,17 +36,25 @@ const RepositoryPreviewList = ({
   networkStatus = 0,
   called = true,
   repositories,
+  adsFrequency,
+  adsTemplate,
   onLoadMore,
 }:
   | IRepositoryPreviewListPropsWithPagination
   | IRepositoryPreviewListPropsWithoutPagination) => {
   const mappedRepositories = useMemo(() => {
-    return repositories?.map((repository) => (
-      <RepositoryPreview
-        padded
-        repository={repository.node}
-        key={repository.node.id}
-      />
+    return repositories?.map((repository, index) => (
+      <>
+        <RepositoryPreview
+          padded
+          repository={repository.node}
+          key={repository.node.id}
+        />
+        {index !== 1 &&
+          adsFrequency &&
+          (index + 1) % adsFrequency === 0 &&
+          adsTemplate()}
+      </>
     ));
   }, [repositories]);
 

@@ -1,13 +1,18 @@
 import { socialMedia } from '@matnbaz/common';
-import { HiChevronLeft } from 'react-icons/hi';
-import { SiDiscord } from 'react-icons/si';
+import Image from 'next/image';
+import { HiChevronDown, HiChevronLeft } from 'react-icons/hi';
+import { SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
 import { CollectionPreview } from '../components/Collection/CollectionPreview';
 import HeaderMeta, { IHeaderMetaTags } from '../components/Feature/HeaderMeta';
 import MainLayout from '../components/Layout/MainLayout';
 import { RepositoryPreviewFromGithub } from '../components/Repository/RepositoryPreviewFromGithub';
 import Button from '../components/UI/Button/Button';
+import { IconButton } from '../components/UI/IconButton';
 import { useMetadataQuery } from '../lib/graphql-types';
 
+const sponsorshipUrl =
+  'https://github.com/matnbaz/matnbaz/blob/main/SPONSORSHIP.md';
+// mailto:alirezazamani2922@gmail.com?subject=%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%20%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2&body=%D8%A8%D8%A7%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D9%84%D8%A7%D9%85%D8%8C%0D%0A%D8%B4%D8%B1%DA%A9%D8%AA%20%D9%85%D8%A7%20(%D9%86%D8%A7%D9%85%20%D8%B4%D8%B1%DA%A9%D8%AA)%20%D9%85%D8%A7%DB%8C%D9%84%20%D8%A8%D9%87%20%D8%AD%D9%85%D8%A7%DB%8C%D8%AA%20%D8%A7%D8%B2%20%D8%B7%D8%B1%DB%8C%D9%82%20%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%20%D8%B4%D8%AF%D9%86%20%D8%A7%D8%B3%D8%AA.%0D%0A%0D%0A%D9%84%D8%B7%D9%81%D8%A7%20%D8%B4%D8%B1%D8%A7%DB%8C%D8%B7%20%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%DB%8C%20%D8%B1%D8%A7%20%D8%A7%D8%B1%D8%B3%D8%A7%D9%84%20%DA%A9%D9%86%DB%8C%D8%AF.%0D%0A%D8%A8%D8%A7%20%D8%AA%D8%B4%DA%A9%D8%B1.
 export const indexMetaTags: IHeaderMetaTags = {
   title: 'تمام پروژه های متن باز ایرانی در یک جا',
   description:
@@ -20,47 +25,106 @@ const Index = () => {
       <HeaderMeta {...indexMetaTags} reversePrefix withBanner />
       <main>
         <div className="overflow-hidden mb-12 sm:mb-24">
-          <div className="m-auto h-screen px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right flex items-center">
-            <div className="">
-              <a
-                href={socialMedia.discord}
-                target="_blank"
-                rel="noreferrer"
-                className="hidden sm:inline-flex items-center text-white bg-black rounded-full p-1 pl-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
-              >
-                <span
-                  className="px-3 py-0.5 text-xs font-semibold flex items-center space-x- leading-5 tracking-wide rounded-full"
-                  style={{ backgroundColor: '#5865F2' }}
+          <div className="h-screen min-h-[50rem] md:min-h-[40rem] flex flex-col items-center">
+            <div className="m-auto px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right flex items-center">
+              <div className="">
+                {/* <a
+                  href={socialMedia.discord}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hidden sm:inline-flex items-center text-white bg-black rounded-full p-1 pl-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
                 >
-                  <SiDiscord className="ml-2" />
-                  انجمن دیسکورد
-                </span>
-                <span className="mr-4 text-sm">
-                  به دیسکورد متن‌باز بپیوندید
-                </span>
-                <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
-              </a>
-              <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-                تمام پروژه‌های متن‌باز{' '}
-                <span className="text-primary-500">ایرانی</span>{' '}
-                <span className="">در یک جا</span>
-              </h1>
-              <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                با استفاده از بخش کاوش‌گر سایت می‌توانید پروژه‌های متن‌باز
-                (open-source) ایرانی را کشف کنید. اگر شما هم کار متن‌باز
-                کرده‌اید، به احتمال زیاد اسم خود را پیدا خواهید کرد!
-              </p>
-              <div className="mt-10 sm:mt-12">
-                <div className="mt-3 sm:mt-0 sm:mr-3 space-x-3 space-x-reverse">
-                  <Button.Primary href="/explore" size="lg">
-                    برو به کاوش‌گر
-                  </Button.Primary>
-                  <Button.Outline href="/about" size="lg">
-                    درباره پروژه
-                  </Button.Outline>
+                  <span
+                    className="px-3 py-0.5 text-xs font-semibold flex items-center space-x- leading-5 tracking-wide rounded-full"
+                    style={{ backgroundColor: '#5865F2' }}
+                  >
+                    <SiDiscord className="ml-2" />
+                    انجمن دیسکورد
+                  </span>
+                  <span className="mr-4 text-sm">
+                    به دیسکورد متن‌باز بپیوندید
+                  </span>
+                  <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
+                </a> */}
+                <a
+                  href={socialMedia.telegram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hidden sm:inline-flex items-center text-white bg-black rounded-full p-1 pl-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
+                >
+                  <span
+                    className="px-3 py-0.5 text-xs font-semibold flex items-center space-x- leading-5 tracking-wide rounded-full"
+                    style={{ backgroundColor: '#26A5E4' }}
+                  >
+                    <SiTelegram className="ml-2" />
+                    <span dir="ltr">@matnbaz_net</span>
+                  </span>
+                  <span className="mr-4 text-sm">
+                    به کانال تلگرام ما بپیوندید
+                  </span>
+                  <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
+                </a>
+                <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
+                  تمام پروژه‌های متن‌باز{' '}
+                  <span className="text-primary-500">ایرانی</span>{' '}
+                  <span className="">در یک جا</span>
+                </h1>
+                <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  با استفاده از بخش کاوش‌گر سایت می‌توانید پروژه‌های متن‌باز
+                  (open-source) ایرانی را کشف کنید. اگر شما هم کار متن‌باز
+                  کرده‌اید، به احتمال زیاد اسم خود را پیدا خواهید کرد!
+                </p>
+                <div className="mt-8 sm:mt-12">
+                  <div className="mt-3 space-x-3 space-x-reverse">
+                    <Button.Primary href="#more" size="lg">
+                      اطلاعات بیش‌تر
+                      <HiChevronDown className="w-5 h-5 mr-2" />
+                    </Button.Primary>
+                  </div>
                 </div>
+                {/* <div className="mt-8 sm:mt-16">
+                  <div className="mt-3 sm:mt-0 sm:mr-3 space-x-3 space-x-reverse">
+                    <div className="flex">
+                      <Button.Ghost className="animate-bounce">
+                        <HiChevronDown className="w-8 h-8" />
+                      </Button.Ghost>
+                    </div>
+                  </div>
+                </div> */}
               </div>
             </div>
+
+            {/* <div className="max-w-7xl mx-auto py-4 px-4 sm:py-8 sm:px-6 lg:px-8">
+              <div className="lg:grid lg:grid-cols-2 lg:gap-8">
+                <div>
+                  <h2 className="max-w-md text-2xl md:text-3xl font-extrabold text-center lg:max-w-xl">
+                    اسپانسر‌های متن‌باز
+                  </h2>
+                  <a
+                    className="mt-1 text-sm text-secondary text-center block"
+                    href={sponsorshipUrl}
+                  >
+                    اطلاعات بیش‌تر
+                  </a>
+                </div>
+                <div className="flow-root self-center mt-8 lg:mt-0">
+                  <div className="-mt-4 -mr-8 flex flex-wrap justify-between lg:-mr-4">
+                    <SponsorImage
+                      name="Empty sponsor"
+                      image="/sponsors/empty-light.png"
+                      darkImage="/sponsors/empty-dark.png"
+                      url={sponsorshipUrl}
+                    />
+                    <SponsorImage
+                      name="Empty sponsor"
+                      image="/sponsors/empty-light.png"
+                      darkImage="/sponsors/empty-dark.png"
+                      url={sponsorshipUrl}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div> */}
           </div>
 
           {/* <div className="m-auto max-w-7xl lg:relative my-12">
@@ -68,58 +132,13 @@ const Index = () => {
               <IranVector />
             </div>
           </div> */}
-          <SiteStats />
 
-          <div className="m-auto max-w-7xl mt-12 sm:mt-24 px-6">
+          <SiteStats />
+          <div id="more" />
+
+          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-2">
-                <h2 className="inline-flex items-center text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
-                  کاوش‌گر
-                </h2>
-                <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  با استفاده انواع فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و
-                  پروژه‌های متن‌باز ایرانی / فارسی را کشف کنید.
-                </p>
-                <div className="mt-4">
-                  <Button.Primary href="/explore" size="lg">
-                    برو به کاوش‌گر
-                  </Button.Primary>
-                </div>
-              </div>
-
-              <div className="sm:col-start-1">
-                <div className="relative overflow-x-hidden">
-                  <RepositoryPreviewFromGithub
-                    variation="summary"
-                    padded
-                    disabled
-                    className="absolute my-4 inset-0 mx-auto order-3 max-w-[12rem] bg-white dark:bg-gray-900 translate-x-20 sm:translate-x-40 scale-75"
-                    fullName="rastikerdar/vazir-font"
-                  />
-                  <RepositoryPreviewFromGithub
-                    variation="summary"
-                    padded
-                    disabled
-                    className="absolute my-4 inset-0 mx-auto order-1 max-w-[12rem] bg-white dark:bg-gray-900 -translate-x-20 sm:-translate-x-40 scale-75"
-                    fullName="persepolisdm/persepolis"
-                  />
-                  <div className="py-8">
-                    <RepositoryPreviewFromGithub
-                      variation="summary"
-                      padded
-                      disabled
-                      className="relative order-2 mx-auto max-w-[12rem] bg-white dark:bg-gray-900"
-                      fullName="saadeghi/daisyui"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="m-auto max-w-7xl mt-12 sm:mt-24 px-6">
-            <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
-              <div className="sm:col-start-1">
                 <h2 className="inline-flex items-center text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
                   کالکشن‌ها
                   <span className="mr-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary-100 text-primary-800 dark:bg-primary-600 dark:text-primary-100">
@@ -137,7 +156,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="sm:col-start-2">
+              <div className="sm:col-start-1">
                 <div className="flex justify-center items-center py-6 overflow-x-hidden mx-auto">
                   <CollectionPreview
                     disabled
@@ -197,7 +216,54 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="m-auto max-w-7xl mt-12 sm:mt-24 px-6">
+          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
+            <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
+              <div className="sm:col-start-1">
+                <h2 className="inline-flex items-center text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
+                  کاوش‌گر
+                </h2>
+                <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  با استفاده انواع فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و
+                  پروژه‌های متن‌باز ایرانی / فارسی را کشف کنید.
+                </p>
+                <div className="mt-4">
+                  <Button.Primary href="/explore" size="lg">
+                    برو به کاوش‌گر
+                  </Button.Primary>
+                </div>
+              </div>
+
+              <div className="sm:col-start-2">
+                <div className="relative overflow-x-hidden">
+                  <RepositoryPreviewFromGithub
+                    variation="summary"
+                    padded
+                    disabled
+                    className="absolute my-4 inset-0 mx-auto order-3 max-w-[12rem] bg-white dark:bg-gray-900 translate-x-20 sm:translate-x-40 scale-75"
+                    fullName="rastikerdar/vazir-font"
+                  />
+                  <RepositoryPreviewFromGithub
+                    variation="summary"
+                    padded
+                    disabled
+                    className="absolute my-4 inset-0 mx-auto order-1 max-w-[12rem] bg-white dark:bg-gray-900 -translate-x-20 sm:-translate-x-40 scale-75"
+                    fullName="persepolisdm/persepolis"
+                  />
+                  <div className="py-8">
+                    <RepositoryPreviewFromGithub
+                      variation="summary"
+                      padded
+                      disabled
+                      className="relative order-2 mx-auto max-w-[12rem] bg-white dark:bg-gray-900"
+                      fullName="saadeghi/daisyui"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-2">
                 <h2 className="text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
@@ -225,6 +291,72 @@ const Index = () => {
                   padded
                   fullName="matnbaz/matnbaz"
                 />
+              </div>
+            </div>
+          </div>
+
+          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
+            <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
+              <div className="sm:col-start-1">
+                <h2 className="text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
+                  انجمن متن‌باز
+                </h2>
+                <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  یکی از اهداف ما ساخت یک انجمن فعال و دوستانه است. در انجمن
+                  دیسکورد متن‌باز کاربران می توانند با افراد دیگر آشنا شوند،
+                  برای انجام پروژه‌های متن‌باز همکار جمع کنند و...
+                </p>
+              </div>
+
+              <div className="sm:col-start-2">
+                <a href={socialMedia.discord} target="_blank" rel="noreferrer">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    className="mx-auto rounded-md"
+                    src="https://discordapp.com/api/guilds/912032955956871188/widget.png?style=banner3"
+                    alt="Discord banner"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
+            <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
+              <div className="sm:col-start-2">
+                <h2 className="text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
+                  در شبکه‌های اجتماعی
+                </h2>
+                <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  متن‌باز را در شبکه‌های اجتماعی دنبال کنید تا خبری را از دست
+                  ندهید.
+                </p>
+              </div>
+
+              <div className="sm:col-start-1">
+                <div className="flex items-center justify-center space-x-4 space-x-reverse">
+                  <IconButton
+                    href={socialMedia.telegram}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <SiTelegram className="w-8 h-8" />
+                  </IconButton>
+                  <IconButton
+                    href={socialMedia.twitter}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <SiTwitter className="w-8 h-8" />
+                  </IconButton>
+                  <IconButton
+                    href={socialMedia.instagram}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <SiInstagram className="w-8 h-8" />
+                  </IconButton>
+                </div>
               </div>
             </div>
           </div>
@@ -291,5 +423,33 @@ const SiteStats = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+interface SponsorImageProps {
+  name: string;
+  image: string;
+  url: string;
+  darkImage?: string;
+}
+
+const SponsorImage = ({ url, darkImage, image, name }: SponsorImageProps) => {
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      className="mt-4 mr-8 flex flex-grow flex-shrink-0 justify-center lg:flex-grow-0 lg:mr-4"
+    >
+      <div className={darkImage && 'dark:hidden'}>
+        <Image width={189} height={48} src={image} alt={name} />
+      </div>
+
+      {darkImage && (
+        <div className="hidden dark:block">
+          <Image width={189} height={48} src={darkImage} alt={name} />
+        </div>
+      )}
+    </a>
   );
 };

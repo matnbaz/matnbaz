@@ -45,9 +45,9 @@ model Repository {
   languageId            String?
   licenseId             String?
   blockedAt             DateTime?
-  Language              Language?             @relation(fields: [languageId], references: [id])
-  License               License?              @relation(fields: [licenseId], references: [id])
-  Owner                 Owner                 @relation(fields: [ownerId], references: [id])
+  Language              Language?             @relation(fields: [languageId], references: [id], onDelete: SetNull)
+  License               License?              @relation(fields: [licenseId], references: [id], onDelete: SetNull)
+  Owner                 Owner                 @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   Collects              Collect[]
   CollectionBlacklists  CollectionBlacklist[]
   CollectionWhitelists  CollectionWhitelist[]
@@ -66,7 +66,7 @@ model RepositoryStatistic {
   forksCount      Int
   openIssuesCount Int
   repositoryId    String
-  Repository      Repository @relation(fields: [repositoryId], references: [id])
+  Repository      Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
 }
 
 // TODO: owner statistics (contribution, followers, etc.)
@@ -197,8 +197,8 @@ model CollectionBlacklist {
   collectionId String
   repositoryId String
   createdAt    DateTime   @default(now())
-  Collection   Collection @relation(fields: [collectionId], references: [id])
-  Repository   Repository @relation(fields: [repositoryId], references: [id])
+  Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  Repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
 
   @@unique([collectionId, repositoryId])
 }
@@ -208,8 +208,8 @@ model CollectionWhitelist {
   collectionId String
   repositoryId String
   createdAt    DateTime   @default(now())
-  Collection   Collection @relation(fields: [collectionId], references: [id])
-  Repository   Repository @relation(fields: [repositoryId], references: [id])
+  Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  Repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
 
   @@unique([collectionId, repositoryId])
 }
@@ -219,8 +219,8 @@ model Collect {
   collectionId String
   repositoryId String
   createdAt    DateTime   @default(now())
-  Collection   Collection @relation(fields: [collectionId], references: [id])
-  Repository   Repository @relation(fields: [repositoryId], references: [id])
+  Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  Repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
 }
 
 enum OwnerType {

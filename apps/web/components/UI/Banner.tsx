@@ -1,6 +1,62 @@
 import classNames from 'classnames';
-import { HiHeart } from 'react-icons/hi';
+import { HiX } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
+
+enum BannerTheme {
+  primary = 'primary',
+  red = 'red',
+  instagram = 'instagram',
+  telegram = 'telegram',
+  twitter = 'twitter',
+  discord = 'discord',
+}
+
+const bannerThemes: Record<
+  BannerTheme,
+  { bg: string; iconContainer: string; button: string; dismiss: string }
+> = {
+  primary: {
+    bg: 'bg-primary-600',
+    iconContainer: 'bg-primary-800',
+    button: 'text-primary-600 bg-white hover:bg-primary-50',
+    dismiss: 'hover:bg-primary-500',
+  },
+
+  red: {
+    bg: 'bg-red-600',
+    iconContainer: 'bg-red-800',
+    button: 'text-red-600 bg-white hover:bg-red-50',
+    dismiss: 'hover:bg-red-500',
+  },
+
+  instagram: {
+    bg: 'bg-[#E4405F]',
+    iconContainer: 'bg-[#CF1D3F]',
+    button: 'text-[#E4405F] bg-white hover:bg-[#FBE1E6]',
+    dismiss: 'hover:bg-[#E4405F]',
+  },
+
+  telegram: {
+    bg: 'bg-[#26A5E4]',
+    iconContainer: 'bg-[#1784BB]',
+    button: 'text-[#1784BB] bg-white hover:bg-[#C9E9F8]',
+    dismiss: 'hover:bg-[#26A5E4]',
+  },
+
+  twitter: {
+    bg: 'bg-[#1DA1F2]',
+    iconContainer: 'bg-[#063E61]',
+    button: 'text-[#0C82CB] bg-white hover:bg-[#CBE9FC]',
+    dismiss: 'hover:bg-[#1DA1F2]',
+  },
+
+  discord: {
+    bg: 'bg-[#5865F2]',
+    iconContainer: 'bg-[#0C1796]',
+    button: 'text-[#2435EE] bg-white hover:bg-[#EFF1FE]',
+    dismiss: 'hover:bg-[#5865F2]',
+  },
+};
 
 export interface BannerProps {
   text?: string;
@@ -8,25 +64,10 @@ export interface BannerProps {
   url?: string;
   cta?: string;
   icon?: IconType;
-  theme?: 'primary' | 'red';
+  theme?: keyof typeof BannerTheme;
   onDismiss?: () => unknown;
   className?: string;
 }
-
-const bannerThemes = {
-  primary: {
-    bg: 'bg-primary-600',
-    iconContainer: 'bg-primary-800',
-    button: 'text-primary-600 bg-white hover:bg-primary-50',
-    dismiss: 'hover:bg-primary-500',
-  },
-  red: {
-    bg: 'bg-red-600',
-    iconContainer: 'bg-red-800',
-    button: 'text-red-600 bg-white hover:bg-red-50',
-    dismiss: 'hover:bg-red-500',
-  },
-};
 
 export const Banner = ({
   text,
@@ -50,7 +91,7 @@ export const Banner = ({
                   bannerThemes[theme].iconContainer
                 )}
               >
-                <HiHeart className="h-6 w-6 text-white" aria-hidden="true" />
+                <Icon className="h-6 w-6 text-white" aria-hidden="true" />
               </span>
               <p className="mr-3 font-medium text-white truncate">
                 <span className="md:hidden">{mobile || text}</span>
@@ -70,19 +111,21 @@ export const Banner = ({
                 </a>
               </div>
             )}
-            <div className="order-2 flex-shrink-0 sm:order-3 sm:mr-3">
-              <button
-                onClick={() => onDismiss && onDismiss()}
-                type="button"
-                className={classNames(
-                  '-ml-1 flex p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white sm:-ml-2',
-                  bannerThemes[theme].dismiss
-                )}
-              >
-                <span className="sr-only">رد کردن</span>
-                <Icon className="h-6 w-6 text-white" aria-hidden="true" />
-              </button>
-            </div>
+            {onDismiss && (
+              <div className="order-2 flex-shrink-0 sm:order-3 sm:mr-3">
+                <button
+                  onClick={() => onDismiss && onDismiss()}
+                  type="button"
+                  className={classNames(
+                    '-ml-1 flex p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white sm:-ml-2',
+                    bannerThemes[theme].dismiss
+                  )}
+                >
+                  <span className="sr-only">رد کردن</span>
+                  <HiX className="h-6 w-6 text-white" aria-hidden="true" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
