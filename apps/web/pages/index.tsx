@@ -2,7 +2,6 @@ import { socialMedia } from '@matnbaz/common';
 import Image from 'next/image';
 import { HiChevronDown, HiChevronLeft } from 'react-icons/hi';
 import { SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
-import { CollectionPreview } from '../components/Collection/CollectionPreview';
 import HeaderMeta, { IHeaderMetaTags } from '../components/Feature/HeaderMeta';
 import MainLayout from '../components/Layout/MainLayout';
 import { RepositoryPreviewFromGithub } from '../components/Repository/RepositoryPreviewFromGithub';
@@ -158,59 +157,90 @@ const Index = () => {
 
               <div className="sm:col-start-1">
                 <div className="flex justify-center items-center py-6 overflow-x-hidden mx-auto">
-                  <CollectionPreview
-                    disabled
-                    className="order-5 flex-shrink-0 translate-x-8 scale-90"
-                    collection={{
-                      name: 'Vue.js',
-                      slug: 'vuejs',
-                      image: `https://simpleicons.org/icons/vuedotjs.svg`,
-                      color: { hexString: '#4FC08D' },
-                    }}
-                  />
-                  <CollectionPreview
-                    disabled
-                    className="order-1 flex-shrink-0 -translate-x-8 scale-90"
-                    collection={{
-                      name: 'Laravel',
-                      slug: 'laravel',
-                      image: `https://simpleicons.org/icons/laravel.svg`,
-                      color: { hexString: '#FF2D20' },
-                    }}
-                  />
-                  <CollectionPreview
-                    disabled
-                    className="order-4 flex-shrink-0 translate-x-4"
-                    style={{ zIndex: 1 }}
-                    collection={{
-                      name: 'Flutter',
-                      slug: 'flutter',
-                      image: `https://simpleicons.org/icons/flutter.svg`,
-                      color: { hexString: '#02569B' },
-                    }}
-                  />
-                  <CollectionPreview
-                    disabled
-                    className="order-2 flex-shrink-0 -translate-x-4"
-                    style={{ zIndex: 1 }}
-                    collection={{
-                      name: 'React',
-                      slug: 'react',
-                      image: `https://simpleicons.org/icons/react.svg`,
-                      color: { hexString: '#61DAFB' },
-                    }}
-                  />
-                  <CollectionPreview
-                    disabled
-                    className="order-3 flex-shrink-0 scale-110"
-                    style={{ zIndex: 2 }}
-                    collection={{
-                      name: 'JavaScript',
-                      slug: 'javascript',
-                      image: `https://simpleicons.org/icons/javascript.svg`,
-                      color: { hexString: '#F7DF1E' },
-                    }}
-                  />
+                  <div
+                    style={{ backgroundColor: '#4FC08D' }}
+                    className="translate-x-8  text-white order-5 flex-shrink-0 scale-90 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none"
+                  >
+                    <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        alt="Vue.js"
+                        src="https://simpleicons.org/icons/vuedotjs.svg"
+                        className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
+                      />
+                      <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
+                        <span dir="ltr">Vue.js</span>{' '}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{ backgroundColor: '#FF2D20' }}
+                    className=" -translate-x-8 text-white order-1 flex-shrink-0 scale-90 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none"
+                  >
+                    <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        alt="Laravel"
+                        src="https://simpleicons.org/icons/laravel.svg"
+                        className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
+                      />
+                      <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
+                        <span dir="ltr">Laravel</span>{' '}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{ backgroundColor: '#02569B', zIndex: 1 }}
+                    className="translate-x-4 text-white order-4 flex-shrink-0 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none"
+                  >
+                    <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        alt="Flutter"
+                        src="https://simpleicons.org/icons/flutter.svg"
+                        className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
+                      />
+                      <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
+                        <span dir="ltr">Flutter</span>{' '}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{ backgroundColor: '#61DAFB', zIndex: 1 }}
+                    className="-translate-x-4 text-white order-2 flex-shrink-0 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none"
+                  >
+                    <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        alt="React"
+                        src="https://simpleicons.org/icons/react.svg"
+                        className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
+                      />
+                      <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
+                        <span dir="ltr">React</span>{' '}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{ backgroundColor: '#F7DF1E', zIndex: 2 }}
+                    className="text-white order-3 flex-shrink-0 scale-110 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none"
+                  >
+                    <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        alt="JavaScript"
+                        src="https://simpleicons.org/icons/javascript.svg"
+                        className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
+                      />
+                      <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
+                        <span dir="ltr">JavaScript</span>{' '}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

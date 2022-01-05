@@ -29,14 +29,7 @@ const CollectionsPage = () => {
       <div className="mb-12 grid gap-10 md:grid-cols-12">
         {loading ? (
           <>
-            {Array.from(Array(6).keys()).map((i) => (
-              <CollectionPreviewSkeletonLoader
-                key={i}
-                variation="big"
-                className="md:col-span-6 lg:col-span-4"
-              />
-            ))}
-            {Array.from(Array(8).keys()).map((i) => (
+            {Array.from(Array(16).keys()).map((i) => (
               <CollectionPreviewSkeletonLoader
                 key={i}
                 className="md:col-span-4 lg:col-span-3"
@@ -46,12 +39,7 @@ const CollectionsPage = () => {
         ) : (
           data.collections.edges.map(({ node }, index) => (
             <CollectionPreview
-              variation="big"
-              className={
-                index < 6
-                  ? 'md:col-span-6 lg:col-span-4'
-                  : 'md:col-span-4 lg:col-span-3'
-              }
+              className={'md:col-span-4 lg:col-span-3'}
               key={node.id}
               collection={node}
             />
