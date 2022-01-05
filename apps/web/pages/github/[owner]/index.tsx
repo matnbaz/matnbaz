@@ -23,6 +23,7 @@ const OwnerPage = ({ ownerSlug }) => {
     data: { ownerByPlatform: owner },
     fetchMore,
     loading,
+    networkStatus,
   } = useGetOwnerQuery({
     variables: { owner: ownerSlug, platform: PlatformType.GitHub },
   });
@@ -66,6 +67,7 @@ const OwnerPage = ({ ownerSlug }) => {
 
         <div className="grid gap-6 pb-6 max-w-3xl mx-auto">
           <RepositoryPreviewList
+            networkStatus={networkStatus}
             loading={loading}
             repositories={owner.repositories.edges}
             onLoadMore={repositoriesLoadMoreHandler}
