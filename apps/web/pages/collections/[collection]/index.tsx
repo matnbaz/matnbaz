@@ -3,6 +3,7 @@ import HeaderMeta from '../../../components/Feature/HeaderMeta';
 import MainLayout from '../../../components/Layout/MainLayout';
 import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
 import Divider from '../../../components/UI/Divider';
+import { RandomPromotionBanner } from '../../../components/UI/RandomPromotionBanner';
 import { initializeApollo } from '../../../lib/apollo';
 import {
   GetCollectionDocument,
@@ -40,36 +41,34 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
         title={collection.name}
         description={collection.description}
       />
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 items-center justify-between overflow-hidden">
-          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 items-center sm:space-x-4 sm:space-x-reverse">
-            <div className="flex-shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={collection.image}
-                alt={collection.name}
-                className="brightness-0 invert w-20 h-20"
-              />
-            </div>
 
-            <div className="flex flex-col ">
-              <h1 className="text-2xl sm:text-4xl font-bold truncate">
-                {collection.name}
-              </h1>
-              <span className="text-secondary text-lg">
-                {collection.description}
-              </span>
-            </div>
-          </div>
+      <div className="space-y-6">
+        <div className="">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={collection.image}
+            alt={collection.name}
+            className="brightness-0 dark:invert w-24 h-24 mx-auto"
+          />
+          <h1 className="mt-4 text-center text-2xl sm:text-4xl font-bold truncate">
+            {collection.name}
+          </h1>
+          <p className="mt-2 text-center text-secondary text-lg">
+            {collection.description}
+          </p>
         </div>
         <Divider />
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min pb-6">
+        <div className="grid gap-6 pb-6 max-w-3xl mx-auto">
           <RepositoryPreviewList
             loading={loading}
             repositories={collection.collects.edges.map(
               ({ node: { repository } }) => ({ node: repository })
             )}
             onLoadMore={repositoriesLoadMoreHandler}
+            adsFrequency={7}
+            adsTemplate={() => (
+              <RandomPromotionBanner className="rounded-xl overflow-hidden" />
+            )}
           />
         </div>
       </div>

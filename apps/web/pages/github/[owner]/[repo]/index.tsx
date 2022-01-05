@@ -18,6 +18,7 @@ import RepositoryPreviewList from '../../../../components/Repository/RepositoryP
 import Button from '../../../../components/UI/Button/Button';
 import Card from '../../../../components/UI/Card';
 import Expandable from '../../../../components/UI/Expandable';
+import { RandomPromotionBanner } from '../../../../components/UI/RandomPromotionBanner';
 import { initializeApollo } from '../../../../lib/apollo';
 import {
   GetRepositoryDocument,
@@ -181,6 +182,8 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             )}
           </div>
         </div>
+
+        <RandomPromotionBanner className="my-6 rounded-xl overflow-hidden" />
       </div>
     </MainLayout>
   );

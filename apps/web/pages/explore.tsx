@@ -6,6 +6,7 @@ import { PageHeader } from '../components/Layout/PageHeader';
 import SubmitUserModal from '../components/Modal/SubmitUserModal';
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
 import Divider from '../components/UI/Divider';
+import { RandomPromotionBanner } from '../components/UI/RandomPromotionBanner';
 import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
 import Custom500 from './500';
 
@@ -68,13 +69,17 @@ const Explore = () => {
             </span>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:col-span-5 lg:col-span-6 auto-rows-min">
             <RepositoryPreviewList
               loading={loading}
               networkStatus={networkStatus}
               called={called}
               repositories={repositories}
               onLoadMore={repositoriesLoadMoreHandler}
+              adsFrequency={10}
+              adsTemplate={() => (
+                <RandomPromotionBanner className="lg:col-span-2 rounded-xl overflow-hidden" />
+              )}
             />
           </div>
         )}
