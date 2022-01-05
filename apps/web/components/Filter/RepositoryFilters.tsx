@@ -257,7 +257,7 @@ const RepositoryFilters = ({
           </Collapsible>
         </Card>
         <Card>
-          <Collapsible title="جستجوی پروژه" open={true}>
+          <Collapsible title="جستجوی پروژه">
             <Input
               placeholder="جستجو..."
               onChange={searchTermChangeHandler}
