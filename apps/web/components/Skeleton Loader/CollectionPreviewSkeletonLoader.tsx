@@ -9,51 +9,49 @@ export type ICollectionPreviewSkeletonLoaderProps = Omit<
 >;
 
 const CollectionPreviewSkeletonLoader = ({
-  variation = 'default',
   className,
   ...props
 }: ICollectionPreviewSkeletonLoaderProps) => {
   return (
     <Card
       {...props}
-      className={classNames(
-        className,
-        variation === 'big'
-          ? 'px-3 py-4 sm:px-6 sm:py-5'
-          : 'px-2.5 py-3 sm:px-5 sm:py-4'
-      )}
+      className={classNames(className, 'px-2.5 py-3 sm:px-5 sm:py-4')}
     >
-      <div className="flex flex-col items-center space-y-2" dir="ltr">
+      <div dir="ltr" className="relative">
         <SkeletonLoaderShape
           shape="circle"
-          width="96px"
-          height="96px"
-          className="flex-shrink-0"
+          width="48px"
+          height="48px"
+          className="absolute top-0 left-0"
         />
-        <div className="flex flex-col items-start w-full mt-4">
+        <div className="flex flex-col items-end w-full my-2">
+          <div className="flex items-center flex-row-reverse space-x-reverse space-x-2 w-full">
+            <SkeletonLoaderShape shape="circle" width="24px" height="24px" />
+            <SkeletonLoaderShape shape="rectangle" width="40%" height="16px" />
+          </div>
           <SkeletonLoaderShape
             shape="rectangle"
-            width="40%"
-            height="16px"
-            className="mx-auto"
+            width="30%"
+            height="10px"
+            className="mt-2"
           />
           <SkeletonLoaderShape
             shape="rectangle"
-            width="80%"
-            height="8px"
-            className="mt-4 mx-auto"
+            width="100%"
+            height="12px"
+            className="mt-4"
           />
           <SkeletonLoaderShape
             shape="rectangle"
-            width="80%"
-            height="8px"
-            className="mt-2 mx-auto"
+            width="100%"
+            height="12px"
+            className="mt-2"
           />
           <SkeletonLoaderShape
             shape="rectangle"
             width="60%"
-            height="8px"
-            className="mt-2 mx-auto"
+            height="12px"
+            className="mt-2"
           />
         </div>
       </div>
