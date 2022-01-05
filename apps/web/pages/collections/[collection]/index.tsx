@@ -20,6 +20,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
     data: { collection },
     fetchMore,
     loading,
+    networkStatus,
   } = useGetCollectionQuery({
     variables: { slug: collectionSlug },
   });
@@ -62,6 +63,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
 
         <div className="grid gap-6 pb-6 max-w-3xl mx-auto">
           <RepositoryPreviewList
+            networkStatus={networkStatus}
             loading={loading}
             repositories={collection.collects.edges.map(
               ({ node: { repository } }) => ({ node: repository })
