@@ -6,7 +6,7 @@ import Divider from '../components/UI/Divider';
 export default function Custom404() {
   return (
     <MainLayout>
-      <HeaderMeta title="یافت نشد - متن‌باز" />
+      <HeaderMeta title="یافت نشد" />
 
       <div className="flex flex-col items-center justify-center h-80">
         <h1 className="text-5xl font-bold">یافت نشد</h1>

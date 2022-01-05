@@ -160,6 +160,20 @@ const data = [
     Languages: { connect: { slug: 'csharp' } },
   },
   {
+    name: 'Zig',
+    slug: 'zig',
+    color: '#F7A41D',
+    image: 'https://simpleicons.org/icons/zig.svg',
+    description:
+      'زیگ یک زبان برنامه‌نویسی همه‌منظوره، تایپ ایستا و کامپایل‌شده است که برای استحکام، بهینه‌بودن و قابلیت نگهداری  طراحی شده است.',
+    Topics: {
+      connect: ['zig'].map((topic) => ({
+        name: topic,
+      })),
+    },
+    Languages: { connect: { slug: 'zig' } },
+  },
+  {
     name: 'Laravel',
     slug: 'laravel',
     color: '#FF2D20',

@@ -6,7 +6,7 @@ import Divider from '../components/UI/Divider';
 export default function Custom500() {
   return (
     <MainLayout>
-      <HeaderMeta title="خطای سرور - متن‌باز" />
+      <HeaderMeta title="خطای سرور" />
       <div className="flex flex-col items-center justify-center h-80">
         <h1 className="text-5xl font-bold">خطای سرور</h1>
         <span className="text-lg text-center text-secondary mt-4">

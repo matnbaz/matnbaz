@@ -100,8 +100,8 @@ export const Banner = ({
                 <span className="hidden md:inline">{text}</span>
               </p>
             </div>
-            {url && (
-              <div className="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
+            <div className="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
+              {url && (
                 <a
                   href={url}
                   target={openOnNewTab && '_blank'}
@@ -112,23 +112,22 @@ export const Banner = ({
                 >
                   {cta}
                 </a>
-              </div>
-            )}
-            {onDismiss && (
-              <div className="order-2 flex-shrink-0 sm:order-3 sm:mr-3">
-                <button
-                  onClick={() => onDismiss && onDismiss()}
-                  type="button"
-                  className={classNames(
-                    '-ml-1 flex p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white sm:-ml-2',
-                    bannerThemes[theme].dismiss
-                  )}
-                >
-                  <span className="sr-only">رد کردن</span>
-                  <HiX className="h-6 w-6 text-white" aria-hidden="true" />
-                </button>
-              </div>
-            )}
+              )}
+            </div>
+            <div className="order-2 flex-shrink-0 sm:order-3 sm:mr-3">
+              <button
+                onClick={() => onDismiss && onDismiss()}
+                type="button"
+                className={classNames(
+                  '-ml-1 flex p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white sm:-ml-2',
+                  bannerThemes[theme].dismiss,
+                  !onDismiss && 'invisible sm:hidden'
+                )}
+              >
+                <span className="sr-only">رد کردن</span>
+                <HiX className="h-6 w-6 text-white" aria-hidden="true" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
