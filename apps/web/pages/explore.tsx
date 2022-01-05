@@ -76,7 +76,7 @@ const Explore = () => {
               called={called}
               repositories={repositories}
               onLoadMore={repositoriesLoadMoreHandler}
-              adsFrequency={10}
+              adsFrequency={14}
               adsTemplate={() => (
                 <RandomPromotionBanner className="lg:col-span-2 rounded-xl overflow-hidden" />
               )}
