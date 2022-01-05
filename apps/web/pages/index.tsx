@@ -94,7 +94,7 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="max-w-7xl mx-auto py-4 px-4 sm:py-8 sm:px-6 lg:px-8">
+            {/* <div className="max-w-7xl mx-auto py-4 px-4 sm:py-8 sm:px-6 lg:px-8">
               <div className="lg:grid lg:grid-cols-2 lg:gap-8">
                 <div>
                   <h2 className="max-w-md text-2xl md:text-3xl font-extrabold text-center lg:max-w-xl">
@@ -124,7 +124,7 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* <div className="m-auto max-w-7xl lg:relative my-12">
