@@ -62,6 +62,7 @@ export interface BannerProps {
   text?: string;
   mobile?: string;
   url?: string;
+  openOnNewTab?: boolean;
   cta?: string;
   icon?: IconType;
   theme?: keyof typeof BannerTheme;
@@ -78,6 +79,7 @@ export const Banner = ({
   theme = 'primary',
   onDismiss,
   className,
+  openOnNewTab = false,
 }: BannerProps) => {
   return (
     <div className={className}>
@@ -102,6 +104,7 @@ export const Banner = ({
               <div className="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
                 <a
                   href={url}
+                  target={openOnNewTab && '_blank'}
                   className={classNames(
                     'flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium',
                     bannerThemes[theme].button
