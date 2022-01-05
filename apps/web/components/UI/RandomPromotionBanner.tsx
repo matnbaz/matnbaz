@@ -38,6 +38,12 @@ export const RandomPromotionBanner = (props: RandomPromotionBannerProps) => {
   }, []);
 
   return (
-    bannerRnd !== null && <Banner {...bannerProps[bannerRnd]} {...props} />
+    bannerRnd !== null && (
+      <Banner
+        {...bannerProps[bannerRnd]}
+        openOnNewTab={props.openOnNewTab || true}
+        {...props}
+      />
+    )
   );
 };
