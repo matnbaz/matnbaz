@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Card, { ICardProps } from '../UI/Card';
 
 export interface ICollectionPreviewProps
-  extends Omit<ICardProps, 'children' | 'href' | 'border'> {
+  extends Omit<ICardProps, 'children' | 'href'> {
   collection: {
     name: string;
     slug: string;
@@ -26,11 +26,7 @@ export const CollectionPreview = ({
   return (
     <Card
       key={slug}
-      border="none"
-      className={classNames(
-        'bg-gray-100 dark:bg-gray-800 flex flex-col items-center',
-        className
-      )}
+      className={classNames('flex flex-col items-center', className)}
       href={`/collections/${slug}`}
       {...props}
     >

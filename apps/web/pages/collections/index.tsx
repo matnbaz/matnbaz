@@ -31,17 +31,21 @@ const CollectionsPage = () => {
           <>
             {Array.from(Array(16).keys()).map((i) => (
               <CollectionPreviewSkeletonLoader
-                key={i}
                 className="md:col-span-4 lg:col-span-3"
+                key={i}
+                border="none"
+                colored
               />
             ))}
           </>
         ) : (
           data.collections.edges.map(({ node }, index) => (
             <CollectionPreview
-              className={'md:col-span-4 lg:col-span-3'}
+              className="md:col-span-4 lg:col-span-3"
               key={node.id}
               collection={node}
+              border="none"
+              colored
             />
           ))
         )}
