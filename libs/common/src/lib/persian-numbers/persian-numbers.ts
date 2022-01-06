@@ -1,6 +1,10 @@
-export const persianNumbers = (string: number | string) => {
-  if (typeof string === 'number') return string.toLocaleString('fa');
-  if (typeof string !== 'string') return '';
+export const persianNumbers = (
+  string: number | string,
+  replaceManually = false
+) => {
+  if (typeof string === 'number' && !replaceManually)
+    return string.toLocaleString('fa');
+  string = string.toString();
 
   const map = {
     1: '۱',
