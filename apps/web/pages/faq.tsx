@@ -14,9 +14,9 @@ interface FaqPageProps {
 }
 
 export const faqMetaTags: IHeaderMetaTags = {
-  title: 'سوالات متداول',
+  title: 'پرسش‌های متداول',
   description:
-    'در این صفحه سوالاتی که به‌صورت متداول از ما پرسیده شده را مشاهده می‌کنید.',
+    'در این صفحه پرسش‌هایی که به‌صورت متداول از ما پرسیده شده را مشاهده می‌کنید.',
 };
 
 const FaqPage: NextPage<FaqPageProps> = ({ faqs }) => {
