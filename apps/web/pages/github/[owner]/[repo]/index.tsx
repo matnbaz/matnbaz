@@ -154,6 +154,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
         </div>
       </div>
       <div className="p-5 sm:p-8 max-w-7xl mx-auto">
+        <RandomPromotionBanner className="my-6 rounded-xl overflow-hidden" />
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-6 items-start">
           <Card padded border="all" className="col-span-1 lg:col-span-4">
             {repo.readmeHtml ? (
@@ -165,8 +166,8 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
                 ></div>
               </Expandable>
             ) : (
-              <h1 className="text-lg font-thin text-secondary">
-                فایل readme برای نمایش وجود ندارد.
+              <h1 className="text-lg text-secondary">
+                فایل readme برای نمایش پیدا نشد.
               </h1>
             )}
           </Card>
