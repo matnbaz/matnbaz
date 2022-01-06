@@ -95,7 +95,7 @@ export class CollectionPuppeteerService {
           </h3>
         </div>
         <div class="self-center place-self-center">
-          <img src="${image}" class="w-72 h-72 pr-24" />
+          <img src="${image}" class="w-72 h-72 pr-12" />
         </div>
       </div>
     </div>
