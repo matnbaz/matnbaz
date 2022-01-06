@@ -46,7 +46,6 @@ export class CollectionController {
             collection,
             collection.Collects.length
           );
-        console.log('this does not get called!!');
         return buffer.toString('base64');
       },
       { ttl: 604800 } // A week
