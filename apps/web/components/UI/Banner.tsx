@@ -9,6 +9,7 @@ enum BannerTheme {
   telegram = 'telegram',
   twitter = 'twitter',
   discord = 'discord',
+  github = 'github',
 }
 
 const bannerThemes: Record<
@@ -55,6 +56,13 @@ const bannerThemes: Record<
     iconContainer: 'bg-[#0C1796]',
     button: 'text-[#2435EE] bg-white hover:bg-[#EFF1FE]',
     dismiss: 'hover:bg-[#5865F2]',
+  },
+
+  github: {
+    bg: 'bg-[#000000]',
+    iconContainer: 'bg-[#181717]',
+    button: 'text-[#181717] bg-white hover:bg-[#767171]',
+    dismiss: 'hover:bg-[#000000]',
   },
 };
 

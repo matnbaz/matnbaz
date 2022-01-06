@@ -1,6 +1,6 @@
 import { randomBetween, socialMedia } from '@matnbaz/common';
 import { useEffect, useState } from 'react';
-import { SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
+import { SiGithub, SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
 import { Banner, BannerProps } from './Banner';
 
 const bannerProps: BannerProps[] = [
@@ -26,6 +26,22 @@ const bannerProps: BannerProps[] = [
     url: socialMedia.twitter,
     cta: 'مشاهده صفحه',
     theme: 'twitter',
+  },
+
+  {
+    text: 'با توییت کردن درمورد متن‌باز به گسترش آن کمک کنید. ❤️',
+    icon: SiTwitter,
+    url: socialMedia.twitterTweet,
+    cta: 'توییت',
+    theme: 'twitter',
+  },
+
+  {
+    text: 'با ستاره دادن به پروژه در گیت‌هاب به ما کمک کنید. ⭐️',
+    icon: SiGithub,
+    url: socialMedia.githubRepo,
+    cta: 'مشاهده مخزن',
+    theme: 'github',
   },
 ];
 
