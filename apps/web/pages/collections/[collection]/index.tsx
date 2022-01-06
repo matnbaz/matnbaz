@@ -50,7 +50,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
             <span>مشاهده همه کالکشن‌ها</span>
           </a>
         </Link>
-        <div className="space-y-10">
+        <div className="mt-4 space-y-10">
           <div className="">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
