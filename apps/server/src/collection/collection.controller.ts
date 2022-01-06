@@ -48,7 +48,7 @@ export class CollectionController {
           );
         return buffer.toString('base64');
       },
-      { ttl: 604800 } // A week
+      { ttl: 86400 } // 24H
     );
 
     const buffer = Buffer.from(image, 'base64');
