@@ -45,7 +45,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
         title={collection.name}
         description={collection.description}
         withBanner
-        banner={`https://servermatnbaz.net/collections/${collection.slug}.jpg`}
+        banner={`https://server.matnbaz.net/collections/${collection.slug}.jpg`}
       />
       <div className="max-w-3xl mx-auto">
         <Link href="/collections">
