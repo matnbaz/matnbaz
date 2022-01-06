@@ -61,7 +61,14 @@ export class GithubReadmeExtractorService {
         );
         return response.data;
       } catch (e) {
-        return null;
+        try {
+          const response = await axios.get(
+            `https://raw.githubusercontent.com/${ownerLogin}/${repoName}/${defaultBranch}/Readme.md`
+          );
+          return response.data;
+        } catch (e) {
+          return null;
+        }
       }
     }
   }
