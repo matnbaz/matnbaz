@@ -286,20 +286,6 @@ const data = [
     terms: ['vue', 'vue.js', 'vuejs', 'ویو جی‌اس', 'ویو.جی‌اس'],
   },
   {
-    name: 'Awesome Lists',
-    slug: 'awesome-lists',
-    color: '#FC60A8',
-    description:
-      'Awesome Lists حرکتی‌ست که Sindre Sorhus در پلتفرم گیت‌هاب شروع کرد که در آن از موضوعات مختلف لیست‌هایی از لینک‌های مفید جمع‌آوری می‌شود.',
-    image: 'https://simpleicons.org/icons/awesomelists.svg',
-    Topics: {
-      connect: ['awesome-list'].map((topic) => ({
-        name: topic,
-      })),
-    },
-    terms: ['awesome-'],
-  },
-  {
     name: 'Svelte',
     slug: 'svelte',
     color: '#FF3E00',
@@ -341,6 +327,48 @@ const data = [
     },
     Languages: { connect: { slug: 'typescript' } },
     terms: ['nestjs', 'nest.js', 'nest'],
+  },
+  {
+    name: 'Awesome Lists',
+    slug: 'awesome-lists',
+    color: '#FC60A8',
+    description:
+      'Awesome Lists حرکتی‌ست که Sindre Sorhus در پلتفرم گیت‌هاب شروع کرد که در آن از موضوعات مختلف لیست‌هایی از لینک‌های مفید جمع‌آوری می‌شود.',
+    image: 'https://simpleicons.org/icons/awesomelists.svg',
+    Topics: {
+      connect: ['awesome-list'].map((topic) => ({
+        name: topic,
+      })),
+    },
+    terms: ['awesome-'],
+  },
+  {
+    name: 'Telegram',
+    slug: 'telegram',
+    color: '#26A5E4',
+    description:
+      'تلگرام یک سرویس پیام‌رسان رایگان، چند‌پلتفرمی و مبتنی بر ابر است. در این کالکشن پروژه‌های مربوط به این پیام‌رسان گرد آمده‌اند.',
+    image: 'https://simpleicons.org/icons/telegram.svg',
+    Topics: {
+      connect: ['telegram'].map((topic) => ({
+        name: topic,
+      })),
+    },
+    terms: ['telegram', 'تلگرام', 'تلگرم'],
+  },
+  {
+    name: 'Instagram',
+    slug: 'instagram',
+    color: '#E4405F',
+    description:
+      'اینستاگرام یک سرویس شبکه‌اجتماعی اشتراک‌گذاری عکس و ویدیو است. در این کالکشن پروژه‌های مربوط به این شبکه‌اجتماعی گرد آمده‌اند.',
+    image: 'https://simpleicons.org/icons/instagram.svg',
+    Topics: {
+      connect: ['instagram'].map((topic) => ({
+        name: topic,
+      })),
+    },
+    terms: ['instagram', 'اینستاگرام', 'اینستاگرم'],
   },
 ];
 
