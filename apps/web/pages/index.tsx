@@ -132,10 +132,9 @@ const Index = () => {
             </div>
           </div> */}
 
-          <SiteStats />
           <div id="more" />
 
-          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
+          <div className="m-auto max-w-7xl px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-2">
                 <h2 className="inline-flex items-center text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
@@ -291,6 +290,10 @@ const Index = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="mt-16 sm:mt-28">
+            <SiteStats />
           </div>
 
           <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
