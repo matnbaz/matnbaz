@@ -1,4 +1,4 @@
-import { socialMedia } from '@matnbaz/common';
+import { links } from '@matnbaz/common';
 import Image from 'next/image';
 import { HiChevronDown, HiChevronLeft } from 'react-icons/hi';
 import { SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
@@ -9,8 +9,7 @@ import Button from '../components/UI/Button/Button';
 import { IconButton } from '../components/UI/IconButton';
 import { useMetadataQuery } from '../lib/graphql-types';
 
-const sponsorshipUrl =
-  'https://github.com/matnbaz/matnbaz/blob/main/SPONSORSHIP.md';
+const sponsorshipUrl = `${links.githubRepo}/blob/main/SPONSORSHIP.md`;
 // mailto:alirezazamani2922@gmail.com?subject=%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%20%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2&body=%D8%A8%D8%A7%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D9%84%D8%A7%D9%85%D8%8C%0D%0A%D8%B4%D8%B1%DA%A9%D8%AA%20%D9%85%D8%A7%20(%D9%86%D8%A7%D9%85%20%D8%B4%D8%B1%DA%A9%D8%AA)%20%D9%85%D8%A7%DB%8C%D9%84%20%D8%A8%D9%87%20%D8%AD%D9%85%D8%A7%DB%8C%D8%AA%20%D8%A7%D8%B2%20%D8%B7%D8%B1%DB%8C%D9%82%20%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%20%D8%B4%D8%AF%D9%86%20%D8%A7%D8%B3%D8%AA.%0D%0A%0D%0A%D9%84%D8%B7%D9%81%D8%A7%20%D8%B4%D8%B1%D8%A7%DB%8C%D8%B7%20%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%DB%8C%20%D8%B1%D8%A7%20%D8%A7%D8%B1%D8%B3%D8%A7%D9%84%20%DA%A9%D9%86%DB%8C%D8%AF.%0D%0A%D8%A8%D8%A7%20%D8%AA%D8%B4%DA%A9%D8%B1.
 export const indexMetaTags: IHeaderMetaTags = {
   title: 'تمام پروژه های متن باز ایرانی در یک جا',
@@ -46,7 +45,7 @@ const Index = () => {
                   <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
                 </a> */}
                 <a
-                  href={socialMedia.telegram}
+                  href={links.telegram}
                   target="_blank"
                   rel="noreferrer"
                   className="hidden sm:inline-flex items-center text-white bg-black rounded-full p-1 pl-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
@@ -308,7 +307,7 @@ const Index = () => {
                   با ستاره دادن می‌توانید به پیشرفت و بیشتر شناخته‌شدن پروژه کمک
                   کنید.
                   {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                  <a target="_blank" href="https://github.com/matnbaz/matnbaz">
+                  <a target="_blank" href={links.githubRepo}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       className="mt-2"
@@ -343,7 +342,7 @@ const Index = () => {
               </div>
 
               <div className="sm:col-start-2">
-                <a href={socialMedia.discord} target="_blank" rel="noreferrer">
+                <a href={links.discord} target="_blank" rel="noreferrer">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     className="mx-auto rounded-md"
@@ -370,21 +369,21 @@ const Index = () => {
               <div className="sm:col-start-1">
                 <div className="flex items-center justify-center space-x-4 space-x-reverse">
                   <IconButton
-                    href={socialMedia.telegram}
+                    href={links.telegram}
                     target="_blank"
                     rel="noreferrer"
                   >
                     <SiTelegram className="w-8 h-8" />
                   </IconButton>
                   <IconButton
-                    href={socialMedia.twitter}
+                    href={links.twitter}
                     target="_blank"
                     rel="noreferrer"
                   >
                     <SiTwitter className="w-8 h-8" />
                   </IconButton>
                   <IconButton
-                    href={socialMedia.instagram}
+                    href={links.instagram}
                     target="_blank"
                     rel="noreferrer"
                   >

@@ -1,4 +1,4 @@
-export const socialMedia = {
+export const links = {
   instagram: 'https://instagram.com/matnbaz_net',
   discord: 'https://discord.link/matnbaz',
   telegram: 'https://t.me/matnbaz_net',

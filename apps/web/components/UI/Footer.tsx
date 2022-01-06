@@ -1,4 +1,4 @@
-import { socialMedia } from '@matnbaz/common';
+import { links } from '@matnbaz/common';
 import Link from 'next/link';
 import {
   SiDiscord,
@@ -49,7 +49,7 @@ export const Footer = (props: FooterProps) => {
 
               <a
                 className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
-                href={'https://github.com/matnbaz/matnbaz'}
+                href={links.githubRepo}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -57,7 +57,7 @@ export const Footer = (props: FooterProps) => {
               </a>
               <a
                 className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
-                href={socialMedia.discord}
+                href={links.discord}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -67,39 +67,19 @@ export const Footer = (props: FooterProps) => {
           </div>
 
           <div className="flex items-center justify-center">
-            <IconButton
-              href={socialMedia.github}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <IconButton href={links.github} target="_blank" rel="noreferrer">
               <SiGithub className="w-4 h-4" />
             </IconButton>
-            <IconButton
-              href={socialMedia.telegram}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <IconButton href={links.telegram} target="_blank" rel="noreferrer">
               <SiTelegram className="w-4 h-4" />
             </IconButton>
-            <IconButton
-              href={socialMedia.discord}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <IconButton href={links.discord} target="_blank" rel="noreferrer">
               <SiDiscord className="w-4 h-4" />
             </IconButton>
-            <IconButton
-              href={socialMedia.twitter}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <IconButton href={links.twitter} target="_blank" rel="noreferrer">
               <SiTwitter className="w-4 h-4" />
             </IconButton>
-            <IconButton
-              href={socialMedia.instagram}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <IconButton href={links.instagram} target="_blank" rel="noreferrer">
               <SiInstagram className="w-4 h-4" />
             </IconButton>
           </div>

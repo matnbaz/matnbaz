@@ -1,3 +1,4 @@
+import { links } from '@matnbaz/common';
 import HeaderMeta from '../components/Feature/HeaderMeta';
 import MainLayout from '../components/Layout/MainLayout';
 import Button from '../components/UI/Button/Button';
@@ -17,7 +18,7 @@ export default function Custom500() {
         <div className="space-x-4 space-x-reverse">
           <Button.Primary
             target="_blank"
-            href="https://github.com/matnbaz/matnbaz/issues/new"
+            href={`${links.githubRepo}/issues/new`}
           >
             گزارش خطا
           </Button.Primary>

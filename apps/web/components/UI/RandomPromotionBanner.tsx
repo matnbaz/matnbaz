@@ -1,4 +1,4 @@
-import { randomBetween, socialMedia } from '@matnbaz/common';
+import { links, randomBetween } from '@matnbaz/common';
 import { useEffect, useState } from 'react';
 import { SiGithub, SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
 import { Banner, BannerProps } from './Banner';
@@ -7,7 +7,7 @@ const bannerProps: BannerProps[] = [
   {
     text: 'حتما در کانال تلگرامی متن‌باز عضو شوید.',
     icon: SiTelegram,
-    url: socialMedia.telegram,
+    url: links.telegram,
     cta: 'ورود به کانال',
     theme: 'primary',
   },
@@ -15,7 +15,7 @@ const bannerProps: BannerProps[] = [
   {
     text: 'صفحه اینستاگرام متن‌باز را دنبال کنید.',
     icon: SiInstagram,
-    url: socialMedia.instagram,
+    url: links.instagram,
     cta: 'مشاهده صفحه',
     theme: 'instagram',
   },
@@ -23,7 +23,7 @@ const bannerProps: BannerProps[] = [
   {
     text: 'صفحه توییتری متن‌باز را دنبال کنید.',
     icon: SiTwitter,
-    url: socialMedia.twitter,
+    url: links.twitter,
     cta: 'مشاهده صفحه',
     theme: 'twitter',
   },
@@ -31,7 +31,7 @@ const bannerProps: BannerProps[] = [
   {
     text: 'با توییت کردن درمورد متن‌باز به گسترش آن کمک کنید. ❤️',
     icon: SiTwitter,
-    url: socialMedia.twitterTweet,
+    url: links.twitterTweet,
     cta: 'توییت',
     theme: 'twitter',
   },
@@ -39,7 +39,7 @@ const bannerProps: BannerProps[] = [
   {
     text: 'با ستاره دادن به پروژه در گیت‌هاب به ما کمک کنید. ⭐️',
     icon: SiGithub,
-    url: socialMedia.githubRepo,
+    url: links.githubRepo,
     cta: 'مشاهده مخزن',
     theme: 'github',
   },
