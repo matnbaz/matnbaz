@@ -10,6 +10,8 @@ export class CollectionPuppeteerService {
     reposCount: number
   ) {
     const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
       defaultViewport: { width: 1280, height: 640 },
     });
     const page = await browser.newPage();
