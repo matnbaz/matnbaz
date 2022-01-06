@@ -73,7 +73,7 @@ const Explore = () => {
             </span>
           </div>
         ) : (
-          <div className="grid gap-6 md:col-span-4">
+          <div className="grid gap-6 md:col-span-4 auto-rows-min">
             <RepositoryPreviewList
               loading={loading}
               networkStatus={networkStatus}
