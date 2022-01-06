@@ -19,6 +19,7 @@ const links: { name: string; to: string; external?: boolean }[] = [
   { name: 'کالکشن‌ها', to: '/collections' },
   { name: 'ثبت کاربر', to: '/submit-user' },
   { name: 'درباره', to: '/about' },
+  { name: 'پرسش‌های متداول', to: '/faq' },
 ];
 
 const Navbar = ({ className }: INavbarProps) => {
@@ -53,9 +54,9 @@ const Navbar = ({ className }: INavbarProps) => {
                 </h2>
               </a>
             </Link>
-            <div className="hidden md:flex items-center space-x-4 space-x-reverse">
+            <div className="hidden md:flex items-center flex-wrap space-x-4 space-x-reverse">
               {links.map(({ name, to, external }) => (
-                <div key={name}>
+                <div key={name} className="my-2">
                   <Link href={to}>
                     <a
                       className={classNames(
