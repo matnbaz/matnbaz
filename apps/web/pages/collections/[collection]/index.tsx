@@ -23,8 +23,10 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
     fetchMore,
     loading,
     networkStatus,
+    called,
   } = useGetCollectionQuery({
     variables: { slug: collectionSlug },
+    notifyOnNetworkStatusChange: true,
   });
 
   const repositoriesLoadMoreHandler = () => {
@@ -72,6 +74,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
           <div className="grid gap-6 pb-6">
             <RepositoryPreviewList
               networkStatus={networkStatus}
+              called={called}
               loading={loading}
               repositories={collection.collects.edges.map(
                 ({ node: { repository } }) => ({ node: repository })

@@ -24,8 +24,10 @@ const OwnerPage = ({ ownerSlug }) => {
     fetchMore,
     loading,
     networkStatus,
+    called,
   } = useGetOwnerQuery({
     variables: { owner: ownerSlug, platform: PlatformType.GitHub },
+    notifyOnNetworkStatusChange: true,
   });
   const repositoriesLoadMoreHandler = () => {
     if (!owner.repositories.pageInfo.hasNextPage) return;
@@ -68,6 +70,7 @@ const OwnerPage = ({ ownerSlug }) => {
         <div className="grid gap-6 pb-6 max-w-3xl mx-auto">
           <RepositoryPreviewList
             networkStatus={networkStatus}
+            called={called}
             loading={loading}
             repositories={owner.repositories.edges}
             onLoadMore={repositoriesLoadMoreHandler}
