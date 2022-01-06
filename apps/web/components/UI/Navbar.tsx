@@ -17,8 +17,8 @@ interface INavbarProps {
 const links: { name: string; to: string; external?: boolean }[] = [
   { name: 'کاوش‌گر', to: '/explore' },
   { name: 'کالکشن‌ها', to: '/collections' },
-  { name: 'درباره', to: '/about' },
   { name: 'ثبت کاربر', to: '/submit-user' },
+  { name: 'درباره', to: '/about' },
 ];
 
 const Navbar = ({ className }: INavbarProps) => {
