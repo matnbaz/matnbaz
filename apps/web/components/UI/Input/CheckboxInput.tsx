@@ -1,8 +1,7 @@
 import { Switch, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
-import { IInputProps } from './Input';
 
 interface ICheckboxInputProps {
   className?: string;
