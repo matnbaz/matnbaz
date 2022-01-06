@@ -20,7 +20,7 @@ const About: NextPage<AboutProps> = ({ about }) => {
     <MainLayout>
       <HeaderMeta {...aboutMetaTags} withBanner />
       <div
-        className="prose dark:prose-invert max-w-4xl mx-auto my-5"
+        className="prose dark:prose-invert prose-h1:mt-10 max-w-4xl mx-auto mb-5"
         dangerouslySetInnerHTML={{ __html: about }}
       />
     </MainLayout>
