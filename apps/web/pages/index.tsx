@@ -319,6 +319,7 @@ const Index = () => {
               <div className="sm:col-start-1">
                 <RepositoryPreviewFromGithub
                   padded
+                  sendToPlatform
                   fullName="matnbaz/matnbaz"
                 />
               </div>
