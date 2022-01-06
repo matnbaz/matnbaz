@@ -285,7 +285,7 @@ const RepositoryFilters = ({
             />
             {languages && languages.length ? (
               <CheckboxList
-                className="max-h-52 overflow-y-auto mt-4"
+                className="max-h-52 overflow-y-auto mt-4 text-right flex-row-reverse"
                 // Languages are all in english
                 dir="ltr"
                 options={languages}

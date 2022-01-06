@@ -108,7 +108,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
                 </a>
               </div>
               <span
-                className="text-secondary text-sm md:text-base max-w-[45rem]"
+                className="text-secondary text-sm md:text-base max-w-[45rem] text-right"
                 dir={repo.descriptionDirection.toLowerCase()}
               >
                 {repo.descriptionLimited}

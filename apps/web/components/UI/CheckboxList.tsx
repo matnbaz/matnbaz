@@ -45,37 +45,31 @@ const CheckboxList = ({
       {options.map((option) => (
         <div
           key={option.id || option.key || option.name}
-          className="inline-flex items-center"
+          className={classNames(
+            dir === 'ltr' && 'text-right',
+            'flex items-center flex-row-reverse'
+          )}
+          dir={dir}
         >
-          <span
-            className={classNames(
-              dir === 'ltr' && 'text-right',
-              'text-sm text-secondary inline-flex items-center'
+          <Input.Checkbox
+            label={option.name}
+            checked={selectedOptions.some((selectedOption) =>
+              compareOptions(selectedOption, option)
             )}
-            dir={dir}
-          >
-            {option.name}
-            <Input.Checkbox
-              className="ml-2"
-              checked={selectedOptions.some((selectedOption) =>
-                compareOptions(selectedOption, option)
-              )}
-              onChange={(checked) => {
-                if (checked)
-                  setSelectedOptions((previousSelectedOptions) => {
-                    return [...previousSelectedOptions, option];
-                  });
-                else {
-                  setSelectedOptions((previousSelectedOptions) => {
-                    return previousSelectedOptions.filter(
-                      (selectedOption) =>
-                        !compareOptions(selectedOption, option)
-                    );
-                  });
-                }
-              }}
-            />
-          </span>
+            onChange={(checked) => {
+              if (checked)
+                setSelectedOptions((previousSelectedOptions) => {
+                  return [...previousSelectedOptions, option];
+                });
+              else {
+                setSelectedOptions((previousSelectedOptions) => {
+                  return previousSelectedOptions.filter(
+                    (selectedOption) => !compareOptions(selectedOption, option)
+                  );
+                });
+              }
+            }}
+          />
         </div>
       ))}
     </div>
