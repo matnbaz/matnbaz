@@ -1,3 +1,4 @@
+import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import { MdChevronRight } from 'react-icons/md';
@@ -68,6 +69,9 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
             >
               {collection.name}
             </h1>
+            <div className="text-secondary font-medium text-center">
+              {persianNumbers(collection.repositoriesCount)} پروژه
+            </div>
             <p className="mt-2 text-center text-secondary text-lg">
               {collection.description}
             </p>
