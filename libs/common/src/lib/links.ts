@@ -6,5 +6,5 @@ export const links = {
   githubRepo: 'https://github.com/matnbaz/matnbaz',
   twitter: 'https://twitter.com/matnbaz_net',
   twitterTweet:
-    'https://twitter.com/intent/tweet?text=%D8%A8%D9%87%20%22%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2%22%20%DB%8C%DA%A9%20%D8%B3%D8%B1%DB%8C%20%D8%A8%D8%B2%D9%86%DB%8C%D8%AF.%20%0A&url=matnbaz.net&via=matnbaz_net',
+    'https://twitter.com/intent/tweet?text=%D8%A8%D9%87%20%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2%20%DB%8C%DA%A9%20%D8%B3%D8%B1%DB%8C%20%D8%A8%D8%B2%D9%86%DB%8C%D8%AF.%20%0A&url=matnbaz.net&via=matnbaz_net',
 };
