@@ -62,7 +62,7 @@ const Index = () => {
                   </span>
                   <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
                 </a>
-                <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
+                <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-5xl lg:mt-6 xl:text-5xl">
                   تمام پروژه‌های اوپن‌سورس{' '}
                   <span className="text-primary-500">ایرانی</span>{' '}
                   <span className="">در یک جا</span>
