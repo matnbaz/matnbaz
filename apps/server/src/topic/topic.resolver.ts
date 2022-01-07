@@ -73,9 +73,15 @@ export class TopicResolver {
     const topicPromise = this.prisma.topic.findUnique({ where: { id } });
 
     return findManyCursorConnection(
-      (args) => topicPromise.Repositories(args),
+      (args) =>
+        topicPromise.Repositories({ where: { blockedAt: null }, ...args }),
       async () =>
-        (await topicPromise.Repositories({ select: { id: true } })).length,
+        (
+          await topicPromise.Repositories({
+            where: { blockedAt: null },
+            select: { id: true },
+          })
+        ).length,
       pagination
     );
   }
@@ -88,7 +94,7 @@ export class TopicResolver {
           where: { id },
           select: { id: true },
         })
-        .Repositories()
+        .Repositories({ where: { blockedAt: null }, select: { id: true } })
     ).length;
   }
 

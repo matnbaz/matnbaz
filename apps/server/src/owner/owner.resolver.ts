@@ -63,9 +63,15 @@ export class OwnerResolver extends ReportableResolver(Owner) {
     const ownerPromise = this.prisma.owner.findUnique({ where: { id } });
 
     return findManyCursorConnection(
-      (args) => ownerPromise.Repositories(args),
+      (args) =>
+        ownerPromise.Repositories({ where: { blockedAt: null }, ...args }),
       async () =>
-        (await ownerPromise.Repositories({ select: { id: true } })).length,
+        (
+          await ownerPromise.Repositories({
+            where: { blockedAt: null },
+            select: { id: true },
+          })
+        ).length,
       pagination
     );
   }
@@ -75,7 +81,7 @@ export class OwnerResolver extends ReportableResolver(Owner) {
     return (
       await this.prisma.owner
         .findUnique({ where: { id } })
-        .Repositories({ select: { id: true } })
+        .Repositories({ where: { blockedAt: null }, select: { id: true } })
     ).length;
   }
 }

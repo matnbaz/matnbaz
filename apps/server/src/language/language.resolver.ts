@@ -77,9 +77,15 @@ export class LanguageResolver {
     const languagePromise = this.prisma.language.findUnique({ where: { id } });
 
     return findManyCursorConnection(
-      (args) => languagePromise.Repositories(args),
+      (args) =>
+        languagePromise.Repositories({ where: { blockedAt: null }, ...args }),
       async () =>
-        (await languagePromise.Repositories({ select: { id: true } })).length,
+        (
+          await languagePromise.Repositories({
+            where: { blockedAt: null },
+            select: { id: true },
+          })
+        ).length,
       pagination
     );
   }
@@ -89,7 +95,7 @@ export class LanguageResolver {
     return (
       await this.prisma.language
         .findUnique({ where: { id } })
-        .Repositories({ select: { id: true } })
+        .Repositories({ where: { blockedAt: null }, select: { id: true } })
     ).length;
   }
 }

@@ -57,9 +57,15 @@ export class LicenseResolver {
     const licensePromise = this.prisma.license.findUnique({ where: { id } });
 
     return findManyCursorConnection(
-      (args) => licensePromise.Repositories(args),
+      (args) =>
+        licensePromise.Repositories({ where: { blockedAt: null }, ...args }),
       async () =>
-        (await licensePromise.Repositories({ select: { id: true } })).length,
+        (
+          await licensePromise.Repositories({
+            where: { blockedAt: null },
+            select: { id: true },
+          })
+        ).length,
       pagination
     );
   }
@@ -69,7 +75,7 @@ export class LicenseResolver {
     return (
       await this.prisma.license
         .findUnique({ where: { id } })
-        .Repositories({ select: { id: true } })
+        .Repositories({ where: { blockedAt: null }, select: { id: true } })
     ).length;
   }
 }
