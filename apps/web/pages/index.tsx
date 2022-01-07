@@ -12,9 +12,9 @@ import { useMetadataQuery } from '../lib/graphql-types';
 const sponsorshipUrl = `${links.githubRepo}/blob/main/SPONSORSHIP.md`;
 // mailto:alirezazamani2922@gmail.com?subject=%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%20%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2&body=%D8%A8%D8%A7%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D9%84%D8%A7%D9%85%D8%8C%0D%0A%D8%B4%D8%B1%DA%A9%D8%AA%20%D9%85%D8%A7%20(%D9%86%D8%A7%D9%85%20%D8%B4%D8%B1%DA%A9%D8%AA)%20%D9%85%D8%A7%DB%8C%D9%84%20%D8%A8%D9%87%20%D8%AD%D9%85%D8%A7%DB%8C%D8%AA%20%D8%A7%D8%B2%20%D8%B7%D8%B1%DB%8C%D9%82%20%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%20%D8%B4%D8%AF%D9%86%20%D8%A7%D8%B3%D8%AA.%0D%0A%0D%0A%D9%84%D8%B7%D9%81%D8%A7%20%D8%B4%D8%B1%D8%A7%DB%8C%D8%B7%20%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%DB%8C%20%D8%B1%D8%A7%20%D8%A7%D8%B1%D8%B3%D8%A7%D9%84%20%DA%A9%D9%86%DB%8C%D8%AF.%0D%0A%D8%A8%D8%A7%20%D8%AA%D8%B4%DA%A9%D8%B1.
 export const indexMetaTags: IHeaderMetaTags = {
-  title: 'تمام پروژه های متن باز ایرانی در یک جا',
+  title: 'تمام پروژه های اوپن‌سورس ایرانی در یک جا',
   description:
-    'متن باز سعی دارد تمام پروژه های متن باز (Open Source) ایرانی را در یک محل جمع کرده و پیدا کردن آن ها را برای دیگر ایرانیان آسان تر کند.',
+    'متن باز سعی دارد تمام پروژه های اوپن‌سورس (Open Source) ایرانی را در یک محل جمع کرده و پیدا کردن آن ها را برای دیگر ایرانیان آسان تر کند.',
 };
 
 const Index = () => {
@@ -63,14 +63,14 @@ const Index = () => {
                   <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
                 </a>
                 <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-                  تمام پروژه‌های متن‌باز{' '}
+                  تمام پروژه‌های اوپن‌سورس{' '}
                   <span className="text-primary-500">ایرانی</span>{' '}
                   <span className="">در یک جا</span>
                 </h1>
                 <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  با استفاده از بخش کاوش‌گر سایت می‌توانید پروژه‌های متن‌باز
-                  (open-source) ایرانی را کشف کنید. اگر شما هم کار متن‌باز
-                  کرده‌اید، به احتمال زیاد اسم خود را پیدا خواهید کرد!
+                  با استفاده از متن‌باز می‌توانید پروژه های اوپن‌سورس
+                  (Open-Source) مختلف ایرانی/فارسی را کشف کنید. اگر شما هم کار
+                  اوپن‌سورس کرده‌اید، به احتمال زیاد اسم خود را پیدا خواهید کرد!
                 </p>
                 <div className="mt-8 sm:mt-12">
                   <div className="mt-3 space-x-3 space-x-reverse">
