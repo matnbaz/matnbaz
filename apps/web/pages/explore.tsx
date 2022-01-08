@@ -12,8 +12,7 @@ import Custom500 from './500';
 
 export const exploreMetaTags: IHeaderMetaTags = {
   title: 'کاوش‌گر',
-  description:
-    'پروژه های اوپن‌سورس (Open-Source) مختلف ایرانی/فارسی را کشف کنید.',
+  description: 'پروژه های اوپن‌سورس (Open-Source) مختلف ایرانی را کشف کنید.',
 };
 
 const Explore = () => {

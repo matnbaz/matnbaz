@@ -21,7 +21,7 @@ const CollectionsPage = () => {
     <MainLayout>
       <HeaderMeta
         title="کالکشن‌ها"
-        description="کالکشن های مختلف از پروژه های اوپن سورس ایرانی / فارسی"
+        description="کالکشن های مختلف از پروژه های اوپن سورس ایرانی"
       />
 
       <PageHeader title="کالکشن‌ها" />

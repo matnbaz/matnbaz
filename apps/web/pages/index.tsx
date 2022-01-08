@@ -69,7 +69,7 @@ const Index = () => {
                 </h1>
                 <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   با استفاده از متن‌باز می‌توانید پروژه های اوپن‌سورس
-                  (Open-Source) مختلف ایرانی/فارسی را کشف کنید. اگر شما هم کار
+                  (Open-Source) مختلف ایرانی را کشف کنید. اگر شما هم کار
                   اوپن‌سورس کرده‌اید، به احتمال زیاد اسم خود را پیدا خواهید کرد!
                 </p>
                 <div className="mt-8 sm:mt-12">
@@ -252,7 +252,7 @@ const Index = () => {
                 </h2>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   با استفاده انواع فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و
-                  پروژه‌های متن‌باز ایرانی / فارسی را کشف کنید.
+                  پروژه‌های اوپن‌سورس ایرانی را کشف کنید.
                 </p>
                 <div className="mt-4">
                   <Button.Primary href="/explore" size="lg">
