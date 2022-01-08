@@ -80,6 +80,10 @@ export class GithubReadmeExtractorService {
       const renderer = new Renderer();
       const ogImageRender = renderer.image.bind(renderer);
       const ogHtmlRender = renderer.html.bind(renderer);
+      const ogHeadingRender = renderer.heading.bind(renderer);
+      const ogListRender = renderer.list.bind(renderer);
+      const ogParagraphRender = renderer.paragraph.bind(renderer);
+
       renderer.image = (href, ...rest) => {
         return ogImageRender(
           href.startsWith('http')
@@ -92,6 +96,21 @@ export class GithubReadmeExtractorService {
         ogHtmlRender(
           html.replace(/src="(?!https?:\/\/)/g, `src="${repoRawUrl}/`)
         );
+
+      renderer.heading = (...args) => {
+        const html = ogHeadingRender.call(this, ...args);
+        return html.replace(/^<(h\d)/, '<$1 dir="auto"');
+      };
+
+      renderer.list = (...args) => {
+        const html = ogListRender.call(this, ...args);
+        return html.replace(/^<(ol|ul)/, '<$1 dir="auto"');
+      };
+
+      renderer.paragraph = (...args) => {
+        const html = ogParagraphRender.call(this, ...args);
+        return html.replace(/^<p/, '<p dir="auto"');
+      };
 
       const readmeHtml = marked.parse(emoji.emojify(readme), {
         gfm: true,

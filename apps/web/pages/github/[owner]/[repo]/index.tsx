@@ -160,7 +160,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             {repo.readmeHtml ? (
               <Expandable>
                 <div
-                  dir={repo.readmeDirection.toLowerCase()}
+                  dir="ltr"
                   className="prose dark:prose-invert overflow-y-auto"
                   dangerouslySetInnerHTML={{ __html: repo.readmeHtml }}
                 ></div>

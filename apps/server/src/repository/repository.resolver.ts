@@ -319,18 +319,12 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
     if (!readme) return null;
     if (readmeHtml) return readmeHtml;
 
-    // For backward compatibility (not every readme is rendered in production right now)
+    // Backward Compatibility
     return this.githubReadmeExtractor.renderReadme(
       readme,
       await this.fullName(repo),
       defaultBranch
     );
-  }
-
-  @ResolveField(() => ScriptDirection)
-  readmeDirection(@Parent() { readme }: P.Repository): ScriptDirection {
-    if (!readme) return ScriptDirection.LTR;
-    return guessDirection(readme) as ScriptDirection;
   }
 
   @ResolveField(() => DateObject)

@@ -343,7 +343,6 @@ type Repository implements Node {
   platformUrl: String
   pushedAt: DateObject!
   readme: String
-  readmeDirection: ScriptDirection!
   readmeHtml: String
   relatedRepos(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   size: Int!

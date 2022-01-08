@@ -20,7 +20,6 @@ fragment fullRepo on Repository {
   forksCount
   openIssuesCount
   readmeHtml
-  readmeDirection
   language {
     name
     color {
