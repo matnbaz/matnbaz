@@ -6,6 +6,7 @@ import { Banner, BannerProps } from './Banner';
 const bannerProps: BannerProps[] = [
   {
     text: 'حتما در کانال تلگرامی متن‌باز عضو شوید.',
+    mobile: 'ما را در تلگرام دنبال کنید.',
     icon: SiTelegram,
     url: links.telegram,
     cta: 'ورود به کانال',
@@ -14,6 +15,7 @@ const bannerProps: BannerProps[] = [
 
   {
     text: 'صفحه اینستاگرام متن‌باز را دنبال کنید.',
+    mobile: 'ما را در اینستاگرام دنبال کنید.',
     icon: SiInstagram,
     url: links.instagram,
     cta: 'مشاهده صفحه',
@@ -22,6 +24,7 @@ const bannerProps: BannerProps[] = [
 
   {
     text: 'صفحه توییتری متن‌باز را دنبال کنید.',
+    mobile: 'ما را در توییتر دنبال کنید.',
     icon: SiTwitter,
     url: links.twitter,
     cta: 'مشاهده صفحه',
@@ -30,6 +33,7 @@ const bannerProps: BannerProps[] = [
 
   {
     text: 'با توییت کردن درمورد متن‌باز به گسترش آن کمک کنید. ❤️',
+    mobile: 'درمورد متن‌باز توییت کنید.',
     icon: SiTwitter,
     url: links.twitterTweet,
     cta: 'توییت',
@@ -38,6 +42,7 @@ const bannerProps: BannerProps[] = [
 
   {
     text: 'با ستاره دادن به پروژه در گیت‌هاب به ما کمک کنید. ⭐️',
+    mobile: 'به ما در گیت‌هاب ستاره دهید.',
     icon: SiGithub,
     url: links.githubRepo,
     cta: 'مشاهده مخزن',
