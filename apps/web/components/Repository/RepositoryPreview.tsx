@@ -80,7 +80,7 @@ const RepositoryPreview = ({
             </div>
           )}
           <div className="flex flex-col space-y-2 h-full w-full text-left overflow-hidden">
-            <div className="text-lg text-primary-600 dark:text-primary-400 break-words">
+            <div className="text-lg text-primary-600 dark:text-primary-400 break-all">
               {repository.fullName}
             </div>
           </div>
@@ -143,12 +143,12 @@ const RepositoryPreview = ({
             </div>
           )}
           <div className="flex flex-col space-y-2 h-full w-full text-left overflow-hidden">
-            <div className="text-xl text-primary-600 dark:text-primary-400 break-words">
+            <div className="flex w-full text-xl text-primary-600 dark:text-primary-400 break-all">
               {repository.fullName}
             </div>
 
             <p
-              className="text-secondary text-sm"
+              className="text-secondary text-sm break-all"
               dir={repository.descriptionDirection?.toLowerCase()}
             >
               {repository.descriptionLimited}
