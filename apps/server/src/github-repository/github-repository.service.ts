@@ -14,7 +14,7 @@ export class GithubRepositoryService {
   ) {}
   private logger = new Logger(GithubRepositoryService.name);
 
-  async extractAllOwners() {
+  async extractAndPopulateAllOwners() {
     let lastOwnerId;
     const ownersCount = await this.prisma.owner.count({
       where: { platform: 'GitHub' },

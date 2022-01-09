@@ -12,6 +12,6 @@ export class GithubRepositoryProcessor {
   async extractProcess() {
     this.logger.log('Starting the extraction of repositories...');
 
-    await this.repoService.extractAllOwners();
+    await this.repoService.extractAndPopulateAllOwners();
   }
 }
