@@ -15,10 +15,8 @@ import { CollectModule } from '../collect/collect.module';
 import { CollectionModule } from '../collection/collection.module';
 import { ColorModule } from '../color/color.module';
 import { DateModule } from '../date/date.module';
-import { GithubLocationModule } from '../github-location/github-location.module';
 import { GithubOwnerModule } from '../github-owner/github-owner.module';
 import { GithubRepositoryModule } from '../github-repository/github-repository.module';
-import { GithubModule } from '../github/github.module';
 import { HybridThrottlerGuard } from '../hybrid-throttler.guard';
 import { LanguageModule } from '../language/language.module';
 import { LicenseModule } from '../license/license.module';
@@ -74,9 +72,7 @@ import { AppService } from './app.service';
       },
     }),
     OctokitModule,
-    GithubModule,
     GithubOwnerModule,
-    GithubLocationModule,
     GithubRepositoryModule,
     LanguageModule,
     LicenseModule,

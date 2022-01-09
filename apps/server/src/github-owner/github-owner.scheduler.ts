@@ -11,9 +11,9 @@ export class GithubOwnerScheduler {
 
   @Cron(CronExpression.EVERY_DAY_AT_1AM)
   async discover() {
-    await this.queue.add(GITHUB_PROCESSES.DISCOVER_OWNERS_REPO_TERMS);
+    await this.queue.add(GITHUB_PROCESSES.DISCOVER);
     this.logger.log(
-      `The cronjob for GitHub's discovery got called, the job is now in the queue.`
+      `The cronjob for GitHub's discovery got called, the jobs are now in the queue.`
     );
   }
 

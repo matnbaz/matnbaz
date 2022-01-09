@@ -1,15 +1,15 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { GithubService } from '../github/github.service';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
+import { GithubOwnerService } from './github-owner.service';
 
 @Injectable()
-export class GithubLocationService {
+export class GithubDiscoverByLocationService {
   constructor(
-    private readonly githubService: GithubService,
+    private readonly githubOwnerService: GithubOwnerService,
     private readonly octokit: OctokitService
   ) {}
-  logger = new Logger(GithubLocationService.name);
+  logger = new Logger(GithubDiscoverByLocationService.name);
 
   /**
    * Gets as much as it can
@@ -33,7 +33,7 @@ export class GithubLocationService {
 
     while (!finished) {
       const response = await this.octokit.rest.search.users({
-        q: 'location:iran',
+        q: 'location:iran type:user',
         sort,
         order,
         per_page: 100,
@@ -55,7 +55,10 @@ export class GithubLocationService {
     }
 
     for (const user of users)
-      await this.githubService.populateOwner(user, OwnerReason.GITHUB_LOCATION);
+      await this.githubOwnerService.populateOwner(
+        user,
+        OwnerReason.GITHUB_LOCATION
+      );
     this.logger.log(
       `Finished population for ${users.length} users based on ${sort} (${order})`
     );

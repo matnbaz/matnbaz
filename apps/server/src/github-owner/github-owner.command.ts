@@ -1,11 +1,11 @@
 import { Command, CommandRunner, Option } from 'nest-commander';
-import { GithubOwnerProcessor } from './github-owner.processor';
+import { GithubDiscoveryProcessor } from './github-discovery.processor';
 import { GithubOwnerScheduler } from './github-owner.scheduler';
 
 @Command({ name: 'discover' })
 export class GithubOwnerCommand implements CommandRunner {
   constructor(
-    private readonly githubOwnerProcessor: GithubOwnerProcessor,
+    private readonly githubOwnerProcessor: GithubDiscoveryProcessor,
     private readonly githubOwnerScheduler: GithubOwnerScheduler
   ) {}
 
@@ -15,7 +15,7 @@ export class GithubOwnerCommand implements CommandRunner {
   ): Promise<void> {
     options.schedule
       ? await this.githubOwnerScheduler.discover()
-      : await this.githubOwnerProcessor.discoverProcess();
+      : await this.githubOwnerProcessor.discoverAll();
   }
 
   @Option({

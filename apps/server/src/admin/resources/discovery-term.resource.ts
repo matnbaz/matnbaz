@@ -21,7 +21,7 @@ export const discoveryTermResource: Resource = ({
         variant: 'success',
         handler: async (request, response, data) => {
           try {
-            githubQueue.add(GITHUB_PROCESSES.DISCOVER_OWNERS_REPO_TERMS);
+            githubQueue.add(GITHUB_PROCESSES.DISCOVER_BY_REPO_SEARCH);
           } catch (error) {
             console.error(error);
           }

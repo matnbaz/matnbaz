@@ -1,6 +1,9 @@
+import { slugifyLanguage } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
+import { PlatformType, Prisma } from '@prisma/client';
+import { subDays } from 'date-fns-jalali';
 import { PrismaService } from 'nestjs-prisma';
-import { GithubService } from '../github/github.service';
+import * as emoji from 'node-emoji';
 import { OctokitService } from '../octokit/octokit.service';
 import { MINIMUM_STARS } from '../repo-requirements';
 import { GithubReadmeExtractorService } from './github-readme-extractor.service';
@@ -9,12 +12,11 @@ export class GithubRepositoryService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly octokit: OctokitService,
-    private readonly readmeExtractor: GithubReadmeExtractorService,
-    private readonly githubService: GithubService
+    private readonly readmeExtractor: GithubReadmeExtractorService
   ) {}
   private logger = new Logger(GithubRepositoryService.name);
 
-  async extractAndPopulateAllOwners() {
+  async extractEveryonesRepos() {
     let lastOwnerId;
     const ownersCount = await this.prisma.owner.count({
       where: { platform: 'GitHub' },
@@ -71,8 +73,7 @@ export class GithubRepositoryService {
                     if (repo.description && repo.description.length > 512)
                       return _resolve();
 
-                    this.githubService
-                      .populateRepo(repo)
+                    this.populateRepo(repo)
                       .then((repoInDb) => {
                         if (repoInDb)
                           this.readmeExtractor
@@ -97,5 +98,171 @@ export class GithubRepositoryService {
         setTimeout(() => resolve(), 20000);
       }),
     ]);
+  }
+
+  async populateRepo({
+    owner,
+    topics,
+    license,
+    ...repo
+  }: Awaited<
+    ReturnType<OctokitService['rest']['repos']['listForUser']>
+  >['data'][0]) {
+    const ownerFromDb = await this.prisma.owner.findUnique({
+      where: {
+        platform_platformId: {
+          platform: 'GitHub',
+          platformId: owner.id.toString(),
+        },
+      },
+    });
+
+    const repoData: Prisma.XOR<
+      Prisma.RepositoryCreateInput,
+      Prisma.RepositoryUncheckedCreateInput
+    > = {
+      blockedAt: ownerFromDb.blockedAt ? new Date() : undefined,
+      platformId: repo.id.toString(),
+      platform: 'GitHub',
+      allowForking: repo.allow_forking,
+      archived: repo.archived,
+      createdAt: repo.created_at,
+      defaultBranch: repo.default_branch,
+      description: emoji.emojify(repo.description),
+      disabled: repo.disabled,
+      forksCount: repo.forks_count,
+      hasIssues: repo.has_issues,
+      hasPages: repo.has_pages,
+      hasProjects: repo.has_projects,
+      hasWiki: repo.has_wiki,
+      homePage: repo.homepage,
+      isFork: repo.fork,
+      isTemplate: repo.is_template,
+      name: repo.name,
+      openIssuesCount: repo.open_issues_count,
+      pushedAt: repo.pushed_at,
+      size: repo.size,
+      stargazersCount: repo.stargazers_count,
+      updatedAt: repo.updated_at,
+      watchersCount: repo.watchers_count,
+      mirrorUrl: repo.mirror_url,
+      weeklyTrendIndicator: await this.calculateTrendIndicator(
+        repo.id.toString(),
+        repo.stargazers_count,
+        'weekly'
+      ),
+      monthlyTrendIndicator: await this.calculateTrendIndicator(
+        repo.id.toString(),
+        repo.stargazers_count,
+        'monthly'
+      ),
+      yearlyTrendIndicator: await this.calculateTrendIndicator(
+        repo.id.toString(),
+        repo.stargazers_count,
+        'yearly'
+      ),
+      Topics: {
+        connectOrCreate: topics.map((topicName) => ({
+          where: { name: topicName },
+          create: { name: topicName },
+        })),
+      },
+      Language: repo.language
+        ? {
+            connectOrCreate: {
+              where: {
+                slug: slugifyLanguage(repo.language.toLowerCase()),
+              },
+              create: {
+                slug: slugifyLanguage(repo.language.toLowerCase()),
+                name: repo.language,
+              },
+            },
+          }
+        : undefined,
+      License: license
+        ? {
+            connectOrCreate: {
+              where: {
+                key: license.key,
+              },
+              create: {
+                key: license.key,
+                name: license.name,
+                spdxId: license.spdx_id,
+              },
+            },
+          }
+        : undefined,
+      Owner: {
+        connect: {
+          platform_platformId: {
+            platform: 'GitHub',
+            platformId: owner.id.toString(),
+          },
+        },
+      },
+    };
+
+    const repoInDb = await this.prisma.repository.upsert({
+      where: {
+        platform_platformId: {
+          platformId: repo.id.toString(),
+          platform: 'GitHub',
+        },
+      },
+      create: repoData,
+      update: repoData,
+    });
+
+    await this.prisma.repositoryStatistic.create({
+      data: {
+        forksCount: repo.forks_count,
+        openIssuesCount: repo.open_issues_count,
+        size: repo.size,
+        stargazersCount: repo.stargazers_count,
+        watchersCount: repo.watchers_count,
+        Repository: { connect: { id: repoInDb.id } },
+      },
+    });
+
+    return repoInDb;
+  }
+
+  private async calculateTrendIndicator(
+    platformId: string,
+    currentStargazersCount: number,
+    interval: 'yearly' | 'monthly' | 'weekly'
+  ) {
+    const statistics = await this.prisma.repositoryStatistic.findMany({
+      where: {
+        Repository: {
+          platform: PlatformType.GitHub,
+          platformId,
+        },
+        createdAt: {
+          gte: subDays(
+            new Date(),
+            interval === 'weekly'
+              ? 7
+              : interval === 'monthly'
+              ? 30
+              : interval === 'yearly'
+              ? 365
+              : 1
+          ),
+          lte: new Date(),
+        },
+      },
+      select: { stargazersCount: true },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    const respectiveStatStarCount =
+      statistics.length > 0
+        ? statistics[0].stargazersCount
+        : currentStargazersCount;
+
+    return currentStargazersCount - respectiveStatStarCount;
   }
 }

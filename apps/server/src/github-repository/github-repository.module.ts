@@ -1,6 +1,5 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
-import { GithubModule } from '../github/github.module';
 import { OctokitModule } from '../octokit/octokit.module';
 import { GITHUB_QUEUE } from '../queue';
 import { GithubReadmeExtractorService } from './github-readme-extractor.service';
@@ -10,11 +9,7 @@ import { GithubRepositoryScheduler } from './github-repository.scheduler';
 import { GithubRepositoryService } from './github-repository.service';
 
 @Module({
-  imports: [
-    BullModule.registerQueue({ name: GITHUB_QUEUE }),
-    OctokitModule,
-    GithubModule,
-  ],
+  imports: [BullModule.registerQueue({ name: GITHUB_QUEUE }), OctokitModule],
   providers: [
     GithubRepositoryProcessor,
     GithubRepositoryScheduler,
