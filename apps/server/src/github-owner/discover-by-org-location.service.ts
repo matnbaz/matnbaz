@@ -29,7 +29,6 @@ export class GithubDiscoverByOrgLocationService {
         sort: 'repositories',
         request: { timeout: 10000 },
       });
-      console.log(response.data.total_count);
 
       page++;
 
@@ -39,7 +38,6 @@ export class GithubDiscoverByOrgLocationService {
         organizations.length >= response.data.total_count || // Last page
         organizations.length >= 1000 // Can't query more - GitHub has a limit of 10 pages
       ) {
-        console.log('OK FINISHED is true now');
         finished = true;
       }
       this.logger.log(`Finished a page organizations...`);
