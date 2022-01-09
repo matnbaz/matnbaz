@@ -5,15 +5,15 @@ import { Queue } from 'bull';
 import { GITHUB_QUEUE } from '../queue';
 
 @Injectable()
-export class GithubDiscovererScheduler {
+export class GithubRepositoryScheduler {
   constructor(@InjectQueue(GITHUB_QUEUE) private readonly queue: Queue) {}
-  private logger = new Logger(GithubDiscovererScheduler.name);
+  private logger = new Logger(GithubRepositoryScheduler.name);
 
-  @Cron(CronExpression.EVERY_DAY_AT_2AM)
-  async discover() {
-    await this.queue.add('discover');
+  @Cron(CronExpression.EVERY_DAY_AT_3AM)
+  async extract() {
+    await this.queue.add('extract');
     this.logger.log(
-      `The cronjob for GitHub's discovery got called, the job is now in the queue.`
+      `The cronjob for GitHub's extraction got called, the job is now in the queue.`
     );
   }
 }

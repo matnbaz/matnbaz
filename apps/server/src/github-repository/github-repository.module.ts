@@ -3,11 +3,11 @@ import { Module } from '@nestjs/common';
 import { GithubModule } from '../github/github.module';
 import { OctokitModule } from '../octokit/octokit.module';
 import { GITHUB_QUEUE } from '../queue';
-import { GithubExtractorCommand } from './github-extractor.command';
-import { GithubExtractorProcessor } from './github-extractor.processor';
-import { GithubExtractorScheduler } from './github-extractor.scheduler';
-import { GithubExtractorService } from './github-extractor.service';
 import { GithubReadmeExtractorService } from './github-readme-extractor.service';
+import { GithubRepositoryCommand } from './github-repository.command';
+import { GithubRepositoryProcessor } from './github-repository.processor';
+import { GithubRepositoryScheduler } from './github-repository.scheduler';
+import { GithubRepositoryService } from './github-repository.service';
 
 @Module({
   imports: [
@@ -16,12 +16,12 @@ import { GithubReadmeExtractorService } from './github-readme-extractor.service'
     GithubModule,
   ],
   providers: [
-    GithubExtractorProcessor,
-    GithubExtractorScheduler,
-    GithubExtractorService,
+    GithubRepositoryProcessor,
+    GithubRepositoryScheduler,
+    GithubRepositoryService,
     GithubReadmeExtractorService,
-    GithubExtractorCommand,
+    GithubRepositoryCommand,
   ],
   exports: [GithubReadmeExtractorService],
 })
-export class GithubExtractorModule {}
+export class GithubRepositoryModule {}

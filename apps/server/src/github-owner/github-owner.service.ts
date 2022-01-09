@@ -6,13 +6,13 @@ import { OwnerReason } from '../owner/constants';
 import { MINIMUM_STARS } from '../repo-requirements';
 
 @Injectable()
-export class GithubDiscovererService {
+export class GithubOwnerService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly octokit: OctokitService,
     private readonly githubService: GithubService
   ) {}
-  private logger = new Logger(GithubDiscovererService.name);
+  private logger = new Logger(GithubOwnerService.name);
 
   async discoverByPredefinedTerms() {
     const terms = await this.prisma.discoveryTerm.findMany();

@@ -10,8 +10,8 @@ import AdminJS from 'adminjs';
 import * as bcrypt from 'bcrypt';
 import { Queue } from 'bull';
 import { PrismaService } from 'nestjs-prisma';
-import { GithubDiscovererModule } from '../github-discoverer/github-discoverer.module';
-import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
+import { GithubOwnerModule } from '../github-owner/github-owner.module';
+import { GithubRepositoryModule } from '../github-repository/github-repository.module';
 import { GITHUB_QUEUE, MAIN_QUEUE } from '../queue';
 import { getResources } from './resources';
 
@@ -21,8 +21,8 @@ AdminJS.registerAdapter({ Database, Resource });
   imports: [
     AdminJsModule.createAdminAsync({
       imports: [
-        GithubExtractorModule,
-        GithubDiscovererModule,
+        GithubRepositoryModule,
+        GithubOwnerModule,
         BullModule.registerQueue({ name: MAIN_QUEUE }),
         BullModule.registerQueue({ name: GITHUB_QUEUE }),
       ],

@@ -5,14 +5,14 @@ import { OctokitService } from '../octokit/octokit.service';
 import { MINIMUM_STARS } from '../repo-requirements';
 import { GithubReadmeExtractorService } from './github-readme-extractor.service';
 @Injectable()
-export class GithubExtractorService {
+export class GithubRepositoryService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly octokit: OctokitService,
     private readonly readmeExtractor: GithubReadmeExtractorService,
     private readonly githubService: GithubService
   ) {}
-  private logger = new Logger(GithubExtractorService.name);
+  private logger = new Logger(GithubRepositoryService.name);
 
   async extractAllOwners() {
     let lastOwnerId;
