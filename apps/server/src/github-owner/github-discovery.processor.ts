@@ -18,8 +18,9 @@ export class GithubDiscoveryProcessor {
   ) {}
   private logger = new Logger(GithubDiscoveryProcessor.name);
 
+  // Runes all the discover methods
   @Process(GITHUB_PROCESSES.DISCOVER)
-  async discoverAll() {
+  async discoverProcess() {
     await this.discoverByRepoSearchProcess();
     await this.discoverByLocationProcess();
     await this.discoverByOrgLocationProcess();

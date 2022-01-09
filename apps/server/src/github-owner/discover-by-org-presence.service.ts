@@ -15,6 +15,10 @@ export class GithubDiscoverByOrgPresenceService {
   private logger = new Logger(GithubDiscoverByOrgPresenceService.name);
 
   async discover() {
+    this.logger.log(
+      `Starting the discovery process based on organization membership`
+    );
+
     const organizations = await this.prisma.owner.findMany({
       where: {
         type: OwnerType.Organization,
@@ -23,10 +27,6 @@ export class GithubDiscoverByOrgPresenceService {
     });
 
     for (const org of organizations) {
-      this.logger.log(
-        `Starting the discovery process based on organization membership`
-      );
-
       const response = await this.octokit.rest.orgs.listPublicMembers({
         org: org.login,
         per_page: 100,
@@ -35,15 +35,14 @@ export class GithubDiscoverByOrgPresenceService {
       });
       const owners = response.data;
 
-      this.logger.log(
-        `Now populating the ${owners.length} discovered orgs to the database...`
-      );
-
       for (const org of owners)
         this.githubOwnerService.populateOwner(
           org,
           OwnerReason.ORGANIZATION_PRESENCE
         );
     }
+    this.logger.log(
+      `Discovered all public members of all ${organizations.length} organizations`
+    );
   }
 }

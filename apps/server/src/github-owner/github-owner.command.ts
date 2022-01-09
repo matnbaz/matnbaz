@@ -15,7 +15,7 @@ export class GithubOwnerCommand implements CommandRunner {
   ): Promise<void> {
     options.schedule
       ? await this.githubOwnerScheduler.discover()
-      : await this.githubOwnerProcessor.discoverAll();
+      : await this.githubOwnerProcessor.discoverProcess();
   }
 
   @Option({
