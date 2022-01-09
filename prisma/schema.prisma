@@ -69,11 +69,14 @@ model RepositoryStatistic {
   Repository      Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
 }
 
-// TODO: owner statistics (contribution, followers, etc.)
-// model OwnerStatistic {
-//   id              String   @id @default(cuid())
-//   createdAt       DateTime @default(now())
-// }
+model OwnerStatistic {
+  id                 String   @id @default(cuid())
+  contributionsCount Int
+  followersCount     Int
+  createdAt          DateTime @default(now())
+  ownerId            String
+  Owner              Owner    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+}
 
 model License {
   id           String       @id @default(cuid())
@@ -93,7 +96,7 @@ model Topic {
 }
 
 model Owner {
-  id                  String       @id @default(cuid())
+  id                  String           @id @default(cuid())
   platform            PlatformType
   platformId          String
   login               String
@@ -101,12 +104,13 @@ model Owner {
   type                OwnerType
   reason              String?
   siteAdmin           Boolean
-  extractedAt         DateTime     @default(now())
-  recordUpdatedAt     DateTime     @updatedAt
+  extractedAt         DateTime         @default(now())
+  recordUpdatedAt     DateTime         @updatedAt
   blockedAt           DateTime?
   Repositories        Repository[]
-  Collections         Collection[] @relation("owners")
-  CollectionsExcluded Collection[] @relation("owners_excluded")
+  Collections         Collection[]     @relation("owners")
+  CollectionsExcluded Collection[]     @relation("owners_excluded")
+  Statistics          OwnerStatistic[]
 
   @@unique([platform, login])
   @@unique([platform, platformId])
