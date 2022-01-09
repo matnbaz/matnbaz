@@ -68,4 +68,36 @@ export class GithubOwnerService {
       this.githubService.populateOwner(owner, OwnerReason.PERSIAN_REPOSITORY);
     }
   }
+
+  async getOwnerStatistics(login: string) {
+    const response: any = await this.octokit.graphql(
+      `query ($login: String!) {
+      user(login: $login) {
+        name
+        contributionsCollection {
+          contributionCalendar {
+            totalContributions
+          }          
+        }
+
+        followers(first: 0){
+          totalCount
+        }
+        
+        following(first:0){
+          totalCount
+        }
+      }
+    }`,
+      { login }
+    );
+
+    return {
+      totalContributions:
+        response.user.contributionsCollection.contributionCalendar
+          .totalContributions,
+      followersCount: response.user.followers.totalCount,
+      followingCount: response.user.following.totalCount,
+    };
+  }
 }
