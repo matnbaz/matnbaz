@@ -1,3 +1,4 @@
+import { MAIN_PROCESSES } from '../../queue';
 import { Resource } from './resource-type';
 
 export const collectionResource: Resource = ({
@@ -20,7 +21,7 @@ export const collectionResource: Resource = ({
         variant: 'success',
         handler: async (request, response, data) => {
           try {
-            mainQueue.add('collect');
+            mainQueue.add(MAIN_PROCESSES.COLLECT_COLLECTIONS);
           } catch (error) {
             console.error(error);
           }

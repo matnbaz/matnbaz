@@ -1,3 +1,4 @@
+import { GITHUB_PROCESSES } from '../../queue';
 import { Resource } from './resource-type';
 
 export const discoveryTermResource: Resource = ({
@@ -20,7 +21,7 @@ export const discoveryTermResource: Resource = ({
         variant: 'success',
         handler: async (request, response, data) => {
           try {
-            githubQueue.add('discover');
+            githubQueue.add(GITHUB_PROCESSES.DISCOVER_OWNERS_REPO_TERMS);
           } catch (error) {
             console.error(error);
           }
@@ -42,7 +43,7 @@ export const discoveryTermResource: Resource = ({
         variant: 'success',
         handler: async (request, response, data) => {
           try {
-            await githubQueue.add('extract');
+            await githubQueue.add(GITHUB_PROCESSES.EXTRACT_REPOS);
           } catch (error) {
             console.error(error);
           }

@@ -1,4 +1,5 @@
 import { NotFoundError, ValidationError } from 'adminjs';
+import { GITHUB_PROCESSES } from '../../queue';
 import { Resource } from './resource-type';
 
 export const submissionResource: Resource = ({
@@ -32,7 +33,9 @@ export const submissionResource: Resource = ({
               where: { id: request.params.recordId },
             });
             if (submission) {
-              githubQueue.add('add-owner', { username: submission.username });
+              githubQueue.add(GITHUB_PROCESSES.ADD_OWNER, {
+                username: submission.username,
+              });
               await resource.delete(request.params.recordId);
             }
           } catch (error) {
@@ -83,7 +86,9 @@ export const submissionResource: Resource = ({
               });
 
               if (submission) {
-                githubQueue.add('add-owner', { username: submission.username });
+                githubQueue.add(GITHUB_PROCESSES.ADD_OWNER, {
+                  username: submission.username,
+                });
                 await resource.delete(record.id());
               }
 

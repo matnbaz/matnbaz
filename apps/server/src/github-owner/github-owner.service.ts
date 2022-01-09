@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { OwnerType } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { GithubService } from '../github/github.service';
 import { OctokitService } from '../octokit/octokit.service';
@@ -69,6 +70,31 @@ export class GithubOwnerService {
     }
   }
 
+  async updateAllOwnersStatistics() {
+    const owners = await this.prisma.owner.findMany({
+      where: { blockedAt: null, type: OwnerType.User },
+      select: { id: true, login: true },
+    });
+
+    for (const { id, login } of owners) {
+      try {
+        const { followersCount, totalContributions } =
+          await this.getOwnerStatistics(login);
+        await this.prisma.ownerStatistic.create({
+          data: {
+            contributionsCount: totalContributions,
+            followersCount: followersCount,
+            Owner: { connect: { id } },
+          },
+        });
+      } catch (e) {
+        this.logger.error(
+          `Error while extracting statistics for owner ${login}.`
+        );
+      }
+    }
+  }
+
   async getOwnerStatistics(login: string) {
     const response: any = await this.octokit.graphql(
       `query ($login: String!) {
@@ -89,8 +115,10 @@ export class GithubOwnerService {
         }
       }
     }`,
-      { login }
+      { login, request: { timeout: 5000 } }
     );
+
+    if (!response.user) throw Error('User does not exist.');
 
     return {
       totalContributions:

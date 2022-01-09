@@ -4,24 +4,24 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { Queue } from 'bull';
 import { GITHUB_PROCESSES, GITHUB_QUEUE } from '../queue';
 
+/**
+ * Not used for now.
+ * @deprecated
+ */
 @Injectable()
-export class GithubOwnerScheduler {
+export class GithubScheduler {
   constructor(@InjectQueue(GITHUB_QUEUE) private readonly queue: Queue) {}
-  private logger = new Logger(GithubOwnerScheduler.name);
-
-  @Cron(CronExpression.EVERY_DAY_AT_1AM)
-  async discover() {
-    await this.queue.add(GITHUB_PROCESSES.DISCOVER_OWNERS_REPO_TERMS);
-    this.logger.log(
-      `The cronjob for GitHub's discovery got called, the job is now in the queue.`
-    );
-  }
+  private logger = new Logger(GithubScheduler.name);
 
   @Cron(CronExpression.EVERY_DAY_AT_2AM)
-  async extract() {
+  async runScheduler() {
+    await this.queue.add(GITHUB_PROCESSES.DISCOVER_OWNERS_REPO_TERMS);
+    await this.queue.add(GITHUB_PROCESSES.DISCOVER_OWNERS_BY_LOCATION);
     await this.queue.add(GITHUB_PROCESSES.EXTRACT_OWNERS);
+    await this.queue.add(GITHUB_PROCESSES.EXTRACT_REPOS);
+
     this.logger.log(
-      `The cronjob for GitHub owner extraction got called, the job is now in the queue.`
+      `The cronjob for GitHub got called, the jobs are now in the queue.`
     );
   }
 }
