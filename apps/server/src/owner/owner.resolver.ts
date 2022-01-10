@@ -49,7 +49,7 @@ export class OwnerResolver extends ReportableResolver(Owner) {
   ownerByPlatform(@Args() { owner, platform }: PlatformArgs) {
     return this.prisma.owner.findFirst({
       where: {
-        login: owner,
+        login: { equals: owner, mode: 'insensitive' },
         platform,
         blockedAt: null,
       },

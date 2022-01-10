@@ -15,9 +15,10 @@ export class SubmissionResolver {
     @Args('username') username: string,
     @Args('platform', { type: () => PlatformType }) platform: PlatformType
   ) {
-    const owner = await this.prisma.owner.findUnique({
+    const owner = await this.prisma.owner.findFirst({
       where: {
-        platform_login: { platform, login: username },
+        platform,
+        login: { mode: 'insensitive', equals: username },
       },
     });
 
