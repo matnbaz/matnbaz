@@ -155,15 +155,6 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model DiscoveryTerm {
-  id        String       @id @default(cuid())
-  term      String
-  platform  PlatformType
-  createdAt DateTime     @default(now())
-
-  @@unique([term, platform])
-}
-
 model Collection {
   id                  String                @id @default(cuid())
   name                String

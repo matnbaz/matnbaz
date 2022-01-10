@@ -1,19 +1,17 @@
 import { Process, Processor } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
 import { GITHUB_PROCESSES, GITHUB_QUEUE } from '../queue';
-import { GithubDiscoverByLocationService } from './discover-by-location.service';
-import { GithubDiscoverByOrgLocationService } from './discover-by-org-location.service';
 import { GithubDiscoverByOrgPresenceService } from './discover-by-org-presence.service';
+import { GithubDiscoverByOwnerSearchService } from './discover-by-owner-search.service';
 import { GithubDiscoverByRepoSearchService } from './discover-by-repo-search.service';
 import { GithubOwnerService } from './github-owner.service';
 
 @Processor(GITHUB_QUEUE)
 export class GithubDiscoveryProcessor {
   constructor(
-    private readonly discoverByLocation: GithubDiscoverByLocationService,
-    private readonly discoverByOrgLocation: GithubDiscoverByOrgLocationService,
-    private readonly discoverByOrgPresence: GithubDiscoverByOrgPresenceService,
+    private readonly discoverByOwnerSearch: GithubDiscoverByOwnerSearchService,
     private readonly discoverByRepoSearch: GithubDiscoverByRepoSearchService,
+    private readonly discoverByOrgPresence: GithubDiscoverByOrgPresenceService,
     private readonly ownerService: GithubOwnerService
   ) {}
   private logger = new Logger(GithubDiscoveryProcessor.name);
@@ -21,10 +19,9 @@ export class GithubDiscoveryProcessor {
   // Runes all the discover methods
   @Process(GITHUB_PROCESSES.DISCOVER)
   async discoverProcess() {
-    await this.discoverByRepoSearchProcess();
-    await this.discoverByLocationProcess();
-    await this.discoverByOrgLocationProcess();
-    await this.discoverByOrgPresenceProcess();
+    // await this.discoverByRepoSearchProcess();
+    await this.discoverByOwnerSearchProcess();
+    // await this.discoverByOrgPresenceProcess();
   }
 
   @Process(GITHUB_PROCESSES.DISCOVER_BY_REPO_SEARCH)
@@ -34,15 +31,9 @@ export class GithubDiscoveryProcessor {
   }
 
   @Process(GITHUB_PROCESSES.DISCOVER_BY_LOCATION)
-  async discoverByLocationProcess() {
-    this.logger.log('Starting "discover by location" process...');
-    await this.discoverByLocation.getIranianOwnersVoraciously();
-  }
-
-  @Process(GITHUB_PROCESSES.DISCOVER_BY_ORG_LOCATION)
-  async discoverByOrgLocationProcess() {
-    this.logger.log('Starting "discover by org location" process...');
-    await this.discoverByOrgLocation.discover();
+  async discoverByOwnerSearchProcess() {
+    this.logger.log('Starting "discover by owner search" process...');
+    await this.discoverByOwnerSearch.discoverByPredefinedTerms();
   }
 
   @Process(GITHUB_PROCESSES.DISCOVER_BY_ORG_PRESENCE)

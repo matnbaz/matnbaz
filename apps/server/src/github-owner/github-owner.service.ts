@@ -89,8 +89,10 @@ export class GithubOwnerService {
     owner: Awaited<
       ReturnType<OctokitService['rest']['search']['repos']>
     >['data']['items'][0]['owner'],
-    reason: OwnerReason
+    reason: OwnerReason,
+    reasonParam?: string
   ) {
+    const reasonWithParam = reasonParam ? `${reason}:${reasonParam}` : reason;
     try {
       await this.prisma.owner.upsert({
         where: {
@@ -100,7 +102,7 @@ export class GithubOwnerService {
           },
         },
         create: {
-          reason,
+          reason: reasonWithParam,
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
           gravatarId: owner.gravatar_id,
@@ -109,7 +111,7 @@ export class GithubOwnerService {
           siteAdmin: owner.site_admin,
         },
         update: {
-          reason: OwnerReason.PERSIAN_REPOSITORY,
+          reason: reasonWithParam,
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
           gravatarId: owner.gravatar_id,

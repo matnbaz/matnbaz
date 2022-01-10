@@ -1,28 +1,25 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
 import { MINIMUM_STARS } from '../repo-requirements';
 import { GithubOwnerService } from './github-owner.service';
+import { repoDiscoveryTerms } from './repo-discovery-terms';
 
 @Injectable()
 export class GithubDiscoverByRepoSearchService {
   constructor(
-    private readonly prisma: PrismaService,
     private readonly octokit: OctokitService,
     private readonly githubOwnerService: GithubOwnerService
   ) {}
   private logger = new Logger(GithubDiscoverByRepoSearchService.name);
 
   async discoverByPredefinedTerms() {
-    const terms = await this.prisma.discoveryTerm.findMany();
-
-    for (const { term } of terms) await this.discover(term);
+    for (const term of repoDiscoveryTerms) await this.discover(term);
     this.logger.log('Finished discovery for all discovery terms');
   }
 
   /**
-   * Discovers maintainers based on the given term
+   * Discovers repositories based on the given term and discovers new owners
    * @param term Pass `term` to search for a term, pass `topic:topic_name` to search for a topic
    */
   async discover(term: string) {
@@ -67,7 +64,8 @@ export class GithubDiscoverByRepoSearchService {
       }
       await this.githubOwnerService.populateOwner(
         owner,
-        OwnerReason.PERSIAN_REPOSITORY
+        OwnerReason.REPOSITORY_SEARCH,
+        term
       );
     }
   }

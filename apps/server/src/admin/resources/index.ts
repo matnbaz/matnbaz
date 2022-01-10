@@ -1,6 +1,5 @@
 import { collectResource } from './collect.resource';
 import { collectionResource } from './collection.resource';
-import { discoveryTermResource } from './discovery-term.resource';
 import { languageResource } from './language.resource';
 import { licenseResource } from './license.resource';
 import { ownerResource } from './owner.resource';
@@ -18,7 +17,6 @@ const resources = [
   licenseResource,
   reportResource,
   submissionResource,
-  discoveryTermResource,
   collectionResource,
   collectResource,
 ];
