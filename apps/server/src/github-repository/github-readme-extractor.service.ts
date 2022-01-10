@@ -50,26 +50,23 @@ export class GithubReadmeExtractorService {
 
   async getReadmeFromGithub(ownerLogin, repoName, defaultBranch) {
     try {
+      const repoPageResponse = await axios.get(
+        `https://github.com/${ownerLogin}/${repoName}`
+      );
+
+      // This name is anything that github recognizes as a standard readme file (README.md, Readme.md, README, README.txt, readme.markdown, etc.)
+      const readmeFileName = repoPageResponse.data
+        .split(`id="readme"`)[1]
+        .split(`data-tagsearch-path="`)[1]
+        .split(`"`)[0];
+      if (!readmeFileName.toLowerCase().includes('readme')) return null;
+
       const response = await axios.get(
-        `https://raw.githubusercontent.com/${ownerLogin}/${repoName}/${defaultBranch}/README.md`
+        `https://raw.githubusercontent.com/${ownerLogin}/${repoName}/${defaultBranch}/${readmeFileName}`
       );
       return response.data;
     } catch (e) {
-      try {
-        const response = await axios.get(
-          `https://raw.githubusercontent.com/${ownerLogin}/${repoName}/${defaultBranch}/readme.md`
-        );
-        return response.data;
-      } catch (e) {
-        try {
-          const response = await axios.get(
-            `https://raw.githubusercontent.com/${ownerLogin}/${repoName}/${defaultBranch}/Readme.md`
-          );
-          return response.data;
-        } catch (e) {
-          return null;
-        }
-      }
+      return null;
     }
   }
 
