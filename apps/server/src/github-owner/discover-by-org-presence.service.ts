@@ -36,7 +36,7 @@ export class GithubDiscoverByOrgPresenceService {
       const owners = response.data;
 
       for (const org of owners)
-        this.githubOwnerService.populateOwner(
+        await this.githubOwnerService.populateOwner(
           org,
           OwnerReason.ORGANIZATION_PRESENCE
         );

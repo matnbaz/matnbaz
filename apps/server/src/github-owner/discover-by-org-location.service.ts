@@ -48,7 +48,7 @@ export class GithubDiscoverByOrgLocationService {
     );
 
     for (const org of organizations)
-      this.githubOwnerService.populateOwner(
+      await this.githubOwnerService.populateOwner(
         org,
         OwnerReason.PERSIAN_REPOSITORY
       );

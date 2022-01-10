@@ -65,7 +65,7 @@ export class GithubDiscoverByRepoSearchService {
         // Disqualified
         continue;
       }
-      this.githubOwnerService.populateOwner(
+      await this.githubOwnerService.populateOwner(
         owner,
         OwnerReason.PERSIAN_REPOSITORY
       );
