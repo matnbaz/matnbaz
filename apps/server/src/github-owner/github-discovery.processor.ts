@@ -19,9 +19,9 @@ export class GithubDiscoveryProcessor {
   // Runes all the discover methods
   @Process(GITHUB_PROCESSES.DISCOVER)
   async discoverProcess() {
-    // await this.discoverByRepoSearchProcess();
+    await this.discoverByRepoSearchProcess();
     await this.discoverByOwnerSearchProcess();
-    // await this.discoverByOrgPresenceProcess();
+    await this.discoverByOrgPresenceProcess();
   }
 
   @Process(GITHUB_PROCESSES.DISCOVER_BY_REPO_SEARCH)
