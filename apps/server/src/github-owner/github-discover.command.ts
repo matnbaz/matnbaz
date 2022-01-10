@@ -3,7 +3,7 @@ import { GithubDiscoveryProcessor } from './github-discovery.processor';
 import { GithubOwnerScheduler } from './github-owner.scheduler';
 
 @Command({ name: 'discover' })
-export class GithubOwnerCommand implements CommandRunner {
+export class GithubDiscoverCommand implements CommandRunner {
   constructor(
     private readonly githubOwnerProcessor: GithubDiscoveryProcessor,
     private readonly githubOwnerScheduler: GithubOwnerScheduler

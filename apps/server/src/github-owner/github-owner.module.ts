@@ -5,8 +5,8 @@ import { GITHUB_QUEUE } from '../queue';
 import { GithubDiscoverByOrgPresenceService } from './discover-by-org-presence.service';
 import { GithubDiscoverByOwnerSearchService } from './discover-by-owner-search.service';
 import { GithubDiscoverByRepoSearchService } from './discover-by-repo-search.service';
+import { GithubDiscoverCommand } from './github-discover.command';
 import { GithubDiscoveryProcessor } from './github-discovery.processor';
-import { GithubOwnerCommand } from './github-owner.command';
 import { GithubOwnerScheduler } from './github-owner.scheduler';
 import { GithubOwnerService } from './github-owner.service';
 
@@ -16,7 +16,7 @@ import { GithubOwnerService } from './github-owner.service';
     GithubDiscoveryProcessor,
     GithubOwnerScheduler,
     GithubOwnerService,
-    GithubOwnerCommand,
+    GithubDiscoverCommand,
 
     // Discoverers:
     GithubDiscoverByRepoSearchService,
