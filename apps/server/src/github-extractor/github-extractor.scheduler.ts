@@ -9,7 +9,7 @@ export class GithubExtractorScheduler {
   constructor(@InjectQueue(GITHUB_QUEUE) private readonly queue: Queue) {}
   private logger = new Logger(GithubExtractorScheduler.name);
 
-  @Cron(CronExpression.EVERY_DAY_AT_2AM)
+  @Cron(CronExpression.EVERY_DAY_AT_4AM)
   async extract() {
     await this.queue.add(GITHUB_PROCESSES.EXTRACT);
     this.logger.log(
