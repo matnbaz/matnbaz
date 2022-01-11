@@ -136,14 +136,14 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
               ? [
                   {
                     name: {
-                      search: searchTerm,
+                      contains: searchTerm,
                       mode: P.Prisma.QueryMode.insensitive,
                     },
                   },
                   {
                     Owner: {
                       login: {
-                        search: searchTerm,
+                        contains: searchTerm,
                         mode: P.Prisma.QueryMode.insensitive,
                       },
                     },
@@ -270,7 +270,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
                   some: { name: { in: topics.map(({ name }) => name) } },
                 },
               },
-              { name: { search: name.split('-')[0] } },
+              { name: { contains: name.split('-')[0] } },
               { Owner: { id: owner.id } },
             ],
           },
@@ -278,7 +278,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
         }),
       () =>
         this.prisma.repository.count({
-          where: { name: { search: name }, id: { not: id } },
+          where: { name: { contains: name }, id: { not: id } },
         }),
       pagination
     );
