@@ -1,5 +1,8 @@
 import ExpressLoader from '@adminjs/express';
-import { AdminModule as AdminJsModule } from '@adminjs/nestjs';
+import {
+  AdminModule as AdminJsModule,
+  AdminModuleOptions,
+} from '@adminjs/nestjs';
 import { Database, Resource } from '@adminjs/prisma';
 import { BullModule, getQueueToken } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
@@ -40,25 +43,7 @@ AdminJS.registerAdapter({ Database, Resource });
       ) => {
         const dmmf = (prisma as any)._dmmf as DMMFClass;
 
-        return {
-          auth: {
-            cookieName: 'admin_auth_cookie',
-            cookiePassword: process.env.ADMIN_COOKIE_SECRET,
-            authenticate: async (email, password) => {
-              const user = await prisma.user.findUnique({ where: { email } });
-              if (
-                !user ||
-                !(
-                  user.type === UserType.Admin ||
-                  user.type === UserType.Moderator
-                )
-              )
-                return null;
-              return bcrypt.compareSync(password, user.password)
-                ? { ...user, title: user.name }
-                : null;
-            },
-          },
+        const options: AdminModuleOptions = {
           adminJsOptions: {
             rootPath: '/admin',
             branding: {
@@ -75,8 +60,30 @@ AdminJS.registerAdapter({ Database, Resource });
               },
             }),
           },
-          customLoader: ExpressLoader,
         };
+
+        (options as any).customLoader = ExpressLoader;
+        if (process.env.NODE_ENV === 'production')
+          options.auth = {
+            cookieName: 'admin_auth_cookie',
+            cookiePassword: process.env.ADMIN_COOKIE_SECRET,
+            authenticate: async (email, password) => {
+              const user = await prisma.user.findUnique({ where: { email } });
+              if (
+                !user ||
+                !(
+                  user.type === UserType.Admin ||
+                  user.type === UserType.Moderator
+                )
+              )
+                return null;
+              return bcrypt.compareSync(password, user.password)
+                ? { ...user, title: user.name }
+                : null;
+            },
+          };
+
+        return options;
       },
     }),
   ],
