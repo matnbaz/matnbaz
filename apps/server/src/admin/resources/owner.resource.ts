@@ -1,7 +1,12 @@
 import { NotFoundError, ValidationError } from 'adminjs';
+import { GITHUB_PROCESSES } from '../../queue';
 import { Resource } from './resource-type';
 
-export const ownerResource: Resource = ({ dmmf, prisma }) => ({
+export const ownerResource: Resource = ({
+  dmmf,
+  prisma,
+  queues: { github: githubQueue },
+}) => ({
   resource: {
     model: dmmf.modelMap.Owner,
     client: prisma,
@@ -171,6 +176,50 @@ export const ownerResource: Resource = ({ dmmf, prisma }) => ({
             redirectUrl: h.resourceUrl({
               resourceId: resource._decorated?.id() || resource.id(),
             }),
+          };
+        },
+      },
+
+      'discover-all': {
+        name: 'discover-all',
+        isVisible: true,
+        actionType: 'record',
+        icon: 'Checkmark',
+        component: false,
+        variant: 'success',
+        handler: async (request, response, data) => {
+          try {
+            await githubQueue.add(GITHUB_PROCESSES.DISCOVER);
+          } catch (error) {
+            console.error(error);
+          }
+          return {
+            notice: {
+              message: 'Added to the queue.',
+              type: 'success',
+            },
+          };
+        },
+      },
+
+      'extract-all': {
+        name: 'extract-all',
+        isVisible: true,
+        actionType: 'record',
+        icon: 'Checkmark',
+        component: false,
+        variant: 'success',
+        handler: async (request, response, data) => {
+          try {
+            await githubQueue.add(GITHUB_PROCESSES.EXTRACT_OWNERS);
+          } catch (error) {
+            console.error(error);
+          }
+          return {
+            notice: {
+              message: 'Added to the queue.',
+              type: 'success',
+            },
           };
         },
       },
