@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { OwnerType, PlatformType } from '@prisma/client';
+import { subHours } from 'date-fns-jalali';
 import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
@@ -14,7 +15,18 @@ export class GithubOwnerService {
 
   async updateAllOwnersData() {
     const owners = await this.prisma.owner.findMany({
-      where: { blockedAt: null, type: OwnerType.User },
+      where: {
+        blockedAt: null,
+        type: OwnerType.User,
+        OR: [
+          {
+            latestExtractionAt: { lt: subHours(new Date(), 12) },
+          },
+          {
+            latestExtractionAt: null,
+          },
+        ],
+      },
       select: { id: true, nodeId: true, login: true },
     });
     const ownersCount = owners.length;
@@ -36,7 +48,11 @@ export class GithubOwnerService {
           await this.getOwnerProfileData({ login, nodeId });
         await this.prisma.owner.update({
           where: { id },
-          data: { nodeId: ownerData.nodeId, login: ownerData.login },
+          data: {
+            nodeId: ownerData.nodeId,
+            login: ownerData.login,
+            latestExtractionAt: new Date(),
+          },
         });
         await this.prisma.ownerStatistic.create({
           data: {
@@ -139,6 +155,7 @@ export class GithubOwnerService {
           },
         },
         create: {
+          latestExtractionAt: new Date(),
           reason: reasonWithParam,
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
@@ -149,6 +166,7 @@ export class GithubOwnerService {
           siteAdmin: owner.site_admin,
         },
         update: {
+          latestExtractionAt: new Date(),
           reason: reasonWithParam,
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,

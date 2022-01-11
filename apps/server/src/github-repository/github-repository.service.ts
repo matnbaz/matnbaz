@@ -1,7 +1,7 @@
 import { slugifyLanguage } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { PlatformType, Prisma } from '@prisma/client';
-import { subDays } from 'date-fns-jalali';
+import { subDays, subHours } from 'date-fns-jalali';
 import { PrismaService } from 'nestjs-prisma';
 import * as emoji from 'node-emoji';
 import { OctokitService } from '../octokit/octokit.service';
@@ -19,7 +19,18 @@ export class GithubRepositoryService {
   async extractEveryonesRepos() {
     let lastOwnerId;
     const ownersCount = await this.prisma.owner.count({
-      where: { platform: 'GitHub' },
+      where: {
+        platform: 'GitHub',
+        blockedAt: null,
+        OR: [
+          {
+            latestExtractionAt: { lt: subHours(new Date(), 12) },
+          },
+          {
+            latestExtractionAt: null,
+          },
+        ],
+      },
     });
     let completedCount = 0;
     this.logger.log(`${ownersCount} owners found. Extracting now...`);
@@ -36,6 +47,14 @@ export class GithubRepositoryService {
         where: {
           platform: 'GitHub',
           blockedAt: null,
+          OR: [
+            {
+              latestExtractionAt: { lt: subHours(new Date(), 12) },
+            },
+            {
+              latestExtractionAt: null,
+            },
+          ],
         },
         select: { id: true, login: true },
         cursor: lastOwnerId && { id: lastOwnerId },
@@ -121,6 +140,7 @@ export class GithubRepositoryService {
       Prisma.RepositoryCreateInput,
       Prisma.RepositoryUncheckedCreateInput
     > = {
+      latestExtractionAt: new Date(),
       blockedAt: ownerFromDb.blockedAt ? new Date() : undefined,
       platformId: repo.id.toString(),
       platform: 'GitHub',

@@ -35,6 +35,7 @@ model Repository {
   pushedAt              DateTime
   extractedAt           DateTime              @default(now())
   recordUpdatedAt       DateTime              @updatedAt
+  latestExtractionAt    DateTime?
   name                  String
   description           String?
   readme                String?
@@ -109,6 +110,7 @@ model Owner {
   extractedAt         DateTime         @default(now())
   recordUpdatedAt     DateTime         @updatedAt
   blockedAt           DateTime?
+  latestExtractionAt  DateTime?
   Repositories        Repository[]
   Collections         Collection[]     @relation("owners")
   CollectionsExcluded Collection[]     @relation("owners_excluded")
