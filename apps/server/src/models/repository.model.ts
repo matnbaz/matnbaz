@@ -24,14 +24,8 @@ export class Repository {
   @Field(() => Int)
   openIssuesCount: number;
 
-  hasIssues: boolean;
-  hasProjects: boolean;
-  hasWiki: boolean;
-  hasPages: boolean;
-  mirrorUrl?: string;
   archived: boolean;
   disabled: boolean;
-  allowForking: boolean;
   isTemplate: boolean;
   defaultBranch: string;
   name: string;

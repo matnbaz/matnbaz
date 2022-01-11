@@ -12,7 +12,6 @@ export class Owner {
   platformId: string;
 
   login: string;
-  gravatarId: string;
 
   @Field(() => OwnerType)
   type: OwnerType;

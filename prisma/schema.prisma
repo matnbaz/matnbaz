@@ -21,13 +21,8 @@ model Repository {
   weeklyTrendIndicator  Float                 @default(1)
   monthlyTrendIndicator Float                 @default(1)
   yearlyTrendIndicator  Float                 @default(1)
-  hasIssues             Boolean
-  hasProjects           Boolean
-  hasWiki               Boolean
-  hasPages              Boolean
   archived              Boolean
   disabled              Boolean
-  allowForking          Boolean
   isFork                Boolean
   isTemplate            Boolean
   createdAt             DateTime
@@ -42,7 +37,6 @@ model Repository {
   readmeHtml            String?
   defaultBranch         String
   homePage              String?
-  mirrorUrl             String?
   ownerId               String
   languageId            String?
   licenseId             String?
@@ -103,10 +97,8 @@ model Owner {
   platformId          String
   nodeId              String?          @unique
   login               String
-  gravatarId          String
   type                OwnerType
   reason              String?
-  siteAdmin           Boolean
   extractedAt         DateTime         @default(now())
   recordUpdatedAt     DateTime         @updatedAt
   blockedAt           DateTime?

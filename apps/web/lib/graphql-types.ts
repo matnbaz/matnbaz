@@ -255,7 +255,6 @@ export type Node = {
 
 export type Owner = Node & {
   __typename?: 'Owner';
-  gravatarId: Scalars['String'];
   id: Scalars['ID'];
   login: Scalars['String'];
   platform: PlatformType;
@@ -488,7 +487,6 @@ export enum ReportableType {
 
 export type Repository = Node & {
   __typename?: 'Repository';
-  allowForking: Scalars['Boolean'];
   archived: Scalars['Boolean'];
   createdAt: DateObject;
   defaultBranch: Scalars['String'];
@@ -498,10 +496,6 @@ export type Repository = Node & {
   disabled: Scalars['Boolean'];
   forksCount: Scalars['Int'];
   fullName: Scalars['String'];
-  hasIssues: Scalars['Boolean'];
-  hasPages: Scalars['Boolean'];
-  hasProjects: Scalars['Boolean'];
-  hasWiki: Scalars['Boolean'];
   homePage?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   isFork: Scalars['Boolean'];
@@ -509,7 +503,6 @@ export type Repository = Node & {
   isTemplate: Scalars['Boolean'];
   language?: Maybe<Language>;
   license?: Maybe<License>;
-  mirrorUrl?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   openIssuesCount: Scalars['Int'];
   owner?: Maybe<Owner>;

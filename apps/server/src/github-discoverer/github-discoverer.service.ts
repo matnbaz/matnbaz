@@ -160,10 +160,8 @@ export class GithubDiscovererService {
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
           nodeId: owner.node_id,
-          gravatarId: owner.gravatar_id,
           login: owner.login,
           type: owner.type as OwnerType,
-          siteAdmin: owner.site_admin,
         },
         update: {
           latestExtractionAt: new Date(),
@@ -171,10 +169,8 @@ export class GithubDiscovererService {
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
           nodeId: owner.node_id,
-          gravatarId: owner.gravatar_id,
           login: owner.login,
           type: owner.type as OwnerType,
-          siteAdmin: owner.site_admin,
         },
       });
     } catch (e) {

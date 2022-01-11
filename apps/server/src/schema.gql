@@ -178,7 +178,6 @@ interface Node {
 }
 
 type Owner implements Node {
-  gravatarId: String!
   id: ID!
   login: String!
   platform: PlatformType!
@@ -313,7 +312,6 @@ enum ReportableType {
 }
 
 type Repository implements Node {
-  allowForking: Boolean!
   archived: Boolean!
   createdAt: DateObject!
   defaultBranch: String!
@@ -323,10 +321,6 @@ type Repository implements Node {
   disabled: Boolean!
   forksCount: Int!
   fullName: String!
-  hasIssues: Boolean!
-  hasPages: Boolean!
-  hasProjects: Boolean!
-  hasWiki: Boolean!
   homePage: String
   id: ID!
   isFork: Boolean!
@@ -334,7 +328,6 @@ type Repository implements Node {
   isTemplate: Boolean!
   language: Language
   license: License
-  mirrorUrl: String
   name: String!
   openIssuesCount: Int!
   owner: Owner
