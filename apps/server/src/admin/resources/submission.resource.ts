@@ -33,7 +33,7 @@ export const submissionResource: Resource = ({
               where: { id: request.params.recordId },
             });
             if (submission) {
-              githubQueue.add(GITHUB_PROCESSES.ADD_OWNER, {
+              await githubQueue.add(GITHUB_PROCESSES.ADD_OWNER, {
                 username: submission.username,
               });
               await resource.delete(request.params.recordId);
@@ -86,7 +86,7 @@ export const submissionResource: Resource = ({
               });
 
               if (submission) {
-                githubQueue.add(GITHUB_PROCESSES.ADD_OWNER, {
+                await githubQueue.add(GITHUB_PROCESSES.ADD_OWNER, {
                   username: submission.username,
                 });
                 await resource.delete(record.id());

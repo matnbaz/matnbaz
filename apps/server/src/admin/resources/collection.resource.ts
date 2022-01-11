@@ -21,7 +21,7 @@ export const collectionResource: Resource = ({
         variant: 'success',
         handler: async (request, response, data) => {
           try {
-            mainQueue.add(MAIN_PROCESSES.COLLECT_COLLECTIONS);
+            await mainQueue.add(MAIN_PROCESSES.COLLECT_COLLECTIONS);
           } catch (error) {
             console.error(error);
           }
