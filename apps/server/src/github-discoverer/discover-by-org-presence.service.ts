@@ -10,7 +10,7 @@ export class GithubDiscoverByOrgPresenceService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly octokit: OctokitService,
-    private readonly githubOwnerService: GithubDiscovererService
+    private readonly githubDiscovererService: GithubDiscovererService
   ) {}
   private logger = new Logger(GithubDiscoverByOrgPresenceService.name);
 
@@ -36,8 +36,8 @@ export class GithubDiscoverByOrgPresenceService {
       const owners = response.data;
 
       for (const owner of owners)
-        if (this.githubOwnerService.validateOwner(owner.login, 'User')) {
-          await this.githubOwnerService.populateOwner(
+        if (this.githubDiscovererService.validateOwner(owner.login, 'User')) {
+          await this.githubDiscovererService.populateOwner(
             owner,
             OwnerReason.ORGANIZATION_PRESENCE
           );

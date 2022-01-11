@@ -9,7 +9,7 @@ import { ownerDiscoveryTerms } from './owner-discovery-terms';
 export class GithubDiscoverByOwnerSearchService {
   constructor(
     private readonly octokit: OctokitService,
-    private readonly githubOwnerService: GithubDiscovererService
+    private readonly githubDiscovererService: GithubDiscovererService
   ) {}
   private logger = new Logger(GithubDiscoverByOwnerSearchService.name);
 
@@ -58,12 +58,12 @@ export class GithubDiscoverByOwnerSearchService {
 
     for (const owner of owners) {
       if (
-        this.githubOwnerService.validateOwner(
+        this.githubDiscovererService.validateOwner(
           owner.login,
           owner.type as OwnerType
         )
       )
-        await this.githubOwnerService.populateOwner(
+        await this.githubDiscovererService.populateOwner(
           owner,
           OwnerReason.USER_SEARCH,
           term

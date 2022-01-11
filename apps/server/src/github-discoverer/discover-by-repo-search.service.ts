@@ -9,7 +9,7 @@ import { repoDiscoveryTerms } from './repo-discovery-terms';
 export class GithubDiscoverByRepoSearchService {
   constructor(
     private readonly octokit: OctokitService,
-    private readonly githubOwnerService: GithubDiscovererService
+    private readonly githubDiscovererService: GithubDiscovererService
   ) {}
   private logger = new Logger(GithubDiscoverByRepoSearchService.name);
 
@@ -62,7 +62,7 @@ export class GithubDiscoverByRepoSearchService {
         // Disqualified
         continue;
       }
-      await this.githubOwnerService.populateOwner(
+      await this.githubDiscovererService.populateOwner(
         owner,
         OwnerReason.REPOSITORY_SEARCH,
         term

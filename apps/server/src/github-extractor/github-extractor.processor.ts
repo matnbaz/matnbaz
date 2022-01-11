@@ -5,13 +5,13 @@ import { GithubExtractorService } from './github-extractor.service';
 
 @Processor(GITHUB_QUEUE)
 export class GithubExtractorProcessor {
-  constructor(private readonly repoService: GithubExtractorService) {}
+  constructor(private readonly extractorService: GithubExtractorService) {}
   private logger = new Logger(GithubExtractorProcessor.name);
 
   @Process(GITHUB_PROCESSES.EXTRACT)
   async extractProcess() {
     this.logger.log('Starting the extraction of repositories...');
 
-    await this.repoService.fullExtract();
+    await this.extractorService.fullExtract();
   }
 }
