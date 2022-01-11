@@ -1,14 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
-import { GithubOwnerService } from './github-owner.service';
+import { GithubDiscovererService } from './github-discoverer.service';
 import { ownerDiscoveryTerms } from './owner-discovery-terms';
 
 @Injectable()
 export class GithubDiscoverByOwnerSearchService {
   constructor(
     private readonly octokit: OctokitService,
-    private readonly githubOwnerService: GithubOwnerService
+    private readonly githubOwnerService: GithubDiscovererService
   ) {}
   private logger = new Logger(GithubDiscoverByOwnerSearchService.name);
 

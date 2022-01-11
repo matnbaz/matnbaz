@@ -1,12 +1,12 @@
 import { Command, CommandRunner, Option } from 'nest-commander';
+import { GithubDiscovererScheduler } from './github-discoverer.scheduler';
 import { GithubDiscoveryProcessor } from './github-discovery.processor';
-import { GithubOwnerScheduler } from './github-owner.scheduler';
 
 @Command({ name: 'discover' })
 export class GithubDiscoverCommand implements CommandRunner {
   constructor(
     private readonly githubOwnerProcessor: GithubDiscoveryProcessor,
-    private readonly githubOwnerScheduler: GithubOwnerScheduler
+    private readonly githubOwnerScheduler: GithubDiscovererScheduler
   ) {}
 
   async run(

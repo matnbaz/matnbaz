@@ -4,7 +4,7 @@ import { GITHUB_PROCESSES, GITHUB_QUEUE } from '../queue';
 import { GithubDiscoverByOrgPresenceService } from './discover-by-org-presence.service';
 import { GithubDiscoverByOwnerSearchService } from './discover-by-owner-search.service';
 import { GithubDiscoverByRepoSearchService } from './discover-by-repo-search.service';
-import { GithubOwnerService } from './github-owner.service';
+import { GithubDiscovererService } from './github-discoverer.service';
 
 @Processor(GITHUB_QUEUE)
 export class GithubDiscoveryProcessor {
@@ -12,7 +12,7 @@ export class GithubDiscoveryProcessor {
     private readonly discoverByOwnerSearch: GithubDiscoverByOwnerSearchService,
     private readonly discoverByRepoSearch: GithubDiscoverByRepoSearchService,
     private readonly discoverByOrgPresence: GithubDiscoverByOrgPresenceService,
-    private readonly ownerService: GithubOwnerService
+    private readonly ownerService: GithubDiscovererService
   ) {}
   private logger = new Logger(GithubDiscoveryProcessor.name);
 

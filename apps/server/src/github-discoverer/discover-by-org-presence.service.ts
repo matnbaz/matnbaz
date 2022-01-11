@@ -3,14 +3,14 @@ import { OwnerType } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
-import { GithubOwnerService } from './github-owner.service';
+import { GithubDiscovererService } from './github-discoverer.service';
 
 @Injectable()
 export class GithubDiscoverByOrgPresenceService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly octokit: OctokitService,
-    private readonly githubOwnerService: GithubOwnerService
+    private readonly githubOwnerService: GithubDiscovererService
   ) {}
   private logger = new Logger(GithubDiscoverByOrgPresenceService.name);
 

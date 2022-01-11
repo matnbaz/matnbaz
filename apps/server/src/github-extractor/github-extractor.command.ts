@@ -1,12 +1,12 @@
 import { Command, CommandRunner, Option } from 'nest-commander';
-import { GithubRepositoryProcessor } from './github-repository.processor';
-import { GithubRepositoryScheduler } from './github-repository.scheduler';
+import { GithubExtractorProcessor } from './github-extractor.processor';
+import { GithubExtractorScheduler } from './github-extractor.scheduler';
 
 @Command({ name: 'extract-repos' })
-export class GithubRepositoryCommand implements CommandRunner {
+export class GithubExtractorCommand implements CommandRunner {
   constructor(
-    private readonly githubRepositoryProcessor: GithubRepositoryProcessor,
-    private readonly githubRepositoryScheduler: GithubRepositoryScheduler
+    private readonly githubRepositoryProcessor: GithubExtractorProcessor,
+    private readonly githubRepositoryScheduler: GithubExtractorScheduler
   ) {}
 
   async run(

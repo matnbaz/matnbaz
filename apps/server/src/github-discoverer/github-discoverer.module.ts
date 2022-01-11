@@ -5,20 +5,18 @@ import { GITHUB_QUEUE } from '../queue';
 import { GithubDiscoverByOrgPresenceService } from './discover-by-org-presence.service';
 import { GithubDiscoverByOwnerSearchService } from './discover-by-owner-search.service';
 import { GithubDiscoverByRepoSearchService } from './discover-by-repo-search.service';
-import { GithubDiscoverCommand } from './github-discover.command';
+import { GithubDiscoverCommand } from './github-discoverer.command';
+import { GithubDiscovererScheduler } from './github-discoverer.scheduler';
+import { GithubDiscovererService } from './github-discoverer.service';
 import { GithubDiscoveryProcessor } from './github-discovery.processor';
-import { GithubExtractOwnerCommand } from './github-owner.command';
-import { GithubOwnerScheduler } from './github-owner.scheduler';
-import { GithubOwnerService } from './github-owner.service';
 
 @Module({
   imports: [BullModule.registerQueue({ name: GITHUB_QUEUE }), OctokitModule],
   providers: [
     GithubDiscoveryProcessor,
-    GithubOwnerScheduler,
-    GithubOwnerService,
+    GithubDiscovererScheduler,
+    GithubDiscovererService,
     GithubDiscoverCommand,
-    GithubExtractOwnerCommand,
 
     // Discoverers:
     GithubDiscoverByRepoSearchService,
@@ -27,4 +25,4 @@ import { GithubOwnerService } from './github-owner.service';
   ],
   exports: [],
 })
-export class GithubOwnerModule {}
+export class GithubDiscovererModule {}

@@ -6,12 +6,12 @@ import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
 
 @Injectable()
-export class GithubOwnerService {
+export class GithubDiscovererService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly octokit: OctokitService
   ) {}
-  private logger = new Logger(GithubOwnerService.name);
+  private logger = new Logger(GithubDiscovererService.name);
 
   async updateAllOwnersData() {
     const owners = await this.prisma.owner.findMany({

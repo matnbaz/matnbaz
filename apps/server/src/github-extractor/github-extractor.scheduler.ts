@@ -5,9 +5,9 @@ import { Queue } from 'bull';
 import { GITHUB_PROCESSES, GITHUB_QUEUE } from '../queue';
 
 @Injectable()
-export class GithubRepositoryScheduler {
+export class GithubExtractorScheduler {
   constructor(@InjectQueue(GITHUB_QUEUE) private readonly queue: Queue) {}
-  private logger = new Logger(GithubRepositoryScheduler.name);
+  private logger = new Logger(GithubExtractorScheduler.name);
 
   @Cron(CronExpression.EVERY_DAY_AT_3AM)
   async extract() {

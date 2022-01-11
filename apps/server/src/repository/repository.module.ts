@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { GithubRepositoryModule } from '../github-repository/github-repository.module';
+import { GithubExtractorModule } from '../github-extractor/github-extractor.module';
 import { RepositoryResolver } from './repository.resolver';
 
 @Module({
-  imports: [GithubRepositoryModule],
+  imports: [GithubExtractorModule],
   providers: [RepositoryResolver],
 })
 export class RepositoryModule {}
