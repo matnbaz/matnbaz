@@ -41,11 +41,4 @@ export class GithubDiscoveryProcessor {
     this.logger.log('Starting "discover by org presence" process...');
     await this.discoverByOrgPresence.discover();
   }
-
-  @Process(GITHUB_PROCESSES.EXTRACT_OWNERS)
-  async extractOwnersProcess() {
-    this.logger.log('Starting the extraction of owners (statistics)...');
-
-    await this.ownerService.updateAllOwnersData();
-  }
 }

@@ -211,7 +211,7 @@ export const ownerResource: Resource = ({
         variant: 'success',
         handler: async (request, response, data) => {
           try {
-            await githubQueue.add(GITHUB_PROCESSES.EXTRACT_OWNERS);
+            await githubQueue.add(GITHUB_PROCESSES.EXTRACT);
           } catch (error) {
             console.error(error);
           }

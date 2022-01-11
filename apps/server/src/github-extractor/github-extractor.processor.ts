@@ -8,10 +8,10 @@ export class GithubExtractorProcessor {
   constructor(private readonly repoService: GithubExtractorService) {}
   private logger = new Logger(GithubExtractorProcessor.name);
 
-  @Process(GITHUB_PROCESSES.EXTRACT_REPOS)
+  @Process(GITHUB_PROCESSES.EXTRACT)
   async extractProcess() {
     this.logger.log('Starting the extraction of repositories...');
 
-    await this.repoService.extractEveryonesRepos();
+    await this.repoService.fullExtract();
   }
 }

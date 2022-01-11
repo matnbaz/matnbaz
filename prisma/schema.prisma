@@ -21,8 +21,8 @@ model Repository {
   weeklyTrendIndicator  Float                 @default(1)
   monthlyTrendIndicator Float                 @default(1)
   yearlyTrendIndicator  Float                 @default(1)
-  archived              Boolean
-  disabled              Boolean
+  archived              Boolean // TODO: change to isArchived?
+  disabled              Boolean // TODO: change to isDisabled?
   isFork                Boolean
   isTemplate            Boolean
   createdAt             DateTime

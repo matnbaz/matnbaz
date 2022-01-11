@@ -16,12 +16,4 @@ export class GithubDiscovererScheduler {
       `The cronjob for GitHub's discovery got called, the jobs are now in the queue.`
     );
   }
-
-  @Cron(CronExpression.EVERY_DAY_AT_2AM)
-  async extract() {
-    await this.queue.add(GITHUB_PROCESSES.EXTRACT_OWNERS);
-    this.logger.log(
-      `The cronjob for GitHub owner extraction got called, the job is now in the queue.`
-    );
-  }
 }

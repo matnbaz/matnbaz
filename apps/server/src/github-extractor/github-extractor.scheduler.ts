@@ -9,11 +9,11 @@ export class GithubExtractorScheduler {
   constructor(@InjectQueue(GITHUB_QUEUE) private readonly queue: Queue) {}
   private logger = new Logger(GithubExtractorScheduler.name);
 
-  @Cron(CronExpression.EVERY_DAY_AT_3AM)
+  @Cron(CronExpression.EVERY_DAY_AT_2AM)
   async extract() {
-    await this.queue.add(GITHUB_PROCESSES.EXTRACT_REPOS);
+    await this.queue.add(GITHUB_PROCESSES.EXTRACT);
     this.logger.log(
-      `The cronjob for GitHub's extraction got called, the job is now in the queue.`
+      `The cronjob for GitHub owner extraction got called, the job is now in the queue.`
     );
   }
 }

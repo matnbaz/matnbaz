@@ -1,5 +1,6 @@
 import { slugifyLanguage } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
+import type { GraphQlQueryResponseData } from '@octokit/graphql';
 import { PlatformType, Prisma } from '@prisma/client';
 import { subDays, subHours } from 'date-fns-jalali';
 import { PrismaService } from 'nestjs-prisma';
@@ -7,6 +8,84 @@ import * as emoji from 'node-emoji';
 import { OctokitService } from '../octokit/octokit.service';
 import { MINIMUM_STARS } from '../repo-requirements';
 import { GithubReadmeExtractorService } from './github-readme-extractor.service';
+
+const EXTRACTION_QUERY = `
+query ($id: ID!) {
+  node(id: $id) {
+    __typename
+    ... on User {
+      contributionsCollection {
+        contributionCalendar {
+          totalContributions
+        }
+      }
+      followers(first: 0) {
+        totalCount
+      }
+      following(first: 0) {
+        totalCount
+      }
+      databaseId
+    }
+    ... on Organization {
+      databaseId
+    }
+    ... on RepositoryOwner {
+      id
+      login
+      repositories(first: 100, orderBy: {field: STARGAZERS, direction: DESC}) {
+        edges {
+          node {
+            id
+            databaseId
+            name
+            isArchived
+            description
+            homepageUrl
+            stargazerCount
+            forkCount
+            diskUsage
+            isTemplate
+            isDisabled
+            isFork
+            pushedAt
+            createdAt
+            updatedAt
+            repositoryTopics(first: 100) {
+              nodes {
+                topic {
+                  name
+                }
+              }
+            }
+            defaultBranchRef {
+              name
+            }
+            issues(first: 0, states: OPEN) {
+              totalCount
+            }
+            watchers(first: 0) {
+              totalCount
+            }
+            primaryLanguage {
+              name
+              id
+              color
+            }
+            licenseInfo {
+              name
+              spdxId
+              id
+              key
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+`;
 @Injectable()
 export class GithubExtractorService {
   constructor(
@@ -16,7 +95,7 @@ export class GithubExtractorService {
   ) {}
   private logger = new Logger(GithubExtractorService.name);
 
-  async extractEveryonesRepos() {
+  async fullExtract() {
     let lastOwnerId;
     const ownersCount = await this.prisma.owner.count({
       where: {
@@ -60,7 +139,7 @@ export class GithubExtractorService {
         cursor: lastOwnerId && { id: lastOwnerId },
         take: 100,
       })) {
-        await this.extractRepos(owner);
+        await this.extract(owner);
         completedCount++;
         lastOwnerId = owner.id;
       }
@@ -69,47 +148,53 @@ export class GithubExtractorService {
     clearInterval(interval);
   }
 
-  private extractRepos(owner: { login: string }) {
+  private async extract(owner: { nodeId?: string; login: string }) {
+    const nodeId = owner.nodeId || (await this.getNodeIdFromLogin(owner.login));
+
     return Promise.race([
       new Promise<void>((resolve) => {
-        this.octokit.rest.repos
-          .listForUser({
-            per_page: 100,
-            username: owner.login,
+        this.octokit
+          .graphql<GraphQlQueryResponseData>(EXTRACTION_QUERY, {
+            id: nodeId,
             request: { timeout: 5000 },
           })
           .then((response) => {
-            const repos = response.data;
-            Promise.all(
-              repos.map(
-                (repo) =>
-                  new Promise<void>((_resolve) => {
-                    // Disqualified (low stars)
-                    if (repo.stargazers_count < MINIMUM_STARS)
-                      return _resolve();
+            const owner = response.node;
+            const repos = owner.repositories.edges;
 
-                    // Disqualified (description too long)
-                    if (repo.description && repo.description.length > 512)
-                      return _resolve();
+            return this.populateOwner(owner).then((ownerFromDb) => {
+              return Promise.all(
+                repos.map(
+                  ({ node: repo }) =>
+                    new Promise<void>((_resolve) => {
+                      // Disqualified (low stars)
+                      if (repo.stargazerCount < MINIMUM_STARS)
+                        return _resolve();
 
-                    this.populateRepo(repo)
-                      .then((repoInDb) => {
-                        if (repoInDb)
-                          this.readmeExtractor
-                            .extractReadme(repoInDb.id)
-                            .finally(() => _resolve());
-                      })
-                      .catch(() => _resolve());
-                  })
+                      // Disqualified (description too long)
+                      if (repo.description && repo.description.length > 512)
+                        return _resolve();
+
+                      this.populateRepo(repo, ownerFromDb.id)
+                        .then((repoInDb) => {
+                          if (repoInDb)
+                            this.readmeExtractor
+                              .extractReadme(repoInDb.id)
+                              .finally(() => _resolve());
+                        })
+                        .catch((e) => _resolve());
+                    })
+                )
               )
-            )
-              .then(() => resolve())
-              .catch((e) => {
-                this.logger.error(
-                  `Error occured while extracting repos for ${owner.login}. ${e.message}`
-                );
-                resolve();
-              });
+                .then(() => resolve())
+                .catch((e) => resolve());
+            });
+          })
+          .catch((e) => {
+            this.logger.error(
+              `Error occured while extracting repos for ${owner.login}. ${e.message}`
+            );
+            resolve();
           });
       }),
       new Promise<void>((resolve) => {
@@ -119,20 +204,10 @@ export class GithubExtractorService {
     ]);
   }
 
-  async populateRepo({
-    owner,
-    topics,
-    license,
-    ...repo
-  }: Awaited<
-    ReturnType<OctokitService['rest']['repos']['listForUser']>
-  >['data'][0]) {
+  async populateRepo(repo, ownerId: string) {
     const ownerFromDb = await this.prisma.owner.findUnique({
       where: {
-        platform_platformId: {
-          platform: 'GitHub',
-          platformId: owner.id.toString(),
-        },
+        id: ownerId,
       },
     });
 
@@ -142,78 +217,77 @@ export class GithubExtractorService {
     > = {
       latestExtractionAt: new Date(),
       blockedAt: ownerFromDb.blockedAt ? new Date() : undefined,
-      platformId: repo.id.toString(),
+      platformId: repo.databaseId.toString(),
       platform: 'GitHub',
-      archived: repo.archived,
-      createdAt: repo.created_at,
-      defaultBranch: repo.default_branch,
+      archived: repo.isArchived,
+      createdAt: repo.createdAt,
+      defaultBranch: repo.defaultBranchRef.name,
       description: emoji.emojify(repo.description),
-      disabled: repo.disabled,
-      forksCount: repo.forks_count,
-      homePage: repo.homepage,
-      isFork: repo.fork,
-      isTemplate: repo.is_template,
+      disabled: repo.isDisabled,
+      forksCount: repo.forkCount,
+      homePage: repo.homepageUrl,
+      isFork: repo.isFork,
+      isTemplate: repo.isTemplate,
       name: repo.name,
-      openIssuesCount: repo.open_issues_count,
-      pushedAt: repo.pushed_at,
-      size: repo.size,
-      stargazersCount: repo.stargazers_count,
-      updatedAt: repo.updated_at,
-      watchersCount: repo.watchers_count,
-      weeklyTrendIndicator: await this.calculateTrendIndicator(
+      openIssuesCount: repo.issues.totalCount,
+      pushedAt: repo.pushedAt,
+      size: repo.diskUsage,
+      stargazersCount: repo.stargazerCount,
+      updatedAt: repo.updatedAt,
+      watchersCount: repo.watchers.totalCount,
+      weeklyTrendIndicator: await this.calculateOwnerTrendIndicator(
         repo.id.toString(),
-        repo.stargazers_count,
+        repo.stargazerCount,
         'weekly'
       ),
-      monthlyTrendIndicator: await this.calculateTrendIndicator(
+      monthlyTrendIndicator: await this.calculateOwnerTrendIndicator(
         repo.id.toString(),
-        repo.stargazers_count,
+        repo.stargazerCount,
         'monthly'
       ),
-      yearlyTrendIndicator: await this.calculateTrendIndicator(
+      yearlyTrendIndicator: await this.calculateOwnerTrendIndicator(
         repo.id.toString(),
-        repo.stargazers_count,
+        repo.stargazerCount,
         'yearly'
       ),
       Topics: {
-        connectOrCreate: topics.map((topicName) => ({
-          where: { name: topicName },
-          create: { name: topicName },
-        })),
+        connectOrCreate: repo.repositoryTopics.nodes.map(
+          ({ topic: { name } }) => ({
+            where: { name },
+            create: { name },
+          })
+        ),
       },
-      Language: repo.language
+      Language: repo.primaryLanguage
         ? {
             connectOrCreate: {
               where: {
-                slug: slugifyLanguage(repo.language.toLowerCase()),
+                slug: slugifyLanguage(repo.primaryLanguage.name.toLowerCase()),
               },
               create: {
-                slug: slugifyLanguage(repo.language.toLowerCase()),
-                name: repo.language,
+                slug: slugifyLanguage(repo.primaryLanguage.name.toLowerCase()),
+                name: repo.primaryLanguage.name,
               },
             },
           }
         : undefined,
-      License: license
+      License: repo.licenseInfo
         ? {
             connectOrCreate: {
               where: {
-                key: license.key,
+                key: repo.licenseInfo.key,
               },
               create: {
-                key: license.key,
-                name: license.name,
-                spdxId: license.spdx_id,
+                key: repo.licenseInfo.key,
+                name: repo.licenseInfo.name,
+                spdxId: repo.licenseInfo.spdxId,
               },
             },
           }
         : undefined,
       Owner: {
         connect: {
-          platform_platformId: {
-            platform: 'GitHub',
-            platformId: owner.id.toString(),
-          },
+          id: ownerFromDb.id,
         },
       },
     };
@@ -229,13 +303,14 @@ export class GithubExtractorService {
       update: repoData,
     });
 
+    // Saving statistics
     await this.prisma.repositoryStatistic.create({
       data: {
-        forksCount: repo.forks_count,
-        openIssuesCount: repo.open_issues_count,
-        size: repo.size,
-        stargazersCount: repo.stargazers_count,
-        watchersCount: repo.watchers_count,
+        forksCount: repo.forkCount,
+        openIssuesCount: repo.issues.totalCount,
+        size: repo.diskUsage,
+        stargazersCount: repo.stargazerCount,
+        watchersCount: repo.watchers.totalCount,
         Repository: { connect: { id: repoInDb.id } },
       },
     });
@@ -243,7 +318,72 @@ export class GithubExtractorService {
     return repoInDb;
   }
 
-  private async calculateTrendIndicator(
+  async populateOwner({
+    id, // nodeId
+    login,
+    databaseId,
+    contributionsCollection,
+    followers,
+    __typename,
+  }: {
+    id: string;
+    login: string;
+    databaseId: number;
+    contributionsCollection?: {
+      contributionCalendar: {
+        totalContributions: number;
+      };
+    };
+    followers?: { totalCount: number };
+    __typename: 'Organization' | 'User';
+  }) {
+    const owner = await this.prisma.owner.upsert({
+      where: {
+        platform_platformId: {
+          platform: 'GitHub',
+          platformId: databaseId.toString(),
+        },
+      },
+      create: {
+        nodeId: id,
+        login,
+        platform: 'GitHub',
+        platformId: databaseId.toString(),
+        type: __typename,
+        latestExtractionAt: new Date(),
+      },
+      update: {
+        nodeId: id,
+        login,
+        platform: 'GitHub',
+        platformId: databaseId.toString(),
+        type: __typename,
+        latestExtractionAt: new Date(),
+      },
+    });
+
+    // Saving statistics
+    if (__typename === 'User')
+      await this.prisma.ownerStatistic.create({
+        data: {
+          Owner: {
+            connect: {
+              platform_platformId: {
+                platform: 'GitHub',
+                platformId: databaseId.toString(),
+              },
+            },
+          },
+          contributionsCount:
+            contributionsCollection.contributionCalendar.totalContributions,
+          followersCount: followers.totalCount,
+        },
+      });
+
+    return owner;
+  }
+
+  private async calculateOwnerTrendIndicator(
     platformId: string,
     currentStargazersCount: number,
     interval: 'yearly' | 'monthly' | 'weekly'
@@ -278,5 +418,12 @@ export class GithubExtractorService {
         : currentStargazersCount;
 
     return currentStargazersCount - respectiveStatStarCount;
+  }
+
+  private async getNodeIdFromLogin(login: string) {
+    const response = await this.octokit.rest.users.getByUsername({
+      username: login,
+    });
+    return response.data.node_id;
   }
 }
