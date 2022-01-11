@@ -46,6 +46,6 @@ export class GithubDiscoveryProcessor {
   async extractOwnersProcess() {
     this.logger.log('Starting the extraction of owners (statistics)...');
 
-    await this.ownerService.updateAllOwnersStatistics();
+    await this.ownerService.updateAllOwnersData();
   }
 }

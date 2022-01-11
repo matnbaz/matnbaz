@@ -12,6 +12,7 @@ model Repository {
   id                    String                @id @default(cuid())
   platform              PlatformType
   platformId            String
+  nodeId                String?               @unique
   size                  Int
   stargazersCount       Int
   watchersCount         Int
@@ -99,6 +100,7 @@ model Owner {
   id                  String           @id @default(cuid())
   platform            PlatformType
   platformId          String
+  nodeId              String?          @unique
   login               String
   gravatarId          String
   type                OwnerType

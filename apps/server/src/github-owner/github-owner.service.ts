@@ -12,10 +12,10 @@ export class GithubOwnerService {
   ) {}
   private logger = new Logger(GithubOwnerService.name);
 
-  async updateAllOwnersStatistics() {
+  async updateAllOwnersData() {
     const owners = await this.prisma.owner.findMany({
       where: { blockedAt: null, type: OwnerType.User },
-      select: { id: true, login: true },
+      select: { id: true, nodeId: true, login: true },
     });
     const ownersCount = owners.length;
     let completedCount = 0;
@@ -30,10 +30,14 @@ export class GithubOwnerService {
       );
     }, 60000);
 
-    for (const { id, login } of owners) {
+    for (const { id, login, nodeId } of owners) {
       try {
-        const { followersCount, totalContributions } =
-          await this.getOwnerStatistics(login);
+        const { followersCount, totalContributions, ...ownerData } =
+          await this.getOwnerProfileData({ login, nodeId });
+        await this.prisma.owner.update({
+          where: { id },
+          data: { nodeId: ownerData.nodeId, login: ownerData.login },
+        });
         await this.prisma.ownerStatistic.create({
           data: {
             contributionsCount: totalContributions,
@@ -42,45 +46,66 @@ export class GithubOwnerService {
           },
         });
       } catch (e) {
-        this.logger.error(`Error while extracting statistics owner ${login}.`);
+        if (e.message === 'User does not exist.') {
+          await this.prisma.owner.delete({ where: { id } });
+          this.logger.error(
+            `User ${login} not found. deleting from the database.`
+          );
+        } else
+          this.logger.error(
+            `Error while extracting statistics owner ${login}.`
+          );
       }
       completedCount++;
     }
     clearInterval(interval);
   }
 
-  async getOwnerStatistics(login: string) {
+  async getOwnerProfileData(owner: { nodeId?: string; login: string }) {
+    const nodeId = owner.nodeId || (await this.getNodeIdFromLogin(owner.login));
     const response: any = await this.octokit.graphql(
-      `query ($login: String!) {
-      user(login: $login) {
-        name
-        contributionsCollection {
-          contributionCalendar {
-            totalContributions
-          }          
-        }
+      `query ($id: ID!) {
+      node(id: $id) {
+        ...on User { 
+          name
+          login
+          contributionsCollection {
+            contributionCalendar {
+              totalContributions
+            }          
+          }
 
-        followers(first: 0){
-          totalCount
-        }
-        
-        following(first:0){
-          totalCount
+          followers(first: 0){
+            totalCount
+          }
+          
+          following(first:0){
+            totalCount
+          }
         }
       }
     }`,
-      { login, request: { timeout: 5000 } }
+      { id: nodeId, request: { timeout: 5000 } }
     );
 
-    if (!response.user) throw Error('User does not exist.');
+    if (!response.node) throw Error('User does not exist.');
 
     return {
       totalContributions:
-        response.user.contributionsCollection.contributionCalendar
+        response.node.contributionsCollection.contributionCalendar
           .totalContributions,
-      followersCount: response.user.followers.totalCount,
-      followingCount: response.user.following.totalCount,
+      followersCount: response.node.followers.totalCount,
+      followingCount: response.node.following.totalCount,
+      login: response.node.login,
+      nodeId,
     };
+  }
+
+  async getNodeIdFromLogin(login: string) {
+    const response = await this.octokit.rest.users.getByUsername({
+      username: login,
+    });
+    return response.data.node_id;
   }
 
   async addOwner(username: string) {
@@ -117,6 +142,7 @@ export class GithubOwnerService {
           reason: reasonWithParam,
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
+          nodeId: owner.node_id,
           gravatarId: owner.gravatar_id,
           login: owner.login,
           type: owner.type as OwnerType,
@@ -126,6 +152,7 @@ export class GithubOwnerService {
           reason: reasonWithParam,
           platformId: owner.id.toString(),
           platform: PlatformType.GitHub,
+          nodeId: owner.node_id,
           gravatarId: owner.gravatar_id,
           login: owner.login,
           type: owner.type as OwnerType,

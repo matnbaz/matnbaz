@@ -9,6 +9,6 @@ export class GithubExtractOwnerCommand implements CommandRunner {
     passedParams: string[],
     options?: Record<string, any>
   ): Promise<void> {
-    await this.githubOwnerService.updateAllOwnersStatistics();
+    await this.githubOwnerService.updateAllOwnersData();
   }
 }
