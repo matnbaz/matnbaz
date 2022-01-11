@@ -36,7 +36,9 @@ export class GithubDiscoverByOrgPresenceService {
       const owners = response.data;
 
       for (const owner of owners)
-        if (this.githubDiscovererService.validateOwner(owner.login, 'User')) {
+        if (
+          await this.githubDiscovererService.validateOwner(owner.login, 'User')
+        ) {
           await this.githubDiscovererService.populateOwner(
             owner,
             OwnerReason.ORGANIZATION_PRESENCE

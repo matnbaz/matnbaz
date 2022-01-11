@@ -58,7 +58,7 @@ export class GithubDiscoverByOwnerSearchService {
 
     for (const owner of owners) {
       if (
-        this.githubDiscovererService.validateOwner(
+        await this.githubDiscovererService.validateOwner(
           owner.login,
           owner.type as OwnerType
         )
