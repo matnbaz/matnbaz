@@ -2,7 +2,7 @@ import { Command, CommandRunner, Option } from 'nest-commander';
 import { GithubRepositoryProcessor } from './github-repository.processor';
 import { GithubRepositoryScheduler } from './github-repository.scheduler';
 
-@Command({ name: 'extract' })
+@Command({ name: 'extract-repos' })
 export class GithubRepositoryCommand implements CommandRunner {
   constructor(
     private readonly githubRepositoryProcessor: GithubRepositoryProcessor,

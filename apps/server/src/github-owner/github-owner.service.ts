@@ -17,6 +17,18 @@ export class GithubOwnerService {
       where: { blockedAt: null, type: OwnerType.User },
       select: { id: true, login: true },
     });
+    const ownersCount = owners.length;
+    let completedCount = 0;
+
+    this.logger.log(`${ownersCount} owners found. Extracting now...`);
+
+    const interval = setInterval(() => {
+      const completedPercentage =
+        Math.floor((completedCount / ownersCount) * 10000) / 100;
+      this.logger.log(
+        `${completedCount}/${ownersCount} (~${completedPercentage}%)`
+      );
+    }, 60000);
 
     for (const { id, login } of owners) {
       try {
@@ -30,11 +42,11 @@ export class GithubOwnerService {
           },
         });
       } catch (e) {
-        this.logger.error(
-          `Error while extracting statistics for owner ${login}.`
-        );
+        this.logger.error(`Error while extracting statistics owner ${login}.`);
       }
+      completedCount++;
     }
+    clearInterval(interval);
   }
 
   async getOwnerStatistics(login: string) {

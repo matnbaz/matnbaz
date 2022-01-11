@@ -7,6 +7,7 @@ import { GithubDiscoverByOwnerSearchService } from './discover-by-owner-search.s
 import { GithubDiscoverByRepoSearchService } from './discover-by-repo-search.service';
 import { GithubDiscoverCommand } from './github-discover.command';
 import { GithubDiscoveryProcessor } from './github-discovery.processor';
+import { GithubExtractOwnerCommand } from './github-owner.command';
 import { GithubOwnerScheduler } from './github-owner.scheduler';
 import { GithubOwnerService } from './github-owner.service';
 
@@ -17,6 +18,7 @@ import { GithubOwnerService } from './github-owner.service';
     GithubOwnerScheduler,
     GithubOwnerService,
     GithubDiscoverCommand,
+    GithubExtractOwnerCommand,
 
     // Discoverers:
     GithubDiscoverByRepoSearchService,
