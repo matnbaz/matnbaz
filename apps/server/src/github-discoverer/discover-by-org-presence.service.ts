@@ -35,11 +35,13 @@ export class GithubDiscoverByOrgPresenceService {
       });
       const owners = response.data;
 
-      for (const org of owners)
-        await this.githubOwnerService.populateOwner(
-          org,
-          OwnerReason.ORGANIZATION_PRESENCE
-        );
+      for (const owner of owners)
+        if (this.githubOwnerService.validateOwner(owner.login, 'User')) {
+          await this.githubOwnerService.populateOwner(
+            owner,
+            OwnerReason.ORGANIZATION_PRESENCE
+          );
+        }
     }
     this.logger.log(
       `Discovered all public members of all ${organizations.length} organizations`

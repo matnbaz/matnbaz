@@ -3,6 +3,7 @@ import { OwnerType, PlatformType } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
+import { MINIMUM_STARS } from '../repo-requirements';
 
 @Injectable()
 export class GithubDiscovererService {
@@ -64,5 +65,17 @@ export class GithubDiscovererService {
         `Error while populating ${owner.login} with the ID of ${owner.id}: ${e.message}`
       );
     }
+  }
+
+  async validateOwner(githubLogin: string, type: 'User' | 'Organization') {
+    const repos = await this.octokit.rest.search.repos({
+      q: `${
+        type === 'User' ? 'user' : 'org'
+      }:${githubLogin} stars:>${MINIMUM_STARS}`,
+      per_page: 1,
+      page: 1,
+    });
+
+    return repos.data.total_count > 0;
   }
 }

@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { OwnerType } from '@prisma/client';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
 import { GithubDiscovererService } from './github-discoverer.service';
@@ -56,11 +57,17 @@ export class GithubDiscoverByOwnerSearchService {
     );
 
     for (const owner of owners) {
-      await this.githubOwnerService.populateOwner(
-        owner,
-        OwnerReason.USER_SEARCH,
-        term
-      );
+      if (
+        this.githubOwnerService.validateOwner(
+          owner.login,
+          owner.type as OwnerType
+        )
+      )
+        await this.githubOwnerService.populateOwner(
+          owner,
+          OwnerReason.USER_SEARCH,
+          term
+        );
     }
   }
 }
