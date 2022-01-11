@@ -62,12 +62,13 @@ export class GithubDiscoverByOwnerSearchService {
           owner.login,
           owner.type as OwnerType
         )
-      )
+      ) {
         await this.githubDiscovererService.populateOwner(
           owner,
           OwnerReason.USER_SEARCH,
           term
         );
+      }
     }
   }
 }

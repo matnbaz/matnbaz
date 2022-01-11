@@ -68,14 +68,21 @@ export class GithubDiscovererService {
   }
 
   async validateOwner(githubLogin: string, type: 'User' | 'Organization') {
-    const repos = await this.octokit.rest.search.repos({
-      q: `${
+    try {
+      const q = `${
         type === 'User' ? 'user' : 'org'
-      }:${githubLogin} stars:>${MINIMUM_STARS}`,
-      per_page: 1,
-      page: 1,
-    });
+      }:${githubLogin} stars:>${MINIMUM_STARS}`;
 
-    return repos.data.total_count > 0;
+      const response = await this.octokit.rest.search.repos({
+        q,
+        per_page: 1,
+        page: 1,
+        request: { timeout: 10000 },
+      });
+
+      return response.data.total_count > 0;
+    } catch (e) {
+      return false;
+    }
   }
 }
