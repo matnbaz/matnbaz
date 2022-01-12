@@ -6,5 +6,5 @@ module.exports = {
     sourceDir: 'dist/apps/web/.next',
     outDir: 'apps/web/public',
     generateRobotsTxt: true,
-    exclude: ['*/404', '*/500']
+    exclude: ['*/404', '*/500', '*/_middleware']
 }
