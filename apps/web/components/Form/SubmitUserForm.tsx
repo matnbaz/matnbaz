@@ -1,3 +1,4 @@
+import { MINIMUM_STARS, persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
 import { useCallback, useMemo, useState } from 'react';
 import {
@@ -29,7 +30,11 @@ const SubmitUserForm = () => {
       <p className="mt-5">
         در صورتی که کاربر یا گروه ایرانی‌ای را در گیت‌هاب می شناسید که هنوز توسط
         سایت پیدا نشده، نام کاربری ایشان را در فرم زیر وارد کنید تا بررسی و به
-        سایت اضافه شوند.
+        سایت اضافه شوند.{' '}
+        <span className="font-bold">
+          توجه کنید که برای اضافه شدن باید حداقل یک مخزن با حداقل{' '}
+          {persianNumbers(MINIMUM_STARS)} ستاره داشته باشید.
+        </span>
       </p>
 
       <div className="space-y-3 mt-10">

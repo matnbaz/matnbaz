@@ -1,9 +1,9 @@
+import { MINIMUM_STARS } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { OwnerType, PlatformType } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
-import { MINIMUM_STARS } from '../repo-requirements';
 
 @Injectable()
 export class GithubDiscovererService {

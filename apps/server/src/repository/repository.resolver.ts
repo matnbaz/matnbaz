@@ -1,7 +1,7 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { CacheControl } from '@exonest/graphql-cache-control';
 import { PaginationArgs } from '@exonest/graphql-connections';
-import { guessDirection } from '@matnbaz/common';
+import { guessDirection, MINIMUM_STARS } from '@matnbaz/common';
 import {
   Args,
   ID,
@@ -24,7 +24,6 @@ import { Owner } from '../models/owner.model';
 import { Repository } from '../models/repository.model';
 import { Topic } from '../models/topic.model';
 import { paginationComplexity } from '../plugins/pagination-complexity';
-import { MINIMUM_STARS } from '../repo-requirements';
 import { ReportableResolver } from '../report/reportable.resolver';
 import { PlatformArgs } from './args/platform.args';
 import { RepoFilterArgs } from './args/repo-filter.args';

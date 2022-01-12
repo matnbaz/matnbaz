@@ -4,5 +4,6 @@ export * from './lib/links';
 export * from './lib/null-to-undefined';
 export * from './lib/persian-numbers';
 export * from './lib/random';
+export * from './lib/repo-requirements';
 export * from './lib/slugify';
 export * from './lib/timer';

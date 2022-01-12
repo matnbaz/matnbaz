@@ -1,7 +1,7 @@
+import { MINIMUM_STARS } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
-import { MINIMUM_STARS } from '../repo-requirements';
 import { GithubDiscovererService } from './github-discoverer.service';
 import { repoDiscoveryTerms } from './repo-discovery-terms';
 

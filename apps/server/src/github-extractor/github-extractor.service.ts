@@ -1,4 +1,4 @@
-import { slugifyLanguage } from '@matnbaz/common';
+import { MINIMUM_STARS, slugifyLanguage } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
 import type { GraphQlQueryResponseData } from '@octokit/graphql';
 import { PlatformType, Prisma } from '@prisma/client';
@@ -6,7 +6,6 @@ import { subDays, subHours } from 'date-fns-jalali';
 import { PrismaService } from 'nestjs-prisma';
 import * as emoji from 'node-emoji';
 import { OctokitService } from '../octokit/octokit.service';
-import { MINIMUM_STARS } from '../repo-requirements';
 import { GithubReadmeExtractorService } from './github-readme-extractor.service';
 
 const EXTRACTION_QUERY = `
