@@ -41,6 +41,7 @@ query ($id: ID!) {
             isArchived
             description
             homepageUrl
+            openGraphImageUrl
             stargazerCount
             forkCount
             diskUsage
@@ -83,7 +84,6 @@ query ($id: ID!) {
     }
   }
 }
-
 `;
 @Injectable()
 export class GithubExtractorService {
@@ -225,6 +225,7 @@ export class GithubExtractorService {
       disabled: repo.isDisabled,
       forksCount: repo.forkCount,
       homePage: repo.homepageUrl,
+      openGraphImageUrl: repo.openGraphImageUrl,
       isFork: repo.isFork,
       isTemplate: repo.isTemplate,
       name: repo.name,

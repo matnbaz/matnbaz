@@ -18,6 +18,7 @@ model Repository {
   watchersCount         Int
   forksCount            Int
   openIssuesCount       Int
+  openGraphImageUrl     String?
   weeklyTrendIndicator  Float                 @default(1)
   monthlyTrendIndicator Float                 @default(1)
   yearlyTrendIndicator  Float                 @default(1)
