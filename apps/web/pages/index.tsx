@@ -153,6 +153,53 @@ const Index = () => {
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-2">
                 <h2 className="inline-flex items-center text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
+                  کاوش‌گر
+                </h2>
+                <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  با استفاده انواع فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و
+                  پروژه‌های اوپن‌سورس ایرانی را کشف کنید.
+                </p>
+                <div className="mt-4">
+                  <Button.Primary href="/explore" size="lg">
+                    برو به کاوش‌گر
+                  </Button.Primary>
+                </div>
+              </div>
+
+              <div className="sm:col-start-1">
+                <div className="relative overflow-x-hidden">
+                  <RepositoryPreviewFromGithub
+                    variation="summary"
+                    padded
+                    disabled
+                    className="absolute my-4 inset-0 mx-auto order-3 max-w-[12rem] bg-white dark:bg-gray-900 translate-x-20 sm:translate-x-40 scale-75"
+                    fullName="rastikerdar/vazir-font"
+                  />
+                  <RepositoryPreviewFromGithub
+                    variation="summary"
+                    padded
+                    disabled
+                    className="absolute my-4 inset-0 mx-auto order-1 max-w-[12rem] bg-white dark:bg-gray-900 -translate-x-20 sm:-translate-x-40 scale-75"
+                    fullName="persepolisdm/persepolis"
+                  />
+                  <div className="py-8">
+                    <RepositoryPreviewFromGithub
+                      variation="summary"
+                      padded
+                      disabled
+                      className="relative order-2 mx-auto max-w-[12rem] bg-white dark:bg-gray-900"
+                      fullName="saadeghi/daisyui"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
+            <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
+              <div className="sm:col-start-1">
+                <h2 className="inline-flex items-center text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
                   کالکشن‌ها
                   <span className="mr-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary-100 text-primary-800 dark:bg-primary-600 dark:text-primary-100">
                     جدید
@@ -169,7 +216,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="sm:col-start-1">
+              <div className="sm:col-start-2">
                 <div className="flex justify-center items-center py-6 overflow-x-hidden mx-auto">
                   <div
                     style={{ backgroundColor: '#4FC08D' }}
@@ -254,53 +301,6 @@ const Index = () => {
                         <span dir="ltr">JavaScript</span>{' '}
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
-            <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
-              <div className="sm:col-start-1">
-                <h2 className="inline-flex items-center text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
-                  کاوش‌گر
-                </h2>
-                <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  با استفاده انواع فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و
-                  پروژه‌های اوپن‌سورس ایرانی را کشف کنید.
-                </p>
-                <div className="mt-4">
-                  <Button.Primary href="/explore" size="lg">
-                    برو به کاوش‌گر
-                  </Button.Primary>
-                </div>
-              </div>
-
-              <div className="sm:col-start-2">
-                <div className="relative overflow-x-hidden">
-                  <RepositoryPreviewFromGithub
-                    variation="summary"
-                    padded
-                    disabled
-                    className="absolute my-4 inset-0 mx-auto order-3 max-w-[12rem] bg-white dark:bg-gray-900 translate-x-20 sm:translate-x-40 scale-75"
-                    fullName="rastikerdar/vazir-font"
-                  />
-                  <RepositoryPreviewFromGithub
-                    variation="summary"
-                    padded
-                    disabled
-                    className="absolute my-4 inset-0 mx-auto order-1 max-w-[12rem] bg-white dark:bg-gray-900 -translate-x-20 sm:-translate-x-40 scale-75"
-                    fullName="persepolisdm/persepolis"
-                  />
-                  <div className="py-8">
-                    <RepositoryPreviewFromGithub
-                      variation="summary"
-                      padded
-                      disabled
-                      className="relative order-2 mx-auto max-w-[12rem] bg-white dark:bg-gray-900"
-                      fullName="saadeghi/daisyui"
-                    />
                   </div>
                 </div>
               </div>
