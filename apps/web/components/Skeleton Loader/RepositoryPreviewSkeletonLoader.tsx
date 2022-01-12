@@ -9,6 +9,7 @@ export type IRepositoryPreviewSkeletonLoaderProps = Omit<
 
 const RepositoryPreviewSkeletonLoader = ({
   variation = 'default',
+  sendToPlatform,
   ...props
 }: IRepositoryPreviewSkeletonLoaderProps) => {
   return (
