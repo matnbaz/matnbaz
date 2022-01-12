@@ -1,12 +1,15 @@
 import { Injectable, Logger } from '@nestjs/common';
-import axios from 'axios';
 import { marked, Renderer } from 'marked';
 import { PrismaService } from 'nestjs-prisma';
 import * as emoji from 'node-emoji';
+import { OctokitService } from '../octokit/octokit.service';
 
 @Injectable()
 export class GithubReadmeExtractorService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly octokit: OctokitService
+  ) {}
   private logger = new Logger(GithubReadmeExtractorService.name);
 
   async extractAllReadmes() {
@@ -50,21 +53,14 @@ export class GithubReadmeExtractorService {
 
   async getReadmeFromGithub(ownerLogin, repoName, defaultBranch) {
     try {
-      const repoPageResponse = await axios.get(
-        `https://github.com/${ownerLogin}/${repoName}`
+      const response = await this.octokit.rest.repos.getReadme({
+        owner: ownerLogin,
+        repo: repoName,
+      });
+      const readme = Buffer.from(response.data.content, 'base64').toString(
+        'utf-8'
       );
-
-      // This name is anything that github recognizes as a standard readme file (README.md, Readme.md, README, README.txt, readme.markdown, etc.)
-      const readmeFileName = repoPageResponse.data
-        .split(`id="readme"`)[1]
-        .split(`data-tagsearch-path="`)[1]
-        .split(`"`)[0];
-      if (!readmeFileName.toLowerCase().includes('readme')) return null;
-
-      const response = await axios.get(
-        `https://raw.githubusercontent.com/${ownerLogin}/${repoName}/${defaultBranch}/${readmeFileName}`
-      );
-      return response.data;
+      return readme;
     } catch (e) {
       return null;
     }
