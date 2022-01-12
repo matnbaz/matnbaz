@@ -239,17 +239,17 @@ export class GithubExtractorService {
       updatedAt: repo.updatedAt,
       watchersCount: repo.watchers.totalCount,
       weeklyTrendIndicator: await this.calculateOwnerTrendIndicator(
-        repo.id.toString(),
+        repo.databaseId.toString(),
         repo.stargazerCount,
         'weekly'
       ),
       monthlyTrendIndicator: await this.calculateOwnerTrendIndicator(
-        repo.id.toString(),
+        repo.databaseId.toString(),
         repo.stargazerCount,
         'monthly'
       ),
       yearlyTrendIndicator: await this.calculateOwnerTrendIndicator(
-        repo.id.toString(),
+        repo.databaseId.toString(),
         repo.stargazerCount,
         'yearly'
       ),
@@ -298,7 +298,7 @@ export class GithubExtractorService {
     const repoInDb = await this.prisma.repository.upsert({
       where: {
         platform_platformId: {
-          platformId: repo.id.toString(),
+          platformId: repo.databaseId.toString(),
           platform: 'GitHub',
         },
       },
