@@ -32,7 +32,7 @@ query ($id: ID!) {
     ... on RepositoryOwner {
       id
       login
-      repositories(first: 100, orderBy: {field: STARGAZERS, direction: DESC}) {
+      repositories(first: 100, orderBy: {field: STARGAZERS, direction: DESC}, ownerAffiliations: OWNER) {
         edges {
           node {
             id
