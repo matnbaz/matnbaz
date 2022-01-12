@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import {
-  AiOutlineBranches,
   AiOutlineExclamationCircle,
+  AiOutlineFork,
   AiOutlineStar,
 } from 'react-icons/ai';
 import { GetRepositoriesQuery } from '../../lib/graphql-types';
@@ -30,7 +30,7 @@ const RepositoryPreview = ({
       },
       {
         name: 'فورک‌ها',
-        icon: AiOutlineBranches,
+        icon: AiOutlineFork,
         value: +repository.forksCount,
       },
       {

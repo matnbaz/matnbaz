@@ -3,10 +3,10 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { useMemo } from 'react';
 import {
-  AiOutlineBranches,
   AiOutlineCalendar,
   AiOutlineClockCircle,
   AiOutlineExclamationCircle,
+  AiOutlineFork,
   AiOutlineSafetyCertificate,
   AiOutlineStar,
 } from 'react-icons/ai';
@@ -52,7 +52,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
     },
     {
       name: 'فورک‌ها',
-      icon: AiOutlineBranches,
+      icon: AiOutlineFork,
       value: persianNumbers(+repo.forksCount),
     },
     {
