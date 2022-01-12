@@ -17,7 +17,7 @@ const SubmitUserForm = () => {
       const { data, errors } = await submit({
         variables: { username, platform: PlatformType.GitHub },
       });
-      if (data) setUsername('');
+      if (data.sendSubmission.submission.id) setUsername('');
     } catch (e) {
       //
     }
