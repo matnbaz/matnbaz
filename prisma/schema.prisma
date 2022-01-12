@@ -29,7 +29,7 @@ model Repository {
   createdAt             DateTime
   updatedAt             DateTime
   pushedAt              DateTime
-  extractedAt           DateTime              @default(now())
+  extractedAt           DateTime              @default(now()) // recordCreatedAt
   recordUpdatedAt       DateTime              @updatedAt
   latestExtractionAt    DateTime?
   name                  String
@@ -100,7 +100,7 @@ model Owner {
   login               String
   type                OwnerType
   reason              String?
-  extractedAt         DateTime         @default(now())
+  extractedAt         DateTime         @default(now()) // TODO: recordCreatedAt
   recordUpdatedAt     DateTime         @updatedAt
   blockedAt           DateTime?
   latestExtractionAt  DateTime?

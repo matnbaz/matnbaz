@@ -1,5 +1,6 @@
 import { Process, Processor } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
+import { Job } from 'bull';
 import { GITHUB_PROCESSES, GITHUB_QUEUE } from '../queue';
 import { GithubDiscoverByOrgPresenceService } from './discover-by-org-presence.service';
 import { GithubDiscoverByOwnerSearchService } from './discover-by-owner-search.service';
@@ -40,5 +41,14 @@ export class GithubDiscoveryProcessor {
   async discoverByOrgPresenceProcess() {
     this.logger.log('Starting "discover by org presence" process...');
     await this.discoverByOrgPresence.discover();
+  }
+
+  @Process(GITHUB_PROCESSES.ADD_OWNER)
+  async extractOwnersProcess(job: Job<{ username: string }>) {
+    this.logger.log(
+      `Starting the add owner process for user with login "${job.data.username}"...`
+    );
+
+    await this.ownerService.addOwner(job.data.username);
   }
 }
