@@ -145,6 +145,9 @@ export class GithubExtractorService {
     }
 
     clearInterval(interval);
+    this.logger.log(
+      `finished extraction of ${completedCount}/${ownersCount} owners.`
+    );
   }
 
   private async extract(owner: { nodeId?: string; login: string }) {
