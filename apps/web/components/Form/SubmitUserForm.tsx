@@ -23,7 +23,7 @@ const SubmitUserForm = () => {
     }
   }, [username, submit]);
 
-  const isValidated = useMemo(() => username.length > 3, [username]);
+  const isValidated = useMemo(() => username.length > 0, [username]);
 
   return (
     <>
