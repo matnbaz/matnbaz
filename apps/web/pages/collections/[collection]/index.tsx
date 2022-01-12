@@ -1,8 +1,8 @@
 import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps, NextPage } from 'next';
+import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { MdChevronRight } from 'react-icons/md';
-import HeaderMeta from '../../../components/Feature/HeaderMeta';
 import MainLayout from '../../../components/Layout/MainLayout';
 import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
 import { RandomPromotionBanner } from '../../../components/UI/RandomPromotionBanner';
@@ -42,11 +42,16 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
 
   return (
     <MainLayout>
-      <HeaderMeta
+      <NextSeo
         title={collection.name}
         description={collection.description}
-        withBanner
-        banner={`https://server.matnbaz.net/collections/${collection.slug}.jpg`}
+        openGraph={{
+          images: [
+            {
+              url: `https://server.matnbaz.net/collections/${collection.slug}.jpg`,
+            },
+          ],
+        }}
       />
       <div className="max-w-3xl mx-auto">
         <Link href="/collections">

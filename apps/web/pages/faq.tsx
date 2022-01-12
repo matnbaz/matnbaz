@@ -1,44 +1,30 @@
 import { readFileSync } from 'fs';
 import { marked } from 'marked';
 import { GetStaticProps, NextPage } from 'next';
+import { FAQPageJsonLd, NextSeo } from 'next-seo';
+import { Question } from 'next-seo/lib/jsonld/faqPage';
 import { join } from 'path';
-import HeaderMeta, { IHeaderMetaTags } from '../components/Feature/HeaderMeta';
 import MainLayout from '../components/Layout/MainLayout';
 
-// interface FaqPageProps {
-//   faqs: { question: string; answer: string }[];
-// }
-
 interface FaqPageProps {
-  faqs: string;
+  faqHtml: string;
+  faq: Question[];
 }
 
-export const faqMetaTags: IHeaderMetaTags = {
-  title: 'پرسش‌های متداول',
-  description:
-    'در این صفحه پرسش‌هایی که به‌صورت متداول از ما پرسیده شده را مشاهده می‌کنید.',
-};
-
-const FaqPage: NextPage<FaqPageProps> = ({ faqs }) => {
+const FaqPage: NextPage<FaqPageProps> = ({ faq, faqHtml }) => {
   return (
     <MainLayout>
-      <HeaderMeta {...faqMetaTags} />
-      <div
-        className="prose dark:prose-invert prose-h1:mt-10 max-w-4xl mx-auto mb-5"
-        dangerouslySetInnerHTML={{ __html: faqs }}
+      <NextSeo
+        title="پرسش‌های متداول"
+        description="در این صفحه پرسش‌هایی که به‌صورت متداول از ما پرسیده شده را مشاهده می‌کنید."
       />
 
-      {/* <div className="space-y-10 max-w-4xl mx-auto my-5">
-        {faqs.map(({ question, answer }) => (
-          <div key={question}>
-            <h1 className="text-3xl font-bold">{question}</h1>
-            <div
-              dangerouslySetInnerHTML={{ __html: answer }}
-              className="mt-4 prose dark:prose-invert"
-            />
-          </div>
-        ))}
-      </div> */}
+      <FAQPageJsonLd mainEntity={faq} />
+
+      <div
+        className="prose dark:prose-invert prose-h1:mt-10 max-w-4xl mx-auto mb-5"
+        dangerouslySetInnerHTML={{ __html: faqHtml }}
+      />
     </MainLayout>
   );
 };
@@ -47,25 +33,21 @@ export default FaqPage;
 
 export const getStaticProps: GetStaticProps<FaqPageProps> = () => {
   const faqMarkdown = readFileSync(join(process.cwd(), 'FAQ.md'));
-  const renderedMarkdown = marked.parse(faqMarkdown.toString());
+  const faqHtml = marked.parse(faqMarkdown.toString());
+  const faq = faqMarkdown
+    .toString()
+    .split('<!-- question-separator -->')
+    .map((faq) => {
+      const splitPerLine = faq.split('#')[1].split('\n');
+      return {
+        questionName: splitPerLine[0],
+        acceptedAnswerText: JSON.stringify(
+          marked.parse(splitPerLine.slice(1, splitPerLine.length).join('\n'))
+        ).slice(1, -1),
+      };
+    });
 
   return {
-    props: { faqs: renderedMarkdown },
+    props: { faq, faqHtml },
   };
-  //   const faqMarkdown = readFileSync(join(process.cwd(), 'FAQ.md'));
-  //   const faqs = faqMarkdown.toString().split('<!-- question-separator -->');
-
-  //   return {
-  //     props: {
-  //       faqs: faqs.map((faq) => {
-  //         const splitPerLine = faq.split('#')[1].split('\n');
-  //         return {
-  //           question: splitPerLine[0],
-  //           answer: marked.parse(
-  //             splitPerLine.slice(1, splitPerLine.length).join('\n')
-  //           ),
-  //         };
-  //       }),
-  //     },
-  //   };
 };

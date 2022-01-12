@@ -1,5 +1,5 @@
+import { NextSeo } from 'next-seo';
 import { CollectionPreview } from '../../components/Collection/CollectionPreview';
-import HeaderMeta from '../../components/Feature/HeaderMeta';
 import MainLayout from '../../components/Layout/MainLayout';
 import { PageHeader } from '../../components/Layout/PageHeader';
 import CollectionPreviewSkeletonLoader from '../../components/Skeleton Loader/CollectionPreviewSkeletonLoader';
@@ -19,7 +19,7 @@ const CollectionsPage = () => {
 
   return (
     <MainLayout>
-      <HeaderMeta
+      <NextSeo
         title="کالکشن‌ها"
         description="کالکشن های مختلف از پروژه های اوپن سورس ایرانی"
       />

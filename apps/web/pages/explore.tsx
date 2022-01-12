@@ -1,5 +1,5 @@
+import { NextSeo } from 'next-seo';
 import { useMemo } from 'react';
-import HeaderMeta, { IHeaderMetaTags } from '../components/Feature/HeaderMeta';
 import RepositoryFilters from '../components/Filter/RepositoryFilters';
 import MainLayout from '../components/Layout/MainLayout';
 import { PageHeader } from '../components/Layout/PageHeader';
@@ -9,11 +9,6 @@ import Divider from '../components/UI/Divider';
 import { RandomPromotionBanner } from '../components/UI/RandomPromotionBanner';
 import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
 import Custom500 from './500';
-
-export const exploreMetaTags: IHeaderMetaTags = {
-  title: 'کاوش‌گر',
-  description: 'پروژه های اوپن‌سورس (Open-Source) مختلف ایرانی را کشف کنید.',
-};
 
 const Explore = () => {
   const [
@@ -39,7 +34,10 @@ const Explore = () => {
 
   return (
     <MainLayout withoutFooter={!error}>
-      <HeaderMeta {...exploreMetaTags} withBanner />
+      <NextSeo
+        title="کاوش‌گر"
+        description="پروژه های اوپن‌سورس (Open-Source) مختلف ایرانی را کشف کنید."
+      />
 
       <PageHeader title="کاوش‌گر" />
 

@@ -1,5 +1,6 @@
 import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps } from 'next';
+import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useMemo } from 'react';
 import {
@@ -10,7 +11,6 @@ import {
   AiOutlineSafetyCertificate,
   AiOutlineStar,
 } from 'react-icons/ai';
-import HeaderMeta from '../../../../components/Feature/HeaderMeta';
 import MainLayout from '../../../../components/Layout/MainLayout';
 import OwnerImage from '../../../../components/Owner/OwnerImage';
 import RepositoryReport from '../../../../components/Report/RepositoryReport';
@@ -84,7 +84,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
 
   return (
     <MainLayout maxWidth={false} withoutPadding>
-      <HeaderMeta title={repo.fullName} description={repo.descriptionLimited} />
+      <NextSeo title={repo.fullName} description={repo.descriptionLimited} />
       <div
         className="relative flex items-center md:h-[30rem] w-full"
         style={{ background: chosenGradient }}

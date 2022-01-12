@@ -1,6 +1,6 @@
 import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps } from 'next';
-import HeaderMeta from '../../../components/Feature/HeaderMeta';
+import { NextSeo } from 'next-seo';
 import MainLayout from '../../../components/Layout/MainLayout';
 import OwnerImage from '../../../components/Owner/OwnerImage';
 import OwnerReport from '../../../components/Report/OwnerReport';
@@ -41,7 +41,7 @@ const OwnerPage = ({ ownerSlug }) => {
 
   return (
     <MainLayout>
-      <HeaderMeta
+      <NextSeo
         title={owner.login}
         description={`پروفایل ${owner.login} از پلتفرم ${owner.platform}`}
       />

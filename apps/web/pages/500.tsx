@@ -1,5 +1,5 @@
 import { links } from '@matnbaz/common';
-import HeaderMeta from '../components/Feature/HeaderMeta';
+import { NextSeo } from 'next-seo';
 import MainLayout from '../components/Layout/MainLayout';
 import Button from '../components/UI/Button/Button';
 import Divider from '../components/UI/Divider';
@@ -7,7 +7,7 @@ import Divider from '../components/UI/Divider';
 export default function Custom500() {
   return (
     <MainLayout>
-      <HeaderMeta title="خطای سرور" />
+      <NextSeo title="خطای سرور" />
       <div className="flex flex-col items-center justify-center h-80">
         <h1 className="text-5xl font-bold">خطای سرور</h1>
         <span className="text-lg text-center text-secondary mt-4">
