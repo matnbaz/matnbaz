@@ -1,3 +1,4 @@
+import { persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
 import Card, { ICardProps } from '../UI/Card';
 
@@ -61,7 +62,7 @@ export const CollectionPreview = ({
           </div>
           {repositoriesCount && (
             <div className="text-secondary font-medium">
-              {repositoriesCount.toLocaleString('fa')} پروژه
+              {persianNumbers(repositoriesCount)} پروژه
             </div>
           )}
           {description && <p className="mt-2 text-secondary">{description}</p>}

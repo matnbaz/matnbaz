@@ -1,3 +1,4 @@
+import { persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import {
@@ -110,7 +111,7 @@ const RepositoryPreview = ({
                   key={statistic.name}
                   className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
                 >
-                  <span>{statistic.value.toLocaleString('fa')}</span>
+                  <span>{persianNumbers(statistic.value)}</span>
                   <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
                 </div>
               ))}
@@ -180,7 +181,7 @@ const RepositoryPreview = ({
                   key={statistic.name}
                   className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
                 >
-                  <span>{statistic.value.toLocaleString('fa')}</span>
+                  <span>{persianNumbers(statistic.value)}</span>
                   <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
                 </div>
               ))}

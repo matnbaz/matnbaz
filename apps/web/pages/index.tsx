@@ -1,4 +1,4 @@
-import { links } from '@matnbaz/common';
+import { links, persianNumbers } from '@matnbaz/common';
 import Image from 'next/image';
 import { HiChevronDown, HiChevronLeft } from 'react-icons/hi';
 import { SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
@@ -420,7 +420,7 @@ const SiteStats = () => {
                 </dt>
                 <dd className="order-1 text-5xl font-extrabold">
                   {data ? (
-                    data.metadata.totalReposCount.toLocaleString('fa')
+                    persianNumbers(data.metadata.totalReposCount)
                   ) : (
                     <span className="animate-pulse">۰</span>
                   )}
@@ -432,7 +432,7 @@ const SiteStats = () => {
                 </dt>
                 <dd className="order-1 text-5xl font-extrabold">
                   {data ? (
-                    data.metadata.totalOwnersCount.toLocaleString('fa')
+                    persianNumbers(data.metadata.totalOwnersCount)
                   ) : (
                     <span className="animate-pulse">۰</span>
                   )}
@@ -444,7 +444,7 @@ const SiteStats = () => {
                 </dt>
                 <dd className="order-1 text-5xl font-extrabold">
                   {data ? (
-                    data.metadata.totalTopicsCount.toLocaleString('fa')
+                    persianNumbers(data.metadata.totalTopicsCount)
                   ) : (
                     <span className="animate-pulse">۰</span>
                   )}
