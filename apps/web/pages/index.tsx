@@ -39,7 +39,7 @@ const Index = () => {
 
       <main>
         <div className="overflow-hidden mb-12 sm:mb-24">
-          <div className="h-screen min-h-[50rem] md:min-h-[40rem] flex flex-col items-center">
+          <div className="h-screen md:min-h-[40rem] flex flex-col items-center">
             <div className="m-auto px-4 sm:max-w-4xl sm:px-6 sm:text-center lg:px-0 lg:text-right flex items-center">
               <div className="">
                 {/* <a
