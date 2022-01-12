@@ -69,8 +69,9 @@ export class GithubDiscovererService {
 
   async validateOwner(githubLogin: string, type?: OwnerType) {
     if (!type) {
-      type = (await this.octokit.rest.search.users({ q: githubLogin })).data
-        .items[0].type as OwnerType;
+      const response = await this.octokit.rest.search.users({ q: githubLogin });
+      if (response.data.items.length === 0) return false;
+      type = response.data.items[0].type as OwnerType;
     }
 
     try {
