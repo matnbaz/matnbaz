@@ -23,6 +23,6 @@ import { GithubDiscoveryProcessor } from './github-discovery.processor';
     GithubDiscoverByOwnerSearchService,
     GithubDiscoverByOrgPresenceService,
   ],
-  exports: [],
+  exports: [GithubDiscovererService],
 })
 export class GithubDiscovererModule {}
