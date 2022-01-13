@@ -2,6 +2,7 @@ import { links, persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
 import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
 import Image from 'next/image';
+import { CSSProperties } from 'react';
 import { HiChevronDown } from 'react-icons/hi';
 import MainLayout from '../components/Layout/MainLayout';
 import { FeaturedRepositoriesFromGithub } from '../components/Repository/FeaturedRepositoriesFromGithub';
@@ -229,18 +230,21 @@ const Index = () => {
                     imageSrc="https://simpleicons.org/icons/laravel.svg"
                   />
                   <CollectionItem
+                    style={{ zIndex: 1 }}
                     color="#3776AB"
                     className="translate-x-4 order-4"
                     name="Python"
                     imageSrc="https://simpleicons.org/icons/python.svg"
                   />
                   <CollectionItem
+                    style={{ zIndex: 1 }}
                     color="#61DAFB"
                     className="-translate-x-4 order-2"
                     name="React"
                     imageSrc="https://simpleicons.org/icons/react.svg"
                   />
                   <CollectionItem
+                    style={{ zIndex: 2 }}
                     color="#000000"
                     className="order-3 scale-[120%]"
                     name="Rust"
@@ -452,16 +456,18 @@ interface CollectionItemProps {
   imageSrc: string;
   color: string;
   className: string;
+  style?: CSSProperties;
 }
 const CollectionItem = ({
   name,
   imageSrc,
   color,
   className,
+  style,
 }: CollectionItemProps) => {
   return (
     <div
-      style={{ backgroundColor: color }}
+      style={{ backgroundColor: color, ...style }}
       className={classNames(
         className,
         'text-white w-16 sm:w-24 flex-shrink-0 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none'
@@ -472,6 +478,8 @@ const CollectionItem = ({
         <img
           alt={name}
           src={imageSrc}
+          width={128}
+          height={128}
           className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
         />
         <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
