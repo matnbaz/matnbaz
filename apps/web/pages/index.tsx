@@ -88,7 +88,7 @@ const Index = () => {
                   :{' '}
                   <h2 className="inline">
                     تمام پروژه‌های اوپن‌سورس{' '}
-                    <span className="text-transparent bg-clip-text ltr:bg-gradient-to-r rtl:bg-gradient-to-l from-green-400 via-blue-white to-red-600">
+                    <span className="text-transparent bg-clip-text ltr:bg-gradient-to-r rtl:bg-gradient-to-l from-green-400 to-red-600">
                       ایرانی
                     </span>{' '}
                     در یک جا
