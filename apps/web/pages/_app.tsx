@@ -18,7 +18,11 @@ function CustomApp({ Component, pageProps }: AppProps) {
           site_name: 'متن‌باز',
           title: 'متن‌باز',
           images: [
-            { url: 'https://matnbaz.net/banner.jpg', width: 1280, height: 640 },
+            {
+              url: 'https://raw.githubusercontent.com/matnbaz/visual-identity/main/banner.jpg',
+              width: 1280,
+              height: 640,
+            },
           ],
           defaultImageWidth: 1280,
           defaultImageHeight: 640,
