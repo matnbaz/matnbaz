@@ -268,7 +268,7 @@ const RepositoryFilters = ({
         </Card>
         <Card>
           <Collapsible
-            title="زبان برنامه نویسی"
+            title="زبان برنامه‌نویسی"
             onClick={() => {
               // Remove this listener and don't use lazy useQuery if open is set to true for this collapsible
               if (!languagesNode && !error) runQuery();
@@ -294,7 +294,7 @@ const RepositoryFilters = ({
             ) : (
               !languagesLoading && (
                 <div className="mt-4 text-sm text-secondary">
-                  <span>نتیجه ای پیدا نشد.</span>
+                  <span>نتیجه‌ای پیدا نشد.</span>
                 </div>
               )
             )}
