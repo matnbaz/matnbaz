@@ -1,12 +1,12 @@
 import { links, persianNumbers } from '@matnbaz/common';
+import classNames from 'classnames';
 import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
 import Image from 'next/image';
-import { HiChevronDown, HiChevronLeft } from 'react-icons/hi';
-import { SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
+import { HiChevronDown } from 'react-icons/hi';
 import MainLayout from '../components/Layout/MainLayout';
+import { FeaturedRepositoriesFromGithub } from '../components/Repository/FeaturedRepositoriesFromGithub';
 import { RepositoryPreviewFromGithub } from '../components/Repository/RepositoryPreviewFromGithub';
 import Button from '../components/UI/Button/Button';
-import { IconButton } from '../components/UI/IconButton';
 import { useMetadataQuery } from '../lib/graphql-types';
 
 const sponsorshipUrl = `${links.githubRepo}/blob/main/SPONSORSHIP.md`;
@@ -60,7 +60,7 @@ const Index = () => {
                   </span>
                   <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
                 </a> */}
-                <a
+                {/* <a
                   href={links.telegram}
                   target="_blank"
                   rel="noreferrer"
@@ -77,7 +77,7 @@ const Index = () => {
                     به کانال تلگرام ما بپیوندید
                   </span>
                   <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
-                </a>
+                </a> */}
                 <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-5xl lg:mt-6 xl:text-5xl">
                   تمام پروژه‌های اوپن‌سورس{' '}
                   <span className="text-primary-500">ایرانی</span>{' '}
@@ -86,7 +86,8 @@ const Index = () => {
                 <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   با استفاده از متن‌باز می‌توانید پروژه های اوپن‌سورس
                   (Open-Source) مختلف ایرانی را کشف کنید. اگر شما هم کار
-                  اوپن‌سورس کرده‌اید، به احتمال زیاد اسم خود را پیدا خواهید کرد!
+                  اوپن‌سورس کرده‌اید، به احتمال زیاد اسم خود را سایت پیدا خواهید
+                  کرد!
                 </p>
                 <div className="mt-8 sm:mt-12">
                   <div className="mt-3 space-x-3 space-x-reverse">
@@ -152,7 +153,7 @@ const Index = () => {
           <div className="m-auto max-w-7xl px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-2">
-                <h2 className="inline-flex items-center text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
+                <h2 className="inline-flex items-center text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
                   کاوش‌گر
                 </h2>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
@@ -168,29 +169,16 @@ const Index = () => {
 
               <div className="sm:col-start-1">
                 <div className="relative overflow-x-hidden">
-                  <RepositoryPreviewFromGithub
+                  <FeaturedRepositoriesFromGithub
+                    repoNames={[
+                      'rastikerdar/vazir-font',
+                      'persepolisdm/persepolis',
+                      'saadeghi/daisyui',
+                    ]}
                     variation="summary"
                     padded
                     disabled
-                    className="absolute my-4 inset-0 mx-auto order-3 max-w-[12rem] bg-white dark:bg-gray-900 translate-x-20 sm:translate-x-40 scale-75"
-                    fullName="rastikerdar/vazir-font"
                   />
-                  <RepositoryPreviewFromGithub
-                    variation="summary"
-                    padded
-                    disabled
-                    className="absolute my-4 inset-0 mx-auto order-1 max-w-[12rem] bg-white dark:bg-gray-900 -translate-x-20 sm:-translate-x-40 scale-75"
-                    fullName="persepolisdm/persepolis"
-                  />
-                  <div className="py-8">
-                    <RepositoryPreviewFromGithub
-                      variation="summary"
-                      padded
-                      disabled
-                      className="relative order-2 mx-auto max-w-[12rem] bg-white dark:bg-gray-900"
-                      fullName="saadeghi/daisyui"
-                    />
-                  </div>
                 </div>
               </div>
             </div>
@@ -199,7 +187,7 @@ const Index = () => {
           <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-1">
-                <h2 className="inline-flex items-center text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
+                <h2 className="inline-flex items-center text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
                   کالکشن‌ها
                   <span className="mr-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary-100 text-primary-800 dark:bg-primary-600 dark:text-primary-100">
                     جدید
@@ -218,90 +206,36 @@ const Index = () => {
 
               <div className="sm:col-start-2">
                 <div className="flex justify-center items-center py-6 overflow-x-hidden mx-auto">
-                  <div
-                    style={{ backgroundColor: '#4FC08D' }}
-                    className="translate-x-8  text-white order-5 flex-shrink-0 scale-90 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none"
-                  >
-                    <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        alt="Vue.js"
-                        src="https://simpleicons.org/icons/vuedotjs.svg"
-                        className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
-                      />
-                      <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
-                        <span dir="ltr">Vue.js</span>{' '}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{ backgroundColor: '#FF2D20' }}
-                    className=" -translate-x-8 text-white order-1 flex-shrink-0 scale-90 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none"
-                  >
-                    <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        alt="Laravel"
-                        src="https://simpleicons.org/icons/laravel.svg"
-                        className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
-                      />
-                      <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
-                        <span dir="ltr">Laravel</span>{' '}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{ backgroundColor: '#02569B', zIndex: 1 }}
-                    className="translate-x-4 text-white order-4 flex-shrink-0 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none"
-                  >
-                    <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        alt="Flutter"
-                        src="https://simpleicons.org/icons/flutter.svg"
-                        className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
-                      />
-                      <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
-                        <span dir="ltr">Flutter</span>{' '}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{ backgroundColor: '#61DAFB', zIndex: 1 }}
-                    className="-translate-x-4 text-white order-2 flex-shrink-0 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none"
-                  >
-                    <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        alt="React"
-                        src="https://simpleicons.org/icons/react.svg"
-                        className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
-                      />
-                      <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
-                        <span dir="ltr">React</span>{' '}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{ backgroundColor: '#F7DF1E', zIndex: 2 }}
-                    className="text-white order-3 flex-shrink-0 scale-110 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none"
-                  >
-                    <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        alt="JavaScript"
-                        src="https://simpleicons.org/icons/javascript.svg"
-                        className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
-                      />
-                      <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
-                        <span dir="ltr">JavaScript</span>{' '}
-                      </div>
-                    </div>
-                  </div>
+                  <CollectionItem
+                    color="#7F52FF"
+                    className="translate-x-8 order-5 scale-[80%]"
+                    name="Kotlin"
+                    imageSrc="https://simpleicons.org/icons/kotlin.svg"
+                  />
+                  <CollectionItem
+                    color="#FF2D20"
+                    className="-translate-x-8 order-1 scale-[80%]"
+                    name="Laravel"
+                    imageSrc="https://simpleicons.org/icons/laravel.svg"
+                  />
+                  <CollectionItem
+                    color="#3776AB"
+                    className="translate-x-4 order-4"
+                    name="Python"
+                    imageSrc="https://simpleicons.org/icons/python.svg"
+                  />
+                  <CollectionItem
+                    color="#61DAFB"
+                    className="-translate-x-4 order-2"
+                    name="React"
+                    imageSrc="https://simpleicons.org/icons/react.svg"
+                  />
+                  <CollectionItem
+                    color="#000000"
+                    className="order-3 scale-[120%]"
+                    name="Rust"
+                    imageSrc="https://simpleicons.org/icons/rust.svg"
+                  />
                 </div>
               </div>
             </div>
@@ -313,67 +247,67 @@ const Index = () => {
 
           <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
+              <div className="sm:col-start-1">
+                <div>
+                  <h2 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
+                    سورس‌کد متن‌باز
+                  </h2>
+                  <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                    سورس کد متن‌باز را می‌توانید در این مخزن گیت‌هاب مشاهده
+                    کنید.
+                    <br />
+                    با ستاره دادن می‌توانید به پیشرفت و بیشتر شناخته‌شدن پروژه
+                    کمک کنید.
+                    {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                    <a target="_blank" href={links.githubRepo}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        className="mt-2"
+                        alt="دادن ستاره در گیت‌هاب"
+                        src="https://img.shields.io/github/stars/matnbaz/matnbaz?style=social"
+                      />
+                    </a>
+                  </p>
+                </div>
+                <div className="mt-10">
+                  <RepositoryPreviewFromGithub
+                    padded
+                    sendToPlatform
+                    fullName="matnbaz/matnbaz"
+                  />
+                </div>
+              </div>
+
               <div className="sm:col-start-2">
-                <h2 className="text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
-                  سورس‌کد متن‌باز
-                </h2>
-                <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  سورس کد متن‌باز را می‌توانید در این مخزن گیت‌هاب مشاهده کنید.
-                  <br />
-                  با ستاره دادن می‌توانید به پیشرفت و بیشتر شناخته‌شدن پروژه کمک
-                  کنید.
-                  {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                  <a target="_blank" href={links.githubRepo}>
+                <div>
+                  <h2 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
+                    انجمن متن‌باز
+                  </h2>
+                  <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                    یکی از اهداف ما ساخت یک انجمن فعال و دوستانه است. در انجمن
+                    دیسکورد متن‌باز کاربران می توانند با افراد دیگر آشنا شوند،
+                    برای انجام پروژه‌های متن‌باز همکار جمع کنند و...
+                  </p>
+                </div>
+
+                <div className="mt-10">
+                  <a href={links.discord} target="_blank" rel="noreferrer">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      className="mt-2"
-                      alt="دادن ستاره در گیت‌هاب"
-                      src="https://img.shields.io/github/stars/matnbaz/matnbaz?style=social"
+                      className="mx-auto rounded-md"
+                      src="https://discordapp.com/api/guilds/912032955956871188/widget.png?style=banner1"
+                      alt="Discord banner"
                     />
                   </a>
-                </p>
-              </div>
-
-              <div className="sm:col-start-1">
-                <RepositoryPreviewFromGithub
-                  padded
-                  sendToPlatform
-                  fullName="matnbaz/matnbaz"
-                />
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
-            <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
-              <div className="sm:col-start-1">
-                <h2 className="text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
-                  انجمن متن‌باز
-                </h2>
-                <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  یکی از اهداف ما ساخت یک انجمن فعال و دوستانه است. در انجمن
-                  دیسکورد متن‌باز کاربران می توانند با افراد دیگر آشنا شوند،
-                  برای انجام پروژه‌های متن‌باز همکار جمع کنند و...
-                </p>
-              </div>
-
-              <div className="sm:col-start-2">
-                <a href={links.discord} target="_blank" rel="noreferrer">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    className="mx-auto rounded-md"
-                    src="https://discordapp.com/api/guilds/912032955956871188/widget.png?style=banner3"
-                    alt="Discord banner"
-                  />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
+          {/* <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-2">
-                <h2 className="text-2xl tracking-tight font-bold sm:text-4xl xl:text-4xl">
+                <h2 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
                   در شبکه‌های اجتماعی
                 </h2>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
@@ -408,7 +342,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* More main page content here... */}
@@ -500,5 +434,40 @@ const SponsorImage = ({ url, darkImage, image, name }: SponsorImageProps) => {
         </div>
       )}
     </a>
+  );
+};
+
+interface CollectionItemProps {
+  name: string;
+  imageSrc: string;
+  color: string;
+  className: string;
+}
+const CollectionItem = ({
+  name,
+  imageSrc,
+  color,
+  className,
+}: CollectionItemProps) => {
+  return (
+    <div
+      style={{ backgroundColor: color }}
+      className={classNames(
+        className,
+        'text-white w-16 sm:w-24 flex-shrink-0 rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none'
+      )}
+    >
+      <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          alt="{name}"
+          src={imageSrc}
+          className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
+        />
+        <div className="text-center text-sm sm:text-lg sm:font-bold mt-4">
+          <span dir="ltr">{name}</span>{' '}
+        </div>
+      </div>
+    </div>
   );
 };

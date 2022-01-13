@@ -6,13 +6,39 @@ import {
   AiOutlineFork,
   AiOutlineStar,
 } from 'react-icons/ai';
-import { GetRepositoriesQuery } from '../../lib/graphql-types';
+import {
+  OwnerType,
+  PlatformType,
+  ScriptDirection,
+} from '../../lib/graphql-types';
 import OwnerImage from '../Owner/OwnerImage';
 import Card, { ICardProps } from '../UI/Card';
 
 export interface IRepositoryPreviewProps
   extends Omit<ICardProps, 'children' | 'href'> {
-  repository: GetRepositoriesQuery['repositories']['edges'][0]['node'];
+  repository: {
+    id: string;
+    fullName: string;
+    platformUrl?: string | null | undefined;
+    platform: PlatformType;
+    descriptionLimited?: string | null | undefined;
+    descriptionDirection: ScriptDirection;
+    stargazersCount: number;
+    forksCount: number;
+    openIssuesCount: number;
+    isNew: boolean;
+    owner?: {
+      type: OwnerType;
+      login: string;
+      platformId: string;
+    } | null;
+
+    language?: {
+      __typename?: 'Language';
+      name: string;
+      color?: { __typename?: 'Color'; hexString: string } | null;
+    } | null;
+  };
   sendToPlatform?: boolean;
   variation?: 'default' | 'summary';
 }
@@ -56,7 +82,7 @@ const RepositoryPreview = ({
 
   const template =
     variation === 'summary' ? (
-      <div className="relative h-full">
+      <div className={classNames('relative h-full')}>
         {/* Platform Logo */}
         {/* <img
           className="w-4 h-4 absolute opacity-10"
@@ -205,3 +231,35 @@ const RepositoryPreview = ({
 };
 
 export default RepositoryPreview;
+
+const commonColorsTable = {
+  Vue: '#4FC08D',
+  Php: '#777BB4',
+  Shell: '#89e051',
+};
+
+export const githubRepoResponseNormalize = (repo: any) => ({
+  id: repo.id.toString(),
+  isNew: false,
+  platform: PlatformType.GitHub,
+  owner: {
+    login: repo.owner.login,
+    platformId: repo.owner.id,
+    type:
+      repo.owner.type === 'Organization'
+        ? OwnerType.Organization
+        : OwnerType.User,
+  },
+  descriptionLimited: repo.description,
+  forksCount: repo.forks_count,
+  openIssuesCount: repo.open_issues_count,
+  stargazersCount: repo.stargazers_count,
+  fullName: repo.full_name,
+  language: {
+    name: repo.language,
+    color: {
+      hexString: commonColorsTable[repo.language] || '#1e90ff',
+    },
+  },
+  descriptionDirection: ScriptDirection.Ltr,
+});
