@@ -12,13 +12,17 @@ interface IOptions {
 
 type TValue = IOptions[];
 
-interface IMultiSelectProps {
+export interface IMultiSelectProps {
   options: IOptions[];
   value?: TValue;
   onChange?: (values: TValue) => void;
 }
 
-const MultiSelectWIP = ({ options, value, onChange }: IMultiSelectProps) => {
+export const MultiSelectWIP = ({
+  options,
+  value,
+  onChange,
+}: IMultiSelectProps) => {
   const [selectedOptions, setSelectedOptions] = useState<TValue | null>(null);
   const optionChangeHandler = (selectedOption) => {
     if (selectedOptions?.includes(selectedOption)) return;
@@ -136,5 +140,3 @@ const MultiSelectWIP = ({ options, value, onChange }: IMultiSelectProps) => {
     </Listbox>
   );
 };
-
-export default MultiSelectWIP;

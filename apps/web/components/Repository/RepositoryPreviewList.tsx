@@ -3,9 +3,9 @@ import {
   GetRepositoriesQuery,
   GetSearchedRepositoriesQuery,
 } from '../../lib/graphql-types';
-import InfiniteScroll from '../Feature/InfiniteScroll';
-import RepositoryPreviewSkeletonLoader from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
-import RepositoryPreview from './RepositoryPreview';
+import { InfiniteScroll } from '../Feature/InfiniteScroll';
+import { RepositoryPreviewSkeletonLoader } from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
+import { RepositoryPreview } from './RepositoryPreview';
 
 interface IRepositoryPreviewListProps {
   repositories:
@@ -16,14 +16,14 @@ interface IRepositoryPreviewListProps {
   loading?: boolean;
 }
 
-interface IRepositoryPreviewListPropsWithoutPagination
+export interface IRepositoryPreviewListPropsWithoutPagination
   extends IRepositoryPreviewListProps {
   networkStatus?: never;
   called?: never;
   onLoadMore?: never;
 }
 
-interface IRepositoryPreviewListPropsWithPagination
+export interface IRepositoryPreviewListPropsWithPagination
   extends IRepositoryPreviewListProps {
   loading: boolean;
   onLoadMore?: () => void;
@@ -31,7 +31,7 @@ interface IRepositoryPreviewListPropsWithPagination
   called?: boolean;
 }
 
-const RepositoryPreviewList = ({
+export const RepositoryPreviewList = ({
   loading,
   networkStatus = 0,
   called = true,
@@ -92,5 +92,3 @@ const RepositoryPreviewList = ({
     <>{loading ? skeletonLoaders : mappedRepositories}</>
   );
 };
-
-export default RepositoryPreviewList;

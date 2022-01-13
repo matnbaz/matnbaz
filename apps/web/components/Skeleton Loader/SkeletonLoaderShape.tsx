@@ -4,14 +4,14 @@ enum ShapeClasses {
   'rectangle' = '',
 }
 
-interface ISkeletonShapeProps {
+export interface ISkeletonShapeProps {
   shape: keyof typeof ShapeClasses;
   width: string;
   height: string;
   className?: string;
 }
 
-const SkeletonLoaderShape = ({
+export const SkeletonLoaderShape = ({
   shape,
   width,
   height,
@@ -26,5 +26,3 @@ const SkeletonLoaderShape = ({
     />
   );
 };
-
-export default SkeletonLoaderShape;

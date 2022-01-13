@@ -5,10 +5,10 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { useDebounce } from 'use-debounce';
 import useClickOutside from '../../hooks/use-click-outside';
 import { useGetSearchedRepositoriesLazyQuery } from '../../lib/graphql-types';
-import Input from '../UI/Input/Input';
-import RepositoryPreviewList from './RepositoryPreviewList';
+import { Input } from '../UI/Input/Input';
+import { RepositoryPreviewList } from './RepositoryPreviewList';
 
-const RepositorySearchInput = () => {
+export const RepositorySearchInput = () => {
   const router = useRouter();
 
   const [getSearchResult, { loading, data, refetch, called }] =
@@ -119,5 +119,3 @@ const RepositorySearchInput = () => {
     </form>
   );
 };
-
-export default RepositorySearchInput;

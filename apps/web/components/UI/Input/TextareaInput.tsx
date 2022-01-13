@@ -7,7 +7,11 @@ export interface ITextInputProps
   icon?: IconType;
 }
 
-const TextareaInput = ({ className, icon, ...props }: ITextInputProps) => {
+export const TextareaInput = ({
+  className,
+  icon,
+  ...props
+}: ITextInputProps) => {
   const IconComponent = icon;
   return (
     <div className="relative">
@@ -25,5 +29,3 @@ const TextareaInput = ({ className, icon, ...props }: ITextInputProps) => {
     </div>
   );
 };
-
-export default TextareaInput;

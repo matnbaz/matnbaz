@@ -4,8 +4,8 @@ import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { MdChevronRight } from 'react-icons/md';
 import { PromotionBanner } from '../../../components/Banner/PromotionBanner';
-import MainLayout from '../../../components/Layout/MainLayout';
-import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
+import { MainLayout } from '../../../components/Layout/MainLayout';
+import { RepositoryPreviewList } from '../../../components/Repository/RepositoryPreviewList';
 import { initializeApollo } from '../../../lib/apollo';
 import {
   GetCollectionDocument,

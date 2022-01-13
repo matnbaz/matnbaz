@@ -1,7 +1,11 @@
 import classNames from 'classnames';
-import Button, { IButtonProps } from './Button';
+import { Button, IButtonProps } from './Button';
 
-const PrimaryButton = ({ children, className, ...props }: IButtonProps) => {
+export const PrimaryButton = ({
+  children,
+  className,
+  ...props
+}: IButtonProps) => {
   return (
     <Button
       {...props}
@@ -14,5 +18,3 @@ const PrimaryButton = ({ children, className, ...props }: IButtonProps) => {
     </Button>
   );
 };
-
-export default PrimaryButton;

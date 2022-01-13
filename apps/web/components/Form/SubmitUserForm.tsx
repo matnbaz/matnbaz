@@ -5,10 +5,10 @@ import {
   PlatformType,
   useSendSubmissionMutation,
 } from '../../lib/graphql-types';
-import Button from '../UI/Button/Button';
-import Input from '../UI/Input/Input';
+import { Button } from '../UI/Button/Button';
+import { Input } from '../UI/Input/Input';
 
-const SubmitUserForm = () => {
+export const SubmitUserForm = () => {
   const [submit, { data, loading, error }] = useSendSubmissionMutation();
   const [username, setUsername] = useState('');
 
@@ -78,5 +78,3 @@ const SubmitUserForm = () => {
     </>
   );
 };
-
-export default SubmitUserForm;

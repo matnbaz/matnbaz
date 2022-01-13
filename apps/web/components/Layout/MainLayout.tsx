@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { PromotionBanner } from '../Banner/PromotionBanner';
 import { Footer } from '../UI/Footer';
-import Navbar from '../UI/Navbar';
+import { Navbar } from '../UI/Navbar';
 
 interface IMainLayoutProps {
   children: React.ReactNode;
@@ -96,5 +96,3 @@ export const MainLayout = ({
     </div>
   );
 };
-
-export default MainLayout;

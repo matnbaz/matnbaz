@@ -3,7 +3,7 @@ import { marked } from 'marked';
 import { GetStaticProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { join } from 'path';
-import MainLayout from '../components/Layout/MainLayout';
+import { MainLayout } from '../components/Layout/MainLayout';
 
 interface AboutProps {
   about: string;

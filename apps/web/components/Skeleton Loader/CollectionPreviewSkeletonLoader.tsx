@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import { ICollectionPreviewProps } from '../Collection/CollectionPreview';
-import Card from '../UI/Card';
-import SkeletonLoaderShape from './SkeletonLoaderShape';
+import { Card } from '../UI/Card';
+import { SkeletonLoaderShape } from './SkeletonLoaderShape';
 
 export type ICollectionPreviewSkeletonLoaderProps = Omit<
   ICollectionPreviewProps,
   'collection'
 >;
 
-const CollectionPreviewSkeletonLoader = ({
+export const CollectionPreviewSkeletonLoader = ({
   className,
   ...props
 }: ICollectionPreviewSkeletonLoaderProps) => {
@@ -58,5 +58,3 @@ const CollectionPreviewSkeletonLoader = ({
     </Card>
   );
 };
-
-export default CollectionPreviewSkeletonLoader;

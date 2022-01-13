@@ -12,13 +12,13 @@ import {
   AiOutlineStar,
 } from 'react-icons/ai';
 import { PromotionBanner } from '../../../../components/Banner/PromotionBanner';
-import MainLayout from '../../../../components/Layout/MainLayout';
-import OwnerImage from '../../../../components/Owner/OwnerImage';
-import RepositoryReport from '../../../../components/Report/RepositoryReport';
-import RepositoryPreviewList from '../../../../components/Repository/RepositoryPreviewList';
-import Button from '../../../../components/UI/Button/Button';
-import Card from '../../../../components/UI/Card';
-import Expandable from '../../../../components/UI/Expandable';
+import { MainLayout } from '../../../../components/Layout/MainLayout';
+import { OwnerImage } from '../../../../components/Owner/OwnerImage';
+import { RepositoryReport } from '../../../../components/Report/RepositoryReport';
+import { RepositoryPreviewList } from '../../../../components/Repository/RepositoryPreviewList';
+import { Button } from '../../../../components/UI/Button/Button';
+import { Card } from '../../../../components/UI/Card';
+import { Expandable } from '../../../../components/UI/Expandable';
 import { initializeApollo } from '../../../../lib/apollo';
 import {
   GetRepositoryDocument,

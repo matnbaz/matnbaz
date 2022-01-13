@@ -1,14 +1,17 @@
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useRef, useState } from 'react';
-import Button from './Button/Button';
+import { Button } from './Button/Button';
 
-interface IExpandableProps {
+export interface IExpandableProps {
   children: React.ReactNode;
   // In pixels
   maxHeight?: number;
 }
 
-const Expandable = ({ children, maxHeight = 2400 }: IExpandableProps) => {
+export const Expandable = ({
+  children,
+  maxHeight = 2400,
+}: IExpandableProps) => {
   const expandableRef = useRef(null);
   const [open, setOpen] = useState(true);
   const router = useRouter();
@@ -45,5 +48,3 @@ const Expandable = ({ children, maxHeight = 2400 }: IExpandableProps) => {
     </div>
   );
 };
-
-export default Expandable;

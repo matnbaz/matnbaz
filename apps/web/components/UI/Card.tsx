@@ -13,7 +13,8 @@ export interface ICardProps
   href?: string;
   disabled?: boolean;
 }
-const Card = ({
+
+export const Card = ({
   children,
   padded = false,
   colored = false,
@@ -56,5 +57,3 @@ const Card = ({
     </Component>
   );
 };
-
-export default Card;

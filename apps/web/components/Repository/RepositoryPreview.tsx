@@ -11,8 +11,8 @@ import {
   PlatformType,
   ScriptDirection,
 } from '../../lib/graphql-types';
-import OwnerImage from '../Owner/OwnerImage';
-import Card, { ICardProps } from '../UI/Card';
+import { OwnerImage } from '../Owner/OwnerImage';
+import { Card, ICardProps } from '../UI/Card';
 
 export interface IRepositoryPreviewProps
   extends Omit<ICardProps, 'children' | 'href'> {
@@ -42,7 +42,7 @@ export interface IRepositoryPreviewProps
   sendToPlatform?: boolean;
   variation?: 'default' | 'summary';
 }
-const RepositoryPreview = ({
+export const RepositoryPreview = ({
   repository,
   sendToPlatform = false,
   variation = 'default',
@@ -229,8 +229,6 @@ const RepositoryPreview = ({
     </Card>
   );
 };
-
-export default RepositoryPreview;
 
 const commonColorsTable = {
   Vue: '#4FC08D',

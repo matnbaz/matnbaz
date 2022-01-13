@@ -7,7 +7,7 @@ interface IInfiniteScrollProps {
   onLoadMore?: () => void;
 }
 
-const InfiniteScroll = ({
+export const InfiniteScroll = ({
   children,
   dataLength,
   onLoadMore,
@@ -42,5 +42,3 @@ const InfiniteScroll = ({
 
   return <>{children}</>;
 };
-
-export default InfiniteScroll;

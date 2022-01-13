@@ -1,13 +1,13 @@
 import { IRepositoryPreviewProps } from '../Repository/RepositoryPreview';
-import Card from '../UI/Card';
-import SkeletonLoaderShape from './SkeletonLoaderShape';
+import { Card } from '../UI/Card';
+import { SkeletonLoaderShape } from './SkeletonLoaderShape';
 
 export type IRepositoryPreviewSkeletonLoaderProps = Omit<
   IRepositoryPreviewProps,
   'repository'
 >;
 
-const RepositoryPreviewSkeletonLoader = ({
+export const RepositoryPreviewSkeletonLoader = ({
   variation = 'default',
   sendToPlatform,
   ...props
@@ -148,5 +148,3 @@ const RepositoryPreviewSkeletonLoader = ({
     </Card>
   );
 };
-
-export default RepositoryPreviewSkeletonLoader;

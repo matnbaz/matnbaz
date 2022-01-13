@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { ReportableType } from '../../lib/graphql-types';
-import Button from '../UI/Button/Button';
-import Modal from '../UI/Modal';
-import Report, { IReason } from './Report';
+import { Button } from '../UI/Button/Button';
+import { Modal } from '../UI/Modal';
+import { IReason, Report } from './Report';
 
-interface IRepositoryReportProps {
+export interface IRepositoryReportProps {
   repository: { fullName: string; id: string };
 }
 
-const RepositoryReport = ({ repository }: IRepositoryReportProps) => {
+export const RepositoryReport = ({ repository }: IRepositoryReportProps) => {
   const [showOtherModal, setShowOtherModal] = useState(false);
 
   const reasons: IReason[] = [
@@ -56,5 +56,3 @@ const RepositoryReport = ({ repository }: IRepositoryReportProps) => {
     </>
   );
 };
-
-export default RepositoryReport;

@@ -1,7 +1,7 @@
 import { NextSeo } from 'next-seo';
-import MainLayout from '../components/Layout/MainLayout';
-import Button from '../components/UI/Button/Button';
-import Divider from '../components/UI/Divider';
+import { MainLayout } from '../components/Layout/MainLayout';
+import { Button } from '../components/UI/Button/Button';
+import { Divider } from '../components/UI/Divider';
 
 export default function Custom404() {
   return (

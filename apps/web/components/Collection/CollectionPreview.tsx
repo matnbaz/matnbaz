@@ -1,6 +1,6 @@
 import { persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
-import Card, { ICardProps } from '../UI/Card';
+import { Card, ICardProps } from '../UI/Card';
 
 export interface ICollectionPreviewProps
   extends Omit<ICardProps, 'children' | 'href'> {

@@ -1,7 +1,11 @@
 import classNames from 'classnames';
-import Button, { IButtonProps } from './Button';
+import { Button, IButtonProps } from './Button';
 
-const OutlineButton = ({ children, className, ...props }: IButtonProps) => {
+export const OutlineButton = ({
+  children,
+  className,
+  ...props
+}: IButtonProps) => {
   return (
     <Button
       {...props}
@@ -11,5 +15,3 @@ const OutlineButton = ({ children, className, ...props }: IButtonProps) => {
     </Button>
   );
 };
-
-export default OutlineButton;

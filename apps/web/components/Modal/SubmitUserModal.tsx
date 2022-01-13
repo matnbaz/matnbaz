@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import { useState } from 'react';
-import SubmitUserForm from '../Form/SubmitUserForm';
-import Modal from '../UI/Modal';
+import { SubmitUserForm } from '../Form/SubmitUserForm';
+import { Modal } from '../UI/Modal';
 
-interface ISubmitUserModalProps {
+export interface ISubmitUserModalProps {
   title?: string;
   className?: string;
 }
 
-const SubmitUserModal = ({
+export const SubmitUserModal = ({
   title = 'ثبت کاربر',
   className,
 }: ISubmitUserModalProps) => {
@@ -35,5 +35,3 @@ const SubmitUserModal = ({
     </>
   );
 };
-
-export default SubmitUserModal;

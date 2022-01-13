@@ -1,5 +1,6 @@
-import SkeletonLoaderShape from './SkeletonLoaderShape';
-const LanguagesFilterSkeletonLoader = () => {
+import { SkeletonLoaderShape } from './SkeletonLoaderShape';
+
+export const LanguagesFilterSkeletonLoader = () => {
   return (
     <div className="flex items-center space-x-2 space-x-reverse">
       <SkeletonLoaderShape
@@ -17,5 +18,3 @@ const LanguagesFilterSkeletonLoader = () => {
     </div>
   );
 };
-
-export default LanguagesFilterSkeletonLoader;

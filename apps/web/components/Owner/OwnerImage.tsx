@@ -9,7 +9,7 @@ interface IOwnerImageProps {
   withoutLink?: boolean;
 }
 
-const OwnerImage = ({
+export const OwnerImage = ({
   owner,
   width,
   height,
@@ -40,5 +40,3 @@ const OwnerImage = ({
     </Link>
   );
 };
-
-export default OwnerImage;

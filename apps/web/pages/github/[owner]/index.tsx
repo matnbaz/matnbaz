@@ -1,11 +1,11 @@
 import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
-import MainLayout from '../../../components/Layout/MainLayout';
-import OwnerImage from '../../../components/Owner/OwnerImage';
-import OwnerReport from '../../../components/Report/OwnerReport';
-import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
-import Button from '../../../components/UI/Button/Button';
+import { MainLayout } from '../../../components/Layout/MainLayout';
+import { OwnerImage } from '../../../components/Owner/OwnerImage';
+import { OwnerReport } from '../../../components/Report/OwnerReport';
+import { RepositoryPreviewList } from '../../../components/Repository/RepositoryPreviewList';
+import { Button } from '../../../components/UI/Button/Button';
 import { initializeApollo } from '../../../lib/apollo';
 import {
   GetOwnerDocument,

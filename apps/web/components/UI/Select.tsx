@@ -11,13 +11,13 @@ interface IOption {
 
 type TValue = IOption;
 
-interface ISelectProps {
+export interface ISelectProps {
   options: IOption[];
   value?: TValue;
   onChange?: (newValue: TValue) => void;
 }
 
-const Select = ({ options, value = null, onChange }: ISelectProps) => {
+export const Select = ({ options, value = null, onChange }: ISelectProps) => {
   const [selectedOption, setSelectedOption] = useState(value);
 
   useEffect(() => {
@@ -111,5 +111,3 @@ const Select = ({ options, value = null, onChange }: ISelectProps) => {
     </Listbox>
   );
 };
-
-export default Select;

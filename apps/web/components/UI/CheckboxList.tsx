@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
-import Input from './Input/Input';
+import { Input } from './Input/Input';
 interface IOption {
   id?: string | number;
   name: string;
@@ -9,7 +9,7 @@ interface IOption {
 
 type TValue = IOption[];
 
-interface ICheckboxListProps {
+export interface ICheckboxListProps {
   options: IOption[];
   value?: TValue;
   className?: string;
@@ -17,7 +17,7 @@ interface ICheckboxListProps {
   onChange?: (values: TValue) => void;
 }
 
-const CheckboxList = ({
+export const CheckboxList = ({
   options,
   value = [],
   className,
@@ -75,5 +75,3 @@ const CheckboxList = ({
     </div>
   );
 };
-
-export default CheckboxList;

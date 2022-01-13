@@ -9,7 +9,7 @@ interface IRadioInputProps {
   onChange?: (value) => void;
 }
 
-const RadioInput = ({
+export const RadioInput = ({
   className,
   checked: checkedProp = false,
   onChange,
@@ -55,5 +55,3 @@ const RadioInput = ({
     </Switch>
   );
 };
-
-export default RadioInput;

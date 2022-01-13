@@ -1,17 +1,17 @@
 import { Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import ClientOnlyPortal from '../Feature/ClientOnlyPortal';
-import Divider from './Divider';
+import { ClientOnlyPortal } from '../Feature/ClientOnlyPortal';
+import { Divider } from './Divider';
 
-interface Props {
+export interface Props {
   children: React.ReactNode;
   show: boolean;
   title?: string;
   onClose?: () => void;
 }
 
-const Modal = ({ children, show, title, onClose }: Props) => {
+export const Modal = ({ children, show, title, onClose }: Props) => {
   const closeModal = () => {
     onClose && onClose();
   };
@@ -79,5 +79,3 @@ const Modal = ({ children, show, title, onClose }: Props) => {
     </ClientOnlyPortal>
   );
 };
-
-export default Modal;

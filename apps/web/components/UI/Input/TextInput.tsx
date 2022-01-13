@@ -8,7 +8,7 @@ export interface ITextInputProps extends IInputProps {
   noBorder?: boolean;
 }
 
-const TextInput = forwardRef<HTMLInputElement>(
+export const TextInput = forwardRef<HTMLInputElement>(
   ({ className, icon, noBorder = false, ...props }: ITextInputProps, ref) => {
     const IconComponent = icon;
     return (
@@ -32,5 +32,3 @@ const TextInput = forwardRef<HTMLInputElement>(
 );
 
 TextInput.displayName = 'TextInput';
-
-export default TextInput;

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import RepositoryPreviewSkeletonLoader from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
-import RepositoryPreview, {
+import { RepositoryPreviewSkeletonLoader } from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
+import {
   githubRepoResponseNormalize,
   IRepositoryPreviewProps,
+  RepositoryPreview,
 } from './RepositoryPreview';
 
 export interface IRepositoryPreviewFromGithubProps

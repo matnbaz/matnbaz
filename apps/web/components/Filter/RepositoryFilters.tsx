@@ -22,13 +22,13 @@ import {
   GetRepositoriesQueryVariables,
   useGetLanguagesLazyQuery,
 } from '../../lib/graphql-types';
-import LanguagesFilterSkeletonLoader from '../Skeleton Loader/LanguagesFilterSkeletonLoader';
-import Button from '../UI/Button/Button';
-import Card from '../UI/Card';
-import CheckboxList from '../UI/CheckboxList';
-import Collapsible from '../UI/Collapsible';
-import Input from '../UI/Input/Input';
-import RadioList from '../UI/RadioList';
+import { LanguagesFilterSkeletonLoader } from '../Skeleton Loader/LanguagesFilterSkeletonLoader';
+import { Button } from '../UI/Button/Button';
+import { Card } from '../UI/Card';
+import { CheckboxList } from '../UI/CheckboxList';
+import { Collapsible } from '../UI/Collapsible';
+import { Input } from '../UI/Input/Input';
+import { RadioList } from '../UI/RadioList';
 
 type TRepositoryFiltersAction = {
   type: keyof TRepositoryFiltersState | 'clear';
@@ -55,7 +55,7 @@ const reducer = (
   }
 };
 
-const RepositoryFilters = ({
+export const RepositoryFilters = ({
   onApply,
   refetch,
   query,
@@ -362,5 +362,3 @@ const RepositoryFilters = ({
     </div>
   );
 };
-
-export default RepositoryFilters;

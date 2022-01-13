@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 // This is just an implementation of react portals but in the form of a component
-export default function ClientOnlyPortal({ children, selector }: Props) {
+export function ClientOnlyPortal({ children, selector }: Props) {
   const ref = useRef<any>();
   const [mounted, setMounted] = useState(false);
 

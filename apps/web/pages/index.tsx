@@ -4,10 +4,10 @@ import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
 import Image from 'next/image';
 import { CSSProperties, HTMLAttributes, PropsWithChildren } from 'react';
 import { HiChevronDown } from 'react-icons/hi';
-import MainLayout from '../components/Layout/MainLayout';
+import { MainLayout } from '../components/Layout/MainLayout';
 import { FeaturedRepositoriesFromGithub } from '../components/Repository/FeaturedRepositoriesFromGithub';
 import { RepositoryPreviewFromGithub } from '../components/Repository/RepositoryPreviewFromGithub';
-import Button from '../components/UI/Button/Button';
+import { Button } from '../components/UI/Button/Button';
 import { useMetadataQuery } from '../lib/graphql-types';
 
 const sponsorshipUrl = `${links.githubRepo}/blob/main/SPONSORSHIP.md`;

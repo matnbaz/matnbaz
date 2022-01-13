@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ReportableType, useReportMutation } from '../../lib/graphql-types';
-import Button from '../UI/Button/Button';
-import Input from '../UI/Input/Input';
-import Modal from '../UI/Modal';
-import RadioList from '../UI/RadioList';
+import { Button } from '../UI/Button/Button';
+import { Input } from '../UI/Input/Input';
+import { Modal } from '../UI/Modal';
+import { RadioList } from '../UI/RadioList';
 
 interface IReportProps {
   subject: ReportableType;
@@ -20,7 +20,7 @@ export interface IReason {
   customValue?: boolean;
 }
 
-const Report = ({
+export const Report = ({
   subject,
   subjectId,
   reasons,
@@ -98,5 +98,3 @@ const Report = ({
     </>
   );
 };
-
-export default Report;

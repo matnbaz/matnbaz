@@ -8,9 +8,9 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { CgClose } from 'react-icons/cg';
 import { MatnbazLogo } from '../Icons/MatnbazLogo';
-import RepositorySearchInput from '../Repository/RepositorySearchInput';
+import { RepositorySearchInput } from '../Repository/RepositorySearchInput';
 import { IconButton } from './IconButton';
-interface INavbarProps {
+export interface INavbarProps {
   className?: string;
 }
 
@@ -22,7 +22,7 @@ const links: { name: string; to: string; external?: boolean }[] = [
   { name: 'پرسش‌های متداول', to: '/faq' },
 ];
 
-const Navbar = ({ className }: INavbarProps) => {
+export const Navbar = ({ className }: INavbarProps) => {
   const { setTheme, resolvedTheme } = useTheme();
   const [atFirst, setAtFirst] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -130,5 +130,3 @@ const Navbar = ({ className }: INavbarProps) => {
     </div>
   );
 };
-
-export default Navbar;

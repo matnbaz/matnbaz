@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 
-interface IDividerProps {
+export interface IDividerProps {
   className?: string;
 }
 
-const Divider = ({ className }: IDividerProps) => {
+export const Divider = ({ className }: IDividerProps) => {
   return (
     <div
       className={classNames(
@@ -15,5 +15,3 @@ const Divider = ({ className }: IDividerProps) => {
     />
   );
 };
-
-export default Divider;

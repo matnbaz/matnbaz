@@ -1,9 +1,9 @@
 import { Disclosure, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { HiChevronDown } from 'react-icons/hi';
-import Divider from './Divider';
+import { Divider } from './Divider';
 
-interface ICollapsibleProps {
+export interface ICollapsibleProps {
   children: React.ReactNode;
   title?: string;
   className?: string;
@@ -11,7 +11,7 @@ interface ICollapsibleProps {
   onClick?: () => void;
 }
 
-const Collapsible = ({
+export const Collapsible = ({
   children,
   title = 'باز کردن',
   className,
@@ -59,5 +59,3 @@ const Collapsible = ({
     </Disclosure>
   );
 };
-
-export default Collapsible;

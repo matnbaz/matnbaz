@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { ButtonHTMLAttributes } from 'react';
-import GhostButton from './GhostButton';
-import OutlineButton from './OutlineButton';
-import PrimaryButton from './PrimaryButton';
-import RedButton from './RedButton';
+import { GhostButton } from './GhostButton';
+import { OutlineButton } from './OutlineButton';
+import { PrimaryButton } from './PrimaryButton';
+import { RedButton } from './RedButton';
 enum RadiusesEnum {
   'sm' = 'rounded-sm',
   'md' = 'rounded-md',
@@ -31,7 +31,7 @@ export interface IButtonProps
   target?: '_blank' | '_parent' | '_self' | '_top';
 }
 
-const Button = ({
+export const Button = ({
   children,
   href = null,
   rounded = 'md',
@@ -69,5 +69,3 @@ Button.Primary = PrimaryButton;
 Button.Red = RedButton;
 Button.Outline = OutlineButton;
 Button.Ghost = GhostButton;
-
-export default Button;

@@ -1,7 +1,7 @@
 import { RadioGroup } from '@headlessui/react';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
-import Input from './Input/Input';
+import { Input } from './Input/Input';
 interface IOption {
   id?: string | number;
   name: string;
@@ -10,7 +10,7 @@ interface IOption {
 
 type TValue = IOption;
 
-interface IRadioListProps {
+export interface IRadioListProps {
   options: IOption[];
   value?: TValue;
   className?: string;
@@ -18,7 +18,7 @@ interface IRadioListProps {
   onChange?: (values: TValue) => void;
 }
 
-const RadioList = ({
+export const RadioList = ({
   options,
   value,
   className,
@@ -61,5 +61,3 @@ const RadioList = ({
     </RadioGroup>
   );
 };
-
-export default RadioList;

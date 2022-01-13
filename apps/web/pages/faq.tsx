@@ -4,7 +4,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { FAQPageJsonLd, NextSeo } from 'next-seo';
 import { Question } from 'next-seo/lib/jsonld/faqPage';
 import { join } from 'path';
-import MainLayout from '../components/Layout/MainLayout';
+import { MainLayout } from '../components/Layout/MainLayout';
 
 interface FaqPageProps {
   faqHtml: string;
