@@ -40,7 +40,7 @@ const OwnerPage = ({ ownerSlug }) => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout withoutFooter>
       <NextSeo
         title={owner.login}
         description={`پروفایل ${owner.login} از پلتفرم ${owner.platform}`}

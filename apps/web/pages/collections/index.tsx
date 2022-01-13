@@ -18,7 +18,7 @@ const CollectionsPage = () => {
   //   };
 
   return (
-    <MainLayout>
+    <MainLayout withFooterPromo>
       <NextSeo
         title="کالکشن‌ها"
         description="کالکشن های مختلف از پروژه های اوپن سورس ایرانی"

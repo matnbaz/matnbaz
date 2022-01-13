@@ -11,6 +11,7 @@ import {
   AiOutlineSafetyCertificate,
   AiOutlineStar,
 } from 'react-icons/ai';
+import { PromotionBanner } from '../../../../components/Banner/PromotionBanner';
 import MainLayout from '../../../../components/Layout/MainLayout';
 import OwnerImage from '../../../../components/Owner/OwnerImage';
 import RepositoryReport from '../../../../components/Report/RepositoryReport';
@@ -18,7 +19,6 @@ import RepositoryPreviewList from '../../../../components/Repository/RepositoryP
 import Button from '../../../../components/UI/Button/Button';
 import Card from '../../../../components/UI/Card';
 import Expandable from '../../../../components/UI/Expandable';
-import { RandomPromotionBanner } from '../../../../components/UI/RandomPromotionBanner';
 import { initializeApollo } from '../../../../lib/apollo';
 import {
   GetRepositoryDocument,
@@ -83,7 +83,7 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
   );
 
   return (
-    <MainLayout maxWidth={false} withoutPadding>
+    <MainLayout maxWidth={false} withoutPadding withFooterPromo>
       <NextSeo title={repo.fullName} description={repo.descriptionLimited} />
       <div
         className="relative flex items-center md:h-[30rem] w-full"
@@ -153,8 +153,8 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
           </div>
         </div>
       </div>
-      <div className="p-5 sm:p-8 max-w-7xl mx-auto">
-        <RandomPromotionBanner className="my-6 rounded-xl overflow-hidden" />
+      <div className="px-5 mb-5 max-w-7xl mx-auto">
+        <PromotionBanner className="mx-auto my-6 rounded-xl overflow-hidden" />
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-6 items-start">
           <Card padded border="all" className="col-span-1 lg:col-span-4">
             {repo.readmeHtml ? (
@@ -183,8 +183,6 @@ const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
             )}
           </div>
         </div>
-
-        <RandomPromotionBanner className="my-6 rounded-xl overflow-hidden" />
       </div>
     </MainLayout>
   );

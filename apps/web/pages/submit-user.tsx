@@ -5,7 +5,7 @@ import Card from '../components/UI/Card';
 
 const SubmitUser = () => {
   return (
-    <MainLayout>
+    <MainLayout withFooterPromo>
       <NextSeo
         title="ثبت کاربر"
         description="در اینجا می توانید کاربران و گروه های ایرانی که می شناسید اما توسط سایت پیدا نشده را معرفی کنید."

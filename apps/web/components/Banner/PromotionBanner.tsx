@@ -3,8 +3,15 @@ import { useEffect, useState } from 'react';
 import { SiGithub, SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
 import { Banner, BannerProps } from './Banner';
 
-const bannerProps: BannerProps[] = [
-  {
+type PromotionBannerType =
+  | 'telegram'
+  | 'instagram'
+  | 'twitter'
+  | 'twitterTweet'
+  | 'github';
+
+const bannerProps: Record<PromotionBannerType, BannerProps> = {
+  telegram: {
     text: 'حتما در کانال تلگرامی متن‌باز عضو شوید.',
     mobile: 'ما را در تلگرام دنبال کنید.',
     icon: SiTelegram,
@@ -13,7 +20,7 @@ const bannerProps: BannerProps[] = [
     theme: 'primary',
   },
 
-  {
+  instagram: {
     text: 'صفحه اینستاگرام متن‌باز را دنبال کنید.',
     mobile: 'ما را در اینستاگرام دنبال کنید.',
     icon: SiInstagram,
@@ -22,7 +29,7 @@ const bannerProps: BannerProps[] = [
     theme: 'instagram',
   },
 
-  {
+  twitter: {
     text: 'صفحه توییتری متن‌باز را دنبال کنید.',
     mobile: 'ما را در توییتر دنبال کنید.',
     icon: SiTwitter,
@@ -31,7 +38,7 @@ const bannerProps: BannerProps[] = [
     theme: 'twitter',
   },
 
-  {
+  twitterTweet: {
     text: 'با توییت کردن درمورد متن‌باز به گسترش آن کمک کنید. ❤️',
     mobile: 'درمورد متن‌باز توییت کنید.',
     icon: SiTwitter,
@@ -40,7 +47,7 @@ const bannerProps: BannerProps[] = [
     theme: 'twitter',
   },
 
-  {
+  github: {
     text: 'با ستاره دادن به پروژه در گیت‌هاب به ما کمک کنید. ⭐️',
     mobile: 'به ما در گیت‌هاب ستاره دهید.',
     icon: SiGithub,
@@ -48,23 +55,56 @@ const bannerProps: BannerProps[] = [
     cta: 'مشاهده مخزن',
     theme: 'github',
   },
-];
+};
 
-export type RandomPromotionBannerProps = Partial<BannerProps>;
+export interface PromotionBannerProps extends Partial<BannerProps> {
+  type?: PromotionBannerType;
+}
 
-export const RandomPromotionBanner = (props: RandomPromotionBannerProps) => {
-  const [bannerRnd, setBannerRnd] = useState<number | null>(null);
+export const PromotionBanner = ({ type, ...props }: PromotionBannerProps) => {
+  const [promoBanner, setPromoBanner] = useState<BannerProps | null>(
+    bannerProps[type] || null
+  );
   useEffect(() => {
-    setBannerRnd(randomBetween(0, bannerProps.length - 1));
+    console.log(type);
+    if (type) return;
+    const keys = Object.keys(bannerProps);
+    const random = randomBetween(0, keys.length - 1);
+    setPromoBanner(bannerProps[keys[random]]);
   }, []);
 
   return (
-    bannerRnd !== null && (
+    promoBanner !== null && (
       <Banner
-        {...bannerProps[bannerRnd]}
+        {...promoBanner}
         openOnNewTab={props.openOnNewTab || true}
         {...props}
       />
     )
   );
 };
+
+const TelegramBanner = (props: Omit<PromotionBannerProps, 'type'>) => (
+  <PromotionBanner type="telegram" {...props} />
+);
+PromotionBanner.Telegram = TelegramBanner;
+
+const InstagramBanner = (props: Omit<PromotionBannerProps, 'type'>) => (
+  <PromotionBanner type="instagram" {...props} />
+);
+PromotionBanner.Instagram = InstagramBanner;
+
+const TwitterBanner = (props: Omit<PromotionBannerProps, 'type'>) => (
+  <PromotionBanner type="twitter" {...props} />
+);
+PromotionBanner.Twitter = TwitterBanner;
+
+const TwitterTweetBanner = (props: Omit<PromotionBannerProps, 'type'>) => (
+  <PromotionBanner type="twitterTweet" {...props} />
+);
+PromotionBanner.TwitterTweet = TwitterTweetBanner;
+
+const GithubBanner = (props: Omit<PromotionBannerProps, 'type'>) => (
+  <PromotionBanner type="github" {...props} />
+);
+PromotionBanner.Github = GithubBanner;

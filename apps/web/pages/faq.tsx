@@ -13,7 +13,7 @@ interface FaqPageProps {
 
 const FaqPage: NextPage<FaqPageProps> = ({ faq, faqHtml }) => {
   return (
-    <MainLayout>
+    <MainLayout withFooterPromo>
       <NextSeo
         title="پرسش‌های متداول"
         description="در این صفحه پرسش‌هایی که به‌صورت متداول از ما پرسیده شده را مشاهده می‌کنید."

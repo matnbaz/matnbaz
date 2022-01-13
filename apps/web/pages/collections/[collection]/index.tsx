@@ -3,9 +3,9 @@ import { GetServerSideProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { MdChevronRight } from 'react-icons/md';
+import { PromotionBanner } from '../../../components/Banner/PromotionBanner';
 import MainLayout from '../../../components/Layout/MainLayout';
 import RepositoryPreviewList from '../../../components/Repository/RepositoryPreviewList';
-import { RandomPromotionBanner } from '../../../components/UI/RandomPromotionBanner';
 import { initializeApollo } from '../../../lib/apollo';
 import {
   GetCollectionDocument,
@@ -41,7 +41,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout withoutFooter>
       <NextSeo
         title={collection.name}
         description={collection.description}
@@ -93,7 +93,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
               onLoadMore={repositoriesLoadMoreHandler}
               adsFrequency={7}
               adsTemplate={() => (
-                <RandomPromotionBanner className="rounded-xl overflow-hidden" />
+                <PromotionBanner className="rounded-xl overflow-hidden" />
               )}
             />
           </div>

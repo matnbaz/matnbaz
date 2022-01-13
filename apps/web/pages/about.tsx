@@ -11,7 +11,7 @@ interface AboutProps {
 
 const About: NextPage<AboutProps> = ({ about }) => {
   return (
-    <MainLayout>
+    <MainLayout withFooterPromo>
       <NextSeo
         title="درباره"
         description="درباره انگیزه ما از ساخت متن باز، نحوه کار آن، چشم انداز و آینده پروژه بخوانید."

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { PromotionBanner } from '../Banner/PromotionBanner';
 import { Footer } from '../UI/Footer';
 import Navbar from '../UI/Navbar';
 
@@ -7,6 +8,7 @@ interface IMainLayoutProps {
   maxWidth?: boolean;
   withoutFooter?: boolean;
   withoutPadding?: boolean;
+  withFooterPromo?: boolean;
 }
 
 const DISMISS_SUPPORT_BANNER = 'DISMISS_SUPPORT_BANNER';
@@ -17,6 +19,7 @@ export const MainLayout = ({
   maxWidth = true,
   withoutFooter = false,
   withoutPadding = false,
+  withFooterPromo = false,
 }: IMainLayoutProps) => {
   // const [showBanner, setShowBanner] = useState(false);
   // const [timeoutTimer, setTimeoutTimer] = useState<Timer>();
@@ -80,7 +83,14 @@ export const MainLayout = ({
       </div> */}
 
       <div>
-        {!withoutFooter && <Footer />}
+        {!withoutFooter && (
+          <>
+            {withFooterPromo && (
+              <PromotionBanner className="max-w-6xl mx-auto rounded-t-3xl overflow-hidden" />
+            )}
+            <Footer />
+          </>
+        )}
         {/* {showBanner && <Banner icon={HiX} theme="red" className="invisible" />} */}
       </div>
     </div>

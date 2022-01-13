@@ -1,13 +1,13 @@
 import { useApolloClient } from '@apollo/client';
 import { NextSeo } from 'next-seo';
 import { useEffect, useMemo } from 'react';
+import { PromotionBanner } from '../components/Banner/PromotionBanner';
 import RepositoryFilters from '../components/Filter/RepositoryFilters';
 import MainLayout from '../components/Layout/MainLayout';
 import { PageHeader } from '../components/Layout/PageHeader';
 import SubmitUserModal from '../components/Modal/SubmitUserModal';
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
 import Divider from '../components/UI/Divider';
-import { RandomPromotionBanner } from '../components/UI/RandomPromotionBanner';
 import { RepositoryFilterContextWrapper } from '../context/repository-filter-context';
 import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
 import Custom500 from './500';
@@ -93,7 +93,7 @@ const Explore = () => {
               onLoadMore={repositoriesLoadMoreHandler}
               adsFrequency={10}
               adsTemplate={() => (
-                <RandomPromotionBanner className="rounded-xl overflow-hidden" />
+                <PromotionBanner className="rounded-xl overflow-hidden" />
               )}
             />
           </div>

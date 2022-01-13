@@ -2,7 +2,7 @@ import { links, persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
 import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
 import Image from 'next/image';
-import { CSSProperties } from 'react';
+import { CSSProperties, HTMLAttributes, PropsWithChildren } from 'react';
 import { HiChevronDown } from 'react-icons/hi';
 import MainLayout from '../components/Layout/MainLayout';
 import { FeaturedRepositoriesFromGithub } from '../components/Repository/FeaturedRepositoriesFromGithub';
@@ -15,7 +15,7 @@ const sponsorshipUrl = `${links.githubRepo}/blob/main/SPONSORSHIP.md`;
 
 const Index = () => {
   return (
-    <MainLayout maxWidth={false} withoutPadding>
+    <MainLayout maxWidth={false} withoutPadding withFooterPromo>
       <NextSeo
         title="تمام پروژه های اوپن‌سورس ایرانی در یک جا"
         titleTemplate="متن‌باز – %s"
@@ -95,10 +95,9 @@ const Index = () => {
                   </h2>
                 </div>
                 <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  با استفاده از متن‌باز می‌توانید پروژه های اوپن‌سورس
-                  (Open-Source) مختلف ایرانی را کشف کنید. اگر شما هم کار
-                  اوپن‌سورس کرده‌اید، به احتمال زیاد اسم خود را سایت پیدا خواهید
-                  کرد!
+                  با متن‌باز شما می‌توانید پروژه های اوپن‌سورس (Open-Source)
+                  مختلف ایرانی را کشف کنید. اگر شما هم کار اوپن‌سورس کرده‌اید،
+                  به احتمال زیاد اسم خود را سایت پیدا خواهید کرد!
                 </p>
                 <div className="mt-8 sm:mt-12">
                   <div className="mt-3 space-x-3 space-x-reverse">
@@ -168,8 +167,8 @@ const Index = () => {
                   کاوش‌گر
                 </h3>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  با استفاده انواع فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و
-                  پروژه‌های اوپن‌سورس ایرانی را کشف کنید.
+                  با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های
+                  اوپن‌سورس ایرانی را کشف کنید.
                 </p>
                 <div className="mt-4">
                   <Button.Primary href="/explore" size="lg">
@@ -205,7 +204,7 @@ const Index = () => {
                   </span>
                 </h3>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  با استفاده از کالکشن‌ها، پکیج‌ها و پروژه‌های مورد نظر را
+                  کالکشن‌ها به شما کمک می‌کنند مخزن‌های متن‌باز مورد نظر را
                   سریع‌تر و راحت‌تر پیدا کنید.
                 </p>
                 <div className="mt-4">
@@ -260,27 +259,14 @@ const Index = () => {
           </div>
 
           <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
-            <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
+            <div className="grid sm:grid-cols-2 gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-1">
                 <div>
-                  <h3 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
-                    سورس‌کد متن‌باز
-                  </h3>
+                  <SectionTitle>سورس‌کد متن‌باز</SectionTitle>
                   <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    سورس کد متن‌باز را می‌توانید در این مخزن گیت‌هاب مشاهده
-                    کنید.
-                    <br />
-                    با ستاره دادن می‌توانید به پیشرفت و بیشتر شناخته‌شدن پروژه
-                    کمک کنید.
-                    {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                    <a target="_blank" href={links.githubRepo}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        className="mt-2"
-                        alt="دادن ستاره در گیت‌هاب"
-                        src="https://img.shields.io/github/stars/matnbaz/matnbaz?style=social"
-                      />
-                    </a>
+                    سورس‌کد بک‌اند، فرانت‌اند، اپلیکیشن موبایل، فایل‌های لوگو و
+                    پست‌های شبکه‌های اجتماعی متن‌باز همگی به صورت اوپن‌سورس در
+                    دسترس عموم قرار دارند.
                   </p>
                 </div>
                 <div className="mt-10">
@@ -294,13 +280,11 @@ const Index = () => {
 
               <div className="sm:col-start-2">
                 <div>
-                  <h3 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
-                    انجمن متن‌باز
-                  </h3>
+                  <SectionTitle>انجمن متن‌باز</SectionTitle>
                   <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     یکی از اهداف ما ساخت یک انجمن فعال و دوستانه است. در انجمن
-                    دیسکورد متن‌باز کاربران می توانند با افراد دیگر آشنا شوند،
-                    برای انجام پروژه‌های متن‌باز همکار جمع کنند و...
+                    دیسکورد متن‌باز کاربران می توانند با افراد دیگر آشنا شوند و
+                    برای انجام پروژه‌های متن‌باز همکار جمع کنند.
                   </p>
                 </div>
 
@@ -321,9 +305,9 @@ const Index = () => {
           {/* <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-2">
-                <h3 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
+                <SectionTitle>
                   در شبکه‌های اجتماعی
-                </h3>
+                </SectionTitle>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   متن‌باز را در شبکه‌های اجتماعی دنبال کنید تا خبری را از دست
                   ندهید.
@@ -487,5 +471,23 @@ const CollectionItem = ({
         </div>
       </div>
     </div>
+  );
+};
+
+const SectionTitle = ({
+  children,
+  className,
+  ...props
+}: PropsWithChildren<HTMLAttributes<HTMLHeadingElement>>) => {
+  return (
+    <h3
+      className={classNames(
+        'text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl',
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </h3>
   );
 };
