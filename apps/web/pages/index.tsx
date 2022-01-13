@@ -470,7 +470,7 @@ const CollectionItem = ({
       <div className="h-full px-2.5 py-3 sm:px-5 sm:py-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          alt="{name}"
+          alt={name}
           src={imageSrc}
           className="brightness-0 invert mx-auto w-10 h-10 sm:w-14 sm:h-14"
         />
