@@ -1,5 +1,6 @@
 import { MINIMUM_STARS } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
+import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
 import { GithubDiscovererService } from './github-discoverer.service';
@@ -9,6 +10,7 @@ import { repoDiscoveryTerms } from './repo-discovery-terms';
 export class GithubDiscoverByRepoSearchService {
   constructor(
     private readonly octokit: OctokitService,
+    private readonly prisma: PrismaService,
     private readonly githubDiscovererService: GithubDiscovererService
   ) {}
   private logger = new Logger(GithubDiscoverByRepoSearchService.name);
@@ -58,6 +60,19 @@ export class GithubDiscoverByRepoSearchService {
     );
 
     for (const { owner, ...repo } of repos) {
+      if (
+        await this.prisma.owner.findUnique({
+          where: {
+            platform_platformId: {
+              platform: 'GitHub',
+              platformId: owner.id.toString(),
+            },
+          },
+        })
+      ) {
+        // Already exists
+        continue;
+      }
       if (repo.stargazers_count < MINIMUM_STARS) {
         // Disqualified
         continue;

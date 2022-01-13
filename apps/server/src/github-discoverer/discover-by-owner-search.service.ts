@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { OwnerType } from '@prisma/client';
+import { PrismaService } from 'nestjs-prisma';
 import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
 import { GithubDiscovererService } from './github-discoverer.service';
@@ -9,6 +10,7 @@ import { ownerDiscoveryTerms } from './owner-discovery-terms';
 export class GithubDiscoverByOwnerSearchService {
   constructor(
     private readonly octokit: OctokitService,
+    private readonly prisma: PrismaService,
     private readonly githubDiscovererService: GithubDiscovererService
   ) {}
   private logger = new Logger(GithubDiscoverByOwnerSearchService.name);
@@ -58,17 +60,34 @@ export class GithubDiscoverByOwnerSearchService {
 
     for (const owner of owners) {
       if (
+        await this.prisma.owner.findUnique({
+          where: {
+            platform_platformId: {
+              platform: 'GitHub',
+              platformId: owner.id.toString(),
+            },
+          },
+        })
+      ) {
+        // Already exists
+        continue;
+      }
+
+      if (
         await this.githubDiscovererService.validateOwner(
           owner.login,
           owner.type as OwnerType
         )
       ) {
-        await this.githubDiscovererService.populateOwner(
-          owner,
-          OwnerReason.USER_SEARCH,
-          term
-        );
+        // Not validated
+        continue;
       }
+
+      await this.githubDiscovererService.populateOwner(
+        owner,
+        OwnerReason.USER_SEARCH,
+        term
+      );
     }
   }
 }

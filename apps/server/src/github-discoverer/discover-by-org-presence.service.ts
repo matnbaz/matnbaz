@@ -35,15 +35,36 @@ export class GithubDiscoverByOrgPresenceService {
       });
       const owners = response.data;
 
-      for (const owner of owners)
+      for (const owner of owners) {
         if (
-          await this.githubDiscovererService.validateOwner(owner.login, 'User')
+          await this.prisma.owner.findUnique({
+            where: {
+              platform_platformId: {
+                platform: 'GitHub',
+                platformId: owner.id.toString(),
+              },
+            },
+          })
         ) {
-          await this.githubDiscovererService.populateOwner(
-            owner,
-            OwnerReason.ORGANIZATION_PRESENCE
-          );
+          // Already exists
+          continue;
         }
+
+        if (
+          await this.githubDiscovererService.validateOwner(
+            owner.login,
+            owner.type as OwnerType
+          )
+        ) {
+          // Not validated
+          continue;
+        }
+
+        await this.githubDiscovererService.populateOwner(
+          owner,
+          OwnerReason.ORGANIZATION_PRESENCE
+        );
+      }
     }
     this.logger.log(
       `Discovered all public members of all ${organizations.length} organizations`
