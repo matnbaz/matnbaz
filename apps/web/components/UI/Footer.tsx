@@ -4,10 +4,10 @@ import {
   SiDiscord,
   SiGithub,
   SiInstagram,
-  SiOpensourceinitiative,
   SiTelegram,
   SiTwitter,
 } from 'react-icons/si';
+import { MatnbazLogo } from '../Icons/MatnbazLogo';
 import { IconButton } from './IconButton';
 
 export type FooterProps = unknown;
@@ -20,11 +20,9 @@ export const Footer = (props: FooterProps) => {
           <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row items-center space-x-4 space-x-reverse">
             <Link href="/">
               <a>
-                <div className="flex space-x-4 space-x-reverse items-center font-mono">
-                  <SiOpensourceinitiative className="w-8 h-8 dark:text-white text-gray-900" />
-                  <h2 dir="ltr" className="text-xl">
-                    Matnbaz
-                  </h2>
+                <div className="flex space-x-2 space-x-reverse items-center">
+                  <MatnbazLogo className="w-8 h-8 dark:text-white text-gray-900" />
+                  <h2 className="text-2xl font-extrabold">متن‌باز</h2>
                 </div>
               </a>
             </Link>
