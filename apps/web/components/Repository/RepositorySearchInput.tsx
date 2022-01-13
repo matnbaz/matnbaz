@@ -102,7 +102,7 @@ const RepositorySearchInput = () => {
       {dropdownOpen && searchTerm.length > 2 && (
         <div
           ref={dropdownClickOutsideRef}
-          className="absolute overflow-y-auto w-full left-1/2 -translate-x-1/2 max-h-96 bg-gray-100 dark:bg-gray-800 rounded-lg top-12 p-4 flex flex-col space-y-4"
+          className="hidden sm:flex absolute overflow-y-auto w-full left-1/2 -translate-x-1/2 max-h-96 bg-gray-100 dark:bg-gray-800 rounded-lg top-12 p-4 flex-col space-y-4"
         >
           {loading ||
           data?.repositories?.edges.length > 0 ||
