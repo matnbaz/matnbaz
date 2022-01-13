@@ -7,7 +7,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { CgClose } from 'react-icons/cg';
-import { OpenSource } from '../Icons/OpenSource';
+import { MatnbazLogo } from '../Icons/MatnbazLogo';
 import RepositorySearchInput from '../Repository/RepositorySearchInput';
 import { IconButton } from './IconButton';
 interface INavbarProps {
@@ -47,7 +47,7 @@ const Navbar = ({ className }: INavbarProps) => {
           <div className="flex items-center space-x-8 space-x-reverse ml-4 md:ml-0">
             <Link href="/">
               <a className="flex space-x-3 space-x-reverse items-center">
-                <OpenSource className="w-10 h-10 dark:text-white text-gray-900" />
+                <MatnbazLogo className="w-10 h-10 dark:text-white text-gray-900" />
 
                 <h2 className="hidden md:block text-3xl font-extrabold">
                   متن‌باز
