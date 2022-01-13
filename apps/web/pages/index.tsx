@@ -1,5 +1,6 @@
 import { links, persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
+import { NextPage } from 'next';
 import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
 import Image from 'next/image';
 import { CSSProperties, HTMLAttributes, PropsWithChildren } from 'react';
@@ -13,7 +14,7 @@ import { useMetadataQuery } from '../lib/graphql-types';
 const sponsorshipUrl = `${links.githubRepo}/blob/main/SPONSORSHIP.md`;
 // mailto:alirezazamani2922@gmail.com?subject=%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%20%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2&body=%D8%A8%D8%A7%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D9%84%D8%A7%D9%85%D8%8C%0D%0A%D8%B4%D8%B1%DA%A9%D8%AA%20%D9%85%D8%A7%20(%D9%86%D8%A7%D9%85%20%D8%B4%D8%B1%DA%A9%D8%AA)%20%D9%85%D8%A7%DB%8C%D9%84%20%D8%A8%D9%87%20%D8%AD%D9%85%D8%A7%DB%8C%D8%AA%20%D8%A7%D8%B2%20%D8%B7%D8%B1%DB%8C%D9%82%20%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%20%D8%B4%D8%AF%D9%86%20%D8%A7%D8%B3%D8%AA.%0D%0A%0D%0A%D9%84%D8%B7%D9%81%D8%A7%20%D8%B4%D8%B1%D8%A7%DB%8C%D8%B7%20%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%D8%B3%D8%B1%DB%8C%20%D8%B1%D8%A7%20%D8%A7%D8%B1%D8%B3%D8%A7%D9%84%20%DA%A9%D9%86%DB%8C%D8%AF.%0D%0A%D8%A8%D8%A7%20%D8%AA%D8%B4%DA%A9%D8%B1.
 
-const Index = () => {
+const Index: NextPage = () => {
   return (
     <MainLayout maxWidth={false} withoutPadding withFooterPromo>
       <NextSeo

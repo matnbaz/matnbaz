@@ -1,9 +1,10 @@
+import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { SubmitUserForm } from '../components/Form/SubmitUserForm';
 import { MainLayout } from '../components/Layout/MainLayout';
 import { Card } from '../components/UI/Card';
 
-const SubmitUser = () => {
+const SubmitUser: NextPage = () => {
   return (
     <MainLayout withFooterPromo>
       <NextSeo

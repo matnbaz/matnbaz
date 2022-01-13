@@ -1,5 +1,5 @@
 import { persianNumbers } from '@matnbaz/common';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useMemo } from 'react';
@@ -32,7 +32,10 @@ interface RepositoryPageProps {
   repoSlug: string;
   ownerSlug: string;
 }
-const RepositoryPage = ({ ownerSlug, repoSlug }: RepositoryPageProps) => {
+const RepositoryPage: NextPage<RepositoryPageProps> = ({
+  ownerSlug,
+  repoSlug,
+}) => {
   const {
     data: { repositoryByPlatform: repo },
     loading,

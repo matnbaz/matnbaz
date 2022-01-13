@@ -1,4 +1,5 @@
 import { useApolloClient } from '@apollo/client';
+import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { useEffect, useMemo } from 'react';
 import { PromotionBanner } from '../components/Banner/PromotionBanner';
@@ -10,9 +11,9 @@ import { RepositoryPreviewList } from '../components/Repository/RepositoryPrevie
 import { Divider } from '../components/UI/Divider';
 import { RepositoryFilterContextWrapper } from '../context/repository-filter-context';
 import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
-import Custom500 from './500';
+import Error500Page from './500';
 
-const Explore = () => {
+const Explore: NextPage = () => {
   const [
     getRepositories,
     { loading, data, error, fetchMore, refetch, networkStatus, called },
@@ -41,7 +42,7 @@ const Explore = () => {
     []
   );
 
-  if (error) return Custom500();
+  if (error) return <Error500Page />;
 
   return (
     <MainLayout withoutFooter={!error}>

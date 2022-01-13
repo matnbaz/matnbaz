@@ -1,5 +1,5 @@
 import { persianNumbers } from '@matnbaz/common';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { MainLayout } from '../../../components/Layout/MainLayout';
 import { OwnerImage } from '../../../components/Owner/OwnerImage';
@@ -18,7 +18,7 @@ interface OwnerPageProps {
   ownerSlug: string;
 }
 
-const OwnerPage = ({ ownerSlug }) => {
+const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
   const {
     data: { ownerByPlatform: owner },
     fetchMore,

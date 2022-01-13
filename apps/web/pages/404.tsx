@@ -1,9 +1,10 @@
+import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { MainLayout } from '../components/Layout/MainLayout';
 import { Button } from '../components/UI/Button/Button';
 import { Divider } from '../components/UI/Divider';
 
-export default function Custom404() {
+const Error404Page: NextPage = () => {
   return (
     <MainLayout>
       <NextSeo title="یافت نشد" />
@@ -18,4 +19,6 @@ export default function Custom404() {
       </div>
     </MainLayout>
   );
-}
+};
+
+export default Error404Page;
