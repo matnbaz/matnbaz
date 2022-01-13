@@ -1,5 +1,6 @@
+import { useApolloClient } from '@apollo/client';
 import { NextSeo } from 'next-seo';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import RepositoryFilters from '../components/Filter/RepositoryFilters';
 import MainLayout from '../components/Layout/MainLayout';
 import { PageHeader } from '../components/Layout/PageHeader';
@@ -30,6 +31,15 @@ const Explore = () => {
       },
     });
   };
+
+  const apolloClient = useApolloClient();
+  // Removes the cache if you navigate to another page
+  useEffect(
+    () => () => {
+      apolloClient.cache.evict({ id: 'ROOT_QUERY', fieldName: 'repositories' });
+    },
+    []
+  );
 
   if (error) return Custom500();
 
