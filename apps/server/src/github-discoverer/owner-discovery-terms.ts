@@ -1,10 +1,21 @@
 export const ownerDiscoveryTerms = [
   'location:iran type:org',
   'location:iran type:user',
-  'location:ایران type:org',
-  'location:ایران type:user',
+  // ^ These two are split into two different terms because github has a limitation of maximum 1k items and users with the location `iran` are - at the moment of writing this - almost 20k. this helps us get more users.
+  'location:ایران',
   'location:tehran',
   'location:alborz',
+  'location:karaj',
+  'location:mashhad',
+  'location:isfahan',
+  'location:tabriz',
+  'location:shiraz',
+  'location:fars',
+  'location:ahvaz',
+  'location:ahwaz',
+  'location:rasht',
+  'location:kermanshah',
+  'location:hamedan',
+  'location:yazd',
   'iranian',
-  // TODO: add more.
 ];
