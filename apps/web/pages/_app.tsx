@@ -3,7 +3,6 @@ import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
-import { RepositoryFilterContextWrapper } from '../context/repository-filter-context';
 import { useApollo } from '../lib/apollo';
 import '../styles/global.css';
 
@@ -32,14 +31,12 @@ function CustomApp({ Component, pageProps }: AppProps) {
         }}
       />
       <ApolloProvider client={client}>
-        <RepositoryFilterContextWrapper>
-          <NextNProgress
-            options={{ showSpinner: false }}
-            height={2}
-            color="#1E90FF"
-          />
-          <Component {...pageProps} />
-        </RepositoryFilterContextWrapper>
+        <NextNProgress
+          options={{ showSpinner: false }}
+          height={2}
+          color="#1E90FF"
+        />
+        <Component {...pageProps} />
       </ApolloProvider>
     </ThemeProvider>
   );

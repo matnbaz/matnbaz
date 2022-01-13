@@ -7,6 +7,7 @@ import SubmitUserModal from '../components/Modal/SubmitUserModal';
 import RepositoryPreviewList from '../components/Repository/RepositoryPreviewList';
 import Divider from '../components/UI/Divider';
 import { RandomPromotionBanner } from '../components/UI/RandomPromotionBanner';
+import { RepositoryFilterContextWrapper } from '../context/repository-filter-context';
 import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
 import Custom500 from './500';
 
@@ -45,12 +46,14 @@ const Explore = () => {
         <div className="md:col-span-2">
           <div className="md:sticky md:top-24 md:bottom-0 flex items-start justify-around">
             <div className="md:self-start md:overflow-y-auto md:max-h-[80vh] md:pl-2 w-full">
-              <RepositoryFilters
-                called={called}
-                query={getRepositories}
-                refetch={refetch}
-                loading={loading}
-              />
+              <RepositoryFilterContextWrapper>
+                <RepositoryFilters
+                  called={called}
+                  query={getRepositories}
+                  refetch={refetch}
+                  loading={loading}
+                />
+              </RepositoryFilterContextWrapper>
             </div>
           </div>
         </div>

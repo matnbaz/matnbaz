@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import { Transition } from '@headlessui/react';
 import { useRouter } from 'next/dist/client/router';
 import React, {
@@ -104,6 +105,15 @@ const RepositoryFilters = ({
 
   const router = useRouter();
   const routerParams = useMemo(() => router.query, [router.query]);
+
+  const apolloClient = useApolloClient();
+  // Removes the cache if you navigate to another page
+  useEffect(
+    () => () => {
+      apolloClient.cache.evict({ id: 'ROOT_QUERY', fieldName: 'repositories' });
+    },
+    []
+  );
 
   useEffect(() => {
     // First we get the key of each given param and we loop them
@@ -219,7 +229,6 @@ const RepositoryFilters = ({
       forkStatus: debouncedState.forkStatus.value,
       templateStatus: debouncedState.templateStatus.value,
     };
-
     // If there are already some repositories, then we need to refetch
     if (called) refetch(convertedState);
     // Otherwise it means that we are fetching for the first time, so we avoid calling refetch
