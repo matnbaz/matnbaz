@@ -257,9 +257,9 @@ const RepositoryFilters = ({
           </Collapsible>
         </Card>
         <Card>
-          <Collapsible title="جستجوی پروژه">
+          <Collapsible title="جست‌و‌جوی پروژه">
             <Input
-              placeholder="جستجو..."
+              placeholder="جست‌و‌جو..."
               onChange={searchTermChangeHandler}
               icon={AiOutlineSearch}
               value={state.searchTerm}
@@ -276,7 +276,7 @@ const RepositoryFilters = ({
             }}
           >
             <Input
-              placeholder="جستجو..."
+              placeholder="جست‌و‌جو..."
               onChange={(event) => {
                 setLanguageSearchInput(event.target.value);
               }}

@@ -81,7 +81,7 @@ const RepositorySearchInput = () => {
       }}
     >
       <Input.Text
-        placeholder="جستجوی مخزن..."
+        placeholder="جست‌و‌جو‌ی مخزن..."
         className={classNames(
           searchTerm.length > 0 ? 'md:w-[17rem] lg:w-[25rem]' : 'md:w-48',
           'transition-width w-full duration-500 ease-in-out !shadow-none backdrop-blur-sm focus:md:w-[17rem] focus:lg:w-[25rem] md:w-48'
