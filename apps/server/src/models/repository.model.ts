@@ -32,6 +32,7 @@ export class Repository {
   description?: string;
   readme?: string;
   isFork: boolean;
+  openGraphImageUrl?: string;
 
   @Field(() => PlatformType)
   platform: PlatformType;

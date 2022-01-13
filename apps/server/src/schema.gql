@@ -329,6 +329,7 @@ type Repository implements Node {
   language: Language
   license: License
   name: String!
+  openGraphImageUrl: String
   openIssuesCount: Int!
   owner: Owner
   platform: PlatformType!
