@@ -33,34 +33,42 @@ export const Footer = (props: FooterProps) => {
             />
 
             <div className="space-x-3 space-x-reverse flex items-center">
-              <Link href="/about">
-                <a className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
-                  درباره
-                </a>
-              </Link>
+              <div>
+                <Link href="/about">
+                  <a className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
+                    درباره
+                  </a>
+                </Link>
+              </div>
 
-              <Link href="/faq">
-                <a className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
-                  پرسش‌های متداول
-                </a>
-              </Link>
+              <div>
+                <Link href="/faq">
+                  <a className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
+                    پرسش‌های متداول
+                  </a>
+                </Link>
+              </div>
 
-              <a
-                className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
-                href={links.githubRepo}
-                target="_blank"
-                rel="noreferrer"
-              >
-                سورس کد
-              </a>
-              <a
-                className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
-                href={links.discord}
-                target="_blank"
-                rel="noreferrer"
-              >
-                انجمن دیسکورد
-              </a>
+              <div>
+                <a
+                  className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
+                  href={links.githubRepo}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  سورس کد
+                </a>
+              </div>
+              <div>
+                <a
+                  className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm"
+                  href={links.discord}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  انجمن دیسکورد
+                </a>
+              </div>
             </div>
           </div>
 
