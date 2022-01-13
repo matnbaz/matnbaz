@@ -78,11 +78,21 @@ const Index = () => {
                   </span>
                   <HiChevronLeft className="mr-2 w-5 h-5" aria-hidden="true" />
                 </a> */}
-                <h1 className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-5xl lg:mt-6 xl:text-5xl">
-                  تمام پروژه‌های اوپن‌سورس{' '}
-                  <span className="text-primary-500">ایرانی</span>{' '}
-                  <span className="">در یک جا</span>
-                </h1>
+                <div className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-5xl lg:mt-6 xl:text-5xl">
+                  <h1 className="inline">
+                    <span className="text-transparent bg-clip-text ltr:bg-gradient-to-r rtl:bg-gradient-to-l from-primary-400 to-primary-500">
+                      متن‌باز
+                    </span>
+                  </h1>
+                  :{' '}
+                  <h2 className="inline">
+                    تمام پروژه‌های اوپن‌سورس{' '}
+                    <span className="text-transparent bg-clip-text ltr:bg-gradient-to-r rtl:bg-gradient-to-l from-green-400 via-blue-white to-red-600">
+                      ایرانی
+                    </span>{' '}
+                    در یک جا
+                  </h2>
+                </div>
                 <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   با استفاده از متن‌باز می‌توانید پروژه های اوپن‌سورس
                   (Open-Source) مختلف ایرانی را کشف کنید. اگر شما هم کار
