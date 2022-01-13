@@ -123,9 +123,9 @@ const Index = () => {
             {/* <div className="max-w-7xl mx-auto py-4 px-4 sm:py-8 sm:px-6 lg:px-8">
               <div className="lg:grid lg:grid-cols-2 lg:gap-8">
                 <div>
-                  <h2 className="max-w-md text-2xl md:text-3xl font-extrabold text-center lg:max-w-xl">
+                  <h3 className="max-w-md text-2xl md:text-3xl font-extrabold text-center lg:max-w-xl">
                     اسپانسر‌های متن‌باز
-                  </h2>
+                  </h3>
                   <a
                     className="mt-1 text-sm text-secondary text-center block"
                     href={sponsorshipUrl}
@@ -164,9 +164,9 @@ const Index = () => {
           <div className="m-auto max-w-7xl px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-2">
-                <h2 className="inline-flex items-center text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
+                <h3 className="inline-flex items-center text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
                   کاوش‌گر
-                </h2>
+                </h3>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   با استفاده انواع فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و
                   پروژه‌های اوپن‌سورس ایرانی را کشف کنید.
@@ -198,12 +198,12 @@ const Index = () => {
           <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-1">
-                <h2 className="inline-flex items-center text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
+                <h3 className="inline-flex items-center text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
                   کالکشن‌ها
                   <span className="mr-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary-100 text-primary-800 dark:bg-primary-600 dark:text-primary-100">
                     جدید
                   </span>
-                </h2>
+                </h3>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   با استفاده از کالکشن‌ها، پکیج‌ها و پروژه‌های مورد نظر را
                   سریع‌تر و راحت‌تر پیدا کنید.
@@ -263,9 +263,9 @@ const Index = () => {
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-1">
                 <div>
-                  <h2 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
+                  <h3 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
                     سورس‌کد متن‌باز
-                  </h2>
+                  </h3>
                   <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     سورس کد متن‌باز را می‌توانید در این مخزن گیت‌هاب مشاهده
                     کنید.
@@ -294,9 +294,9 @@ const Index = () => {
 
               <div className="sm:col-start-2">
                 <div>
-                  <h2 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
+                  <h3 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
                     انجمن متن‌باز
-                  </h2>
+                  </h3>
                   <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                     یکی از اهداف ما ساخت یک انجمن فعال و دوستانه است. در انجمن
                     دیسکورد متن‌باز کاربران می توانند با افراد دیگر آشنا شوند،
@@ -321,9 +321,9 @@ const Index = () => {
           {/* <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-2">
-                <h2 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
+                <h3 className="text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
                   در شبکه‌های اجتماعی
-                </h2>
+                </h3>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   متن‌باز را در شبکه‌های اجتماعی دنبال کنید تا خبری را از دست
                   ندهید.
