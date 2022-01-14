@@ -50,6 +50,7 @@ model Repository {
   CollectionWhitelists  CollectionWhitelist[]
   Statistics            RepositoryStatistic[]
   Topics                Topic[]
+  Spotlights            RepositorySpotlight[]
 
   @@unique([platform, platformId])
 }
@@ -213,6 +214,17 @@ model Collect {
   createdAt    DateTime   @default(now())
   Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
   Repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+}
+
+model RepositorySpotlight {
+  id              String     @id @default(cuid())
+  spotlightedAt   DateTime
+  Repository      Repository @relation(fields: [repositoryId], references: [id])
+  repositoryId    String
+  sentOnInstagram Boolean    @default(false)
+  sentOnTelegram  Boolean    @default(false)
+  sentOnTwitter   Boolean    @default(false)
+  sentOnDiscord   Boolean    @default(false)
 }
 
 enum OwnerType {

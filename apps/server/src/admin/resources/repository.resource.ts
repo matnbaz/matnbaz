@@ -1,11 +1,11 @@
 import { NotFoundError, ValidationError } from 'adminjs';
-import { GITHUB_PROCESSES } from '../../queue';
+import { GITHUB_PROCESSES, MAIN_PROCESSES } from '../../queue';
 import { Resource } from './resource-type';
 
 export const repositoryResource: Resource = ({
   dmmf,
   prisma,
-  queues: { github: githubQueue },
+  queues: { main: mainQueue, github: githubQueue },
 }) => ({
   resource: {
     model: dmmf.modelMap.Repository,
@@ -13,6 +13,50 @@ export const repositoryResource: Resource = ({
   },
   options: {
     actions: {
+      spotlight: {
+        name: 'spotlight',
+        isVisible: true,
+        actionType: 'record',
+        icon: 'Checkmark',
+        component: false,
+        variant: 'success',
+        handler: async (request, response, data) => {
+          const { record, resource, currentAdmin, h } = data;
+          if (!request.params.recordId || !record) {
+            throw new NotFoundError(
+              ['You have to pass "recordId" to Unblock Action'].join('\n'),
+              'Action#handler'
+            );
+          }
+          try {
+            await mainQueue.add(MAIN_PROCESSES.SPOTLIGHT_REPOSITORY, {
+              id: record.id,
+            });
+          } catch (error) {
+            if (error instanceof ValidationError && error.baseError) {
+              return {
+                record: record.toJSON(currentAdmin),
+                notice: {
+                  message: error.baseError.message,
+                  type: 'error',
+                },
+              };
+            }
+            throw error;
+          }
+          return {
+            record: record.toJSON(currentAdmin),
+            redirectUrl: h.resourceUrl({
+              resourceId: resource._decorated?.id() || resource.id(),
+            }),
+            notice: {
+              message: 'Successfully unblocked.',
+              type: 'success',
+            },
+          };
+        },
+      },
+
       block: {
         name: 'block',
         isVisible: true,

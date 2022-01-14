@@ -4,6 +4,7 @@ import { languageResource } from './language.resource';
 import { licenseResource } from './license.resource';
 import { ownerResource } from './owner.resource';
 import { reportResource } from './report.resource';
+import { repositorySpotlightResource } from './repository-spotlight.resource';
 import { repositoryResource } from './repository.resource';
 import { ResourceContext } from './resource-type';
 import { submissionResource } from './submission.resource';
@@ -19,6 +20,7 @@ const resources = [
   submissionResource,
   collectionResource,
   collectResource,
+  repositorySpotlightResource,
 ];
 
 export const getResources = (context: ResourceContext) =>
