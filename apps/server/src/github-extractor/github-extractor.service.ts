@@ -1,9 +1,8 @@
 import { MINIMUM_STARS, slugifyLanguage } from '@matnbaz/common';
-import { OctokitService } from '@matnbaz/octokit';
 import { Injectable, Logger } from '@nestjs/common';
-import type { GraphQlQueryResponseData } from '@octokit/graphql';
 import { PlatformType, Prisma } from '@prisma/client';
 import { subDays, subHours } from 'date-fns-jalali';
+import { OctokitService } from 'nestjs-octokit';
 import { PrismaService } from 'nestjs-prisma';
 import * as emoji from 'node-emoji';
 import { GithubReadmeExtractorService } from './github-readme-extractor.service';
@@ -156,7 +155,7 @@ export class GithubExtractorService {
     return Promise.race([
       new Promise<void>((resolve) => {
         this.octokit
-          .graphql<GraphQlQueryResponseData>(EXTRACTION_QUERY, {
+          .graphql<any>(EXTRACTION_QUERY, {
             id: nodeId,
             request: { timeout: 5000 },
           })

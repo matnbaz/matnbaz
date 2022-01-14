@@ -1,6 +1,6 @@
-import { OctokitService } from '@matnbaz/octokit';
 import { Injectable, Logger } from '@nestjs/common';
 import { OwnerType } from '@prisma/client';
+import { OctokitService } from 'nestjs-octokit';
 import { PrismaService } from 'nestjs-prisma';
 import { OwnerReason } from '../owner/constants';
 import { GithubDiscovererService } from './github-discoverer.service';

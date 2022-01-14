@@ -1,6 +1,6 @@
-import { OctokitService } from '@matnbaz/octokit';
 import { Injectable, Logger } from '@nestjs/common';
 import { marked, Renderer } from 'marked';
+import { OctokitService } from 'nestjs-octokit';
 import { PrismaService } from 'nestjs-prisma';
 import * as emoji from 'node-emoji';
 

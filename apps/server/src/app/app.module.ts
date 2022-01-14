@@ -1,4 +1,3 @@
-import { OctokitModule } from '@matnbaz/octokit';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
@@ -10,6 +9,7 @@ import { BaseRedisCache } from 'apollo-server-cache-redis';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core/dist/plugin/cacheControl';
 import responseCachePlugin from 'apollo-server-plugin-response-cache';
 import * as Redis from 'ioredis';
+import { OctokitModule } from 'nestjs-octokit';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
 import { AdminModule } from '../admin/admin.module';

@@ -2224,6 +2224,16 @@
     tslib "2.3.1"
     uuid "8.3.2"
 
+"@nestjs/common@^8.2.5":
+  version "8.2.5"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-8.2.5.tgz#6630d446ee6e925476d2401a71b647c00c75dfa9"
+  integrity sha512-8VOZmHcCyhBtfvxehDfudsCrNghUoqDpZA5W8d/PUhMgz4Y1eT0M2ENBIuxr3C3j1vLypFOo30La2ymfQlOC8Q==
+  dependencies:
+    axios "0.24.0"
+    iterare "1.2.1"
+    tslib "2.3.1"
+    uuid "8.3.2"
+
 "@nestjs/core@^7.0.0":
   version "7.6.18"
   resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-7.6.18.tgz#36448f0ae7f7d08f032e1e7e53b4a4c82ae844d7"
@@ -2254,6 +2264,19 @@
   version "8.2.1"
   resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-8.2.1.tgz#dd9540ade8cc13e274e0dbf4d54ece288fde5cae"
   integrity sha512-5JyCBd+gDkl32Xa7ZRp2cvLR/elPSE/T4egtMFvSwQJDhek+djp9jaVq5PYvsBgaCr/HSHHrLIQ72nnDRLTisQ==
+  dependencies:
+    "@nuxtjs/opencollective" "0.3.2"
+    fast-safe-stringify "2.1.1"
+    iterare "1.2.1"
+    object-hash "2.2.0"
+    path-to-regexp "3.2.0"
+    tslib "2.3.1"
+    uuid "8.3.2"
+
+"@nestjs/core@^8.2.5":
+  version "8.2.5"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-8.2.5.tgz#3c4322bf72bbb934909d5d43218b0f321ec949b8"
+  integrity sha512-R0vp0VlAQFP7qBTZMzMspwOCO6MpsMJON/MsrfHVGgZS5Sd5DInfboWhe2COPnAr+VAT0o4FAKObW08Pdb5hMg==
   dependencies:
     "@nuxtjs/opencollective" "0.3.2"
     fast-safe-stringify "2.1.1"
@@ -11433,6 +11456,16 @@ nest-commander@^2.3.4:
     cosmiconfig "7.0.1"
     inquirer "8.2.0"
 
+nestjs-octokit@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/nestjs-octokit/-/nestjs-octokit-0.1.1.tgz#774156bb2b593480ff69fdccb8a70599a9ae1dd3"
+  integrity sha512-P6j3NBgsgYXwVyb2IQnr10dcuUlFxubv2QnkzPJVYIYhDTkvk78nygdkuljryEobTGskaLBOjDzz3NeH14xMcg==
+  dependencies:
+    "@nestjs/common" "^8.2.5"
+    "@nestjs/core" "^8.2.5"
+    octokit "^1.7.1"
+    reflect-metadata "^0.1.13"
+
 nestjs-prisma@^0.14.3:
   version "0.14.3"
   resolved "https://registry.yarnpkg.com/nestjs-prisma/-/nestjs-prisma-0.14.3.tgz#c32559fb2dbaa9d06b5b247de0030a6fc625c8c5"
@@ -11854,10 +11887,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-octokit@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/octokit/-/octokit-1.7.0.tgz#b98a663ecba951a35428de75786fb8e2669e1467"
-  integrity sha512-oxDHhPjxjKqUD8wa/2XMl7aqp/3ypihJVFxqEN8NbrtS6uAoa9i5KJmKuT1Nik1JuQHuCNeUqObrVKbIMBPMMQ==
+octokit@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/octokit/-/octokit-1.7.1.tgz#d86e51c8e0cec65cb64822ca2c9ff1b052593799"
+  integrity sha512-1b7eRgU8uWetHOWr8f9ptnVo2EKbrkOfocMeQdpgCt7tl/LK67HptFsy2Xg4fMjsJ/+onoBJW0hy/fO0In3/uA==
   dependencies:
     "@octokit/app" "^12.0.4"
     "@octokit/core" "^3.5.1"
