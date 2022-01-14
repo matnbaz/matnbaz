@@ -87,7 +87,25 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
 
   return (
     <MainLayout maxWidth={false} withoutPadding withFooterPromo>
-      <NextSeo title={repo.fullName} description={repo.descriptionLimited} />
+      <NextSeo
+        title={repo.fullName}
+        description={repo.descriptionLimited}
+        openGraph={{
+          images: [
+            repo.openGraphImageUrl
+              ? {
+                  url: repo.openGraphImageUrl,
+                  alt: repo.fullName,
+                }
+              : {
+                  url: `https://avatars.githubusercontent.com/u/${repo.owner.platformId}?v=4`,
+                  alt: repo.owner.login,
+                  height: 420,
+                  width: 420,
+                },
+          ],
+        }}
+      />
       <div
         className="relative flex items-center md:h-[30rem] w-full"
         style={{ background: chosenGradient }}

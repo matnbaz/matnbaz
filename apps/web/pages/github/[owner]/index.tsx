@@ -44,6 +44,16 @@ const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
       <NextSeo
         title={owner.login}
         description={`پروفایل ${owner.login} از پلتفرم ${owner.platform}`}
+        openGraph={{
+          images: [
+            {
+              url: `https://avatars.githubusercontent.com/u/${owner.platformId}?v=4`,
+              alt: owner.login,
+              height: 420,
+              width: 420,
+            },
+          ],
+        }}
       />
       <div className="space-y-10">
         <div>
