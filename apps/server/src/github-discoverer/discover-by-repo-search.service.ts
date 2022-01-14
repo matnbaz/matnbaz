@@ -1,7 +1,7 @@
 import { MINIMUM_STARS } from '@matnbaz/common';
+import { OctokitService } from '@matnbaz/octokit';
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
 import { GithubDiscovererService } from './github-discoverer.service';
 import { repoDiscoveryTerms } from './repo-discovery-terms';

@@ -1,9 +1,11 @@
+import { OctokitModule } from '@matnbaz/octokit';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { throttling } from '@octokit/plugin-throttling';
 import { BaseRedisCache } from 'apollo-server-cache-redis';
 import { ApolloServerPluginCacheControl } from 'apollo-server-core/dist/plugin/cacheControl';
 import responseCachePlugin from 'apollo-server-plugin-response-cache';
@@ -21,7 +23,6 @@ import { HybridThrottlerGuard } from '../hybrid-throttler.guard';
 import { LanguageModule } from '../language/language.module';
 import { LicenseModule } from '../license/license.module';
 import { MetadataModule } from '../metadata/metadata.module';
-import { OctokitModule } from '../octokit/octokit.module';
 import { OwnerModule } from '../owner/owner.module';
 import { ComplexityPlugin } from '../plugins/complexity.plugin';
 import { ReportModule } from '../report/report.module';
@@ -71,7 +72,31 @@ import { AppService } from './app.service';
         port: 6379,
       },
     }),
-    OctokitModule,
+    OctokitModule.forRootAsync({
+      isGlobal: true,
+      useFactory: async () => ({
+        plugins: [throttling],
+        octokitOptions: {
+          auth: process.env.GITHUB_TOKEN,
+          throttle: {
+            onRateLimit: (retryAfter, options, octokit) => {
+              octokit.log.warn(
+                `Request quota exhausted for request ${options.method} ${options.url}`
+              );
+
+              octokit.log.info(`Retrying after ${retryAfter} seconds!`);
+              return true;
+            },
+            onAbuseLimit: (retryAfter, options, octokit) => {
+              // does not retry, only logs a warning
+              octokit.log.warn(
+                `Abuse detected for request ${options.method} ${options.url}`
+              );
+            },
+          },
+        },
+      }),
+    }),
     GithubDiscovererModule,
     GithubExtractorModule,
     LanguageModule,

@@ -1,8 +1,8 @@
 import { MINIMUM_STARS } from '@matnbaz/common';
+import { OctokitService } from '@matnbaz/octokit';
 import { Injectable, Logger } from '@nestjs/common';
 import { OwnerType, PlatformType } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { OctokitService } from '../octokit/octokit.service';
 import { OwnerReason } from '../owner/constants';
 
 @Injectable()

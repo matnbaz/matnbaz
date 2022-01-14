@@ -1,6 +1,5 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
-import { OctokitModule } from '../octokit/octokit.module';
 import { GITHUB_QUEUE } from '../queue';
 import { GithubDiscoverByOrgPresenceService } from './discover-by-org-presence.service';
 import { GithubDiscoverByOwnerSearchService } from './discover-by-owner-search.service';
@@ -11,7 +10,7 @@ import { GithubDiscovererService } from './github-discoverer.service';
 import { GithubDiscoveryProcessor } from './github-discovery.processor';
 
 @Module({
-  imports: [BullModule.registerQueue({ name: GITHUB_QUEUE }), OctokitModule],
+  imports: [BullModule.registerQueue({ name: GITHUB_QUEUE })],
   providers: [
     GithubDiscoveryProcessor,
     GithubDiscovererScheduler,

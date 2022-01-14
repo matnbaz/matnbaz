@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@matnbaz/common": ["libs/common/src/index.ts"]
+      "@matnbaz/common": ["libs/common/src/index.ts"],
+      "@matnbaz/octokit": ["libs/octokit/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

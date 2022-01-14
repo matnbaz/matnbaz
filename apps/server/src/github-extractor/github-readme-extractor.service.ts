@@ -1,8 +1,8 @@
+import { OctokitService } from '@matnbaz/octokit';
 import { Injectable, Logger } from '@nestjs/common';
 import { marked, Renderer } from 'marked';
 import { PrismaService } from 'nestjs-prisma';
 import * as emoji from 'node-emoji';
-import { OctokitService } from '../octokit/octokit.service';
 
 @Injectable()
 export class GithubReadmeExtractorService {

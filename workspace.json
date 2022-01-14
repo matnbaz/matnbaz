@@ -1,8 +1,9 @@
 {
   "version": 2,
   "projects": {
-    "server": "apps/server",
     "common": "libs/common",
+    "octokit": "libs/octokit",
+    "server": "apps/server",
     "web": "apps/web",
     "web-e2e": "apps/web-e2e"
   }
