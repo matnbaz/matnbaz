@@ -1,6 +1,12 @@
 import { links, randomBetween } from '@matnbaz/common';
 import { useEffect, useState } from 'react';
-import { SiGithub, SiInstagram, SiTelegram, SiTwitter } from 'react-icons/si';
+import {
+  SiDiscord,
+  SiGithub,
+  SiInstagram,
+  SiTelegram,
+  SiTwitter,
+} from 'react-icons/si';
 import { Banner, BannerProps } from './Banner';
 
 type PromotionBannerType =
@@ -8,7 +14,8 @@ type PromotionBannerType =
   | 'instagram'
   | 'twitter'
   | 'twitterTweet'
-  | 'github';
+  | 'github'
+  | 'discord';
 
 const bannerProps: Record<PromotionBannerType, BannerProps> = {
   telegram: {
@@ -40,7 +47,7 @@ const bannerProps: Record<PromotionBannerType, BannerProps> = {
 
   twitterTweet: {
     text: 'با توییت کردن درمورد متن‌باز به گسترش آن کمک کنید. ❤️',
-    mobile: 'درمورد متن‌باز توییت کنید.',
+    mobile: 'درمورد متن‌باز توییت کنید. ❤️',
     icon: SiTwitter,
     url: links.twitterTweet,
     cta: 'توییت',
@@ -54,6 +61,15 @@ const bannerProps: Record<PromotionBannerType, BannerProps> = {
     url: links.githubRepo,
     cta: 'مشاهده مخزن',
     theme: 'github',
+  },
+
+  discord: {
+    text: 'به انجمن دیسکوردی متن‌باز ملحق شوید.',
+    mobile: 'به انجمن دیسکورد بپیوندید.',
+    icon: SiDiscord,
+    url: links.discord,
+    cta: 'ورود به انجمن',
+    theme: 'discord',
   },
 };
 
