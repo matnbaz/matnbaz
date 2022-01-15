@@ -49,7 +49,7 @@
     "graphql": "15.7.0",
     "graphql-query-complexity": "^0.11.0",
     "ioredis": "^4.28.2",
-    "marked": "^4.0.5",
+    "marked": "^4.0.10",
     "nest-commander": "^2.3.4",
     "nestjs-octokit": "^0.1.1",
     "nestjs-prisma": "^0.14.3",
