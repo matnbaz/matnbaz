@@ -149,8 +149,9 @@ export class GithubExtractorService {
     );
   }
 
-  private async extract(owner: { nodeId?: string; login: string }) {
-    const nodeId = owner.nodeId || (await this.getNodeIdFromLogin(owner.login));
+  private async extract(ownerIdInfo: { nodeId?: string; login: string }) {
+    const nodeId =
+      ownerIdInfo.nodeId || (await this.getNodeIdFromLogin(ownerIdInfo.login));
 
     return Promise.race([
       new Promise<void>((resolve) => {
@@ -160,6 +161,13 @@ export class GithubExtractorService {
             request: { timeout: 5000 },
           })
           .then((response) => {
+            if (!response.node) {
+              this.logger.warn(
+                `Owner with login ${ownerIdInfo.login} not found.`
+              );
+              // TODO: refetch owner based on their platform ID here.
+              return resolve();
+            }
             const owner = response.node;
             const repos = owner.repositories.edges;
 
@@ -193,7 +201,7 @@ export class GithubExtractorService {
           })
           .catch((e) => {
             this.logger.error(
-              `Error occured while extracting repos for ${owner.login}. ${e.message}`
+              `Error occured while extracting repos for ${ownerIdInfo.login}. ${e.message}`
             );
             resolve();
           });
