@@ -49,4 +49,4 @@
 # سازندگان متن‌باز
 
 - علیرضا زمانی ([@alitnk](https://github.com/alitnk)): ایده‌پردازی - بک‌اند - فرانت‌اند - اپ موبایل
-- کسری قریشی ([@kasraghoreyshi](https://github.com/kasraghoreyshi)): هم‌فکری در ایده‌پردازی - فرانت‌اند (سابق)
+- کسری قریشی ([@kasraghoreyshi](https://github.com/kasraghoreyshi)): هم‌فکری در ایده‌پردازی - فرانت‌اند
