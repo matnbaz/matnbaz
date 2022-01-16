@@ -1,4 +1,3 @@
-import { TELEGRAF } from '@matnbaz/telegraf';
 import { Inject, Injectable } from '@nestjs/common';
 import {
   MessageBuilder,
@@ -6,7 +5,11 @@ import {
 } from 'discord-webhook-node';
 import { Telegraf } from 'telegraf';
 import { MonomediaModuleOptions } from './interfaces';
-import { DISCORD, MONOMEDIA_OPTIONS } from './monomedia.constants';
+import {
+  DISCORD_WEBHOOK,
+  MONOMEDIA_OPTIONS,
+  TELEGRAF,
+} from './monomedia.constants';
 import { normalizeTelegramUsername } from './utils';
 
 @Injectable()
@@ -14,7 +17,7 @@ export class MonomediaService {
   constructor(
     @Inject(MONOMEDIA_OPTIONS) private readonly options: MonomediaModuleOptions,
     @Inject(TELEGRAF) private readonly telegraf: Telegraf,
-    @Inject(DISCORD) private readonly discordWebhook: DiscordWebhook
+    @Inject(DISCORD_WEBHOOK) private readonly discordWebhook: DiscordWebhook
   ) {}
 
   async sendMessage(
