@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "common": "libs/common",
+    "monomedia": "libs/monomedia",
     "server": "apps/server",
     "telegraf": "libs/telegraf",
     "web": "apps/web",

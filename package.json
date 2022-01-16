@@ -69,6 +69,7 @@
     "slugify": "^1.6.2",
     "telegraf": "^4.6.0",
     "tslib": "^2.0.0",
+    "twitter-api-v2": "^1.9.1",
     "use-debounce": "^7.0.1"
   },
   "devDependencies": {
