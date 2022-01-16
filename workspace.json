@@ -3,6 +3,7 @@
   "projects": {
     "common": "libs/common",
     "server": "apps/server",
+    "telegraf": "libs/telegraf",
     "web": "apps/web",
     "web-e2e": "apps/web-e2e"
   }

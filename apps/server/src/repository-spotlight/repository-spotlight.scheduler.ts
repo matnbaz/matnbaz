@@ -3,8 +3,8 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class RepositorySpotlightScheduler {
-  @Cron(CronExpression.EVERY_6_HOURS)
-  sendToSocialMedia() {
-    // TODO: handle telegram, instagram, discord and twitter here
+  @Cron(CronExpression.EVERY_10_SECONDS)
+  async sendToSocialMedia() {
+    // TODO: stuff
   }
 }

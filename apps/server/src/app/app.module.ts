@@ -26,6 +26,7 @@ import { MetadataModule } from '../metadata/metadata.module';
 import { OwnerModule } from '../owner/owner.module';
 import { ComplexityPlugin } from '../plugins/complexity.plugin';
 import { ReportModule } from '../report/report.module';
+import { RepositorySpotlightModule } from '../repository-spotlight/repository-spotlight.module';
 import { RepositoryModule } from '../repository/repository.module';
 import { SubmissionModule } from '../submission/submission.module';
 import { TopicModule } from '../topic/topic.module';
@@ -111,6 +112,7 @@ import { AppService } from './app.service';
     MetadataModule,
     CollectionModule,
     CollectModule,
+    RepositorySpotlightModule,
   ],
   controllers: [AppController],
   providers: [
