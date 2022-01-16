@@ -105,6 +105,9 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
                 },
           ],
         }}
+        twitter={{
+          cardType: repo.openGraphImageUrl ? 'summary' : 'summary_large_image',
+        }}
       />
       <div
         className="relative flex items-center md:h-[30rem] w-full"
