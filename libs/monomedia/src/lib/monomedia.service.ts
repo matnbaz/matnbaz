@@ -11,8 +11,8 @@ export class MonomediaService {
     @Inject(TELEGRAF) private readonly telegraf: Telegraf
   ) {}
 
-  async send(
-    caption: string,
+  async sendMessage(
+    message: string,
     options: {
       telegram: boolean;
       discord: boolean;
@@ -22,7 +22,7 @@ export class MonomediaService {
     if (options.telegram) {
       await this.telegraf.telegram.sendMessage(
         this.options.telegram.channelUsername,
-        caption
+        message
       );
     }
 
