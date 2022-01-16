@@ -1,1 +1,2 @@
 export const MONOMEDIA_OPTIONS = 'MONOMEDIA_OPTIONS';
+export const DISCORD = 'DISCORD';

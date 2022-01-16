@@ -1,3 +1,4 @@
+import { MonomediaModule } from '@matnbaz/monomedia';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
@@ -97,6 +98,18 @@ import { AppService } from './app.service';
           },
         },
       }),
+    }),
+    MonomediaModule.forRoot({
+      discord: {
+        webhookUrl: process.env.DISCORD_WEBHOOK_URL,
+        botImage:
+          'https://raw.githubusercontent.com/matnbaz/visual-identity/main/social.jpg',
+        botName: 'Matnbaz',
+      },
+      telegram: {
+        channelUsername: process.env.TELEGRAM_CHANNEL_USERNAME,
+        botToken: process.env.TELEGRAM_BOT_TOKEN,
+      },
     }),
     GithubDiscovererModule,
     GithubExtractorModule,

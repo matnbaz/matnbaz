@@ -1,12 +1,11 @@
 import { TelegrafModuleOptions } from '@matnbaz/telegraf';
 import { ModuleMetadata, Type } from '@nestjs/common';
-
 export interface MonomediaModuleOptions {
   isGlobal?: boolean;
-  telegram: TelegrafModuleOptions & { channelUsername: string };
-  instagram: any;
-  discord: any;
-  twitter: any;
+  telegram?: { channelUsername: string } & TelegrafModuleOptions;
+  discord?: { webhookUrl: string; botName?: string; botImage?: string };
+  instagram?: any;
+  twitter?: any;
 }
 
 export type AsyncMonomediaModuleOptions = Omit<

@@ -42,6 +42,7 @@
     "classnames": "^2.3.1",
     "core-js": "^3.6.5",
     "date-fns-jalali": "^2.26.0-0",
+    "discord-webhook-node": "^1.1.8",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.2",

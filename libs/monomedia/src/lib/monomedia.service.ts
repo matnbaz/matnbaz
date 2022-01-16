@@ -1,33 +1,39 @@
 import { TELEGRAF } from '@matnbaz/telegraf';
 import { Inject, Injectable } from '@nestjs/common';
+import {
+  MessageBuilder,
+  Webhook as DiscordWebhook,
+} from 'discord-webhook-node';
 import { Telegraf } from 'telegraf';
 import { MonomediaModuleOptions } from './interfaces';
-import { MONOMEDIA_OPTIONS } from './monomedia.constants';
+import { DISCORD, MONOMEDIA_OPTIONS } from './monomedia.constants';
+import { normalizeTelegramUsername } from './utils';
 
 @Injectable()
 export class MonomediaService {
   constructor(
     @Inject(MONOMEDIA_OPTIONS) private readonly options: MonomediaModuleOptions,
-    @Inject(TELEGRAF) private readonly telegraf: Telegraf
+    @Inject(TELEGRAF) private readonly telegraf: Telegraf,
+    @Inject(DISCORD) private readonly discordWebhook: DiscordWebhook
   ) {}
 
   async sendMessage(
     message: string,
     options: {
-      telegram: boolean;
-      discord: boolean;
-      twitter: boolean;
+      telegram?: boolean;
+      discord?: boolean;
+      twitter?: boolean;
     }
   ) {
     if (options.telegram) {
       await this.telegraf.telegram.sendMessage(
-        this.options.telegram.channelUsername,
+        normalizeTelegramUsername(this.options.telegram.channelUsername),
         message
       );
     }
 
     if (options.discord) {
-      // TODO: implement discord
+      this.discordWebhook.send(message);
     }
 
     if (options.twitter) {
@@ -39,17 +45,19 @@ export class MonomediaService {
     photo: string,
     caption: string,
     options: {
-      telegram: boolean;
-      instagram: boolean;
-      discord: boolean;
-      twitter: boolean;
+      telegram?: boolean;
+      instagram?: boolean;
+      discord?: boolean;
+      twitter?: boolean;
     }
   ) {
     if (options.telegram) {
       await this.telegraf.telegram.sendPhoto(
-        this.options.telegram.channelUsername,
+        normalizeTelegramUsername(this.options.telegram.channelUsername),
         photo,
-        { caption }
+        {
+          caption,
+        }
       );
     }
 
@@ -58,7 +66,9 @@ export class MonomediaService {
     }
 
     if (options.discord) {
-      // TODO: implement discord
+      this.discordWebhook.send(
+        new MessageBuilder().setImage(photo).setText(caption)
+      );
     }
 
     if (options.twitter) {
