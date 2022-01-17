@@ -150,8 +150,11 @@ export class GithubExtractorService {
   }
 
   private async extract(ownerIdInfo: { nodeId?: string; login: string }) {
-    const nodeId =
-      ownerIdInfo.nodeId || (await this.getNodeIdFromLogin(ownerIdInfo.login));
+    let nodeId = ownerIdInfo.nodeId;
+
+    if (!nodeId) {
+      nodeId = await this.getNodeIdFromLogin(ownerIdInfo.login);
+    }
 
     return Promise.race([
       new Promise<void>((resolve) => {
@@ -430,10 +433,14 @@ export class GithubExtractorService {
     return currentStargazersCount - respectiveStatStarCount;
   }
 
-  private async getNodeIdFromLogin(login: string) {
+  private async getNodeIdFromLogin(login: string): Promise<string> {
     const response = await this.octokit.rest.users.getByUsername({
       username: login,
     });
+
+    if (typeof response.data.node_id !== 'string')
+      throw Error(`Could not resolve the node id for user ${login}`);
+
     return response.data.node_id;
   }
 }
