@@ -112,6 +112,7 @@ apps/*/public/sitemap.xml
 apps/*/public/robots.txt
 
 # Storage
+storage/*
 
 # gitkeep
 !/**/.gitkeep
