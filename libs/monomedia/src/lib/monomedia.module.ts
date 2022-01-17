@@ -158,7 +158,7 @@ export class MonomediaModule {
     return new Instagram({
       username: instagram?.username,
       password: instagram?.password,
-      cookieStore: new FileCookieStore('./storage/cookies.json'),
+      cookieStore: new FileCookieStore('./storage/instagram/cookies.json'),
     });
   }
 }

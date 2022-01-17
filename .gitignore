@@ -111,6 +111,7 @@ dump.rdb
 apps/*/public/sitemap.xml
 apps/*/public/robots.txt
 
-# Chromium user data
-storage/*
-!storage/.gitkeep
+# Storage
+
+# gitkeep
+!/**/.gitkeep

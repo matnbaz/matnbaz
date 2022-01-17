@@ -12,7 +12,7 @@ export class TwitterPuppeteer {
   async postTweet(message: string) {
     const browser = await puppeteer.launch({
       headless: true,
-      userDataDir: './chromium',
+      userDataDir: './storage/chromium',
       args: [
         '--disable-dev-shm-usage',
         '--shm-size=1gb', // --shm-size=1gb to fix Protocol error (Runtime.callFunctionOn)
