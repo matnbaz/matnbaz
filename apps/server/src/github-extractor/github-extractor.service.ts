@@ -133,7 +133,7 @@ export class GithubExtractorService {
             },
           ],
         },
-        select: { id: true, login: true },
+        select: { id: true, login: true, nodeId: true },
         cursor: lastOwnerId && { id: lastOwnerId },
         take: 100,
       })) {
@@ -443,9 +443,10 @@ export class GithubExtractorService {
   private async getNodeIdFromLogin(login: string): Promise<string> {
     const response = await this.octokit.rest.users.getByUsername({
       username: login,
+      request: { timeout: 5000 },
     });
 
-    if (typeof response.data.node_id !== 'string')
+    if (typeof response.data?.node_id !== 'string')
       throw Error(`Could not resolve the node id for user ${login}`);
 
     return response.data.node_id;
