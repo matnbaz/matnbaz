@@ -7,6 +7,7 @@ import { Telegraf } from 'telegraf';
 import { MonomediaModuleOptions } from './interfaces';
 import {
   DISCORD_WEBHOOK,
+  INSTAGRAM,
   MONOMEDIA_OPTIONS,
   TELEGRAF,
 } from './monomedia.constants';
@@ -19,7 +20,8 @@ export class MonomediaService {
     @Inject(MONOMEDIA_OPTIONS) private readonly options: MonomediaModuleOptions,
     @Inject(TELEGRAF) private readonly telegraf: Telegraf,
     @Inject(DISCORD_WEBHOOK) private readonly discordWebhook: DiscordWebhook,
-    private readonly twitter: TwitterPuppeteer
+    private readonly twitterSdk: TwitterPuppeteer,
+    @Inject(INSTAGRAM) private readonly instagramSdk
   ) {}
 
   async sendMessage(
@@ -42,7 +44,7 @@ export class MonomediaService {
     }
 
     if (options.twitter) {
-      await this.twitter.postTweet(message);
+      await this.twitterSdk.postTweet(message);
     }
   }
 
@@ -67,7 +69,12 @@ export class MonomediaService {
     }
 
     if (options.instagram) {
-      // TODO: implement instagram
+      await this.instagramSdk.login();
+      await this.instagramSdk.uploadPhoto({
+        photo,
+        caption,
+        post: 'feed',
+      });
     }
 
     if (options.discord) {

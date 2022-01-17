@@ -4,7 +4,10 @@ export interface MonomediaModuleOptions {
   isGlobal?: boolean;
   telegram?: { channelUsername: string } & TelegrafModuleOptions;
   discord?: { webhookUrl: string; botName?: string; botImage?: string };
-  instagram?: any;
+  instagram?: {
+    username: string;
+    password: string;
+  };
   twitter?: {
     username: string;
     password: string;

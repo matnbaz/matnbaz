@@ -114,6 +114,10 @@ import { AppService } from './app.service';
         username: process.env.TWITTER_USERNAME,
         password: process.env.TWITTER_PASSWORD,
       },
+      instagram: {
+        username: process.env.INSTAGRAM_USERNAME,
+        password: process.env.INSTAGRAM_PASSWORD,
+      },
     }),
     GithubDiscovererModule,
     GithubExtractorModule,

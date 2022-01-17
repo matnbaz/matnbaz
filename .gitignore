@@ -112,4 +112,5 @@ apps/*/public/sitemap.xml
 apps/*/public/robots.txt
 
 # Chromium user data
-chromium/*
+storage/*
+!storage/.gitkeep
