@@ -14,6 +14,11 @@ import {
 import { TwitterPuppeteer } from './twitter/twitter';
 import { normalizeTelegramUsername } from './utils';
 
+export interface MonomediaSocialMedia {
+  sendMessage?: (message: string) => Promise<any>;
+  sendPhoto?: (photo: string, caption?: string) => Promise<any>;
+}
+
 @Injectable()
 export class MonomediaService {
   constructor(
@@ -24,67 +29,43 @@ export class MonomediaService {
     @Inject(INSTAGRAM) private readonly instagramSdk
   ) {}
 
-  async sendMessage(
-    message: string,
-    options: {
-      telegram?: boolean;
-      discord?: boolean;
-      twitter?: boolean;
-    }
-  ) {
-    if (options.telegram) {
-      await this.telegraf.telegram.sendMessage(
+  public telegram: MonomediaSocialMedia = {
+    sendMessage: (message: string) =>
+      this.telegraf.telegram.sendMessage(
         normalizeTelegramUsername(this.options.telegram.channelUsername),
         message
-      );
-    }
+      ),
 
-    if (options.discord) {
-      await this.discordWebhook.send(message);
-    }
-
-    if (options.twitter) {
-      await this.twitterSdk.postTweet(message);
-    }
-  }
-
-  async sendPhoto(
-    photo: string,
-    caption: string,
-    options: {
-      telegram?: boolean;
-      instagram?: boolean;
-      discord?: boolean;
-      twitter?: boolean;
-    }
-  ) {
-    if (options.telegram) {
-      await this.telegraf.telegram.sendPhoto(
+    sendPhoto: (photo: string, caption: string) =>
+      this.telegraf.telegram.sendPhoto(
         normalizeTelegramUsername(this.options.telegram.channelUsername),
         photo,
         {
           caption,
         }
-      );
-    }
+      ),
+  };
 
-    if (options.instagram) {
+  public instagram: MonomediaSocialMedia = {
+    sendPhoto: async (photo: string, caption: string) => {
       await this.instagramSdk.login();
       await this.instagramSdk.uploadPhoto({
         photo,
         caption,
         post: 'feed',
       });
-    }
+    },
+  };
 
-    if (options.discord) {
-      await this.discordWebhook.send(
+  public discord: MonomediaSocialMedia = {
+    sendMessage: (message: string) => this.discordWebhook.send(message),
+    sendPhoto: (photo: string, caption: string) =>
+      this.discordWebhook.send(
         new MessageBuilder().setImage(photo).setText(caption)
-      );
-    }
+      ),
+  };
 
-    if (options.twitter) {
-      // TODO: implement twitter
-    }
-  }
+  public twitter: MonomediaSocialMedia = {
+    sendMessage: (message: string) => this.twitterSdk.postTweet(message),
+  };
 }
