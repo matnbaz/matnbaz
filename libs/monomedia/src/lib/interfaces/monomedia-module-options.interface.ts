@@ -5,7 +5,10 @@ export interface MonomediaModuleOptions {
   telegram?: { channelUsername: string } & TelegrafModuleOptions;
   discord?: { webhookUrl: string; botName?: string; botImage?: string };
   instagram?: any;
-  twitter?: any;
+  twitter?: {
+    username: string;
+    password: string;
+  };
 }
 
 export type AsyncMonomediaModuleOptions = Omit<

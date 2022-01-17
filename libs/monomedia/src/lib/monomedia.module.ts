@@ -12,10 +12,11 @@ import {
   TELEGRAF,
 } from './monomedia.constants';
 import { MonomediaService } from './monomedia.service';
+import { TwitterPuppeteer } from './twitter/twitter';
 
 @Module({
   controllers: [],
-  providers: [MonomediaService],
+  providers: [MonomediaService, TwitterPuppeteer],
   exports: [MonomediaService],
 })
 export class MonomediaModule {
@@ -24,6 +25,7 @@ export class MonomediaModule {
       provide: DISCORD_WEBHOOK,
       useValue: this.instantiateDiscord(options),
     };
+
     const TelegrafProvider: Provider = {
       provide: TELEGRAF,
       useValue: this.instantiateTelegraf(options),

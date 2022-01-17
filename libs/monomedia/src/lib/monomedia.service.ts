@@ -10,6 +10,7 @@ import {
   MONOMEDIA_OPTIONS,
   TELEGRAF,
 } from './monomedia.constants';
+import { TwitterPuppeteer } from './twitter/twitter';
 import { normalizeTelegramUsername } from './utils';
 
 @Injectable()
@@ -17,7 +18,8 @@ export class MonomediaService {
   constructor(
     @Inject(MONOMEDIA_OPTIONS) private readonly options: MonomediaModuleOptions,
     @Inject(TELEGRAF) private readonly telegraf: Telegraf,
-    @Inject(DISCORD_WEBHOOK) private readonly discordWebhook: DiscordWebhook
+    @Inject(DISCORD_WEBHOOK) private readonly discordWebhook: DiscordWebhook,
+    private readonly twitter: TwitterPuppeteer
   ) {}
 
   async sendMessage(
@@ -36,11 +38,11 @@ export class MonomediaService {
     }
 
     if (options.discord) {
-      this.discordWebhook.send(message);
+      await this.discordWebhook.send(message);
     }
 
     if (options.twitter) {
-      // TODO: implement twitter
+      await this.twitter.postTweet(message);
     }
   }
 
@@ -69,7 +71,7 @@ export class MonomediaService {
     }
 
     if (options.discord) {
-      this.discordWebhook.send(
+      await this.discordWebhook.send(
         new MessageBuilder().setImage(photo).setText(caption)
       );
     }

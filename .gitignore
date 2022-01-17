@@ -107,6 +107,9 @@ fabric.properties
 dump.rdb
 .adminjs
 
-# generated sitemap and robots.txt
+# Generated sitemap and robots.txt
 apps/*/public/sitemap.xml
 apps/*/public/robots.txt
+
+# Chromium user data
+chromium/*

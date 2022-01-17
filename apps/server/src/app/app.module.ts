@@ -110,6 +110,10 @@ import { AppService } from './app.service';
         channelUsername: process.env.TELEGRAM_CHANNEL_USERNAME,
         botToken: process.env.TELEGRAM_BOT_TOKEN,
       },
+      twitter: {
+        username: process.env.TWITTER_USERNAME,
+        password: process.env.TWITTER_PASSWORD,
+      },
     }),
     GithubDiscovererModule,
     GithubExtractorModule,
