@@ -29,7 +29,7 @@ export const repositoryResource: Resource = ({
             );
           }
           try {
-            await mainQueue.add(MAIN_PROCESSES.SPOTLIGHT_REPOSITORY, {
+            await mainQueue.add(MAIN_PROCESSES.ADD_SPOTLIGHT, {
               id: record.id,
             });
           } catch (error) {

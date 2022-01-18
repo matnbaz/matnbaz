@@ -7,8 +7,8 @@ import { RepositorySpotlightService } from './repository-spotlight.service';
 export class RepositorySpotlightProcessor {
   constructor(private readonly spotlightService: RepositorySpotlightService) {}
 
-  @Process(MAIN_PROCESSES.SPOTLIGHT_REPOSITORY)
-  async spotlightRepo(job: Job<{ id: string }>) {
+  @Process(MAIN_PROCESSES.ADD_SPOTLIGHT)
+  async addSpotlightRepo(job: Job<{ id: string }>) {
     await this.spotlightService.spotlight(job.data.id);
   }
 }

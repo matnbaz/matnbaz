@@ -219,8 +219,8 @@ model Collect {
 model RepositorySpotlight {
   id              String     @id @default(cuid())
   createdAt       DateTime   @default(now())
-  spotlightedAt   DateTime
-  Repository      Repository @relation(fields: [repositoryId], references: [id])
+  spotlightedAt   DateTime?
+  Repository      Repository @relation(fields: [repositoryId], references: [id]) // TODO: many
   repositoryId    String
   description     String?
   sentOnInstagram Boolean    @default(false)
