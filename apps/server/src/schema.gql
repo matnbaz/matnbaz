@@ -256,6 +256,7 @@ type Query {
   repositoryById(id: ID!): Repository
   repositoryByPlatform(owner: String!, platform: PlatformType!, repo: String!): Repository
   repositoryByPlatformId(id: ID!, platform: PlatformType!): Repository
+  spotlights(after: String, before: String, first: Int, last: Int): RepositorySpotlightConnection!
   topic(name: String!): Topic
   topicById(id: ID!): Topic
   topics(after: String, before: String, first: Int, last: Int, order: TopicOrder): TopicConnection!
@@ -361,6 +362,31 @@ type RepositoryEdge {
 
   """The item at the end of RepositoryEdge."""
   node: Repository!
+}
+
+type RepositorySpotlight implements Node {
+  createdAt: DateObject!
+  description: String
+  id: ID!
+  repository: Repository!
+  spotlightedAt: DateObject!
+}
+
+type RepositorySpotlightConnection {
+  """A list of edges"""
+  edges: [RepositorySpotlightEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A RepositorySpotlight edge."""
+type RepositorySpotlightEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of RepositorySpotlightEdge."""
+  node: RepositorySpotlight!
 }
 
 """A repository owner could any of these types."""
