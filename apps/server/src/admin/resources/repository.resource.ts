@@ -1,5 +1,5 @@
 import { NotFoundError, ValidationError } from 'adminjs';
-import { GITHUB_PROCESSES, MAIN_PROCESSES } from '../../queue';
+import { MAIN_PROCESSES } from '../../queue';
 import { Resource } from './resource-type';
 
 export const repositoryResource: Resource = ({
@@ -214,28 +214,6 @@ export const repositoryResource: Resource = ({
             redirectUrl: h.resourceUrl({
               resourceId: resource._decorated?.id() || resource.id(),
             }),
-          };
-        },
-      },
-
-      'extract-all': {
-        name: 'extract-all',
-        isVisible: true,
-        actionType: 'record',
-        icon: 'Checkmark',
-        component: false,
-        variant: 'success',
-        handler: async (request, response, data) => {
-          try {
-            await githubQueue.add(GITHUB_PROCESSES.EXTRACT);
-          } catch (error) {
-            console.error(error);
-          }
-          return {
-            notice: {
-              message: 'Added to the queue.',
-              type: 'success',
-            },
           };
         },
       },
