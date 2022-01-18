@@ -75,7 +75,9 @@ export class RepositorySpotlightService {
   }
 
   private async sendToTwitter(spotlight: SpotlightWithRepoAndOwner) {
-    await this.monomedia.twitter.sendMessage(this.createMessage(spotlight));
+    await this.monomedia.twitter.sendMessage(
+      this.createMessage(spotlight, true)
+    );
 
     await this.prisma.repositorySpotlight.update({
       where: { id: spotlight.id },
