@@ -17,8 +17,8 @@ export class RepositorySpotlightService {
   ) {}
   private logger = new Logger(RepositorySpotlightService.name);
 
-  addSpotlightRepo(reposIds: string[], description?: string) {
-    this.prisma.repositorySpotlight.create({
+  async addSpotlightRepo(reposIds: string[], description?: string) {
+    await this.prisma.repositorySpotlight.create({
       data: {
         Repositories: { connect: reposIds.map((id) => ({ id })) },
         description,

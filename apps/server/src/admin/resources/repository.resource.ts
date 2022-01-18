@@ -30,7 +30,7 @@ export const repositoryResource: Resource = ({
           }
           try {
             await mainQueue.add(MAIN_PROCESSES.ADD_SPOTLIGHT, {
-              id: record.id,
+              repos: [request.params.recordId],
             });
           } catch (error) {
             if (error instanceof ValidationError && error.baseError) {
@@ -50,9 +50,45 @@ export const repositoryResource: Resource = ({
               resourceId: resource._decorated?.id() || resource.id(),
             }),
             notice: {
-              message: 'Successfully unblocked.',
+              message: 'Successfully added to spotlight job.',
               type: 'success',
             },
+          };
+        },
+      },
+
+      bulkSpotlight: {
+        name: 'bulkSpotlight',
+        isVisible: true,
+        actionType: 'bulk',
+        icon: 'Checkmark',
+        showInDrawer: true,
+        component: false,
+        variant: 'success',
+        handler: async (request, response, context) => {
+          const { records, resource, h } = context;
+          if (!records || !records.length) {
+            throw new NotFoundError(
+              'no records were selected.',
+              'Action#handler'
+            );
+          }
+
+          await mainQueue.add(MAIN_PROCESSES.ADD_SPOTLIGHT, {
+            repos: [records.map((rec) => rec.id())],
+          });
+
+          return {
+            records: records.map((record) =>
+              record.toJSON(context.currentAdmin)
+            ),
+            notice: {
+              message: `Successfully added ${records.length} records to spotlight job.`,
+              type: 'success',
+            },
+            redirectUrl: h.resourceUrl({
+              resourceId: resource._decorated?.id() || resource.id(),
+            }),
           };
         },
       },
