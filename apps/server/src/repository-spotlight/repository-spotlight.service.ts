@@ -32,6 +32,11 @@ export class RepositorySpotlightService {
       orderBy: { createdAt: 'desc' },
     });
 
+    if (!spotlight) {
+      this.logger.warn(`No spotlight was found. returning now.`);
+      return;
+    }
+
     return await this.spotlight(spotlight.id);
   }
 
