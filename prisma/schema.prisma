@@ -218,9 +218,11 @@ model Collect {
 
 model RepositorySpotlight {
   id              String     @id @default(cuid())
+  createdAt       DateTime   @default(now())
   spotlightedAt   DateTime
   Repository      Repository @relation(fields: [repositoryId], references: [id])
   repositoryId    String
+  description     String?
   sentOnInstagram Boolean    @default(false)
   sentOnTelegram  Boolean    @default(false)
   sentOnTwitter   Boolean    @default(false)
