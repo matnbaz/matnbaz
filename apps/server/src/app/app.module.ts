@@ -100,6 +100,7 @@ import { AppService } from './app.service';
       }),
     }),
     MonomediaModule.forRoot({
+      isGlobal: true,
       discord: {
         webhookUrl: process.env.DISCORD_WEBHOOK_URL,
         botImage:

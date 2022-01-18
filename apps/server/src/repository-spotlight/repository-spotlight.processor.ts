@@ -8,7 +8,10 @@ export class RepositorySpotlightProcessor {
   constructor(private readonly spotlightService: RepositorySpotlightService) {}
 
   @Process(MAIN_PROCESSES.ADD_SPOTLIGHT)
-  async addSpotlightRepo(job: Job<{ id: string }>) {
-    await this.spotlightService.spotlight(job.data.id);
+  async addSpotlightRepo(job: Job<{ repos: string[]; description?: string }>) {
+    await this.spotlightService.addSpotlightRepo(
+      job.data.repos,
+      job.data.description
+    );
   }
 }
