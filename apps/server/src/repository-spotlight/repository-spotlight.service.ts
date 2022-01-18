@@ -1,5 +1,5 @@
 import { MonomediaService } from '@matnbaz/monomedia';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Owner, Repository, RepositorySpotlight } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 
@@ -15,6 +15,7 @@ export class RepositorySpotlightService {
     private readonly prisma: PrismaService,
     private readonly monomedia: MonomediaService
   ) {}
+  private logger = new Logger(RepositorySpotlightService.name);
 
   addSpotlightRepo(reposIds: string[], description?: string) {
     this.prisma.repositorySpotlight.create({
@@ -41,10 +42,29 @@ export class RepositorySpotlightService {
       include: { Repositories: { include: { Owner: true } } },
     });
 
-    if (!spotlight.sentOnDiscord) await this.sendToDiscord(spotlight);
-    if (!spotlight.sentOnTelegram) await this.sendToTelegram(spotlight);
-    if (!spotlight.sentOnTwitter) await this.sendToTwitter(spotlight);
-    if (!spotlight.sentOnInstagram) await this.sendToInstagram(spotlight);
+    try {
+      if (!spotlight.sentOnDiscord) await this.sendToDiscord(spotlight);
+    } catch (e) {
+      this.logger.error(`Failed to send spotlight message on discord: ${e}`);
+    }
+
+    try {
+      if (!spotlight.sentOnTelegram) await this.sendToTelegram(spotlight);
+    } catch (e) {
+      this.logger.error(`Failed to send spotlight message on telegram: ${e}`);
+    }
+
+    try {
+      if (!spotlight.sentOnTwitter) await this.sendToTwitter(spotlight);
+    } catch (e) {
+      this.logger.error(`Failed to send spotlight message on twitter: ${e}`);
+    }
+
+    try {
+      if (!spotlight.sentOnInstagram) await this.sendToInstagram(spotlight);
+    } catch (e) {
+      this.logger.error(`Failed to send spotlight message on instagram: ${e}`);
+    }
   }
 
   private async sendToDiscord(spotlight: SpotlightWithRepoAndOwner) {
