@@ -217,16 +217,15 @@ model Collect {
 }
 
 model RepositorySpotlight {
-  id              String     @id @default(cuid())
-  createdAt       DateTime   @default(now())
+  id              String       @id @default(cuid())
+  createdAt       DateTime     @default(now())
   spotlightedAt   DateTime?
-  Repository      Repository @relation(fields: [repositoryId], references: [id]) // TODO: many
-  repositoryId    String
+  Repositories    Repository[]
   description     String?
-  sentOnInstagram Boolean    @default(false)
-  sentOnTelegram  Boolean    @default(false)
-  sentOnTwitter   Boolean    @default(false)
-  sentOnDiscord   Boolean    @default(false)
+  sentOnInstagram Boolean      @default(false)
+  sentOnTelegram  Boolean      @default(false)
+  sentOnTwitter   Boolean      @default(false)
+  sentOnDiscord   Boolean      @default(false)
 }
 
 enum OwnerType {

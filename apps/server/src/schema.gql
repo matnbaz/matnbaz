@@ -368,7 +368,7 @@ type RepositorySpotlight implements Node {
   createdAt: DateObject!
   description: String
   id: ID!
-  repository: Repository!
+  repositories: [Repository!]!
   spotlightedAt: DateObject!
 }
 

@@ -30,9 +30,11 @@ export class RepositorySpotlightResolver {
     );
   }
 
-  @ResolveField(() => Repository)
-  repository(@Parent() { repositoryId }: P.RepositorySpotlight) {
-    return this.prisma.repository.findUnique({ where: { id: repositoryId } });
+  @ResolveField(() => [Repository])
+  repositories(@Parent() { id }: P.RepositorySpotlight) {
+    return this.prisma.repositorySpotlight
+      .findUnique({ where: { id } })
+      .Repositories();
   }
 
   @ResolveField(() => DateObject)
