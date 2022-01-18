@@ -105,6 +105,7 @@ model Owner {
   recordUpdatedAt     DateTime         @updatedAt
   blockedAt           DateTime?
   latestExtractionAt  DateTime?
+  twitterUsername     String?
   Repositories        Repository[]
   Collections         Collection[]     @relation("owners")
   CollectionsExcluded Collection[]     @relation("owners_excluded")
