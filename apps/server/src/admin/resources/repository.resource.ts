@@ -75,7 +75,7 @@ export const repositoryResource: Resource = ({
           }
 
           await mainQueue.add(MAIN_PROCESSES.ADD_SPOTLIGHT, {
-            repos: [records.map((rec) => rec.id())],
+            repos: records.map((rec) => rec.id()),
           });
 
           return {
