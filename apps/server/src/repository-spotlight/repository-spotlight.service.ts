@@ -1,15 +1,9 @@
 import { persianNumbers } from '@matnbaz/common';
 import { MonomediaService } from '@matnbaz/monomedia';
 import { Injectable, Logger } from '@nestjs/common';
-import { Owner, Repository, RepositorySpotlight } from '@prisma/client';
 import { format } from 'date-fns-jalali';
 import { PrismaService } from 'nestjs-prisma';
-
-type SpotlightWithRepoAndOwner = RepositorySpotlight & {
-  Repositories: (Repository & {
-    Owner: Owner;
-  })[];
-};
+import { SpotlightWithRepoAndOwner } from './repository-spotlight.types';
 
 @Injectable()
 export class RepositorySpotlightService {
