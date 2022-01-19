@@ -1,6 +1,8 @@
+import { persianNumbers } from '@matnbaz/common';
 import { MonomediaService } from '@matnbaz/monomedia';
 import { Injectable, Logger } from '@nestjs/common';
 import { Owner, Repository, RepositorySpotlight } from '@prisma/client';
+import { format } from 'date-fns-jalali';
 import { PrismaService } from 'nestjs-prisma';
 
 type SpotlightWithRepoAndOwner = RepositorySpotlight & {
@@ -115,19 +117,21 @@ export class RepositorySpotlightService {
     tagTwitter = false
   ) {
     const repos = spotlight.Repositories;
-    let text = '';
+    let text = '🔹 ';
     if (repos.length === 0) throw new Error('No repository was provided.');
     else if (repos.length === 1) {
-      text += 'پروژه منتخب امروز:\n';
+      text += 'پروژه منتخب امروز';
     } else {
-      text += 'پروژه‌های منتخب امروز:\n';
+      text += 'پروژه‌های منتخب امروز';
     }
+    text += ` - ${persianNumbers(format(new Date(), 'EEEE y/M/d'))}`;
+    text += ' 🔹\n\n';
 
     for (const repo of repos) {
       text += `${repo.Owner.login}/${repo.name}`;
 
       if (tagTwitter && repo.Owner.twitterUsername)
-        text += ` توسط @${repo.Owner.twitterUsername}`;
+        text += ` @${repo.Owner.twitterUsername}`;
 
       text += '\n';
     }
