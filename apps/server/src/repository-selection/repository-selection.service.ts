@@ -22,7 +22,7 @@ export class RepositorySelectionService {
     });
   }
 
-  async selectionNextSeries() {
+  async featureNextSelection() {
     const selection = await this.prisma.repositorySelection.findFirst({
       where: { featuredAt: null },
       orderBy: { createdAt: 'desc' },
@@ -33,10 +33,10 @@ export class RepositorySelectionService {
       return;
     }
 
-    return await this.selection(selection.id);
+    return await this.featureSelection(selection.id);
   }
 
-  async selection(id: string) {
+  async featureSelection(id: string) {
     const selection = await this.prisma.repositorySelection.update({
       where: { id },
       data: { featuredAt: new Date() },
