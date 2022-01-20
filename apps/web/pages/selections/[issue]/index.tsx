@@ -32,7 +32,7 @@ const SelectionPage: NextPage<SelectionPageProps> = ({ issue }) => {
   return (
     <MainLayout>
       <NextSeo
-        title={selection.id}
+        title={selection.title}
         description={selection.description}
         openGraph={{
           images: [
