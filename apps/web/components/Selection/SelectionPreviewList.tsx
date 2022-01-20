@@ -37,6 +37,10 @@ export const SelectionPreviewList = ({
   | ISelectionPreviewListPropsWithPagination
   | ISelectionPreviewListPropsWithoutPagination) => {
   const mappedRepositories = useMemo(() => {
+    if (selections.length === 0)
+      return (
+        <p className="text-center font-bold">هنوز پروژه‌ای منتخب نشده‌است.</p>
+      );
     return selections?.map((selection, index) => (
       <>
         <SelectionPreview padded selection={selection} key={selection.id} />
