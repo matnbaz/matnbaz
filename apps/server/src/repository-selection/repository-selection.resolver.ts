@@ -1,6 +1,13 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
-import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  ID,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { createDateObject } from '../date/utils';
@@ -28,6 +35,11 @@ export class RepositorySelectionResolver {
         }),
       pagination
     );
+  }
+
+  @Query(() => RepositorySelection, { nullable: true })
+  selection(@Args('id', { type: () => ID }) id: string) {
+    return this.prisma.repositorySelection.findUnique({ where: { id } });
   }
 
   @ResolveField(() => [Repository])
