@@ -1,7 +1,7 @@
 import { persianNumbers } from '@matnbaz/common';
 import { MonomediaService } from '@matnbaz/monomedia';
 import { Injectable, Logger } from '@nestjs/common';
-import { format } from 'date-fns-jalali';
+import { format, subHours } from 'date-fns-jalali';
 import { PrismaService } from 'nestjs-prisma';
 import { SelectionWithRepoAndOwner } from './repository-selection.types';
 
@@ -23,6 +23,16 @@ export class RepositorySelectionService {
   }
 
   async featureNextSelection() {
+    const lastFeature = await this.prisma.repositorySelection.findFirst({
+      orderBy: { featuredAt: 'desc' },
+    });
+    if (lastFeature && lastFeature.featuredAt > subHours(new Date(), 12)) {
+      this.logger.warn(
+        `Last selection was featured withing last 12 hours. returning now.`
+      );
+      return;
+    }
+
     const selection = await this.prisma.repositorySelection.findFirst({
       where: { featuredAt: null },
       orderBy: { createdAt: 'desc' },
