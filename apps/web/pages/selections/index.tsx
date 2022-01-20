@@ -15,15 +15,12 @@ const SelectionsPage: NextPage<SelectionsPageProps> = ({ issue }) => {
       notifyOnNetworkStatusChange: true,
     });
 
-  if (!data) return <></>;
-  const selections = data.selections;
-
   const selectionsLoadMoreHandler = () => {
-    if (!selections.pageInfo.hasNextPage) return;
-
+    if (!data?.selections.pageInfo.hasNextPage) return;
+    console.log(data.selections.pageInfo.endCursor);
     fetchMore({
       variables: {
-        reposAfter: selections.pageInfo.endCursor,
+        after: data.selections.pageInfo.endCursor,
       },
     });
   };
@@ -41,19 +38,23 @@ const SelectionsPage: NextPage<SelectionsPageProps> = ({ issue }) => {
       />
 
       <div className="max-w-3xl mx-auto">
-        <div className="grid gap-6 pb-6">
-          <SelectionPreviewList
-            networkStatus={networkStatus}
-            called={called}
-            loading={loading}
-            onLoadMore={selectionsLoadMoreHandler}
-            selections={selections.edges.map((edge) => edge.node)}
-            // adsFrequency={7}
-            // adsTemplate={() => (
-            //   <PromotionBanner className="rounded-xl overflow-hidden" />
-            // )}
-          />
-        </div>
+        {data ? (
+          <div className="grid gap-6 pb-6">
+            <SelectionPreviewList
+              networkStatus={networkStatus}
+              called={called}
+              loading={loading}
+              onLoadMore={selectionsLoadMoreHandler}
+              selections={data.selections.edges.map((edge) => edge.node)}
+              // adsFrequency={7}
+              // adsTemplate={() => (
+              //   <PromotionBanner className="rounded-xl overflow-hidden" />
+              // )}
+            />
+          </div>
+        ) : (
+          <p className="text-center font-bold">هنوز پروژه‌ای منتخب نشده‌است.</p>
+        )}
       </div>
     </MainLayout>
   );

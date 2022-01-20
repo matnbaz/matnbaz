@@ -1,4 +1,4 @@
-query GetSelections($first: Int, $after: String) {
+query GetSelections($first: Int = 12, $after: String) {
   selections(first: $first, after: $after) {
     edges {
       node {

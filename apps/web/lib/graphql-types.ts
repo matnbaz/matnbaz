@@ -1325,7 +1325,7 @@ export type GetSelectionQueryHookResult = ReturnType<typeof useGetSelectionQuery
 export type GetSelectionLazyQueryHookResult = ReturnType<typeof useGetSelectionLazyQuery>;
 export type GetSelectionQueryResult = Apollo.QueryResult<GetSelectionQuery, GetSelectionQueryVariables>;
 export const GetSelectionsDocument = gql`
-    query GetSelections($first: Int, $after: String) {
+    query GetSelections($first: Int = 12, $after: String) {
   selections(first: $first, after: $after) {
     edges {
       node {
