@@ -99,7 +99,7 @@ const Index: NextPage = () => {
                 <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   با متن‌باز شما می‌توانید پروژه های اوپن‌سورس (Open-Source)
                   مختلف ایرانی را کشف کنید. اگر شما هم کار اوپن‌سورس کرده‌اید،
-                  به احتمال زیاد اسم خود را سایت پیدا خواهید کرد!
+                  به احتمال زیاد اسم خود را در سایت پیدا خواهید کرد!
                 </p>
                 <div className="mt-8 sm:mt-12">
                   <div className="mt-3 space-x-3 space-x-reverse">

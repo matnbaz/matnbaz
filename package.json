@@ -51,7 +51,7 @@
     "graphql-query-complexity": "^0.11.0",
     "instagram-web-api": "^2.2.2",
     "ioredis": "^4.28.2",
-    "marked": "^4.0.5",
+    "marked": "^4.0.10",
     "nest-commander": "^2.3.4",
     "nestjs-octokit": "^0.1.2",
     "nestjs-prisma": "^0.14.3",

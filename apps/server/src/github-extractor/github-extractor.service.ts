@@ -135,7 +135,7 @@ export class GithubExtractorService {
             },
           ],
         },
-        select: { id: true, login: true },
+        select: { id: true, login: true, nodeId: true },
         cursor: lastOwnerId && { id: lastOwnerId },
         take: 100,
       })) {
@@ -152,8 +152,11 @@ export class GithubExtractorService {
   }
 
   private async extract(ownerIdInfo: { nodeId?: string; login: string }) {
-    const nodeId =
-      ownerIdInfo.nodeId || (await this.getNodeIdFromLogin(ownerIdInfo.login));
+    let nodeId = ownerIdInfo.nodeId;
+
+    if (!nodeId) {
+      nodeId = await this.getNodeIdFromLogin(ownerIdInfo.login);
+    }
 
     return Promise.race([
       new Promise<void>((resolve) => {
@@ -173,37 +176,44 @@ export class GithubExtractorService {
             const owner = response.node;
             const repos = owner.repositories.edges;
 
-            return this.populateOwner(owner).then((ownerFromDb) => {
-              return Promise.all(
-                repos.map(
-                  ({ node: repo }) =>
-                    new Promise<void>((_resolve) => {
-                      // Disqualified (low stars)
-                      if (repo.stargazerCount < MINIMUM_STARS)
-                        return _resolve();
+            return this.populateOwner(owner)
+              .then((ownerFromDb) => {
+                return Promise.all(
+                  repos.map(
+                    ({ node: repo }) =>
+                      new Promise<void>((_resolve) => {
+                        // Disqualified (low stars)
+                        if (repo.stargazerCount < MINIMUM_STARS)
+                          return _resolve();
 
-                      // Disqualified (description too long)
-                      if (repo.description && repo.description.length > 512)
-                        return _resolve();
+                        // Disqualified (description too long)
+                        if (repo.description && repo.description.length > 512)
+                          return _resolve();
 
-                      this.populateRepo(repo, ownerFromDb.id)
-                        .then((repoInDb) => {
-                          if (repoInDb)
-                            this.readmeExtractor
-                              .extractReadme(repoInDb.id)
-                              .finally(() => _resolve());
-                        })
-                        .catch((e) => _resolve());
-                    })
+                        this.populateRepo(repo, ownerFromDb.id)
+                          .then((repoInDb) => {
+                            if (repoInDb)
+                              this.readmeExtractor
+                                .extractReadme(repoInDb.id)
+                                .finally(() => _resolve());
+                          })
+                          .catch((e) => _resolve());
+                      })
+                  )
                 )
-              )
-                .then(() => resolve())
-                .catch((e) => resolve());
-            });
+                  .then(() => resolve())
+                  .catch((e) => resolve());
+              })
+              .catch((e) => {
+                this.logger.error(
+                  `Error occurred while extracting populating owner ${ownerIdInfo.login}. ${e.message}`
+                );
+                resolve();
+              });
           })
           .catch((e) => {
             this.logger.error(
-              `Error occured while extracting repos for ${ownerIdInfo.login}. ${e.message}`
+              `Error occurred while extracting repos for ${ownerIdInfo.login}. ${e.message}`
             );
             resolve();
           });
@@ -436,10 +446,15 @@ export class GithubExtractorService {
     return currentStargazersCount - respectiveStatStarCount;
   }
 
-  private async getNodeIdFromLogin(login: string) {
+  private async getNodeIdFromLogin(login: string): Promise<string> {
     const response = await this.octokit.rest.users.getByUsername({
       username: login,
+      request: { timeout: 5000 },
     });
+
+    if (typeof response.data?.node_id !== 'string')
+      throw Error(`Could not resolve the node id for user ${login}`);
+
     return response.data.node_id;
   }
 }

@@ -40,6 +40,24 @@ export class SubmissionResolver {
       };
     }
 
+    if (
+      await this.prisma.submission.findFirst({
+        where: {
+          platform: 'GitHub',
+          username: { equals: username, mode: 'insensitive' },
+        },
+      })
+    ) {
+      return {
+        userErrors: [
+          {
+            message:
+              'در حال حاضر درخواستی برای اضافه شدن این کاربر ثبت شده است.',
+          },
+        ],
+      };
+    }
+
     if (!(await this.githubDiscovererService.validateOwner(username))) {
       this.logger.log(
         `Rejecting submitted user "${username}" due to validation failure`

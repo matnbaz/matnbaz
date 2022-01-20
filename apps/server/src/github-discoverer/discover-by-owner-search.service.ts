@@ -74,10 +74,10 @@ export class GithubDiscoverByOwnerSearchService {
       }
 
       if (
-        await this.githubDiscovererService.validateOwner(
+        !(await this.githubDiscovererService.validateOwner(
           owner.login,
           owner.type as OwnerType
-        )
+        ))
       ) {
         // Not validated
         continue;
