@@ -4,46 +4,46 @@ import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { createDateObject } from '../date/utils';
-import { RepositorySpotlightConnection } from '../models/connections/repository-spotlight.connection';
+import { RepositorySelectionConnection } from '../models/connections/repository-selection.connection';
 import { DateObject } from '../models/date.model';
-import { RepositorySpotlight } from '../models/repository-spotlight.model';
+import { RepositorySelection } from '../models/repository-selection.model';
 import { Repository } from '../models/repository.model';
 
-@Resolver(() => RepositorySpotlight)
-export class RepositorySpotlightResolver {
+@Resolver(() => RepositorySelection)
+export class RepositorySelectionResolver {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Query(() => RepositorySpotlightConnection)
-  spotlights(@Args() pagination: PaginationArgs) {
+  @Query(() => RepositorySelectionConnection)
+  selections(@Args() pagination: PaginationArgs) {
     return findManyCursorConnection(
       (args) =>
-        this.prisma.repositorySpotlight.findMany({
-          orderBy: { spotlightedAt: 'desc' },
-          where: { spotlightedAt: { not: null } },
+        this.prisma.repositorySelection.findMany({
+          orderBy: { selectionedAt: 'desc' },
+          where: { selectionedAt: { not: null } },
           ...args,
         }),
       () =>
-        this.prisma.repositorySpotlight.count({
-          where: { spotlightedAt: { not: null } },
+        this.prisma.repositorySelection.count({
+          where: { selectionedAt: { not: null } },
         }),
       pagination
     );
   }
 
   @ResolveField(() => [Repository])
-  repositories(@Parent() { id }: P.RepositorySpotlight) {
-    return this.prisma.repositorySpotlight
+  repositories(@Parent() { id }: P.RepositorySelection) {
+    return this.prisma.repositorySelection
       .findUnique({ where: { id } })
       .Repositories();
   }
 
   @ResolveField(() => DateObject)
-  createdAt(@Parent() { createdAt }: P.RepositorySpotlight) {
+  createdAt(@Parent() { createdAt }: P.RepositorySelection) {
     return createDateObject(createdAt);
   }
 
   @ResolveField(() => DateObject)
-  spotlightedAt(@Parent() { spotlightedAt }: P.RepositorySpotlight) {
-    return createDateObject(spotlightedAt);
+  selectionedAt(@Parent() { selectionedAt }: P.RepositorySelection) {
+    return createDateObject(selectionedAt);
   }
 }

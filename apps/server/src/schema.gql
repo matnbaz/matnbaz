@@ -256,7 +256,7 @@ type Query {
   repositoryById(id: ID!): Repository
   repositoryByPlatform(owner: String!, platform: PlatformType!, repo: String!): Repository
   repositoryByPlatformId(id: ID!, platform: PlatformType!): Repository
-  spotlights(after: String, before: String, first: Int, last: Int): RepositorySpotlightConnection!
+  selections(after: String, before: String, first: Int, last: Int): RepositorySelectionConnection!
   topic(name: String!): Topic
   topicById(id: ID!): Topic
   topics(after: String, before: String, first: Int, last: Int, order: TopicOrder): TopicConnection!
@@ -364,29 +364,29 @@ type RepositoryEdge {
   node: Repository!
 }
 
-type RepositorySpotlight implements Node {
+type RepositorySelection implements Node {
   createdAt: DateObject!
   description: String
   id: ID!
   repositories: [Repository!]!
-  spotlightedAt: DateObject!
+  selectionedAt: DateObject!
 }
 
-type RepositorySpotlightConnection {
+type RepositorySelectionConnection {
   """A list of edges"""
-  edges: [RepositorySpotlightEdge!]
+  edges: [RepositorySelectionEdge!]
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
 
-"""A RepositorySpotlight edge."""
-type RepositorySpotlightEdge {
+"""A RepositorySelection edge."""
+type RepositorySelectionEdge {
   """A cursor for use in pagination."""
   cursor: String!
 
-  """The item at the end of RepositorySpotlightEdge."""
-  node: RepositorySpotlight!
+  """The item at the end of RepositorySelectionEdge."""
+  node: RepositorySelection!
 }
 
 """A repository owner could any of these types."""

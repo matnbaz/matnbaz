@@ -2,17 +2,17 @@ import { persianNumbers } from '@matnbaz/common';
 import { Injectable } from '@nestjs/common';
 import { format } from 'date-fns-jalali';
 import * as puppeteer from 'puppeteer';
-import { SpotlightWithRepoAndOwner } from './repository-spotlight.types';
+import { SelectionWithRepoAndOwner } from './repository-selection.types';
 
 @Injectable()
-export class RepositorySpotlightPuppeteerService {
-  async generateRepositorySpotlightThumbnail(
+export class RepositorySelectionPuppeteerService {
+  async generateRepositorySelectionThumbnail(
     {
       description,
-      spotlightedAt,
+      selectionedAt,
       id,
       Repositories: repos,
-    }: SpotlightWithRepoAndOwner,
+    }: SelectionWithRepoAndOwner,
     square?: boolean
   ) {
     const width = square ? 960 : 1280;
@@ -109,7 +109,7 @@ export class RepositorySpotlightPuppeteerService {
             } منتخب</h1>
           </div>
           <h3 class="mt-6 text-4xl font-medium text-gray-700 leading-relaxed">
-            ${persianNumbers(format(spotlightedAt, 'EEEE y/M/d'))}
+            ${persianNumbers(format(selectionedAt, 'EEEE y/M/d'))}
           </h3>
         </div>
         <div class="self-center place-self-center ${

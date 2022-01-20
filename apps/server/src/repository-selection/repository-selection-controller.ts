@@ -11,13 +11,13 @@ import {
 import { Cache } from 'cache-manager';
 import { Response } from 'express';
 import { PrismaService } from 'nestjs-prisma';
-import { RepositorySpotlightPuppeteerService } from './repository-spotlight-puppeteer.service';
+import { RepositorySelectionPuppeteerService } from './repository-selection-puppeteer.service';
 
-@Controller('/repository-spotlights')
-export class RepositorySpotlightController {
+@Controller('/repository-selections')
+export class RepositorySelectionController {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly repositorySpotlightPuppeteerService: RepositorySpotlightPuppeteerService,
+    private readonly repositorySelectionPuppeteerService: RepositorySelectionPuppeteerService,
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache
   ) {}
 
@@ -31,24 +31,24 @@ export class RepositorySpotlightController {
     if (!['jpg', 'jpeg'].includes(format))
       throw new NotFoundException('We do not serve this image extension');
 
-    const repositorySpotlight =
-      await this.prisma.repositorySpotlight.findUnique({
+    const repositorySelection =
+      await this.prisma.repositorySelection.findUnique({
         where: { id },
         include: { Repositories: { include: { Owner: true } } },
       });
 
-    if (!repositorySpotlight)
+    if (!repositorySelection)
       throw new NotFoundException('The requested id does not exist.');
 
     response.setHeader('Content-Type', 'image/jpeg');
     const image = await this.cacheManager.wrap<string>(
-      `repositorySpotlightImage${isSquare ? 'Square' : ''}-${
-        repositorySpotlight.id
+      `repositorySelectionImage${isSquare ? 'Square' : ''}-${
+        repositorySelection.id
       }`,
       async () => {
         const buffer =
-          await this.repositorySpotlightPuppeteerService.generateRepositorySpotlightThumbnail(
-            repositorySpotlight,
+          await this.repositorySelectionPuppeteerService.generateRepositorySelectionThumbnail(
+            repositorySelection,
             isSquare
           );
         return buffer.toString('base64');

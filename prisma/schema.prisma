@@ -50,7 +50,7 @@ model Repository {
   CollectionWhitelists  CollectionWhitelist[]
   Statistics            RepositoryStatistic[]
   Topics                Topic[]
-  Spotlights            RepositorySpotlight[]
+  Selections            RepositorySelection[]
 
   @@unique([platform, platformId])
 }
@@ -217,10 +217,10 @@ model Collect {
   Repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
 }
 
-model RepositorySpotlight {
+model RepositorySelection {
   id              String       @id @default(cuid())
   createdAt       DateTime     @default(now())
-  spotlightedAt   DateTime?
+  selectionedAt   DateTime?
   Repositories    Repository[]
   description     String?
   sentOnInstagram Boolean      @default(false)

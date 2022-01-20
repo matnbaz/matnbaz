@@ -13,8 +13,8 @@ export const repositoryResource: Resource = ({
   },
   options: {
     actions: {
-      spotlight: {
-        name: 'spotlight',
+      selection: {
+        name: 'selection',
         isVisible: true,
         actionType: 'record',
         icon: 'Checkmark',
@@ -50,15 +50,15 @@ export const repositoryResource: Resource = ({
               resourceId: resource._decorated?.id() || resource.id(),
             }),
             notice: {
-              message: 'Successfully added to spotlight job.',
+              message: 'Successfully added to selection job.',
               type: 'success',
             },
           };
         },
       },
 
-      bulkSpotlight: {
-        name: 'bulkSpotlight',
+      bulkSelection: {
+        name: 'bulkSelection',
         isVisible: true,
         actionType: 'bulk',
         icon: 'Checkmark',
@@ -83,7 +83,7 @@ export const repositoryResource: Resource = ({
               record.toJSON(context.currentAdmin)
             ),
             notice: {
-              message: `Successfully added ${records.length} records to spotlight job.`,
+              message: `Successfully added ${records.length} records to selection job.`,
               type: 'success',
             },
             redirectUrl: h.resourceUrl({
