@@ -50,7 +50,7 @@ export class RepositorySelectionResolver {
   }
 
   @ResolveField(() => String)
-  name(@Parent() { issue }: P.RepositorySelection) {
+  title(@Parent() { issue }: P.RepositorySelection) {
     return `پروژه‌های منتخب #${persianNumbers(issue.toString())}`;
   }
 

@@ -372,8 +372,8 @@ type RepositorySelection implements Node {
   featuredAt: DateObject!
   id: ID!
   issue: Int!
-  name: String!
   repositories: [Repository!]!
+  title: String!
 }
 
 type RepositorySelectionConnection {
