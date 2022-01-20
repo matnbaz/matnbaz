@@ -220,7 +220,7 @@ model Collect {
 model RepositorySelection {
   id              String       @id @default(cuid())
   createdAt       DateTime     @default(now())
-  selectionedAt   DateTime?
+  featuredAt      DateTime?
   Repositories    Repository[]
   description     String?
   sentOnInstagram Boolean      @default(false)

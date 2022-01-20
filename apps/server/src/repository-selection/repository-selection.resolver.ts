@@ -25,13 +25,13 @@ export class RepositorySelectionResolver {
     return findManyCursorConnection(
       (args) =>
         this.prisma.repositorySelection.findMany({
-          orderBy: { selectionedAt: 'desc' },
-          where: { selectionedAt: { not: null } },
+          orderBy: { featuredAt: 'desc' },
+          where: { featuredAt: { not: null } },
           ...args,
         }),
       () =>
         this.prisma.repositorySelection.count({
-          where: { selectionedAt: { not: null } },
+          where: { featuredAt: { not: null } },
         }),
       pagination
     );
@@ -55,7 +55,7 @@ export class RepositorySelectionResolver {
   }
 
   @ResolveField(() => DateObject)
-  selectionedAt(@Parent() { selectionedAt }: P.RepositorySelection) {
-    return createDateObject(selectionedAt);
+  featuredAt(@Parent() { featuredAt }: P.RepositorySelection) {
+    return createDateObject(featuredAt);
   }
 }

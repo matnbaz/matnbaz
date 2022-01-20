@@ -368,9 +368,9 @@ type RepositoryEdge {
 type RepositorySelection implements Node {
   createdAt: DateObject!
   description: String
+  featuredAt: DateObject!
   id: ID!
   repositories: [Repository!]!
-  selectionedAt: DateObject!
 }
 
 type RepositorySelectionConnection {

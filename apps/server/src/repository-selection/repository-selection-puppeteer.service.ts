@@ -9,7 +9,7 @@ export class RepositorySelectionPuppeteerService {
   async generateRepositorySelectionThumbnail(
     {
       description,
-      selectionedAt,
+      featuredAt,
       id,
       Repositories: repos,
     }: SelectionWithRepoAndOwner,
@@ -109,7 +109,7 @@ export class RepositorySelectionPuppeteerService {
             } منتخب</h1>
           </div>
           <h3 class="mt-6 text-4xl font-medium text-gray-700 leading-relaxed">
-            ${persianNumbers(format(selectionedAt, 'EEEE y/M/d'))}
+            ${persianNumbers(format(featuredAt, 'EEEE y/M/d'))}
           </h3>
         </div>
         <div class="self-center place-self-center ${

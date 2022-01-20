@@ -24,7 +24,7 @@ export class RepositorySelectionService {
 
   async selectionNextSeries() {
     const selection = await this.prisma.repositorySelection.findFirst({
-      where: { selectionedAt: null },
+      where: { featuredAt: null },
       orderBy: { createdAt: 'desc' },
     });
 
@@ -39,7 +39,7 @@ export class RepositorySelectionService {
   async selection(id: string) {
     const selection = await this.prisma.repositorySelection.update({
       where: { id },
-      data: { selectionedAt: new Date() },
+      data: { featuredAt: new Date() },
       include: { Repositories: { include: { Owner: true } } },
     });
 
