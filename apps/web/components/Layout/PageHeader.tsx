@@ -18,7 +18,7 @@ export const PageHeader = ({
         visuallyHidden && 'invisible absolute pointer-events-none'
       )}
     >
-      <h1 className="text-4xl font-bold text-center">{title}</h1>
+      <h1 className="text-4xl font-extrabold text-center">{title}</h1>
       {description && (
         <p className="mt-4 text-secondary text-center max-w-md mx-auto">
           {description}
