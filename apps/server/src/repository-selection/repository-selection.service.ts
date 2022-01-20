@@ -99,7 +99,11 @@ export class RepositorySelectionService {
   }
 
   private async sendToInstagram(selection: SelectionWithRepoAndOwner) {
-    await this.monomedia.instagram.sendPhoto(this.createMessage(selection));
+    // TODO: get matnbaz.net from an env variable
+    await this.monomedia.instagram.sendPhoto(
+      `https://matnbaz.net/repository-selections/${selection.id}.jpg?square=true`,
+      this.createMessage(selection)
+    );
 
     await this.prisma.repositorySelection.update({
       where: { id: selection.id },
