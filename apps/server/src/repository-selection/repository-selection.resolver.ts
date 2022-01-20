@@ -1,5 +1,6 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
+import { persianNumbers } from '@matnbaz/common';
 import {
   Args,
   ID,
@@ -40,6 +41,11 @@ export class RepositorySelectionResolver {
   @Query(() => RepositorySelection, { nullable: true })
   selection(@Args('id', { type: () => ID }) id: string) {
     return this.prisma.repositorySelection.findUnique({ where: { id } });
+  }
+
+  @ResolveField(() => String)
+  name(@Parent() { issue }: P.RepositorySelection) {
+    return `پروژه‌های منتخب #${persianNumbers(issue)}`;
   }
 
   @ResolveField(() => [Repository])
