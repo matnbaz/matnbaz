@@ -7,12 +7,7 @@ import { SelectionWithRepoAndOwner } from './repository-selection.types';
 @Injectable()
 export class RepositorySelectionPuppeteerService {
   async generateRepositorySelectionThumbnail(
-    {
-      description,
-      featuredAt,
-      id,
-      Repositories: repos,
-    }: SelectionWithRepoAndOwner,
+    { issue, featuredAt, id, Repositories: repos }: SelectionWithRepoAndOwner,
     square?: boolean
   ) {
     const width = square ? 960 : 1280;
@@ -104,16 +99,16 @@ export class RepositorySelectionPuppeteerService {
             square ? 'justify-center' : ''
           }">
             <!-- <div class="bg-primary-500 w-14 h-14 rounded-full flex-shrink-0"></div> -->
-            <h1 class="text-7xl font-extrabold">پروژه${
+            <h1 class="text-6xl font-extrabold">پروژه${
               repos.length > 1 ? '‌های' : ''
-            } منتخب</h1>
+            } منتخب #${persianNumbers(issue)}</h1>
           </div>
           <h3 class="mt-6 text-4xl font-medium text-gray-700 leading-relaxed">
             ${persianNumbers(format(featuredAt, 'EEEE y/M/d'))}
           </h3>
         </div>
         <div class="self-center place-self-center ${
-          square ? 'mx-auto' : 'mr-auto'
+          square ? 'mx-auto px-10' : 'mr-auto'
         }">
             <div class="grid gap-4 ${repos.length > 6 ? 'grid-cols-2' : ''} ${
       square ? 'max-h-[50vh]' : ''
@@ -133,7 +128,7 @@ export class RepositorySelectionPuppeteerService {
                 } break-words" />
             <div>
               <h4 class="text-[${
-                repos.length === 1 ? 50 : Math.max(90 / repos.length, 16)
+                repos.length === 1 ? 50 : Math.max(74 / repos.length, 16)
               }px] font-bold">${name}</h4>
               <h5 class="text-[${
                 repos.length === 1 ? 32 : Math.max(52 / repos.length, 10)
