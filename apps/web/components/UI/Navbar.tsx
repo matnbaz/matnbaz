@@ -113,7 +113,7 @@ export const Navbar = ({ className }: INavbarProps) => {
         <div
           className={classNames(
             menuOpen ? 'block' : 'hidden',
-            'md:hidden border-b border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700'
+            'md:hidden divide-y divide-gray-100 dark:divide-gray-700'
           )}
         >
           {links.map(({ name, to, external }, index) => (
