@@ -1,60 +1,57 @@
 import { useMemo } from 'react';
 import { InfiniteScroll } from '../Feature/InfiniteScroll';
-import { RepositoryPreviewSkeletonLoader } from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
-import {
-  IRepositoryPreviewProps,
-  RepositoryPreview,
-} from './RepositoryPreview';
+import { SelectionPreviewSkeletonLoader } from '../Skeleton Loader/SelectionPreviewSkeletonLoader';
+import { ISelectionPreviewProps, SelectionPreview } from './SelectionPreview';
 
-interface IRepositoryPreviewListProps {
-  repositories: IRepositoryPreviewProps['repository'][];
+interface ISelectionPreviewListProps {
+  selections: ISelectionPreviewProps['selection'][];
   adsFrequency?: number;
   adsTemplate?: () => JSX.Element;
   loading?: boolean;
 }
 
-export interface IRepositoryPreviewListPropsWithoutPagination
-  extends IRepositoryPreviewListProps {
+export interface ISelectionPreviewListPropsWithoutPagination
+  extends ISelectionPreviewListProps {
   networkStatus?: never;
   called?: never;
   onLoadMore?: never;
 }
 
-export interface IRepositoryPreviewListPropsWithPagination
-  extends IRepositoryPreviewListProps {
+export interface ISelectionPreviewListPropsWithPagination
+  extends ISelectionPreviewListProps {
   loading: boolean;
   onLoadMore?: () => void;
   networkStatus?: number;
   called?: boolean;
 }
 
-export const RepositoryPreviewList = ({
+export const SelectionPreviewList = ({
   loading,
   networkStatus = 0,
   called = true,
-  repositories,
+  selections,
   adsFrequency,
   adsTemplate,
   onLoadMore,
 }:
-  | IRepositoryPreviewListPropsWithPagination
-  | IRepositoryPreviewListPropsWithoutPagination) => {
+  | ISelectionPreviewListPropsWithPagination
+  | ISelectionPreviewListPropsWithoutPagination) => {
   const mappedRepositories = useMemo(() => {
-    return repositories?.map((repository, index) => (
+    return selections?.map((selection, index) => (
       <>
-        <RepositoryPreview padded repository={repository} key={repository.id} />
+        <SelectionPreview padded selection={selection} key={selection.id} />
         {index !== 1 &&
           adsFrequency &&
           (index + 1) % adsFrequency === 0 &&
           adsTemplate()}
       </>
     ));
-  }, [repositories]);
+  }, [selections]);
 
   const skeletonLoaders = useMemo(
     () =>
       [...Array(8).keys()].map((number) => (
-        <RepositoryPreviewSkeletonLoader padded key={number} />
+        <SelectionPreviewSkeletonLoader padded key={number} />
       )),
     []
   );
@@ -63,7 +60,7 @@ export const RepositoryPreviewList = ({
   return onLoadMore ? (
     <InfiniteScroll
       onLoadMore={onLoadMore}
-      dataLength={repositories?.length || 0}
+      dataLength={selections?.length || 0}
     >
       {
         // Network status 4 is when refetch gets called and network status 3 is for when fetchMore gets called
@@ -76,7 +73,7 @@ export const RepositoryPreviewList = ({
         : mappedRepositories}
       {networkStatus === 3 &&
         [...Array(2).keys()].map((number) => (
-          <RepositoryPreviewSkeletonLoader padded key={number} />
+          <SelectionPreviewSkeletonLoader padded key={number} />
         ))}
     </InfiniteScroll>
   ) : (

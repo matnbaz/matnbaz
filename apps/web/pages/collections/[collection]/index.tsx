@@ -88,7 +88,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
               called={called}
               loading={loading}
               repositories={collection.collects.edges.map(
-                ({ node: { repository } }) => ({ node: repository })
+                (collect) => collect.node.repository
               )}
               onLoadMore={repositoriesLoadMoreHandler}
               adsFrequency={7}

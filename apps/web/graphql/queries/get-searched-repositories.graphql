@@ -2,11 +2,7 @@ query GetSearchedRepositories($first: Int = 5, $searchTerm: String) {
   repositories(first: $first, searchTerm: $searchTerm) {
     edges {
       node {
-        id
-        fullName
-        platformUrl
-        platform
-        descriptionLimited
+        ...repoPreview
       }
     }
   }

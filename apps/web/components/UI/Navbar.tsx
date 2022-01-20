@@ -17,9 +17,9 @@ export interface INavbarProps {
 const links: { name: string; to: string; external?: boolean }[] = [
   { name: 'کاوش‌گر', to: '/explore' },
   { name: 'کالکشن‌ها', to: '/collections' },
+  { name: 'پروژه‌های منتخب', to: '/selections' },
   { name: 'ثبت کاربر', to: '/submit-user' },
   { name: 'درباره', to: '/about' },
-  { name: 'پرسش‌های متداول', to: '/faq' },
 ];
 
 export const Navbar = ({ className }: INavbarProps) => {

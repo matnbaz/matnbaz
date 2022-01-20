@@ -83,7 +83,7 @@ const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
             networkStatus={networkStatus}
             called={called}
             loading={loading}
-            repositories={owner.repositories.edges}
+            repositories={owner.repositories.edges.map((edge) => edge.node)}
             onLoadMore={repositoriesLoadMoreHandler}
           />
         </div>

@@ -90,7 +90,7 @@ const Explore: NextPage = () => {
               loading={loading}
               networkStatus={networkStatus}
               called={called}
-              repositories={repositories}
+              repositories={repositories.map((edge) => edge.node)}
               onLoadMore={repositoriesLoadMoreHandler}
               adsFrequency={10}
               adsTemplate={() => (
