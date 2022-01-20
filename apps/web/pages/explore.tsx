@@ -48,10 +48,13 @@ const Explore: NextPage = () => {
     <MainLayout withoutFooter={!error}>
       <NextSeo
         title="کاوش‌گر"
-        description="پروژه های اوپن‌سورس (Open-Source) مختلف ایرانی را کشف کنید."
+        description="با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اوپن‌سورس/متن‌باز ایرانی را کشف کنید."
       />
 
-      <PageHeader title="کاوش‌گر" />
+      <PageHeader
+        title="کاوش‌گر"
+        description="با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اوپن‌سورس ایرانی را کشف کنید."
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-6 pb-6 gap-6 max-w-6xl mx-auto auto-rows-min auto-cols-min">
         <div className="md:col-span-2">
@@ -68,7 +71,7 @@ const Explore: NextPage = () => {
             </div>
           </div>
         </div>
-        {data?.repositories?.edges.length === 0 ? (
+        {!data?.repositories?.edges.length ? (
           <div className="flex flex-col space-y-4 md:col-span-4">
             <h1 className="text-2xl font-semibold">نتیجه ای یافت نشد.</h1>
             <span className="font-lg">
@@ -90,7 +93,7 @@ const Explore: NextPage = () => {
               loading={loading}
               networkStatus={networkStatus}
               called={called}
-              repositories={repositories}
+              repositories={repositories.map((edge) => edge.node)}
               onLoadMore={repositoriesLoadMoreHandler}
               adsFrequency={10}
               adsTemplate={() => (

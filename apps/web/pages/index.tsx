@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
 import Image from 'next/image';
 import { CSSProperties, HTMLAttributes, PropsWithChildren } from 'react';
+import { AiFillStar } from 'react-icons/ai';
 import { HiChevronDown } from 'react-icons/hi';
 import { MainLayout } from '../components/Layout/MainLayout';
 import { FeaturedRepositoriesFromGithub } from '../components/Repository/FeaturedRepositoriesFromGithub';
@@ -35,7 +36,7 @@ const Index: NextPage = () => {
       />
 
       <LogoJsonLd
-        logo="https://matnbaz.net/social-logo.png"
+        logo="https://github.com/matnbaz/visual-identity/blob/main/readme-logo.png"
         url="https://matnbaz.net"
       />
 
@@ -250,6 +251,36 @@ const Index: NextPage = () => {
                     name="Rust"
                     imageSrc="https://simpleicons.org/icons/rust.svg"
                   />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
+            <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
+              <div className="sm:col-start-2">
+                <h3 className="inline-flex items-center text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
+                  پروژه‌های منتخب
+                  <span className="mr-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary-100 text-primary-800 dark:bg-primary-600 dark:text-primary-100">
+                    جدید
+                  </span>
+                </h3>
+                <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                  هر آخر هفته در متن‌باز پروژه‌هایی به عنوان پروژه‌های منتخب
+                  انتخاب شده و در سایت و شبکه‌های اجتماعی متن‌باز قرار می‌گیرند.
+                </p>
+                <div className="mt-4">
+                  <Button.Primary href="/selections" size="lg">
+                    مشاهده پروژه‌های منتخب
+                  </Button.Primary>
+                </div>
+              </div>
+
+              <div className="sm:col-start-1">
+                <div className="flex items-center justify-center overflow-hidden mx-auto">
+                  <AiFillStar className="text-blue-500 w-16 h-16 sm:w-24 sm:h-24" />
+                  <AiFillStar className="text-blue-500 w-32 h-32 sm:w-40 sm:h-40" />
+                  <AiFillStar className="text-blue-500 w-16 h-16 sm:w-24 sm:h-24" />
                 </div>
               </div>
             </div>

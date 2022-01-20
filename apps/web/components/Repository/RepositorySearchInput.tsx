@@ -109,7 +109,7 @@ export const RepositorySearchInput = () => {
           debouncedSearchTerm !== searchTerm ? (
             <RepositoryPreviewList
               loading={loading || debouncedSearchTerm !== searchTerm}
-              repositories={data?.repositories?.edges}
+              repositories={data?.repositories?.edges.map((edge) => edge.node)}
             />
           ) : (
             <span className="text-secondary">نتیجه ای یافت نشد.</span>

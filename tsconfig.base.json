@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@matnbaz/common": ["libs/common/src/index.ts"]
+      "@matnbaz/common": ["libs/common/src/index.ts"],
+      "@matnbaz/monomedia": ["libs/monomedia/src/index.ts"],
+      "@matnbaz/telegraf": ["libs/telegraf/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

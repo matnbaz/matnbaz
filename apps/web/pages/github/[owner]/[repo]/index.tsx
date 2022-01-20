@@ -105,6 +105,9 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
                 },
           ],
         }}
+        twitter={{
+          cardType: repo.openGraphImageUrl ? 'summary' : 'summary_large_image',
+        }}
       />
       <div
         className="relative flex items-center md:h-[30rem] w-full"
@@ -196,7 +199,9 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
           <div className="flex flex-col space-y-6 col-span-1 lg:col-span-2">
             <h1 className="text-base text-secondary">پروژه‌های مشابه</h1>
             {repo.relatedRepos.edges.length > 0 ? (
-              <RepositoryPreviewList repositories={repo.relatedRepos.edges} />
+              <RepositoryPreviewList
+                repositories={repo.relatedRepos.edges.map((edge) => edge.node)}
+              />
             ) : (
               <div className="text-gray-500 dark:text-gray-400 text-sm">
                 پروژه ای یافت نشد.

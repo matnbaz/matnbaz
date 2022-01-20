@@ -1,3 +1,4 @@
+import { MonomediaModule } from '@matnbaz/monomedia';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
@@ -26,6 +27,7 @@ import { MetadataModule } from '../metadata/metadata.module';
 import { OwnerModule } from '../owner/owner.module';
 import { ComplexityPlugin } from '../plugins/complexity.plugin';
 import { ReportModule } from '../report/report.module';
+import { RepositorySelectionModule } from '../repository-selection/repository-selection.module';
 import { RepositoryModule } from '../repository/repository.module';
 import { SubmissionModule } from '../submission/submission.module';
 import { TopicModule } from '../topic/topic.module';
@@ -97,6 +99,27 @@ import { AppService } from './app.service';
         },
       }),
     }),
+    MonomediaModule.forRoot({
+      isGlobal: true,
+      discord: {
+        webhookUrl: process.env.DISCORD_WEBHOOK_URL,
+        botImage:
+          'https://raw.githubusercontent.com/matnbaz/visual-identity/main/social.jpg',
+        botName: 'Matnbaz',
+      },
+      telegram: {
+        channelUsername: process.env.TELEGRAM_CHANNEL_USERNAME,
+        botToken: process.env.TELEGRAM_BOT_TOKEN,
+      },
+      twitter: {
+        username: process.env.TWITTER_USERNAME,
+        password: process.env.TWITTER_PASSWORD,
+      },
+      instagram: {
+        username: process.env.INSTAGRAM_USERNAME,
+        password: process.env.INSTAGRAM_PASSWORD,
+      },
+    }),
     GithubDiscovererModule,
     GithubExtractorModule,
     LanguageModule,
@@ -111,6 +134,7 @@ import { AppService } from './app.service';
     MetadataModule,
     CollectionModule,
     CollectModule,
+    RepositorySelectionModule,
   ],
   controllers: [AppController],
   providers: [

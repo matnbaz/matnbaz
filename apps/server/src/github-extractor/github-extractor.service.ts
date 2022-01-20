@@ -24,9 +24,11 @@ query ($id: ID!) {
         totalCount
       }
       databaseId
+      twitterUsername
     }
     ... on Organization {
       databaseId
+      twitterUsername
     }
     ... on RepositoryOwner {
       id
@@ -344,6 +346,7 @@ export class GithubExtractorService {
     databaseId,
     contributionsCollection,
     followers,
+    twitterUsername,
     __typename,
   }: {
     id: string;
@@ -354,6 +357,7 @@ export class GithubExtractorService {
         totalContributions: number;
       };
     };
+    twitterUsername;
     followers?: { totalCount: number };
     __typename: 'Organization' | 'User';
   }) {
@@ -369,6 +373,7 @@ export class GithubExtractorService {
         login,
         platform: 'GitHub',
         platformId: databaseId.toString(),
+        twitterUsername,
         type: __typename,
         latestExtractionAt: new Date(),
       },
@@ -377,6 +382,7 @@ export class GithubExtractorService {
         login,
         platform: 'GitHub',
         platformId: databaseId.toString(),
+        twitterUsername,
         type: __typename,
         latestExtractionAt: new Date(),
       },

@@ -50,6 +50,7 @@ model Repository {
   CollectionWhitelists  CollectionWhitelist[]
   Statistics            RepositoryStatistic[]
   Topics                Topic[]
+  Selections            RepositorySelection[]
 
   @@unique([platform, platformId])
 }
@@ -104,6 +105,7 @@ model Owner {
   recordUpdatedAt     DateTime         @updatedAt
   blockedAt           DateTime?
   latestExtractionAt  DateTime?
+  twitterUsername     String?
   Repositories        Repository[]
   Collections         Collection[]     @relation("owners")
   CollectionsExcluded Collection[]     @relation("owners_excluded")
@@ -213,6 +215,19 @@ model Collect {
   createdAt    DateTime   @default(now())
   Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
   Repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+}
+
+model RepositorySelection {
+  id              String       @id @default(cuid())
+  issue           Int          @unique @default(autoincrement())
+  createdAt       DateTime     @default(now())
+  featuredAt      DateTime?
+  Repositories    Repository[]
+  description     String?
+  sentOnInstagram Boolean      @default(false)
+  sentOnTelegram  Boolean      @default(false)
+  sentOnTwitter   Boolean      @default(false)
+  sentOnDiscord   Boolean      @default(false)
 }
 
 enum OwnerType {

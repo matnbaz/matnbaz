@@ -1,16 +1,13 @@
 import { useMemo } from 'react';
-import {
-  GetRepositoriesQuery,
-  GetSearchedRepositoriesQuery,
-} from '../../lib/graphql-types';
 import { InfiniteScroll } from '../Feature/InfiniteScroll';
 import { RepositoryPreviewSkeletonLoader } from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
-import { RepositoryPreview } from './RepositoryPreview';
+import {
+  IRepositoryPreviewProps,
+  RepositoryPreview,
+} from './RepositoryPreview';
 
 interface IRepositoryPreviewListProps {
-  repositories:
-    | GetRepositoriesQuery['repositories']['edges']
-    | GetSearchedRepositoriesQuery['repositories']['edges'];
+  repositories: IRepositoryPreviewProps['repository'][];
   adsFrequency?: number;
   adsTemplate?: () => JSX.Element;
   loading?: boolean;
@@ -45,11 +42,7 @@ export const RepositoryPreviewList = ({
   const mappedRepositories = useMemo(() => {
     return repositories?.map((repository, index) => (
       <>
-        <RepositoryPreview
-          padded
-          repository={repository.node}
-          key={repository.node.id}
-        />
+        <RepositoryPreview padded repository={repository} key={repository.id} />
         {index !== 1 &&
           adsFrequency &&
           (index + 1) % adsFrequency === 0 &&

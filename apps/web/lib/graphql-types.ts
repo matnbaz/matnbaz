@@ -321,6 +321,9 @@ export type Query = {
   repositoryById?: Maybe<Repository>;
   repositoryByPlatform?: Maybe<Repository>;
   repositoryByPlatformId?: Maybe<Repository>;
+  selection?: Maybe<RepositorySelection>;
+  selectionByIssue?: Maybe<RepositorySelection>;
+  selections: RepositorySelectionConnection;
   topic?: Maybe<Topic>;
   topicById?: Maybe<Topic>;
   topics: TopicConnection;
@@ -420,6 +423,24 @@ export type QueryRepositoryByPlatformArgs = {
 export type QueryRepositoryByPlatformIdArgs = {
   id: Scalars['ID'];
   platform: PlatformType;
+};
+
+
+export type QuerySelectionArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QuerySelectionByIssueArgs = {
+  issue: Scalars['Int'];
+};
+
+
+export type QuerySelectionsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -544,6 +565,34 @@ export type RepositoryEdge = {
   cursor: Scalars['String'];
   /** The item at the end of RepositoryEdge. */
   node: Repository;
+};
+
+export type RepositorySelection = Node & {
+  __typename?: 'RepositorySelection';
+  createdAt: DateObject;
+  description?: Maybe<Scalars['String']>;
+  featuredAt: DateObject;
+  id: Scalars['ID'];
+  issue: Scalars['Int'];
+  repositories: Array<Repository>;
+  title: Scalars['String'];
+};
+
+export type RepositorySelectionConnection = {
+  __typename?: 'RepositorySelectionConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<RepositorySelectionEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A RepositorySelection edge. */
+export type RepositorySelectionEdge = {
+  __typename?: 'RepositorySelectionEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of RepositorySelectionEdge. */
+  node: RepositorySelection;
 };
 
 /** A repository owner could any of these types. */
@@ -707,7 +756,22 @@ export type GetSearchedRepositoriesQueryVariables = Exact<{
 }>;
 
 
-export type GetSearchedRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined } }> | null | undefined } };
+export type GetSearchedRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined } };
+
+export type GetSelectionQueryVariables = Exact<{
+  issue: Scalars['Int'];
+}>;
+
+
+export type GetSelectionQuery = { __typename?: 'Query', selectionByIssue?: { __typename?: 'RepositorySelection', id: string, title: string, issue: number, description?: string | null | undefined, createdAt: { __typename?: 'DateObject', formatted: string }, featuredAt: { __typename?: 'DateObject', formatted: string }, repositories: Array<{ __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined }> } | null | undefined };
+
+export type GetSelectionsQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetSelectionsQuery = { __typename?: 'Query', selections: { __typename?: 'RepositorySelectionConnection', edges?: Array<{ __typename?: 'RepositorySelectionEdge', node: { __typename?: 'RepositorySelection', id: string, title: string, issue: number, description?: string | null | undefined, createdAt: { __typename?: 'DateObject', formatted: string }, featuredAt: { __typename?: 'DateObject', formatted: string } } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
 
 export type MetadataQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1178,16 +1242,12 @@ export const GetSearchedRepositoriesDocument = gql`
   repositories(first: $first, searchTerm: $searchTerm) {
     edges {
       node {
-        id
-        fullName
-        platformUrl
-        platform
-        descriptionLimited
+        ...repoPreview
       }
     }
   }
 }
-    `;
+    ${RepoPreviewFragmentDoc}`;
 
 /**
  * __useGetSearchedRepositoriesQuery__
@@ -1217,6 +1277,106 @@ export function useGetSearchedRepositoriesLazyQuery(baseOptions?: Apollo.LazyQue
 export type GetSearchedRepositoriesQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesQuery>;
 export type GetSearchedRepositoriesLazyQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesLazyQuery>;
 export type GetSearchedRepositoriesQueryResult = Apollo.QueryResult<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>;
+export const GetSelectionDocument = gql`
+    query GetSelection($issue: Int!) {
+  selectionByIssue(issue: $issue) {
+    id
+    title
+    issue
+    description
+    createdAt {
+      formatted
+    }
+    featuredAt {
+      formatted
+    }
+    repositories {
+      ...repoPreview
+    }
+  }
+}
+    ${RepoPreviewFragmentDoc}`;
+
+/**
+ * __useGetSelectionQuery__
+ *
+ * To run a query within a React component, call `useGetSelectionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSelectionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSelectionQuery({
+ *   variables: {
+ *      issue: // value for 'issue'
+ *   },
+ * });
+ */
+export function useGetSelectionQuery(baseOptions: Apollo.QueryHookOptions<GetSelectionQuery, GetSelectionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSelectionQuery, GetSelectionQueryVariables>(GetSelectionDocument, options);
+      }
+export function useGetSelectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSelectionQuery, GetSelectionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSelectionQuery, GetSelectionQueryVariables>(GetSelectionDocument, options);
+        }
+export type GetSelectionQueryHookResult = ReturnType<typeof useGetSelectionQuery>;
+export type GetSelectionLazyQueryHookResult = ReturnType<typeof useGetSelectionLazyQuery>;
+export type GetSelectionQueryResult = Apollo.QueryResult<GetSelectionQuery, GetSelectionQueryVariables>;
+export const GetSelectionsDocument = gql`
+    query GetSelections($first: Int = 12, $after: String) {
+  selections(first: $first, after: $after) {
+    edges {
+      node {
+        id
+        title
+        issue
+        description
+        createdAt {
+          formatted
+        }
+        featuredAt {
+          formatted
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSelectionsQuery__
+ *
+ * To run a query within a React component, call `useGetSelectionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSelectionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSelectionsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *   },
+ * });
+ */
+export function useGetSelectionsQuery(baseOptions?: Apollo.QueryHookOptions<GetSelectionsQuery, GetSelectionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSelectionsQuery, GetSelectionsQueryVariables>(GetSelectionsDocument, options);
+      }
+export function useGetSelectionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSelectionsQuery, GetSelectionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSelectionsQuery, GetSelectionsQueryVariables>(GetSelectionsDocument, options);
+        }
+export type GetSelectionsQueryHookResult = ReturnType<typeof useGetSelectionsQuery>;
+export type GetSelectionsLazyQueryHookResult = ReturnType<typeof useGetSelectionsLazyQuery>;
+export type GetSelectionsQueryResult = Apollo.QueryResult<GetSelectionsQuery, GetSelectionsQueryVariables>;
 export const MetadataDocument = gql`
     query Metadata {
   metadata {
@@ -1269,6 +1429,7 @@ export type MetadataQueryResult = Apollo.QueryResult<MetadataQuery, MetadataQuer
       "Owner",
       "Report",
       "Repository",
+      "RepositorySelection",
       "Submission",
       "Topic"
     ]
