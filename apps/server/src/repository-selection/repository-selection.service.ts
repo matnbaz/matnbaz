@@ -131,7 +131,7 @@ export class RepositorySelectionService {
     )}`; // پروژه [های] منتخب #۲
 
     text += ` - ${persianNumbers(format(new Date(), 'EEEE y/M/d'))}`;
-    text += ' 🔹\n\n';
+    text += ' 🔹\n';
 
     // for (const repo of repos) {
     //   text += `${repo.Owner.login}/${repo.name}`;
@@ -143,7 +143,7 @@ export class RepositorySelectionService {
     // }
 
     if (selection.description) {
-      text += selection.description + '\n';
+      text += '\n' + selection.description + '\n';
     }
 
     if (tagTwitter) {
