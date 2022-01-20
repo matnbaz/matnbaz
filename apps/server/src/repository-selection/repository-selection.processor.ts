@@ -10,12 +10,21 @@ export class RepositorySelectionProcessor {
   private logger = new Logger(RepositorySelectionProcessor.name);
 
   @Process(MAIN_PROCESSES.ADD_SELECTION)
-  async addSelectionRepo(job: Job<{ repos: string[]; description?: string }>) {
+  async addSelectionProcess(
+    job: Job<{ repos: string[]; description?: string }>
+  ) {
     this.logger.log(`Starting the process for "add selection repo"...`);
 
     await this.selectionService.addSelectionRepo(
       job.data.repos,
       job.data.description
     );
+  }
+
+  @Process(MAIN_PROCESSES.FEATURE_SELECTION)
+  async featureSelectionProcess(job: Job<{ id: string }>) {
+    this.logger.log(`Starting the process of "featuring selection"...`);
+
+    await this.selectionService.featureSelection(job.data.id);
   }
 }

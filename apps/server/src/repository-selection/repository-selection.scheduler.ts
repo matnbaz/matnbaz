@@ -10,6 +10,6 @@ export class RepositorySelectionScheduler {
   @Cron('0 21 * * 4-5') // At 21:00 on every day-of-week from Thursday through Friday.
   async selectionNextSeries() {
     this.logger.log(`The cronjob to selection the next series was called...`);
-    await this.selectionService.selectionNextSeries();
+    await this.selectionService.featureNextSelection();
   }
 }

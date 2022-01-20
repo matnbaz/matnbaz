@@ -78,7 +78,9 @@ export class RepositorySelectionService {
   }
 
   private async sendToTelegram(selection: SelectionWithRepoAndOwner) {
-    await this.monomedia.telegram.sendMessage(this.createMessage(selection));
+    await this.monomedia.telegram.sendMessage(
+      this.createMessage(selection, true)
+    );
 
     await this.prisma.repositorySelection.update({
       where: { id: selection.id },
@@ -113,22 +115,36 @@ export class RepositorySelectionService {
     const repos = selection.Repositories;
     let text = '🔹 ';
     if (repos.length === 0) throw new Error('No repository was provided.');
-    else if (repos.length === 1) {
-      text += 'پروژه منتخب امروز';
-    } else {
-      text += 'پروژه‌های منتخب امروز';
-    }
+
+    text += `پروژه${repos.length > 1 ? '‌های' : ''} منتخب #${persianNumbers(
+      selection.issue.toString()
+    )}`; // پروژه [های] منتخب #۲
+
     text += ` - ${persianNumbers(format(new Date(), 'EEEE y/M/d'))}`;
     text += ' 🔹\n\n';
 
-    for (const repo of repos) {
-      text += `${repo.Owner.login}/${repo.name}`;
+    // for (const repo of repos) {
+    //   text += `${repo.Owner.login}/${repo.name}`;
 
-      if (tagTwitter && repo.Owner.twitterUsername)
-        text += ` @${repo.Owner.twitterUsername}`;
+    //   if (tagTwitter && repo.Owner.twitterUsername)
+    //     text += ` @${repo.Owner.twitterUsername}`;
 
-      text += '\n';
+    //   text += '\n';
+    // }
+
+    if (selection.description) {
+      text += selection.description + '\n';
     }
+
+    if (tagTwitter) {
+      text +=
+        [
+          ...repos // Spreading removes duplicates
+            .filter(({ Owner: { twitterUsername } }) => twitterUsername)
+            .map(({ Owner: { twitterUsername } }) => '@' + twitterUsername),
+        ].join(' ') + '\n';
+    }
+
     text += '\n';
     text += `https://matnbaz.net/s/${selection.id}`;
 

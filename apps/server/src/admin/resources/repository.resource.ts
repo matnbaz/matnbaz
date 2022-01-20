@@ -13,8 +13,8 @@ export const repositoryResource: Resource = ({
   },
   options: {
     actions: {
-      selection: {
-        name: 'selection',
+      feature: {
+        name: 'feature',
         isVisible: true,
         actionType: 'record',
         icon: 'Checkmark',
@@ -50,15 +50,15 @@ export const repositoryResource: Resource = ({
               resourceId: resource._decorated?.id() || resource.id(),
             }),
             notice: {
-              message: 'Successfully added to selection job.',
+              message: 'Successfully added to featuring job.',
               type: 'success',
             },
           };
         },
       },
 
-      bulkSelection: {
-        name: 'bulkSelection',
+      bulkFeature: {
+        name: 'bulkFeature',
         isVisible: true,
         actionType: 'bulk',
         icon: 'Checkmark',
@@ -83,7 +83,7 @@ export const repositoryResource: Resource = ({
               record.toJSON(context.currentAdmin)
             ),
             notice: {
-              message: `Successfully added ${records.length} records to selection job.`,
+              message: `Successfully added ${records.length} records to featuring job.`,
               type: 'success',
             },
             redirectUrl: h.resourceUrl({
