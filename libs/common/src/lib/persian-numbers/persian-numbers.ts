@@ -2,6 +2,7 @@ export const persianNumbers = (
   string: number | string,
   replaceManually = false
 ) => {
+  if (typeof window === 'undefined') string = string.toString();
   if (typeof string === 'number' && !replaceManually)
     return string.toLocaleString('fa');
   string = string.toString();
