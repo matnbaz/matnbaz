@@ -219,7 +219,7 @@ model Collect {
 
 model RepositorySelection {
   id              String       @id @default(cuid())
-  issue           Int          @default(autoincrement())
+  issue           Int          @unique @default(autoincrement())
   createdAt       DateTime     @default(now())
   featuredAt      DateTime?
   Repositories    Repository[]

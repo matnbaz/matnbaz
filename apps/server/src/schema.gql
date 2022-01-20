@@ -257,6 +257,7 @@ type Query {
   repositoryByPlatform(owner: String!, platform: PlatformType!, repo: String!): Repository
   repositoryByPlatformId(id: ID!, platform: PlatformType!): Repository
   selection(id: ID!): RepositorySelection
+  selectionByIssue(issue: Int!): RepositorySelection
   selections(after: String, before: String, first: Int, last: Int): RepositorySelectionConnection!
   topic(name: String!): Topic
   topicById(id: ID!): Topic

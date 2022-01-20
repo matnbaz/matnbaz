@@ -4,6 +4,7 @@ import { persianNumbers } from '@matnbaz/common';
 import {
   Args,
   ID,
+  Int,
   Parent,
   Query,
   ResolveField,
@@ -26,7 +27,7 @@ export class RepositorySelectionResolver {
     return findManyCursorConnection(
       (args) =>
         this.prisma.repositorySelection.findMany({
-          orderBy: { featuredAt: 'desc' },
+          orderBy: { issue: 'desc' },
           where: { featuredAt: { not: null } },
           ...args,
         }),
@@ -36,6 +37,11 @@ export class RepositorySelectionResolver {
         }),
       pagination
     );
+  }
+
+  @Query(() => RepositorySelection, { nullable: true })
+  selectionByIssue(@Args('issue', { type: () => Int }) issue: number) {
+    return this.prisma.repositorySelection.findUnique({ where: { issue } });
   }
 
   @Query(() => RepositorySelection, { nullable: true })
