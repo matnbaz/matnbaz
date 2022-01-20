@@ -29,7 +29,7 @@ export const repositoryResource: Resource = ({
             );
           }
           try {
-            await mainQueue.add(MAIN_PROCESSES.ADD_SPOTLIGHT, {
+            await mainQueue.add(MAIN_PROCESSES.ADD_SELECTION, {
               repos: [request.params.recordId],
             });
           } catch (error) {
@@ -74,7 +74,7 @@ export const repositoryResource: Resource = ({
             );
           }
 
-          await mainQueue.add(MAIN_PROCESSES.ADD_SPOTLIGHT, {
+          await mainQueue.add(MAIN_PROCESSES.ADD_SELECTION, {
             repos: records.map((rec) => rec.id()),
           });
 

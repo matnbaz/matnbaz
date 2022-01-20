@@ -9,7 +9,7 @@ export class RepositorySelectionProcessor {
   constructor(private readonly selectionService: RepositorySelectionService) {}
   private logger = new Logger(RepositorySelectionProcessor.name);
 
-  @Process(MAIN_PROCESSES.ADD_SPOTLIGHT)
+  @Process(MAIN_PROCESSES.ADD_SELECTION)
   async addSelectionRepo(job: Job<{ repos: string[]; description?: string }>) {
     this.logger.log(`Starting the process for "add selection repo"...`);
 
