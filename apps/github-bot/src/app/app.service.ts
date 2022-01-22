@@ -43,6 +43,7 @@ export class AppService {
       try {
         await this.octokit.rest.users.follow({
           username: login,
+          request: { timeout: 5000 },
         });
       } catch (e) {
         this.logger.warn(`Error occurred when following ${login}. ${e}`);
