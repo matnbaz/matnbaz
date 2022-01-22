@@ -71,7 +71,7 @@ const Explore: NextPage = () => {
             </div>
           </div>
         </div>
-        {!data?.repositories?.edges.length ? (
+        {data?.repositories?.edges.length === 0 ? (
           <div className="flex flex-col space-y-4 md:col-span-4">
             <h1 className="text-2xl font-semibold">نتیجه ای یافت نشد.</h1>
             <span className="font-lg">
@@ -93,7 +93,9 @@ const Explore: NextPage = () => {
               loading={loading}
               networkStatus={networkStatus}
               called={called}
-              repositories={repositories.map((edge) => edge.node)}
+              repositories={
+                repositories && repositories.map((edge) => edge.node)
+              }
               onLoadMore={repositoriesLoadMoreHandler}
               adsFrequency={10}
               adsTemplate={() => (
