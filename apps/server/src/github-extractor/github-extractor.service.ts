@@ -411,7 +411,7 @@ export class GithubExtractorService {
 
   private async calculateOwnerTrendIndicator(
     platformId: string,
-    currentStargazersCount: number,
+    currentStarCount: number,
     interval: 'yearly' | 'monthly' | 'weekly'
   ) {
     // Get oldest statistic in the time scope
@@ -439,11 +439,20 @@ export class GithubExtractorService {
       orderBy: { createdAt: 'asc' },
     });
 
-    const respectiveStatStarCount = statistic
+    const oldStarCount = statistic
       ? statistic.stargazersCount
-      : currentStargazersCount;
+      : currentStarCount;
 
-    return currentStargazersCount - respectiveStatStarCount;
+    const MIN_STARS_THRESHOLD = 20;
+
+    const increase =
+      Math.max(currentStarCount, MIN_STARS_THRESHOLD) -
+      Math.max(oldStarCount, MIN_STARS_THRESHOLD);
+
+    const indicator =
+      (increase / Math.max(oldStarCount, MIN_STARS_THRESHOLD)) * 100;
+
+    return Math.floor(indicator * 1000) / 1000;
   }
 
   private async getNodeIdFromLogin(login: string): Promise<string> {
