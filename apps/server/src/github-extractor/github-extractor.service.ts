@@ -414,7 +414,8 @@ export class GithubExtractorService {
     currentStargazersCount: number,
     interval: 'yearly' | 'monthly' | 'weekly'
   ) {
-    const statistics = await this.prisma.repositoryStatistic.findMany({
+    // Get oldest statistic in the time scope
+    const statistic = await this.prisma.repositoryStatistic.findFirst({
       where: {
         Repository: {
           platform: PlatformType.GitHub,
@@ -438,10 +439,9 @@ export class GithubExtractorService {
       orderBy: { createdAt: 'asc' },
     });
 
-    const respectiveStatStarCount =
-      statistics.length > 0
-        ? statistics[0].stargazersCount
-        : currentStargazersCount;
+    const respectiveStatStarCount = statistic
+      ? statistic.stargazersCount
+      : currentStargazersCount;
 
     return currentStargazersCount - respectiveStatStarCount;
   }
