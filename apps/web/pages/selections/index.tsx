@@ -38,7 +38,7 @@ const SelectionsPage: NextPage<SelectionsPageProps> = ({ issue }) => {
       />
 
       <div className="max-w-3xl mx-auto">
-        {data ? (
+        {data?.selections.edges.length > 0 ? (
           <div className="grid gap-6 pb-6">
             <SelectionPreviewList
               networkStatus={networkStatus}
