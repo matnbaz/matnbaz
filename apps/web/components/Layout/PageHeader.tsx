@@ -14,7 +14,7 @@ export const PageHeader = ({
   return (
     <div
       className={classNames(
-        'py-6',
+        'pt-6 pb-12',
         visuallyHidden && 'invisible absolute pointer-events-none'
       )}
     >
