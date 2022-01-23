@@ -343,6 +343,20 @@ const data = [
     terms: ['awesome-'],
   },
   {
+    name: 'Wordpress',
+    slug: 'wordpress',
+    color: '#21759B',
+    description:
+      'وردپرس یک سیستم مدیریت محتوای آزاد و متن‌باز است که در زبان PHP نوشته شده و از دیتابیس MySQL یا MariaDB استفاده می‌کند.',
+    image: 'https://simpleicons.org/icons/wordpress.svg',
+    Topics: {
+      connect: ['wordpress'].map((topic) => ({
+        name: topic,
+      })),
+    },
+    terms: ['wp-', 'wordpress', 'وردپرس', 'woocommerce', 'ووکامرس'],
+  },
+  {
     name: 'Telegram',
     slug: 'telegram',
     color: '#26A5E4',
