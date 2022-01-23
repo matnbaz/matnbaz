@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const data = [
+const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
   {
     name: 'TypeScript',
     slug: 'typescript',
