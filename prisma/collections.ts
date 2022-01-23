@@ -384,6 +384,20 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     },
     terms: ['instagram', 'اینستاگرام', 'اینستاگرم'],
   },
+  {
+    name: 'Twitter',
+    slug: 'twitter',
+    color: '#1DA1F2',
+    description:
+      'توییتر یک سرویس شبکه‌اجتماعی و میکرو‌بلاگ است. در این کالکشن پروژه‌های مربوط به این شبکه‌اجتماعی گرد آمده‌اند.',
+    image: 'https://simpleicons.org/icons/twitter.svg',
+    Topics: {
+      connect: ['twitter'].map((topic) => ({
+        name: topic,
+      })),
+    },
+    terms: ['twitter', 'تویتر', 'توییتر', 'توئیتر'],
+  },
 ];
 
 const main = async () => {
