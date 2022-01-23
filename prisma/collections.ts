@@ -398,6 +398,20 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     },
     terms: ['twitter', 'تویتر', 'توییتر', 'توئیتر'],
   },
+  {
+    name: 'Discord',
+    slug: 'discord',
+    color: '#5865F2',
+    description:
+      'دیسکورد یک پلتفرم پیام‌رسان، تماس تصویری و صوتی است. در این کالکشن پروژه‌های مربوط به این پلتفرم گرد آمده‌اند.',
+    image: 'https://simpleicons.org/icons/discord.svg',
+    Topics: {
+      connect: ['discord'].map((topic) => ({
+        name: topic,
+      })),
+    },
+    terms: ['discord', 'دیسکورد', 'دیسکرد'],
+  },
 ];
 
 const main = async () => {
