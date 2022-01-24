@@ -224,6 +224,41 @@ enum PlatformType {
   GitLab
 }
 
+type Post implements Node {
+  authors: [PostAuthor!]!
+  content: String!
+  contentHtml: String!
+  createdAt: DateObject!
+  id: ID!
+  publishedAt: DateObject
+  slug: String!
+  title: String!
+  updatedAt: DateObject!
+}
+
+type PostAuthor implements Node {
+  additions: Int!
+  deletions: Int!
+  id: ID!
+}
+
+type PostConnection {
+  """A list of edges"""
+  edges: [PostEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A Post edge."""
+type PostEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of PostEdge."""
+  node: Post!
+}
+
 type Query {
   collect(id: ID!): Collect!
   collection(slug: String!): Collection
@@ -236,6 +271,8 @@ type Query {
   owner(id: ID!): Owner
   ownerByPlatform(owner: String!, platform: PlatformType!): Owner
   ownerByPlatformId(id: ID!, platform: PlatformType!): Owner
+  postBySlug(slug: String!): Post
+  posts(after: String, before: String, first: Int, last: Int): PostConnection!
   repositories(
     after: String
     archiveStatus: ArchiveStatusType

@@ -26,6 +26,7 @@ import { LicenseModule } from '../license/license.module';
 import { MetadataModule } from '../metadata/metadata.module';
 import { OwnerModule } from '../owner/owner.module';
 import { ComplexityPlugin } from '../plugins/complexity.plugin';
+import { PostModule } from '../post/post.module';
 import { ReportModule } from '../report/report.module';
 import { RepositorySelectionModule } from '../repository-selection/repository-selection.module';
 import { RepositoryModule } from '../repository/repository.module';
@@ -135,6 +136,7 @@ import { AppService } from './app.service';
     CollectionModule,
     CollectModule,
     RepositorySelectionModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [
