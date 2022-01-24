@@ -88,33 +88,28 @@ export class PostService {
     );
 
     const authors = await this.extractPostAuthors(commitsResponse.data);
+    const fields = {
+      content,
+      contentHtml: parsedContent.content,
+      title: parsedContent.data.title,
+      repositoryId: repositoryId,
+      slug: parsedContent.data.slug,
+      PostAuthor: {
+        createMany: {
+          data: Object.values(authors),
+        },
+      },
+    };
     await this.prisma.post.upsert({
       where: {
         repositoryId,
       },
       create: {
-        content,
-        contentHtml: parsedContent.content,
-        title: parsedContent.data.title,
-        repositoryId: repositoryId,
-        slug: parsedContent.data.slug,
-        PostAuthor: {
-          createMany: {
-            data: Object.values(authors),
-          },
-        },
+        ...fields,
+        publishedAt: new Date(),
       },
       update: {
-        content,
-        contentHtml: parsedContent.content,
-        title: parsedContent.data.title,
-        repositoryId: repositoryId,
-        slug: parsedContent.data.slug,
-        PostAuthor: {
-          createMany: {
-            data: Object.values(authors),
-          },
-        },
+        ...fields,
       },
     });
 
