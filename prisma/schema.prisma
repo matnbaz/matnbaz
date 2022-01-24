@@ -110,6 +110,7 @@ model Owner {
   Collections         Collection[]     @relation("owners")
   CollectionsExcluded Collection[]     @relation("owners_excluded")
   Statistics          OwnerStatistic[]
+  PostAuthor          PostAuthor[]
 
   @@unique([platform, login])
   @@unique([platform, platformId])
@@ -228,6 +229,27 @@ model RepositorySelection {
   sentOnTelegram  Boolean      @default(false)
   sentOnTwitter   Boolean      @default(false)
   sentOnDiscord   Boolean      @default(false)
+}
+
+model Post {
+  id          String       @id @default(cuid())
+  title       String
+  slug        String       @unique
+  content     String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  publishedAt DateTime?
+  PostAuthor  PostAuthor[]
+}
+
+model PostAuthor {
+  id        String @id @default(cuid())
+  Post      Post   @relation(fields: [postId], references: [id])
+  postId    String
+  Owner     Owner  @relation(fields: [ownerId], references: [id])
+  ownerId   String
+  additions Int
+  deletions Int
 }
 
 enum OwnerType {
