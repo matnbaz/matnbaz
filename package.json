@@ -49,6 +49,7 @@
     "github-colors": "^2.2.20",
     "graphql": "15.7.0",
     "graphql-query-complexity": "^0.11.0",
+    "gray-matter": "^4.0.3",
     "instagram-web-api": "^2.2.2",
     "ioredis": "^4.28.2",
     "marked": "^4.0.10",

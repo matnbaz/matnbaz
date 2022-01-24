@@ -23,6 +23,7 @@ import { GithubExtractorModule } from '../github-extractor/github-extractor.modu
 import { HybridThrottlerGuard } from '../hybrid-throttler.guard';
 import { LanguageModule } from '../language/language.module';
 import { LicenseModule } from '../license/license.module';
+import { MarkdownModule } from '../markdown/markdown.module';
 import { MetadataModule } from '../metadata/metadata.module';
 import { OwnerModule } from '../owner/owner.module';
 import { ComplexityPlugin } from '../plugins/complexity.plugin';
@@ -121,6 +122,7 @@ import { AppService } from './app.service';
         password: process.env.INSTAGRAM_PASSWORD,
       },
     }),
+    MarkdownModule,
     GithubDiscovererModule,
     GithubExtractorModule,
     LanguageModule,

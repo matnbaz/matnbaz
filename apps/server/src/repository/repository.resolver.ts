@@ -13,7 +13,7 @@ import {
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { createDateObject } from '../date/utils';
-import { GithubReadmeExtractorService } from '../github-extractor/github-readme-extractor.service';
+import { MarkdownService } from '../markdown/markdown.service';
 import { PlatformByIdArgs } from '../models/args/platform-by-id.args';
 import { RepositoryConnection } from '../models/connections/repository.connection';
 import { DateObject } from '../models/date.model';
@@ -38,7 +38,7 @@ import { TemplateStatusType } from './enums/template-status-type.enum';
 export class RepositoryResolver extends ReportableResolver(Repository) {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly githubReadmeExtractor: GithubReadmeExtractorService
+    private readonly markdownService: MarkdownService
   ) {
     super();
   }
@@ -314,14 +314,16 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
 
   @ResolveField(() => String, { nullable: true })
   async readmeHtml(@Parent() repo: P.Repository) {
-    const { readme, readmeHtml, defaultBranch } = repo;
+    const { readme, readmeHtml, defaultBranch, name } = repo;
     if (!readme) return null;
     if (readmeHtml) return readmeHtml;
 
+    const [owner] = (await this.fullName(repo)).split('/');
     // Backward Compatibility
-    return this.githubReadmeExtractor.renderReadme(
+    return this.markdownService.renderForGithub(
       readme,
-      await this.fullName(repo),
+      owner,
+      name,
       defaultBranch
     );
   }
