@@ -241,6 +241,7 @@ type PostAuthor implements Node {
   additions: Int!
   deletions: Int!
   id: ID!
+  owner: Owner!
 }
 
 type PostConnection {
