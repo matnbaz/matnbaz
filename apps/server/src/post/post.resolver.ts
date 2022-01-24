@@ -64,4 +64,9 @@ export class PostResolver {
   publishedAt(@Parent() { publishedAt }: P.Post) {
     return createDateObject(publishedAt);
   }
+
+  @ResolveField(() => String)
+  thumbnailImage(@Parent() { repositoryId }: P.Post) {
+    return `https://raw.githubusercontent.com/matnbaz/blog/main/posts/${repositoryId}/thumbnail.jpg`;
+  }
 }

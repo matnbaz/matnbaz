@@ -232,6 +232,7 @@ type Post implements Node {
   id: ID!
   publishedAt: DateObject
   slug: String!
+  thumbnailImage: String!
   title: String!
   updatedAt: DateObject!
 }
