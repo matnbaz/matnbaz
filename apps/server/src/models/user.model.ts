@@ -3,5 +3,7 @@ import { Node } from './node.model';
 
 @ObjectType({ implements: [Node] })
 export class User {
-  name: string;
+  username: string;
+  name?: string;
+  bio?: string;
 }

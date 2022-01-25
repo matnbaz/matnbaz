@@ -489,10 +489,12 @@ enum TopicOrder {
 }
 
 type User implements Node {
+  bio: String
   id: ID!
-  name: String!
+  name: String
   posts(after: String, before: String, first: Int, last: Int): PostConnection!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
+  username: String!
 }
 
 type UserError {
