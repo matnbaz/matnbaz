@@ -151,6 +151,7 @@ model User {
   email     String   @unique
   username  String   @unique
   name      String
+  bio       String
   password  String
   type      UserType
   createdAt DateTime @default(now())
