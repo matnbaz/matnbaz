@@ -1,13 +1,13 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useMemo } from 'react';
-import { MainLayout } from '../../components/Layout/MainLayout';
-import { initializeApollo } from '../../lib/apollo';
+import { MainLayout } from '../../../components/Layout/MainLayout';
+import { initializeApollo } from '../../../lib/apollo';
 import {
   GetPostDocument,
   GetPostQueryResult,
   GetPostQueryVariables,
   useGetPostQuery,
-} from '../../lib/graphql-types';
+} from '../../../lib/graphql-types';
 
 export interface PostPageProps {
   postSlug: string;
