@@ -66,7 +66,7 @@ export class PostResolver {
   }
 
   @ResolveField(() => String)
-  thumbnailImage(@Parent() { repositoryId }: P.Post) {
-    return `https://raw.githubusercontent.com/matnbaz/blog/main/posts/${repositoryId}/thumbnail.jpg`;
+  thumbnailImage(@Parent() { repositoryReference }: P.Post) {
+    return `https://raw.githubusercontent.com/matnbaz/blog/main/posts/${repositoryReference}/thumbnail.jpg`;
   }
 }

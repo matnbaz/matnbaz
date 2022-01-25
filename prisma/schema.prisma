@@ -232,16 +232,16 @@ model RepositorySelection {
 }
 
 model Post {
-  id           String       @id @default(cuid())
-  repositoryId String       @unique
-  title        String
-  slug         String       @unique
-  content      String
-  contentHtml  String
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  publishedAt  DateTime?
-  PostAuthor   PostAuthor[]
+  id                  String       @id @default(cuid())
+  repositoryReference String?      @unique
+  title               String
+  slug                String       @unique
+  content             String
+  contentHtml         String
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  publishedAt         DateTime?
+  PostAuthor          PostAuthor[]
 }
 
 model PostAuthor {

@@ -41,11 +41,11 @@ export class PostService {
 
   async extractPost(postRepoId: string) {
     const postPath = `posts/${postRepoId}`;
-    const repositoryId = this.getPostId(postPath);
+    const repositoryReference = this.getPostId(postPath);
 
     const post = await this.prisma.post.findUnique({
       where: {
-        repositoryId: postRepoId,
+        repositoryReference: postRepoId,
       },
     });
 
@@ -92,7 +92,7 @@ export class PostService {
       content,
       contentHtml: parsedContent.content,
       title: parsedContent.data.title,
-      repositoryId: repositoryId,
+      repositoryReference: repositoryReference,
       slug: parsedContent.data.slug,
       PostAuthor: {
         createMany: {
@@ -102,7 +102,7 @@ export class PostService {
     };
     await this.prisma.post.upsert({
       where: {
-        repositoryId,
+        repositoryReference,
       },
       create: {
         ...fields,
