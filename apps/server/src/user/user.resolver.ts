@@ -1,6 +1,6 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
-import { Args, Parent, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { PostConnection } from '../models/connections/post.connections';
@@ -10,6 +10,15 @@ import { User } from '../models/user.model';
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly prisma: PrismaService) {}
+
+  @Query(() => User, { nullable: true })
+  userByUsername(@Args('username') username: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        username,
+      },
+    });
+  }
 
   @ResolveField(() => RepositoryConnection)
   async repositories(

@@ -294,6 +294,7 @@ type Query {
   topic(name: String!): Topic
   topicById(id: ID!): Topic
   topics(after: String, before: String, first: Int, last: Int, order: TopicOrder): TopicConnection!
+  userByUsername(username: String!): User
 }
 
 type RGBA {
