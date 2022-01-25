@@ -7,4 +7,5 @@ export class Post {
   slug: string;
   content: string;
   contentHtml: string;
+  image?: string;
 }

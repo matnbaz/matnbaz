@@ -94,6 +94,7 @@ export class PostService {
       title: parsedContent.data.title,
       repositoryReference: repositoryReference,
       slug: parsedContent.data.slug,
+      image: parsedContent.data.image,
       PostAuthor: {
         createMany: {
           data: Object.values(authors),

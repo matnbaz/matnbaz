@@ -230,9 +230,9 @@ type Post implements Node {
   contentHtml: String!
   createdAt: DateObject!
   id: ID!
+  image: String
   publishedAt: DateObject
   slug: String!
-  thumbnailImage: String!
   title: String!
   updatedAt: DateObject!
 }
