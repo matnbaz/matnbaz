@@ -106,6 +106,8 @@ model Owner {
   blockedAt           DateTime?
   latestExtractionAt  DateTime?
   twitterUsername     String?
+  User                User?            @relation(fields: [userId], references: [id])
+  userId              String?
   Repositories        Repository[]
   Collections         Collection[]     @relation("owners")
   CollectionsExcluded Collection[]     @relation("owners_excluded")
@@ -153,6 +155,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Posts     Post[]
+  Owners    Owner[]
 }
 
 model Collection {
