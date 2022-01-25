@@ -14,16 +14,11 @@ query GetPosts($count: Int = 12, $after: String) {
           formatted
           difference
         }
-        authors {
+        author {
           id
-          additions
-          deletions
-          owner {
-            id
-            login
-            platform
-            platformId
-          }
+          name
+          username
+          bio
         }
       }
     }

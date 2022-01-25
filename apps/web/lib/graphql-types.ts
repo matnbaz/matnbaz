@@ -306,7 +306,7 @@ export enum PlatformType {
 
 export type Post = Node & {
   __typename?: 'Post';
-  authors: Array<PostAuthor>;
+  author: User;
   content: Scalars['String'];
   contentHtml: Scalars['String'];
   createdAt: DateObject;
@@ -316,14 +316,6 @@ export type Post = Node & {
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt: DateObject;
-};
-
-export type PostAuthor = Node & {
-  __typename?: 'PostAuthor';
-  additions: Scalars['Int'];
-  deletions: Scalars['Int'];
-  id: Scalars['ID'];
-  owner: Owner;
 };
 
 export type PostConnection = {
@@ -368,6 +360,7 @@ export type Query = {
   topic?: Maybe<Topic>;
   topicById?: Maybe<Topic>;
   topics: TopicConnection;
+  userByUsername?: Maybe<User>;
 };
 
 
@@ -514,6 +507,11 @@ export type QueryTopicsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   order?: InputMaybe<TopicOrder>;
+};
+
+
+export type QueryUserByUsernameArgs = {
+  username: Scalars['String'];
 };
 
 export type Rgba = {
@@ -720,6 +718,32 @@ export enum TopicOrder {
   RepositoriesDesc = 'REPOSITORIES_DESC'
 }
 
+export type User = Node & {
+  __typename?: 'User';
+  bio?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  posts: PostConnection;
+  repositories: RepositoryConnection;
+  username: Scalars['String'];
+};
+
+
+export type UserPostsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type UserRepositoriesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
 export type UserError = {
   __typename?: 'UserError';
   message: Scalars['String'];
@@ -786,7 +810,7 @@ export type GetPostQueryVariables = Exact<{
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, contentHtml: string, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, authors: Array<{ __typename?: 'PostAuthor', id: string, additions: number, deletions: number, owner: { __typename?: 'Owner', id: string, login: string, platform: PlatformType, platformId: string } }> } | null | undefined };
+export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, contentHtml: string, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined } } | null | undefined };
 
 export type GetPostsQueryVariables = Exact<{
   count?: InputMaybe<Scalars['Int']>;
@@ -794,7 +818,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, authors: Array<{ __typename?: 'PostAuthor', id: string, additions: number, deletions: number, owner: { __typename?: 'Owner', id: string, login: string, platform: PlatformType, platformId: string } }> } }> | null | undefined } };
+export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined } } }> | null | undefined } };
 
 export type GetRepositoriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -1211,16 +1235,11 @@ export const GetPostDocument = gql`
       formatted
       difference
     }
-    authors {
+    author {
       id
-      additions
-      deletions
-      owner {
-        id
-        login
-        platform
-        platformId
-      }
+      name
+      username
+      bio
     }
   }
 }
@@ -1270,16 +1289,11 @@ export const GetPostsDocument = gql`
           formatted
           difference
         }
-        authors {
+        author {
           id
-          additions
-          deletions
-          owner {
-            id
-            login
-            platform
-            platformId
-          }
+          name
+          username
+          bio
         }
       }
     }
@@ -1613,12 +1627,12 @@ export type MetadataQueryResult = Apollo.QueryResult<MetadataQuery, MetadataQuer
       "License",
       "Owner",
       "Post",
-      "PostAuthor",
       "Report",
       "Repository",
       "RepositorySelection",
       "Submission",
-      "Topic"
+      "Topic",
+      "User"
     ]
   }
 };

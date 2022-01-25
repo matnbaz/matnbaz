@@ -9,16 +9,11 @@ query GetPost($slug: String!) {
       formatted
       difference
     }
-    authors {
+    author {
       id
-      additions
-      deletions
-      owner {
-        id
-        login
-        platform
-        platformId
-      }
+      name
+      username
+      bio
     }
   }
 }
