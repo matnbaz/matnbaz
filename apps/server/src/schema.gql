@@ -225,7 +225,7 @@ enum PlatformType {
 }
 
 type Post implements Node {
-  authors: User!
+  author: User!
   content: String!
   contentHtml: String!
   createdAt: DateObject!

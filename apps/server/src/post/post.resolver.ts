@@ -41,7 +41,7 @@ export class PostResolver {
   }
 
   @ResolveField(() => User)
-  async authors(@Parent() { id }: P.Post) {
+  async author(@Parent() { id }: P.Post) {
     return (
       await this.prisma.post.findUnique({
         where: { id },
