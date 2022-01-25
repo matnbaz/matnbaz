@@ -18,6 +18,7 @@ const links: { name: string; to: string; external?: boolean }[] = [
   { name: 'کاوش‌گر', to: '/explore' },
   { name: 'کالکشن‌ها', to: '/collections' },
   { name: 'پروژه‌های منتخب', to: '/selections' },
+  { name: 'بلاگ', to: '/blog' },
   { name: 'ثبت کاربر', to: '/submit-user' },
   { name: 'درباره', to: '/about' },
 ];
