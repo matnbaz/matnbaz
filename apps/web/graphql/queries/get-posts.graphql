@@ -1,4 +1,4 @@
-query GetPosts($count: Int, $after: String) {
+query GetPosts($count: Int = 12, $after: String) {
   posts(first: $count, after: $after) {
     pageInfo {
       hasNextPage

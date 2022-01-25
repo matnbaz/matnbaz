@@ -1254,7 +1254,7 @@ export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const GetPostsDocument = gql`
-    query GetPosts($count: Int, $after: String) {
+    query GetPosts($count: Int = 12, $after: String) {
   posts(first: $count, after: $after) {
     pageInfo {
       hasNextPage
