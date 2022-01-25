@@ -311,9 +311,9 @@ export type Post = Node & {
   contentHtml: Scalars['String'];
   createdAt: DateObject;
   id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<DateObject>;
   slug: Scalars['String'];
-  thumbnailImage: Scalars['String'];
   title: Scalars['String'];
   updatedAt: DateObject;
 };
@@ -786,7 +786,7 @@ export type GetPostQueryVariables = Exact<{
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: 'Post', id: string, slug: string, title: string, thumbnailImage: string, contentHtml: string, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, authors: Array<{ __typename?: 'PostAuthor', id: string, additions: number, deletions: number, owner: { __typename?: 'Owner', id: string, login: string, platform: PlatformType, platformId: string } }> } | null | undefined };
+export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, contentHtml: string, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, authors: Array<{ __typename?: 'PostAuthor', id: string, additions: number, deletions: number, owner: { __typename?: 'Owner', id: string, login: string, platform: PlatformType, platformId: string } }> } | null | undefined };
 
 export type GetPostsQueryVariables = Exact<{
   count?: InputMaybe<Scalars['Int']>;
@@ -794,7 +794,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, thumbnailImage: string, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, authors: Array<{ __typename?: 'PostAuthor', id: string, additions: number, deletions: number, owner: { __typename?: 'Owner', id: string, login: string, platform: PlatformType, platformId: string } }> } }> | null | undefined } };
+export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, authors: Array<{ __typename?: 'PostAuthor', id: string, additions: number, deletions: number, owner: { __typename?: 'Owner', id: string, login: string, platform: PlatformType, platformId: string } }> } }> | null | undefined } };
 
 export type GetRepositoriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -1205,7 +1205,7 @@ export const GetPostDocument = gql`
     id
     slug
     title
-    thumbnailImage
+    image
     contentHtml
     publishedAt {
       formatted
@@ -1265,7 +1265,7 @@ export const GetPostsDocument = gql`
         id
         slug
         title
-        thumbnailImage
+        image
         publishedAt {
           formatted
           difference

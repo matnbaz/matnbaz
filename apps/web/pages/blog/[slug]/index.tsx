@@ -24,7 +24,7 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
     <MainLayout>
       <div className="max-w-4xl mx-auto">
         <img
-          src={post.thumbnailImage}
+          src={post.image}
           className="w-full"
           alt={`عکس پست "${post.title}"`}
         />

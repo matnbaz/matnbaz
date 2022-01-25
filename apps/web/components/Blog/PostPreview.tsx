@@ -6,7 +6,7 @@ export interface PostPreviewProps extends Omit<ICardProps, 'children'> {
     id: string;
     slug: string;
     title: string;
-    thumbnailImage: string;
+    image: string;
     publishedAt?: {
       formatted: string;
       difference: string;
@@ -33,7 +33,7 @@ export const PostPreview = ({ post, ...props }: PostPreviewProps) => {
       {...props}
     >
       <div>
-        <img src={post.thumbnailImage} alt={`عکس پست "${post.title}"`} />
+        <img src={post.image} alt={`عکس پست "${post.title}"`} />
         <div className="font-bold">{post.title}</div>
       </div>
       {post.publishedAt && <div>{post.publishedAt.formatted}</div>}

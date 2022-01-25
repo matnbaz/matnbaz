@@ -9,7 +9,7 @@ query GetPosts($count: Int = 12, $after: String) {
         id
         slug
         title
-        thumbnailImage
+        image
         publishedAt {
           formatted
           difference

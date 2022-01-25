@@ -3,7 +3,7 @@ query GetPost($slug: String!) {
     id
     slug
     title
-    thumbnailImage
+    image
     contentHtml
     publishedAt {
       formatted
