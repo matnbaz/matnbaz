@@ -248,7 +248,13 @@ export const Navbar = ({ className }: INavbarProps) => {
                                           </div>
                                         )}
                                         <div className="mr-4">
-                                          <p className="text-base font-medium">
+                                          <p
+                                            className={classNames(
+                                              'text-base',
+                                              link.size === 'normal' &&
+                                                'font-medium'
+                                            )}
+                                          >
                                             {item.name}
                                           </p>
                                           {item.description && (
