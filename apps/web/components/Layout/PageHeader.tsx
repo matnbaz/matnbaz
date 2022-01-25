@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 export interface PageHeaderProps {
   title: string;
-  description?: string;
+  description?: string | JSX.Element;
   visuallyHidden?: boolean;
 }
 

@@ -1,0 +1,31 @@
+query GetPosts($count: Int, $after: String) {
+  posts(first: $count, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        slug
+        title
+        thumbnailImage
+        publishedAt {
+          formatted
+          difference
+        }
+        authors {
+          id
+          additions
+          deletions
+          owner {
+            id
+            login
+            platform
+            platformId
+          }
+        }
+      }
+    }
+  }
+}

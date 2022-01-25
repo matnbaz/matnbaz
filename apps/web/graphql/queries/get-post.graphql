@@ -1,0 +1,24 @@
+query GetPost($slug: String!) {
+  postBySlug(slug: $slug) {
+    id
+    slug
+    title
+    thumbnailImage
+    contentHtml
+    publishedAt {
+      formatted
+      difference
+    }
+    authors {
+      id
+      additions
+      deletions
+      owner {
+        id
+        login
+        platform
+        platformId
+      }
+    }
+  }
+}
