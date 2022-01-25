@@ -110,7 +110,6 @@ model Owner {
   Collections         Collection[]     @relation("owners")
   CollectionsExcluded Collection[]     @relation("owners_excluded")
   Statistics          OwnerStatistic[]
-  PostAuthor          PostAuthor[]
 
   @@unique([platform, login])
   @@unique([platform, platformId])
@@ -153,6 +152,7 @@ model User {
   type      UserType
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Posts     Post[]
 }
 
 model Collection {
@@ -232,27 +232,18 @@ model RepositorySelection {
 }
 
 model Post {
-  id                  String       @id @default(cuid())
-  repositoryReference String?      @unique
+  id                  String    @id @default(cuid())
+  repositoryReference String?   @unique
   image               String?
   title               String
-  slug                String       @unique
+  slug                String    @unique
   content             String
   contentHtml         String
-  createdAt           DateTime     @default(now())
-  updatedAt           DateTime     @updatedAt
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
   publishedAt         DateTime?
-  PostAuthor          PostAuthor[]
-}
-
-model PostAuthor {
-  id        String @id @default(cuid())
-  Post      Post   @relation(fields: [postId], references: [id])
-  postId    String
-  Owner     Owner  @relation(fields: [ownerId], references: [id])
-  ownerId   String
-  additions Int
-  deletions Int
+  User                User      @relation(fields: [userId], references: [id])
+  userId              String
 }
 
 enum OwnerType {
