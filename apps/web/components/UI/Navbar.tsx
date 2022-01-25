@@ -97,9 +97,10 @@ const links: LinkItem[] = [
   //     ],
   //   },
   // },
+  { type: 'link', name: 'خانه', href: '/' },
   { type: 'link', name: 'کاوش‌گر', href: '/explore' },
   { type: 'link', name: 'کالکشن‌ها', href: '/collections' },
-  { type: 'link', name: 'پروژه‌های منتخب', href: '/selections' },
+  // { type: 'link', name: 'پروژه‌های منتخب', href: '/selections' },
   { type: 'link', name: 'بلاگ', href: '/blog' },
   {
     type: 'flyout',
