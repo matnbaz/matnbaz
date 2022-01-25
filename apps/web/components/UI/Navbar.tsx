@@ -226,7 +226,7 @@ export const Navbar = ({ className }: INavbarProps) => {
                                     link.size === 'normal' &&
                                       'gap-6 px-5 py-6 sm:gap-8 sm:p-8',
                                     link.size === 'small' &&
-                                      'gap-3 px-2.5 py-3 sm:gap-2 sm:p-5'
+                                      'gap-3 px-2.5 py-3 sm:gap-2'
                                   )}
                                 >
                                   {link.flyout.links.map((item) => (
