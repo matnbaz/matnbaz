@@ -266,7 +266,7 @@ const Index: NextPage = () => {
                   </span>
                 </h3>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  هر آخر هفته در متن‌باز پروژه‌هایی به عنوان «پروژه‌های منتخب»
+                  آخر هر هفته در متن‌باز پروژه‌هایی به عنوان «پروژه‌های منتخب»
                   انتخاب شده و در سایت و شبکه‌های اجتماعی متن‌باز قرار می‌گیرند.
                 </p>
                 <div className="mt-4">
