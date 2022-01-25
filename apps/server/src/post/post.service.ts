@@ -11,6 +11,9 @@ export class PostService {
     private readonly markdownService: MarkdownService
   ) {}
 
+  /**
+   * @deprecated
+   */
   async extractPosts() {
     const mainTreeResponse = await this.octokit.rest.git.getTree({
       owner: 'matnbaz',
@@ -39,6 +42,9 @@ export class PostService {
     return posts;
   }
 
+  /**
+   * @deprecated
+   */
   async extractPost(postRepoId: string) {
     const postPath = `posts/${postRepoId}`;
     const repositoryReference = this.getPostId(postPath);
@@ -60,10 +66,6 @@ export class PostService {
       if (post.updatedAt > lastCommitDate) {
         return post;
       }
-
-      await this.prisma.postAuthor.deleteMany({
-        where: { postId: post.id },
-      });
     }
 
     const postMarkdownResponse = await this.octokit.rest.repos.getContent({
@@ -107,6 +109,7 @@ export class PostService {
       },
       create: {
         ...fields,
+        User: { connect: { id: process.env.DEFAULT_ADMIN_ID } },
         publishedAt: new Date(),
       },
       update: {
@@ -117,6 +120,9 @@ export class PostService {
     return { post, authors };
   }
 
+  /**
+   * @deprecated
+   */
   async extractPostAuthors(
     postCommits: Awaited<
       ReturnType<OctokitService['rest']['repos']['listCommits']>
@@ -163,6 +169,7 @@ export class PostService {
 
   /**
    * Returns directory's name
+   * @deprecated
    */
   private getPostId(path: string) {
     const split = path.split('/');

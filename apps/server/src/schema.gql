@@ -225,7 +225,7 @@ enum PlatformType {
 }
 
 type Post implements Node {
-  authors: [PostAuthor!]!
+  authors: User!
   content: String!
   contentHtml: String!
   createdAt: DateObject!
@@ -235,13 +235,6 @@ type Post implements Node {
   slug: String!
   title: String!
   updatedAt: DateObject!
-}
-
-type PostAuthor implements Node {
-  additions: Int!
-  deletions: Int!
-  id: ID!
-  owner: Owner!
 }
 
 type PostConnection {
@@ -493,6 +486,13 @@ type TopicEdge {
 enum TopicOrder {
   """Order by repositories count in descending direction."""
   REPOSITORIES_DESC
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  posts(after: String, before: String, first: Int, last: Int): PostConnection!
+  repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
 }
 
 type UserError {

@@ -6,8 +6,8 @@ import { PrismaService } from 'nestjs-prisma';
 import { createDateObject } from '../date/utils';
 import { PostConnection } from '../models/connections/post.connections';
 import { DateObject } from '../models/date.model';
-import { PostAuthor } from '../models/post-author.model';
 import { Post } from '../models/post.model';
+import { User } from '../models/user.model';
 
 @Resolver(() => Post)
 export class PostResolver {
@@ -40,14 +40,14 @@ export class PostResolver {
     });
   }
 
-  @ResolveField(() => [PostAuthor])
+  @ResolveField(() => User)
   async authors(@Parent() { id }: P.Post) {
     return (
       await this.prisma.post.findUnique({
         where: { id },
-        select: { id: true, PostAuthor: true },
+        select: { id: true, User: true },
       })
-    ).PostAuthor;
+    ).User;
   }
 
   @ResolveField(() => DateObject)

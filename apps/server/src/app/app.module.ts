@@ -33,6 +33,7 @@ import { RepositorySelectionModule } from '../repository-selection/repository-se
 import { RepositoryModule } from '../repository/repository.module';
 import { SubmissionModule } from '../submission/submission.module';
 import { TopicModule } from '../topic/topic.module';
+import { UserModule } from '../user/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -139,6 +140,7 @@ import { AppService } from './app.service';
     CollectModule,
     RepositorySelectionModule,
     PostModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [
