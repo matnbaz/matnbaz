@@ -38,7 +38,7 @@ const BlogPage: NextPage = () => {
           </>
         }
       />
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         <PostPreviewList
           called={called}
           loading={loading}
