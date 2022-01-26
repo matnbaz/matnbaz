@@ -3,7 +3,7 @@ import { NextSeo } from 'next-seo';
 import { CollectionPreview } from '../../components/Collection/CollectionPreview';
 import { MainLayout } from '../../components/Layout/MainLayout';
 import { PageHeader } from '../../components/Layout/PageHeader';
-import { CollectionPreviewSkeletonLoader } from '../../components/Skeleton Loader/CollectionPreviewSkeletonLoader';
+import { CollectionPreviewSkeletonLoader } from '../../components/SkeletonLoader/CollectionPreviewSkeletonLoader';
 import { useGetCollectionsQuery } from '../../lib/graphql-types';
 
 const CollectionsPage: NextPage = () => {

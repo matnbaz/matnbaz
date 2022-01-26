@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { InfiniteScroll } from '../Feature/InfiniteScroll';
-import { PostPreviewSkeletonLoader } from '../Skeleton Loader/PostPreviewSkeletonLoader';
+import { PostPreviewSkeletonLoader } from '../SkeletonLoader/PostPreviewSkeletonLoader';
 import { PostPreview, PostPreviewProps } from './PostPreview';
 
 interface IPostPreviewListProps {

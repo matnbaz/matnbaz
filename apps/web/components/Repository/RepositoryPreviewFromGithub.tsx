@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { RepositoryPreviewSkeletonLoader } from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
+import { RepositoryPreviewSkeletonLoader } from '../SkeletonLoader/RepositoryPreviewSkeletonLoader';
 import {
   githubRepoResponseNormalize,
   IRepositoryPreviewProps,

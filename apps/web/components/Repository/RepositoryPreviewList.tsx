@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { InfiniteScroll } from '../Feature/InfiniteScroll';
-import { RepositoryPreviewSkeletonLoader } from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
+import { RepositoryPreviewSkeletonLoader } from '../SkeletonLoader/RepositoryPreviewSkeletonLoader';
 import {
   IRepositoryPreviewProps,
   RepositoryPreview,
