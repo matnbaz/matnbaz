@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import { MainLayout } from '../../../components/Layout/MainLayout';
+import { UserPreview } from '../../../components/User/UserPreview';
 import { initializeApollo } from '../../../lib/apollo';
 import {
   GetPostDocument,
@@ -23,7 +24,7 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
 
   return (
     <MainLayout>
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto ">
         <Image
           width={1280}
           height={640}
@@ -37,6 +38,13 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
         <div
           className="mt-10 prose dark:prose-invert"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+        />
+        <UserPreview
+          padded
+          colored
+          border="none"
+          user={post.author}
+          className="mt-4"
         />
       </div>
     </MainLayout>

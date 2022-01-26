@@ -14,6 +14,7 @@ query GetPost($slug: String!) {
       name
       username
       bio
+      avatar
     }
   }
 }

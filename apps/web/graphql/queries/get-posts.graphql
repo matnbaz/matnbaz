@@ -19,6 +19,7 @@ query GetPosts($count: Int = 12, $after: String) {
           name
           username
           bio
+          avatar
         }
       }
     }

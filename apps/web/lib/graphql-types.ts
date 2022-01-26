@@ -720,6 +720,7 @@ export enum TopicOrder {
 
 export type User = Node & {
   __typename?: 'User';
+  avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
@@ -810,7 +811,7 @@ export type GetPostQueryVariables = Exact<{
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, contentHtml: string, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined } } | null | undefined };
+export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, contentHtml: string, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } } | null | undefined };
 
 export type GetPostsQueryVariables = Exact<{
   count?: InputMaybe<Scalars['Int']>;
@@ -818,7 +819,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined } } }> | null | undefined } };
+export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } } }> | null | undefined } };
 
 export type GetRepositoriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -1240,6 +1241,7 @@ export const GetPostDocument = gql`
       name
       username
       bio
+      avatar
     }
   }
 }
@@ -1294,6 +1296,7 @@ export const GetPostsDocument = gql`
           name
           username
           bio
+          avatar
         }
       }
     }
