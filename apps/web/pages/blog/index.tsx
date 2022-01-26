@@ -23,21 +23,9 @@ const BlogPage: NextPage = () => {
     <MainLayout withFooterPromo>
       <PageHeader
         title="بلاگ"
-        description={
-          <>
-            برای نوشتن پست در بلاگ متن‌باز{' '}
-            <a
-              className="underline font-bold"
-              target="_blank"
-              href="https://github.com/matnbaz/blog#readme"
-              rel="noreferrer"
-            >
-              این صفحه
-            </a>{' '}
-            را مطالعه کنید.
-          </>
-        }
+        description="معرفی پروژه‌های اوپن‌سورس، پست‌های آموزشی، اخبار متن‌باز و..."
       />
+
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         <PostPreviewList
           called={called}
