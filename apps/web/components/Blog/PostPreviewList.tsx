@@ -3,20 +3,20 @@ import { InfiniteScroll } from '../Feature/InfiniteScroll';
 import { PostPreviewSkeletonLoader } from '../SkeletonLoader/PostPreviewSkeletonLoader';
 import { PostPreview, PostPreviewProps } from './PostPreview';
 
-interface IPostPreviewListProps {
+interface PostPreviewListProps {
   posts: PostPreviewProps['post'][];
   loading?: boolean;
 }
 
-export interface IPostPreviewListPropsWithoutPagination
-  extends IPostPreviewListProps {
+export interface PostPreviewListPropsWithoutPagination
+  extends PostPreviewListProps {
   networkStatus?: never;
   called?: never;
   onLoadMore?: never;
 }
 
-export interface IPostPreviewListPropsWithPagination
-  extends IPostPreviewListProps {
+export interface PostPreviewListPropsWithPagination
+  extends PostPreviewListProps {
   loading: boolean;
   onLoadMore?: () => void;
   networkStatus?: number;
@@ -30,8 +30,8 @@ export const PostPreviewList = ({
   posts,
   onLoadMore,
 }:
-  | IPostPreviewListPropsWithPagination
-  | IPostPreviewListPropsWithoutPagination) => {
+  | PostPreviewListPropsWithPagination
+  | PostPreviewListPropsWithoutPagination) => {
   const mappedPosts = useMemo(() => {
     return posts?.map((repository, index) => (
       <PostPreview post={repository} key={repository.id} />

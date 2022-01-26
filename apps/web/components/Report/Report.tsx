@@ -5,16 +5,16 @@ import { Input } from '../UI/Input/Input';
 import { Modal } from '../UI/Modal';
 import { RadioList } from '../UI/RadioList';
 
-interface IReportProps {
+interface ReportProps {
   subject: ReportableType;
   subjectId: string;
-  reasons: IReason[];
+  reasons: Reason[];
   modalTitle?: string;
   modalDescription?: string;
   buttonTitle?: string;
 }
 
-export interface IReason {
+export interface Reason {
   name: string;
   value?: string;
   customValue?: boolean;
@@ -27,7 +27,7 @@ export const Report = ({
   modalTitle = 'گزارش',
   modalDescription = 'درصورتی که یکی از موارد ذیل و یا یکی از قوانین سایت نقض شده است، از شما در خواست می شود به ما گزارش دهید.',
   buttonTitle = 'گزارش',
-}: IReportProps) => {
+}: ReportProps) => {
   const [report, { data, loading }] = useReportMutation();
 
   const [showReportModal, setShowReportModal] = useState(false);
@@ -36,7 +36,7 @@ export const Report = ({
   const [reportReason, setReportReason] = useState('');
 
   // And this is for the selected radio input option
-  const [selectedReportReason, setSelectedReportReason] = useState<IReason>();
+  const [selectedReportReason, setSelectedReportReason] = useState<Reason>();
 
   useEffect(() => setShowReportModal(false), [data]);
 
@@ -55,7 +55,7 @@ export const Report = ({
           <RadioList
             options={reasons}
             value={selectedReportReason}
-            onChange={(reason: IReason) => {
+            onChange={(reason: Reason) => {
               setReportReason(reason.value);
               setSelectedReportReason(reason);
             }}

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { HiClock, HiUser } from 'react-icons/hi';
-import { Card, ICardProps } from '../UI/Card';
+import { Card, CardProps } from '../UI/Card';
 
-export interface PostPreviewProps extends Omit<ICardProps, 'children'> {
+export interface PostPreviewProps extends Omit<CardProps, 'children'> {
   post: {
     id: string;
     slug: string;

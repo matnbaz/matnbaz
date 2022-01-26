@@ -1,16 +1,16 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { Input } from './Input/Input';
-interface IOption {
+interface Option {
   id?: string | number;
   name: string;
   key?: string | number;
 }
 
-type TValue = IOption[];
+type TValue = Option[];
 
-export interface ICheckboxListProps {
-  options: IOption[];
+export interface CheckboxListProps {
+  options: Option[];
   value?: TValue;
   className?: string;
   dir?: 'ltr' | 'rtl';
@@ -23,7 +23,7 @@ export const CheckboxList = ({
   className,
   dir = 'rtl',
   onChange,
-}: ICheckboxListProps) => {
+}: CheckboxListProps) => {
   const [selectedOptions, setSelectedOptions] = useState<TValue>(value);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const CheckboxList = ({
     if (selectedOptions) onChange(selectedOptions);
   }, [JSON.stringify(selectedOptions)]);
 
-  const compareOptions = (firstOption: IOption, secondOption: IOption) => {
+  const compareOptions = (firstOption: Option, secondOption: Option) => {
     if (firstOption.key) return firstOption.key === secondOption.key;
     if (firstOption.id) return firstOption.id === secondOption.id;
     return firstOption.name === secondOption.name;

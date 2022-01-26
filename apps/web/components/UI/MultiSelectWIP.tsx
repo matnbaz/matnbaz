@@ -4,16 +4,16 @@ import { Fragment, useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { HiChevronDown } from 'react-icons/hi';
 
-interface IOptions {
+interface Options {
   name: string;
   color?: string;
   value: string;
 }
 
-type TValue = IOptions[];
+type TValue = Options[];
 
-export interface IMultiSelectProps {
-  options: IOptions[];
+export interface MultiSelectProps {
+  options: Options[];
   value?: TValue;
   onChange?: (values: TValue) => void;
 }
@@ -22,7 +22,7 @@ export const MultiSelectWIP = ({
   options,
   value,
   onChange,
-}: IMultiSelectProps) => {
+}: MultiSelectProps) => {
   const [selectedOptions, setSelectedOptions] = useState<TValue | null>(null);
   const optionChangeHandler = (selectedOption) => {
     if (selectedOptions?.includes(selectedOption)) return;

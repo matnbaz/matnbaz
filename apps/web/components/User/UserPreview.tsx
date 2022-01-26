@@ -1,6 +1,6 @@
-import { Card, ICardProps } from '../UI/Card';
+import { Card, CardProps } from '../UI/Card';
 
-export interface UserPreviewProps extends Omit<ICardProps, 'children'> {
+export interface UserPreviewProps extends Omit<CardProps, 'children'> {
   user: {
     id: string;
     name?: string;

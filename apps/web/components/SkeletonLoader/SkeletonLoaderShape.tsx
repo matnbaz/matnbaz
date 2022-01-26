@@ -4,7 +4,7 @@ enum ShapeClasses {
   'rectangle' = '',
 }
 
-export interface ISkeletonShapeProps {
+export interface SkeletonShapeProps {
   shape: keyof typeof ShapeClasses;
   width: string;
   height: string;
@@ -16,7 +16,7 @@ export const SkeletonLoaderShape = ({
   width,
   height,
   className,
-}: ISkeletonShapeProps) => {
+}: SkeletonShapeProps) => {
   return (
     <div
       className={`bg-gray-300 dark:bg-gray-700 ${ShapeClasses[shape]} ${

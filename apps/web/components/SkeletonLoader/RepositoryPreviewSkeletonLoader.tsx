@@ -1,9 +1,9 @@
-import { IRepositoryPreviewProps } from '../Repository/RepositoryPreview';
+import { RepositoryPreviewProps } from '../Repository/RepositoryPreview';
 import { Card } from '../UI/Card';
 import { SkeletonLoaderShape } from './SkeletonLoaderShape';
 
 export type IRepositoryPreviewSkeletonLoaderProps = Omit<
-  IRepositoryPreviewProps,
+  RepositoryPreviewProps,
   'repository'
 >;
 

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
 
-export interface ICheckboxInputProps {
+export interface CheckboxInputProps {
   className?: string;
   checked?: boolean;
   onClick?: () => void;
@@ -17,7 +17,7 @@ export const CheckboxInput = ({
   onChange,
   label,
   ...props
-}: ICheckboxInputProps) => {
+}: CheckboxInputProps) => {
   const [checked, setChecked] = useState(checkedProp);
 
   useEffect(() => {

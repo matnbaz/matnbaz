@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 
-export interface IDividerProps {
+export interface DividerProps {
   className?: string;
 }
 
-export const Divider = ({ className }: IDividerProps) => {
+export const Divider = ({ className }: DividerProps) => {
   return (
     <div
       className={classNames(

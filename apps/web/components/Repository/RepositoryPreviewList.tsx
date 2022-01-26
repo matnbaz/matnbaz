@@ -1,27 +1,24 @@
 import { useMemo } from 'react';
 import { InfiniteScroll } from '../Feature/InfiniteScroll';
 import { RepositoryPreviewSkeletonLoader } from '../SkeletonLoader/RepositoryPreviewSkeletonLoader';
-import {
-  IRepositoryPreviewProps,
-  RepositoryPreview,
-} from './RepositoryPreview';
+import { RepositoryPreview, RepositoryPreviewProps } from './RepositoryPreview';
 
-interface IRepositoryPreviewListProps {
-  repositories: IRepositoryPreviewProps['repository'][];
+interface RepositoryPreviewListProps {
+  repositories: RepositoryPreviewProps['repository'][];
   adsFrequency?: number;
   adsTemplate?: () => JSX.Element;
   loading?: boolean;
 }
 
-export interface IRepositoryPreviewListPropsWithoutPagination
-  extends IRepositoryPreviewListProps {
+export interface RepositoryPreviewListPropsWithoutPagination
+  extends RepositoryPreviewListProps {
   networkStatus?: never;
   called?: never;
   onLoadMore?: never;
 }
 
-export interface IRepositoryPreviewListPropsWithPagination
-  extends IRepositoryPreviewListProps {
+export interface RepositoryPreviewListPropsWithPagination
+  extends RepositoryPreviewListProps {
   loading: boolean;
   onLoadMore?: () => void;
   networkStatus?: number;
@@ -37,8 +34,8 @@ export const RepositoryPreviewList = ({
   adsTemplate,
   onLoadMore,
 }:
-  | IRepositoryPreviewListPropsWithPagination
-  | IRepositoryPreviewListPropsWithoutPagination) => {
+  | RepositoryPreviewListPropsWithPagination
+  | RepositoryPreviewListPropsWithoutPagination) => {
   const mappedRepositories = useMemo(() => {
     return repositories?.map((repository, index) => (
       <>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { SubmitUserForm } from '../Form/SubmitUserForm';
 import { Modal } from '../UI/Modal';
 
-export interface ISubmitUserModalProps {
+export interface SubmitUserModalProps {
   title?: string;
   className?: string;
 }
@@ -11,7 +11,7 @@ export interface ISubmitUserModalProps {
 export const SubmitUserModal = ({
   title = 'ثبت کاربر',
   className,
-}: ISubmitUserModalProps) => {
+}: SubmitUserModalProps) => {
   const [show, setShow] = useState(false);
   return (
     <>

@@ -14,7 +14,7 @@ import { IconType } from 'react-icons/lib';
 import { MatnbazLogo } from '../Icons/MatnbazLogo';
 import { RepositorySearchInput } from '../Repository/RepositorySearchInput';
 import { IconButton } from './IconButton';
-export interface INavbarProps {
+export interface NavbarProps {
   className?: string;
 }
 
@@ -128,7 +128,7 @@ const links: LinkItem[] = [
   },
 ];
 
-export const Navbar = ({ className }: INavbarProps) => {
+export const Navbar = ({ className }: NavbarProps) => {
   const { setTheme, resolvedTheme } = useTheme();
   const [atFirst, setAtFirst] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);

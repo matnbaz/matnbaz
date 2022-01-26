@@ -56,12 +56,12 @@ export const initialFilters: TRepositoryFiltersState = {
   templateStatus: templateStatusOptions['ALL'],
 };
 
-interface IRepositoryFilterContext {
+interface RepositoryFilterContext {
   filters: TRepositoryFiltersState;
   setFilters?: Dispatch<SetStateAction<TRepositoryFiltersState>>;
 }
 
-const RepositoryFilterContext = createContext<IRepositoryFilterContext>({
+const RepositoryFilterContext = createContext<RepositoryFilterContext>({
   filters: initialFilters,
 });
 

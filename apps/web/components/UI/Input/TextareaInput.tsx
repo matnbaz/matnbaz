@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { TextareaHTMLAttributes } from 'react';
 import { IconType } from 'react-icons/lib';
 
-export interface ITextInputProps
+export interface TextInputProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   icon?: IconType;
 }
@@ -11,7 +11,7 @@ export const TextareaInput = ({
   className,
   icon,
   ...props
-}: ITextInputProps) => {
+}: TextInputProps) => {
   const IconComponent = icon;
   return (
     <div className="relative">

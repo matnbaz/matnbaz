@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { HiChevronDown } from 'react-icons/hi';
 import { Divider } from './Divider';
 
-export interface ICollapsibleProps {
+export interface CollapsibleProps {
   children: React.ReactNode;
   title?: string;
   className?: string;
@@ -17,7 +17,7 @@ export const Collapsible = ({
   className,
   open: initialOpen = false,
   ...props
-}: ICollapsibleProps) => {
+}: CollapsibleProps) => {
   return (
     <Disclosure
       {...props}

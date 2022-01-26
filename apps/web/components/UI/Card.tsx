@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Link, { LinkProps } from 'next/link';
 import { CSSProperties, DOMAttributes, useMemo } from 'react';
-export interface ICardProps
+export interface CardProps
   extends DOMAttributes<HTMLDivElement | HTMLAnchorElement | LinkProps> {
   children: React.ReactNode;
   className?: string;
@@ -23,7 +23,7 @@ export const Card = ({
   onClick,
   href,
   ...props
-}: ICardProps) => {
+}: CardProps) => {
   const cardClasses = useMemo(() => {
     return classNames(
       className,

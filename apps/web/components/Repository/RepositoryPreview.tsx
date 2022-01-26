@@ -12,10 +12,10 @@ import {
   ScriptDirection,
 } from '../../lib/graphql-types';
 import { OwnerImage } from '../Owner/OwnerImage';
-import { Card, ICardProps } from '../UI/Card';
+import { Card, CardProps } from '../UI/Card';
 
-export interface IRepositoryPreviewProps
-  extends Omit<ICardProps, 'children' | 'href'> {
+export interface RepositoryPreviewProps
+  extends Omit<CardProps, 'children' | 'href'> {
   repository: {
     id: string;
     fullName: string;
@@ -47,7 +47,7 @@ export const RepositoryPreview = ({
   sendToPlatform = false,
   variation = 'default',
   ...props
-}: IRepositoryPreviewProps) => {
+}: RepositoryPreviewProps) => {
   const statistics = useMemo(
     () => [
       {

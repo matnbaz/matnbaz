@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-interface IInfiniteScrollProps {
+interface InfiniteScrollProps {
   children: React.ReactNode;
   //** Data length is needed to determine if it's needed to load more content incase the screen is too large */
   dataLength: number;
@@ -11,7 +11,7 @@ export const InfiniteScroll = ({
   children,
   dataLength,
   onLoadMore,
-}: IInfiniteScrollProps) => {
+}: InfiniteScrollProps) => {
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import { ICollectionPreviewProps } from '../Collection/CollectionPreview';
+import { CollectionPreviewProps } from '../Collection/CollectionPreview';
 import { Card } from '../UI/Card';
 import { SkeletonLoaderShape } from './SkeletonLoaderShape';
 
 export type ICollectionPreviewSkeletonLoaderProps = Omit<
-  ICollectionPreviewProps,
+  CollectionPreviewProps,
   'collection'
 >;
 

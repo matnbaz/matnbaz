@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { ReportableType } from '../../lib/graphql-types';
 import { Button } from '../UI/Button/Button';
 import { Modal } from '../UI/Modal';
-import { IReason, Report } from './Report';
+import { Reason, Report } from './Report';
 
-export interface IRepositoryReportProps {
+export interface RepositoryReportProps {
   repository: { fullName: string; id: string };
 }
 
-export const RepositoryReport = ({ repository }: IRepositoryReportProps) => {
+export const RepositoryReport = ({ repository }: RepositoryReportProps) => {
   const [showOtherModal, setShowOtherModal] = useState(false);
 
-  const reasons: IReason[] = [
+  const reasons: Reason[] = [
     {
       name: 'محتوای غیر اخلاقی',
       value: 'این پروژه محتوا،‌ تصویر یا نام غیر اخلاقی دارد.',

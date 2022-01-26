@@ -1,15 +1,15 @@
 import classNames from 'classnames';
 import { forwardRef } from 'react';
 import { IconType } from 'react-icons/lib';
-import { IInputProps } from './Input';
+import { InputProps } from './Input';
 
-export interface ITextInputProps extends IInputProps {
+export interface TextInputProps extends InputProps {
   icon?: IconType;
   noBorder?: boolean;
 }
 
 export const TextInput = forwardRef<HTMLInputElement>(
-  ({ className, icon, noBorder = false, ...props }: ITextInputProps, ref) => {
+  ({ className, icon, noBorder = false, ...props }: TextInputProps, ref) => {
     const IconComponent = icon;
     return (
       <div className="relative w-full inline-block">

@@ -1,13 +1,13 @@
 import React from 'react';
 import { ReportableType } from '../../lib/graphql-types';
-import { IReason, Report } from './Report';
+import { Reason, Report } from './Report';
 
-export interface IOwnerReportProps {
+export interface OwnerReportProps {
   owner: { login: string; id: string };
 }
 
-export const OwnerReport = ({ owner }: IOwnerReportProps) => {
-  const reasons: IReason[] = [
+export const OwnerReport = ({ owner }: OwnerReportProps) => {
+  const reasons: Reason[] = [
     {
       name: 'تصویر یا نام غیر اخلاقی',
       value: 'این کاربر یک تصویر و یا نام غیر اخلاقی برای خود انتخاب کرده است.',
