@@ -47,6 +47,12 @@ export class MarkdownService {
   }
 
   parse(markdown: string) {
+    return marked.parse(emoji.emojify(markdown), {
+      gfm: true,
+    });
+  }
+
+  parseWithDirections(markdown: string) {
     const renderer = this.applyDirectionRenderer(new Renderer());
 
     return marked.parse(emoji.emojify(markdown), {
