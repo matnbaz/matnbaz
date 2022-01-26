@@ -12,7 +12,6 @@ export function createApolloClient() {
         Query: {
           fields: {
             posts: relayStylePagination(),
-            selections: relayStylePagination(),
             repositories: relayStylePagination(),
           },
         },

@@ -291,9 +291,6 @@ type Query {
   repositoryById(id: ID!): Repository
   repositoryByPlatform(owner: String!, platform: PlatformType!, repo: String!): Repository
   repositoryByPlatformId(id: ID!, platform: PlatformType!): Repository
-  selection(id: ID!): RepositorySelection
-  selectionByIssue(issue: Int!): RepositorySelection
-  selections(after: String, before: String, first: Int, last: Int): RepositorySelectionConnection!
   topic(name: String!): Topic
   topicById(id: ID!): Topic
   topics(after: String, before: String, first: Int, last: Int, order: TopicOrder): TopicConnection!
@@ -400,33 +397,6 @@ type RepositoryEdge {
 
   """The item at the end of RepositoryEdge."""
   node: Repository!
-}
-
-type RepositorySelection implements Node {
-  createdAt: DateObject!
-  description: String
-  featuredAt: DateObject!
-  id: ID!
-  issue: Int!
-  repositories: [Repository!]!
-  title: String!
-}
-
-type RepositorySelectionConnection {
-  """A list of edges"""
-  edges: [RepositorySelectionEdge!]
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-}
-
-"""A RepositorySelection edge."""
-type RepositorySelectionEdge {
-  """A cursor for use in pagination."""
-  cursor: String!
-
-  """The item at the end of RepositorySelectionEdge."""
-  node: RepositorySelection!
 }
 
 """A repository owner could any of these types."""

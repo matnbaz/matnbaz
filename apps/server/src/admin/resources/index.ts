@@ -6,7 +6,6 @@ import { ownerResource } from './owner.resource';
 import { postTagResource } from './post-tag.resource';
 import { postResource } from './post.resource';
 import { reportResource } from './report.resource';
-import { repositorySelectionResource } from './repository-selection.resource';
 import { repositoryResource } from './repository.resource';
 import { ResourceContext } from './resource-type';
 import { submissionResource } from './submission.resource';
@@ -23,7 +22,6 @@ const resources = [
   submissionResource,
   collectionResource,
   collectResource,
-  repositorySelectionResource,
   userResource,
   postResource,
   postTagResource,
