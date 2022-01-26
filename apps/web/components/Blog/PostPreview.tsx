@@ -1,4 +1,5 @@
-import { PlatformType } from '../../lib/graphql-types';
+import Image from 'next/image';
+import { HiClock, HiUser } from 'react-icons/hi';
 import { Card, ICardProps } from '../UI/Card';
 
 export interface PostPreviewProps extends Omit<ICardProps, 'children'> {
@@ -6,22 +7,17 @@ export interface PostPreviewProps extends Omit<ICardProps, 'children'> {
     id: string;
     slug: string;
     title: string;
-    image: string;
+    image?: string;
     publishedAt?: {
       formatted: string;
       difference: string;
     };
-    authors: {
+    author: {
       id: string;
-      additions: number;
-      deletions: number;
-      owner: {
-        id: string;
-        login: string;
-        platform: PlatformType;
-        platformId: string;
-      };
-    }[];
+      username: string;
+      name?: string;
+      bio?: string;
+    };
   };
 }
 
@@ -33,10 +29,25 @@ export const PostPreview = ({ post, ...props }: PostPreviewProps) => {
       {...props}
     >
       <div>
-        <img src={post.image} alt={`عکس پست "${post.title}"`} />
-        <div className="font-bold">{post.title}</div>
+        {post.image && (
+          <Image src={post.image} alt={`عکس پست "${post.title}"`} />
+        )}
+        <div className="text-xl font-bold">{post.title}</div>
       </div>
-      {post.publishedAt && <div>{post.publishedAt.formatted}</div>}
+      <div className="mt-2 flex items-center space-x-4 space-x-reverse">
+        {post.publishedAt && (
+          <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
+            <HiClock />
+            <span>{post.publishedAt.formatted}</span>
+          </div>
+        )}
+        {post.author && (
+          <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
+            <HiUser />
+            <span>{post.author.name}</span>
+          </div>
+        )}
+      </div>
     </Card>
   );
 };
