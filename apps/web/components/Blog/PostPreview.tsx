@@ -9,6 +9,8 @@ export interface PostPreviewProps extends Omit<ICardProps, 'children'> {
     title: string;
     image?: string;
     tags?: string[];
+    summary?: string;
+    summaryLimited?: string;
     publishedAt?: {
       formatted: string;
       difference: string;
@@ -40,7 +42,7 @@ export const PostPreview = ({ post, ...props }: PostPreviewProps) => {
           />
         )}
       </div>
-      <div className="px-2.5 py-3 sm:px-5 sm:py-4">
+      <div className="px-2.5 py-3 sm:px-5 sm:py-4 space-y-2">
         <div className="flex items-center space-x-4 space-x-reverse">
           {post.publishedAt && (
             <div className="inline-flex items-center space-x-1 space-x-reverse text-xs text-secondary">
@@ -55,11 +57,16 @@ export const PostPreview = ({ post, ...props }: PostPreviewProps) => {
             </div>
           )}
         </div>
-        <div className="mt-2 text-2xl font-bold">{post.title}</div>
+        <div className="text-2xl font-bold">{post.title}</div>
+        {(post.summaryLimited || post.summary) && (
+          <p className="text-sm text-secondary">
+            {post.summaryLimited || post.summary}
+          </p>
+        )}
         {post.tags && (
-          <div className="mt-1 space-x-2 space-x-reverse text-sm text-secondary">
+          <div className="flex flex-wrap gap-2 text-sm text-secondary">
             {post.tags.map((tag) => (
-              <span className="inline-block" key={tag}>
+              <span className="inline-block underline" key={tag}>
                 #{tag}
               </span>
             ))}

@@ -314,6 +314,8 @@ export type Post = Node & {
   image?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<DateObject>;
   slug: Scalars['String'];
+  summary?: Maybe<Scalars['String']>;
+  summaryLimited?: Maybe<Scalars['String']>;
   tags: Array<Scalars['String']>;
   title: Scalars['String'];
   updatedAt: DateObject;
@@ -820,7 +822,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, tags: Array<string>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } } }> | null | undefined } };
+export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, tags: Array<string>, summaryLimited?: string | null | undefined, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } } }> | null | undefined } };
 
 export type GetRepositoriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -1290,6 +1292,7 @@ export const GetPostsDocument = gql`
         title
         image
         tags
+        summaryLimited
         publishedAt {
           formatted
           difference
