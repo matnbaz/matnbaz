@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { NextSeo } from 'next-seo';
 import { PostPreviewList } from '../../components/Blog/PostPreviewList';
 import { MainLayout } from '../../components/Layout/MainLayout';
 import { PageHeader } from '../../components/Layout/PageHeader';
@@ -21,6 +22,10 @@ const BlogPage: NextPage = () => {
 
   return (
     <MainLayout withFooterPromo>
+      <NextSeo
+        title="بلاگ"
+        description="معرفی پروژه‌های اوپن‌سورس، پست‌های آموزشی، اخبار متن‌باز و..."
+      />
       <PageHeader
         title="بلاگ"
         description="معرفی پروژه‌های اوپن‌سورس، پست‌های آموزشی، اخبار متن‌باز و..."

@@ -6,6 +6,7 @@ query GetPost($slug: String!) {
     image
     contentHtml
     tags
+    summaryLimited
     publishedAt {
       formatted
       difference

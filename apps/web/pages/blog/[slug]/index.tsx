@@ -1,4 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
+import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import { HiClock, HiUser } from 'react-icons/hi';
@@ -25,6 +26,16 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
 
   return (
     <MainLayout withFooterPromo>
+      <NextSeo
+        title={post.title}
+        description={post.summaryLimited}
+        openGraph={
+          post.image && {
+            images: [{ url: post.image, alt: post.title }],
+          }
+        }
+      />
+
       <div className="max-w-3xl mx-auto ">
         <Image
           width={1280}
