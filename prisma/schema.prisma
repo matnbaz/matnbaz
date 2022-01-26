@@ -239,6 +239,7 @@ model RepositorySelection {
 model Post {
   id          String    @id @default(cuid())
   image       String?
+  summary     String?
   title       String
   slug        String    @unique
   content     String
