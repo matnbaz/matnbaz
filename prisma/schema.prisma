@@ -237,18 +237,17 @@ model RepositorySelection {
 }
 
 model Post {
-  id                  String    @id @default(cuid())
-  repositoryReference String?   @unique
-  image               String?
-  title               String
-  slug                String    @unique
-  content             String
-  contentHtml         String
-  createdAt           DateTime  @default(now())
-  updatedAt           DateTime  @updatedAt
-  publishedAt         DateTime?
-  User                User      @relation(fields: [userId], references: [id])
-  userId              String
+  id          String    @id @default(cuid())
+  image       String?
+  title       String
+  slug        String    @unique
+  content     String
+  contentHtml String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  publishedAt DateTime?
+  User        User      @relation(fields: [userId], references: [id])
+  userId      String
 }
 
 enum OwnerType {
