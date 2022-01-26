@@ -58,7 +58,7 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
           </div>
         )}
         <div
-          className="mt-10 prose dark:prose-invert"
+          className="mt-10 prose dark:prose-invert prose-h1:mt-10 prose-h1:font-extrabold prose-h2:font-extrabold"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
         <UserPreview
@@ -66,7 +66,7 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
           colored
           border="none"
           user={post.author}
-          className="mt-4"
+          className="mt-12"
         />
       </div>
     </MainLayout>
