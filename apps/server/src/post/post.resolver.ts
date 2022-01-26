@@ -50,6 +50,13 @@ export class PostResolver {
     ).User;
   }
 
+  @ResolveField(() => [String])
+  async tags(@Parent() { id }: P.Post) {
+    return (await this.prisma.post.findUnique({ where: { id } }).Tags()).map(
+      (tag) => tag.name
+    );
+  }
+
   @ResolveField(() => DateObject)
   createdAt(@Parent() { createdAt }: P.Post) {
     return createDateObject(createdAt);
