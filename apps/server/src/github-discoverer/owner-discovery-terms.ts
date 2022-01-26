@@ -1,9 +1,10 @@
 export const ownerDiscoveryTerms = [
   'location:iran type:org',
   'location:iran type:user',
-  // ^ These two are split into two different terms because github has a limitation of maximum 1k items and users with the location `iran` are - at the moment of writing this - almost 20k. this helps us get more users.
+  'location:tehran type:org',
+  'location:tehran type:user',
+  // ^ These are split into two different terms because github has a limitation of maximum 1k items and users with the location `iran` are - at the moment of writing this - almost 20k. this helps us get more users.
   'location:ایران',
-  'location:tehran',
   'location:alborz',
   'location:karaj',
   'location:mashhad',
