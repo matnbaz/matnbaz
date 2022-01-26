@@ -34,7 +34,7 @@ export const PostPreviewList = ({
   | IPostPreviewListPropsWithoutPagination) => {
   const mappedPosts = useMemo(() => {
     return posts?.map((repository, index) => (
-      <PostPreview padded post={repository} key={repository.id} />
+      <PostPreview post={repository} key={repository.id} />
     ));
   }, [posts]);
 

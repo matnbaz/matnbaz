@@ -28,25 +28,33 @@ export const PostPreview = ({ post, ...props }: PostPreviewProps) => {
       className="flex flex-col justify-between"
       {...props}
     >
-      <div>
+      <div className="relative">
         {post.image && (
-          <Image src={post.image} alt={`عکس پست "${post.title}"`} />
+          <Image
+            src={post.image}
+            alt={`عکس پست "${post.title}"`}
+            width={640}
+            height={320}
+            className="rounded-t-lg"
+          />
         )}
-        <div className="text-xl font-bold">{post.title}</div>
       </div>
-      <div className="mt-2 flex items-center space-x-4 space-x-reverse">
-        {post.publishedAt && (
-          <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
-            <HiClock />
-            <span>{post.publishedAt.formatted}</span>
-          </div>
-        )}
-        {post.author && (
-          <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
-            <HiUser />
-            <span>{post.author.name}</span>
-          </div>
-        )}
+      <div className="px-2.5 py-3 sm:px-5 sm:py-4">
+        <div className="text-xl font-bold">{post.title}</div>
+        <div className="mt-2 flex items-center space-x-4 space-x-reverse">
+          {post.publishedAt && (
+            <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
+              <HiClock />
+              <span>{post.publishedAt.formatted}</span>
+            </div>
+          )}
+          {post.author && (
+            <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
+              <HiUser />
+              <span>{post.author.name}</span>
+            </div>
+          )}
+        </div>
       </div>
     </Card>
   );

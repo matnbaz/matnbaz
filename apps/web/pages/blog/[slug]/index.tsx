@@ -1,4 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
+import Image from 'next/image';
 import { useMemo } from 'react';
 import { MainLayout } from '../../../components/Layout/MainLayout';
 import { initializeApollo } from '../../../lib/apollo';
@@ -22,13 +23,15 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
 
   return (
     <MainLayout>
-      <div className="max-w-4xl mx-auto">
-        <img
+      <div className="max-w-3xl mx-auto">
+        <Image
+          width={1280}
+          height={640}
           src={post.image}
-          className="w-full"
+          className="w-full rounded-lg"
           alt={`عکس پست "${post.title}"`}
         />
-        <h1 className="mt-4 text-center text-5xl font-extrabold">
+        <h1 className="mt-6 text-center text-5xl font-extrabold">
           {post.title}
         </h1>
         <div
