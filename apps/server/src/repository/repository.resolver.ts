@@ -1,7 +1,7 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { CacheControl } from '@exonest/graphql-cache-control';
 import { PaginationArgs } from '@exonest/graphql-connections';
-import { guessDirection, MINIMUM_STARS } from '@matnbaz/common';
+import { guessDirection, limitWords, MINIMUM_STARS } from '@matnbaz/common';
 import {
   Args,
   ID,
@@ -293,23 +293,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
 
   @ResolveField(() => String, { nullable: true })
   descriptionLimited(@Parent() { description }: P.Repository) {
-    if (!description) return description;
-
-    const maxLength = 256;
-
-    // return the original description if the length is less than max length
-    if (description.length <= maxLength) return description;
-
-    // trim the string to the maximum length
-    let trimmedString = description.substr(0, maxLength);
-
-    // re-trim if we are in the middle of a word so it wo-...
-    trimmedString = trimmedString.substr(
-      0,
-      Math.min(trimmedString.length, trimmedString.lastIndexOf(' '))
-    );
-
-    return trimmedString.length > 0 ? trimmedString + '...' : null;
+    return description ? limitWords(description, 256) : null;
   }
 
   @ResolveField(() => String, { nullable: true })

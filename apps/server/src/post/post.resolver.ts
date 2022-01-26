@@ -1,5 +1,6 @@
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PaginationArgs } from '@exonest/graphql-connections';
+import { limitWords } from '@matnbaz/common';
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
@@ -55,6 +56,10 @@ export class PostResolver {
     return (await this.prisma.post.findUnique({ where: { id } }).Tags()).map(
       (tag) => tag.name
     );
+  }
+  @ResolveField(() => String, { nullable: true })
+  summaryLimited(@Parent() { summary }: P.Post) {
+    return summary ? limitWords(summary, 256) : null;
   }
 
   @ResolveField(() => DateObject)

@@ -7,5 +7,6 @@ export class Post {
   slug: string;
   content: string;
   contentHtml: string;
+  summary?: string;
   image?: string;
 }

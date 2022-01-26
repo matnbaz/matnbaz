@@ -233,6 +233,8 @@ type Post implements Node {
   image: String
   publishedAt: DateObject
   slug: String!
+  summary: String
+  summaryLimited: String
   tags: [String!]!
   title: String!
   updatedAt: DateObject!
