@@ -7,6 +7,7 @@ const main = async () => {
   const admin1 = await prisma.user.create({
     data: {
       email: 'johndoe@acme.test',
+      username: 'johndoe',
       password: bcrypt.hashSync('password', 10),
       name: 'John Doe',
       type: 'Admin',
@@ -17,6 +18,7 @@ const main = async () => {
   const mod1 = await prisma.user.create({
     data: {
       email: 'janedoe@acme.test',
+      username: 'janedoe',
       password: bcrypt.hashSync('password', 10),
       name: 'Jane Doe',
       type: 'Moderator',
