@@ -249,6 +249,14 @@ model Post {
   publishedAt DateTime?
   User        User      @relation(fields: [userId], references: [id])
   userId      String
+  Tags        PostTag[]
+}
+
+model PostTag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  Posts     Post[]
 }
 
 enum OwnerType {
