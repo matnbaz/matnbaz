@@ -5,6 +5,7 @@ query GetPost($slug: String!) {
     title
     image
     contentHtml
+    tags
     publishedAt {
       formatted
       difference

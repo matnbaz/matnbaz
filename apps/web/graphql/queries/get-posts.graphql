@@ -10,6 +10,7 @@ query GetPosts($count: Int = 12, $after: String) {
         slug
         title
         image
+        tags
         publishedAt {
           formatted
           difference
