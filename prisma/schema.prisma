@@ -150,8 +150,8 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   username  String   @unique
-  name      String
-  bio       String
+  name      String?
+  bio       String?
   password  String
   type      UserType
   createdAt DateTime @default(now())
