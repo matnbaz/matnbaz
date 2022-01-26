@@ -15,6 +15,7 @@ export const postResource: Resource = ({
     properties: {
       content: { type: 'textarea' },
     },
+    listProperties: ['title', 'slug', 'summary', 'publishedAt'],
     actions: {
       publish: {
         name: 'publish',
