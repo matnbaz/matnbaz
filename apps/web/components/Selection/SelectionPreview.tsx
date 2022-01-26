@@ -13,7 +13,9 @@ export interface ISelectionPreviewProps
     description?: string;
   };
 }
-
+/**
+ * @deprecated
+ */
 export const SelectionPreview = ({
   selection,
   ...props
