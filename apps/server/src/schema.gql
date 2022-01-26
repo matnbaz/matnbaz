@@ -490,6 +490,7 @@ enum TopicOrder {
 }
 
 type User implements Node {
+  avatar: String
   bio: String
   id: ID!
   name: String
