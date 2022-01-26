@@ -152,6 +152,7 @@ model User {
   username  String   @unique
   name      String?
   bio       String?
+  avatar    String?
   password  String
   type      UserType
   createdAt DateTime @default(now())
