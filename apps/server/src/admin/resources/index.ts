@@ -3,6 +3,7 @@ import { collectionResource } from './collection.resource';
 import { languageResource } from './language.resource';
 import { licenseResource } from './license.resource';
 import { ownerResource } from './owner.resource';
+import { postTagResource } from './post-tag.resource';
 import { postResource } from './post.resource';
 import { reportResource } from './report.resource';
 import { repositorySelectionResource } from './repository-selection.resource';
@@ -23,8 +24,9 @@ const resources = [
   collectionResource,
   collectResource,
   repositorySelectionResource,
-  postResource,
   userResource,
+  postResource,
+  postTagResource,
 ];
 
 export const getResources = (context: ResourceContext) =>
