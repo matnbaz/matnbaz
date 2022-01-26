@@ -23,7 +23,7 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
   const post = useMemo(() => data.postBySlug, [data]);
 
   return (
-    <MainLayout>
+    <MainLayout withFooterPromo>
       <div className="max-w-3xl mx-auto ">
         <Image
           width={1280}

@@ -20,7 +20,7 @@ const BlogPage: NextPage = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout withFooterPromo>
       <PageHeader
         title="بلاگ"
         description={
