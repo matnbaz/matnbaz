@@ -1,11 +1,8 @@
 import classNames from 'classnames';
-import { IPostPreviewProps } from '../Post/PostPreview';
+import { PostPreviewProps } from '../Blog/PostPreview';
 import { Card } from '../UI/Card';
 
-export type IPostPreviewSkeletonLoaderProps = Omit<
-  IPostPreviewProps,
-  'collection'
->;
+export type IPostPreviewSkeletonLoaderProps = Omit<PostPreviewProps, 'post'>;
 
 export const PostPreviewSkeletonLoader = ({
   className,
