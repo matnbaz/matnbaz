@@ -1,1 +1,1 @@
-export const MINIMUM_STARS = 5;
+export const MINIMUM_STARS = 4;
