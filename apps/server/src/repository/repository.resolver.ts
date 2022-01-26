@@ -320,7 +320,7 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
 
     const [owner] = (await this.fullName(repo)).split('/');
     // Backward Compatibility
-    return this.markdownService.renderForGithub(
+    return this.markdownService.parseForGithub(
       readme,
       owner,
       name,

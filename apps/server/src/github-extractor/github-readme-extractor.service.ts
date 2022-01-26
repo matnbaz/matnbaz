@@ -42,7 +42,7 @@ export class GithubReadmeExtractorService {
         data: {
           readme,
           readmeHtml: readme
-            ? this.markdownService.renderForGithub(
+            ? this.markdownService.parseForGithub(
                 readme,
                 Owner.login,
                 name,
