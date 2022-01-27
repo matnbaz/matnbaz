@@ -60,10 +60,20 @@ export class PostProcessor {
     const post = await this.prisma.post.findUnique({
       where: { id: job.data.id },
     });
+
+    const parsedData = this.markdownService.matter(post.content);
+    const tags = parsedData.data.tags.split(' ') || [];
+
     await this.prisma.post.update({
       where: { id: job.data.id },
       data: {
-        contentHtml: this.markdownService.parse(post.content, {
+        Tags: {
+          connectOrCreate: tags.map((tag) => ({
+            create: { name: tag },
+            where: { name: tag },
+          })),
+        },
+        contentHtml: this.markdownService.parse(parsedData.content, {
           openLinksInNewTab: true,
         }),
       },
