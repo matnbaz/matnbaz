@@ -20,6 +20,8 @@ export class PostProcessor {
       data: { publishedAt: new Date() },
     });
 
+    // TODO: implement a link shortener?
+
     await this.monomedia.discord.sendPhoto(
       post.image,
       `پست جدید: **${post.title}**\nhttps://matnbaz.net/blog/${post.slug}`
