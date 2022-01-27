@@ -36,15 +36,17 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
         }
       />
 
-      <div className="max-w-3xl mx-auto ">
-        <Image
-          width={1280}
-          height={640}
-          src={post.image}
-          className="w-full rounded-lg"
-          alt={`عکس پست "${post.title}"`}
-        />
-        <h1 className="mt-6 text-5xl font-extrabold">{post.title}</h1>
+      <div className="max-w-3xl mx-auto">
+        <div className="rounded-lg shadow-lg dark:shadow-none">
+          <Image
+            width={1280}
+            height={640}
+            src={post.image}
+            className="rounded-lg"
+            alt={`عکس پست "${post.title}"`}
+          />
+        </div>
+        <h1 className="mt-12 text-5xl font-extrabold">{post.title}</h1>
         <div className="mt-6 flex items-center space-x-4 space-x-reverse">
           {post.publishedAt && (
             <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
