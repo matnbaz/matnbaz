@@ -27,6 +27,7 @@ const CollectionsPage: NextPage = () => {
           <>
             {Array.from(Array(16).keys()).map((i) => (
               <CollectionPreviewSkeletonLoader
+                bgColor="standout"
                 className="md:col-span-4 lg:col-span-3"
                 key={i}
                 border="none"
@@ -36,6 +37,7 @@ const CollectionsPage: NextPage = () => {
         ) : (
           data.collections.edges.map(({ node }, index) => (
             <CollectionPreview
+              bgColor="standout"
               className="md:col-span-4 lg:col-span-3"
               key={node.id}
               collection={node}

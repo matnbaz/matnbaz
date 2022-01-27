@@ -82,7 +82,13 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
           </div>
         )}
 
-        <UserPreview padded border="none" user={post.author} className="mt-8" />
+        <UserPreview
+          padded
+          border="none"
+          bgColor="standout"
+          user={post.author}
+          className="mt-8"
+        />
       </div>
     </MainLayout>
   );
