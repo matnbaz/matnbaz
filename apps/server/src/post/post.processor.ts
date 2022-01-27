@@ -18,18 +18,27 @@ export class PostProcessor {
     const post = await this.prisma.post.update({
       where: { id: job.data.id },
       data: { publishedAt: new Date() },
+      include: { Tags: true },
     });
 
     // TODO: implement a link shortener?
 
-    await this.monomedia.discord.sendPhoto(
-      post.image,
-      `پست جدید: **${post.title}**\nhttps://matnbaz.net/blog/${post.slug}`
-    );
+    if (post.image) {
+      await this.monomedia.discord.sendPhoto(
+        post.image,
+        `پست جدید: **${post.title}**\nhttps://matnbaz.net/blog/${post.slug}`
+      );
 
-    await this.monomedia.telegram.sendMessage(
-      `پست جدید: **${post.title}**\nhttps://matnbaz.net/blog/${post.slug}`
-    );
+      await this.monomedia.telegram.sendPhoto(
+        post.image,
+
+        `پست جدید: **${post.title}**${
+          post.Tags.length > 0
+            ? `\n${post.Tags.map((tag) => '#' + tag.name)}`
+            : ''
+        }\nmatnbaz.net/blog/${post.slug}`
+      );
+    }
   }
 
   @Process(MAIN_PROCESSES.PARSE_POST_README)
