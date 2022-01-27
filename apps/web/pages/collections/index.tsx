@@ -30,7 +30,6 @@ const CollectionsPage: NextPage = () => {
                 className="md:col-span-4 lg:col-span-3"
                 key={i}
                 border="none"
-                colored
               />
             ))}
           </>
@@ -41,7 +40,6 @@ const CollectionsPage: NextPage = () => {
               key={node.id}
               collection={node}
               border="none"
-              colored
             />
           ))
         )}

@@ -6,7 +6,7 @@ export interface CardProps
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
-  colored?: boolean;
+  bgColor?: 'none' | 'normal' | 'standout';
   padded?: boolean;
   style?: CSSProperties;
   border?: 'desktop' | 'all' | 'none';
@@ -17,7 +17,7 @@ export interface CardProps
 export const Card = ({
   children,
   padded = false,
-  colored = false,
+  bgColor = 'none',
   className,
   border = 'all',
   onClick,
@@ -27,12 +27,13 @@ export const Card = ({
   const cardClasses = useMemo(() => {
     return classNames(
       className,
-      colored ? 'bg-gray-100 dark:bg-gray-800' : 'bg-white dark:bg-gray-900',
+      bgColor === 'standout' && 'bg-gray-100 dark:bg-gray-800',
+      bgColor === 'normal' && 'bg-white dark:bg-gray-900',
       padded && 'px-2.5 py-3 sm:px-5 sm:py-4',
       border === 'all' ? 'border' : border === 'desktop' ? 'sm:border' : '',
       'rounded-lg border-gray-200 dark:border-gray-700 block disabled:pointer-events-none'
     );
-  }, [className, colored, padded, border]);
+  }, [className, bgColor, padded, border]);
   if (href && !props.disabled)
     return (
       <Link href={href} passHref>
