@@ -33,7 +33,8 @@ export class MonomediaService {
     sendMessage: (message: string) =>
       this.telegraf.telegram.sendMessage(
         normalizeTelegramUsername(this.options.telegram.channelUsername),
-        message
+        message,
+        { parse_mode: 'Markdown' }
       ),
 
     sendPhoto: (photo: string, caption: string) =>
@@ -42,6 +43,7 @@ export class MonomediaService {
         photo,
         {
           caption,
+          parse_mode: 'Markdown',
         }
       ),
   };
