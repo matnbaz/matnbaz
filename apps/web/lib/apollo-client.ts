@@ -11,7 +11,7 @@ export function createApolloClient() {
       typePolicies: {
         Query: {
           fields: {
-            selections: relayStylePagination(),
+            posts: relayStylePagination(),
             repositories: relayStylePagination(),
           },
         },

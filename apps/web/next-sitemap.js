@@ -6,5 +6,10 @@ module.exports = {
     sourceDir: 'dist/apps/web/.next',
     outDir: 'apps/web/public',
     generateRobotsTxt: true,
-    exclude: ['*/404', '*/500', '*/_middleware']
+    exclude: ['*/404', '*/500', '*/_middleware'],
+    robotsTxtOptions: {
+        additionalSitemaps: [
+            'https://matnbaz.net/server-sitemap.xml'
+        ]
+    }
 }

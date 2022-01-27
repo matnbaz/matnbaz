@@ -102,7 +102,10 @@ export class CollectionPuppeteerService {
   </body>
 </html>
 `);
-    const screenshot = await page.screenshot({ omitBackground: true });
+    const screenshot = await page.screenshot({
+      omitBackground: true,
+      type: 'jpeg',
+    });
     await browser.close();
     return screenshot;
   }

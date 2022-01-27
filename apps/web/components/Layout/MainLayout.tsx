@@ -3,7 +3,7 @@ import { PromotionBanner } from '../Banner/PromotionBanner';
 import { Footer } from '../UI/Footer';
 import { Navbar } from '../UI/Navbar';
 
-interface IMainLayoutProps {
+interface MainLayoutProps {
   children: React.ReactNode;
   maxWidth?: boolean;
   withoutFooter?: boolean;
@@ -20,7 +20,7 @@ export const MainLayout = ({
   withoutFooter = false,
   withoutPadding = false,
   withFooterPromo = false,
-}: IMainLayoutProps) => {
+}: MainLayoutProps) => {
   // const [showBanner, setShowBanner] = useState(false);
   // const [timeoutTimer, setTimeoutTimer] = useState<Timer>();
 

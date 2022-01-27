@@ -23,14 +23,17 @@ import { GithubExtractorModule } from '../github-extractor/github-extractor.modu
 import { HybridThrottlerGuard } from '../hybrid-throttler.guard';
 import { LanguageModule } from '../language/language.module';
 import { LicenseModule } from '../license/license.module';
+import { MarkdownModule } from '../markdown/markdown.module';
 import { MetadataModule } from '../metadata/metadata.module';
 import { OwnerModule } from '../owner/owner.module';
 import { ComplexityPlugin } from '../plugins/complexity.plugin';
+import { PostTagModule } from '../post-tag/post-tag.module';
+import { PostModule } from '../post/post.module';
 import { ReportModule } from '../report/report.module';
-import { RepositorySelectionModule } from '../repository-selection/repository-selection.module';
 import { RepositoryModule } from '../repository/repository.module';
 import { SubmissionModule } from '../submission/submission.module';
 import { TopicModule } from '../topic/topic.module';
+import { UserModule } from '../user/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -104,7 +107,7 @@ import { AppService } from './app.service';
       discord: {
         webhookUrl: process.env.DISCORD_WEBHOOK_URL,
         botImage:
-          'https://raw.githubusercontent.com/matnbaz/visual-identity/main/social.jpg',
+          'https://raw.githubusercontent.com/matnbaz/visual/main/social.jpg',
         botName: 'Matnbaz',
       },
       telegram: {
@@ -120,6 +123,7 @@ import { AppService } from './app.service';
         password: process.env.INSTAGRAM_PASSWORD,
       },
     }),
+    MarkdownModule,
     GithubDiscovererModule,
     GithubExtractorModule,
     LanguageModule,
@@ -134,7 +138,9 @@ import { AppService } from './app.service';
     MetadataModule,
     CollectionModule,
     CollectModule,
-    RepositorySelectionModule,
+    UserModule,
+    PostModule,
+    PostTagModule,
   ],
   controllers: [AppController],
   providers: [

@@ -10,7 +10,7 @@ const nextConfig = {
     svgr: false,
   },
   images: {
-    domains: ['avatars.githubusercontent.com'],
+    domains: ['avatars.githubusercontent.com', 'raw.githubusercontent.com'],
   },
 };
 

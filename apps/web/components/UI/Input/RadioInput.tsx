@@ -2,7 +2,7 @@ import { Switch } from '@headlessui/react';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 
-interface IRadioInputProps {
+interface RadioInputProps {
   className?: string;
   checked?: boolean;
   onClick?: () => void;
@@ -14,7 +14,7 @@ export const RadioInput = ({
   checked: checkedProp = false,
   onChange,
   ...props
-}: IRadioInputProps) => {
+}: RadioInputProps) => {
   const [checked, setChecked] = useState(checkedProp);
 
   useEffect(() => {

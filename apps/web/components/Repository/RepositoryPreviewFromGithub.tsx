@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { RepositoryPreviewSkeletonLoader } from '../Skeleton Loader/RepositoryPreviewSkeletonLoader';
+import { RepositoryPreviewSkeletonLoader } from '../SkeletonLoader/RepositoryPreviewSkeletonLoader';
 import {
   githubRepoResponseNormalize,
-  IRepositoryPreviewProps,
   RepositoryPreview,
+  RepositoryPreviewProps,
 } from './RepositoryPreview';
 
-export interface IRepositoryPreviewFromGithubProps
-  extends Omit<IRepositoryPreviewProps, 'repository'> {
+export interface RepositoryPreviewFromGithubProps
+  extends Omit<RepositoryPreviewProps, 'repository'> {
   fullName: string;
 }
 
@@ -15,7 +15,7 @@ export const RepositoryPreviewFromGithub = ({
   fullName,
 
   ...props
-}: IRepositoryPreviewFromGithubProps) => {
+}: RepositoryPreviewFromGithubProps) => {
   const [repo, setRepo] = useState(null);
   useEffect(() => {
     const main = async () => {

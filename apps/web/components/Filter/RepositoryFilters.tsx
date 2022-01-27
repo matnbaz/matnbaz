@@ -22,7 +22,7 @@ import {
   GetRepositoriesQueryVariables,
   useGetLanguagesLazyQuery,
 } from '../../lib/graphql-types';
-import { LanguagesFilterSkeletonLoader } from '../Skeleton Loader/LanguagesFilterSkeletonLoader';
+import { LanguagesFilterSkeletonLoader } from '../SkeletonLoader/LanguagesFilterSkeletonLoader';
 import { Button } from '../UI/Button/Button';
 import { Card } from '../UI/Card';
 import { CheckboxList } from '../UI/CheckboxList';
@@ -35,7 +35,7 @@ type TRepositoryFiltersAction = {
   payload: any;
 };
 
-interface IRepositoryFiltersProps {
+interface RepositoryFiltersProps {
   loading?: boolean;
   called: boolean;
   refetch: (variables: GetRepositoriesQueryVariables) => void;
@@ -61,7 +61,7 @@ export const RepositoryFilters = ({
   query,
   called,
   loading = false,
-}: IRepositoryFiltersProps) => {
+}: RepositoryFiltersProps) => {
   const filterCtx = useRepositoryFilterContext();
 
   let [state, dispatch] = useReducer(

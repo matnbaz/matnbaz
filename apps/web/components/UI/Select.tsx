@@ -4,20 +4,20 @@ import { Fragment, useEffect, useState } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { HiChevronDown } from 'react-icons/hi';
 
-interface IOption {
+interface Option {
   name: string;
   value: string | number;
 }
 
-type TValue = IOption;
+type TValue = Option;
 
-export interface ISelectProps {
-  options: IOption[];
+export interface SelectProps {
+  options: Option[];
   value?: TValue;
   onChange?: (newValue: TValue) => void;
 }
 
-export const Select = ({ options, value = null, onChange }: ISelectProps) => {
+export const Select = ({ options, value = null, onChange }: SelectProps) => {
   const [selectedOption, setSelectedOption] = useState(value);
 
   useEffect(() => {

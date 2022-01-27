@@ -19,7 +19,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
           title: 'متن‌باز',
           images: [
             {
-              url: 'https://raw.githubusercontent.com/matnbaz/visual-identity/main/banner.jpg',
+              url: 'https://raw.githubusercontent.com/matnbaz/visual/main/banner.jpg',
               width: 1280,
               height: 640,
             },

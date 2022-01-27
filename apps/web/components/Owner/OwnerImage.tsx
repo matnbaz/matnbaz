@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useMemo } from 'react';
-interface IOwnerImageProps {
+interface OwnerImageProps {
   owner: { platformId: string; login: string; type?: string };
   className?: string;
   width?: number;
@@ -15,7 +15,7 @@ export const OwnerImage = ({
   height,
   className,
   withoutLink = false,
-}: IOwnerImageProps) => {
+}: OwnerImageProps) => {
   const ImageComponent = useMemo(
     () => (
       // eslint-disable-next-line @next/next/no-img-element

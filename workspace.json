@@ -3,6 +3,7 @@
   "projects": {
     "common": "libs/common",
     "github-bot": "apps/github-bot",
+    "image-generator": "apps/image-generator",
     "monomedia": "libs/monomedia",
     "server": "apps/server",
     "telegraf": "libs/telegraf",

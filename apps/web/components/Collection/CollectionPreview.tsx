@@ -1,9 +1,9 @@
 import { persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
-import { Card, ICardProps } from '../UI/Card';
+import { Card, CardProps } from '../UI/Card';
 
-export interface ICollectionPreviewProps
-  extends Omit<ICardProps, 'children' | 'href'> {
+export interface CollectionPreviewProps
+  extends Omit<CardProps, 'children' | 'href'> {
   collection: {
     name: string;
     slug: string;
@@ -21,7 +21,7 @@ export const CollectionPreview = ({
   className,
   style = {},
   ...props
-}: ICollectionPreviewProps) => {
+}: CollectionPreviewProps) => {
   const { name, slug, color, image, description, repositoriesCount } =
     collection;
   return (

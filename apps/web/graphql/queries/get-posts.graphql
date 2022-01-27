@@ -1,0 +1,31 @@
+query GetPosts($count: Int = 12, $after: String) {
+  posts(first: $count, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        slug
+        title
+        image
+        tags {
+          name
+        }
+        summaryLimited
+        publishedAt {
+          formatted
+          difference
+        }
+        author {
+          id
+          name
+          username
+          bio
+          avatar
+        }
+      }
+    }
+  }
+}

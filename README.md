@@ -1,4 +1,4 @@
-![Matnbaz Logo](https://raw.githubusercontent.com/matnbaz/visual-identity/main/readme-logo.png)
+![Matnbaz Logo](https://raw.githubusercontent.com/matnbaz/visual/main/readme-logo.png)
 
 # انگیزه
 

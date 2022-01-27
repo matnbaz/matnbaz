@@ -2,14 +2,14 @@ import { InputHTMLAttributes } from 'react';
 import { CheckboxInput } from './CheckboxInput';
 import { RadioInput } from './RadioInput';
 import { TextareaInput } from './TextareaInput';
-import { ITextInputProps, TextInput } from './TextInput';
+import { TextInputProps, TextInput } from './TextInput';
 
-export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 
 // Default input is set to text input
-export const Input = ({ ...props }: ITextInputProps) => {
+export const Input = ({ ...props }: TextInputProps) => {
   return <TextInput {...props} />;
 };
 

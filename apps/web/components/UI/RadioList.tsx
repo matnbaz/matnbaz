@@ -2,16 +2,16 @@ import { RadioGroup } from '@headlessui/react';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { Input } from './Input/Input';
-interface IOption {
+interface Option {
   id?: string | number;
   name: string;
   key?: string | number;
 }
 
-type TValue = IOption;
+type TValue = Option;
 
-export interface IRadioListProps {
-  options: IOption[];
+export interface RadioListProps {
+  options: Option[];
   value?: TValue;
   className?: string;
   dir?: 'ltr' | 'rtl';
@@ -24,7 +24,7 @@ export const RadioList = ({
   className,
   dir = 'rtl',
   onChange,
-}: IRadioListProps) => {
+}: RadioListProps) => {
   const [selectedOption, setSelectedOption] = useState<TValue>(value);
 
   useEffect(() => {

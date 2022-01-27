@@ -224,6 +224,44 @@ enum PlatformType {
   GitLab
 }
 
+type Post implements Node {
+  author: User!
+  content: String!
+  contentHtml: String!
+  createdAt: DateObject!
+  id: ID!
+  image: String
+  publishedAt: DateObject
+  slug: String!
+  summary: String
+  summaryLimited: String
+  tags: [PostTag!]!
+  title: String!
+  updatedAt: DateObject!
+}
+
+type PostConnection {
+  """A list of edges"""
+  edges: [PostEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A Post edge."""
+type PostEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of PostEdge."""
+  node: Post!
+}
+
+type PostTag implements Node {
+  id: ID!
+  name: String!
+}
+
 type Query {
   collect(id: ID!): Collect!
   collection(slug: String!): Collection
@@ -236,6 +274,8 @@ type Query {
   owner(id: ID!): Owner
   ownerByPlatform(owner: String!, platform: PlatformType!): Owner
   ownerByPlatformId(id: ID!, platform: PlatformType!): Owner
+  postBySlug(slug: String!): Post
+  posts(after: String, before: String, first: Int, last: Int): PostConnection!
   repositories(
     after: String
     archiveStatus: ArchiveStatusType
@@ -256,12 +296,10 @@ type Query {
   repositoryById(id: ID!): Repository
   repositoryByPlatform(owner: String!, platform: PlatformType!, repo: String!): Repository
   repositoryByPlatformId(id: ID!, platform: PlatformType!): Repository
-  selection(id: ID!): RepositorySelection
-  selectionByIssue(issue: Int!): RepositorySelection
-  selections(after: String, before: String, first: Int, last: Int): RepositorySelectionConnection!
   topic(name: String!): Topic
   topicById(id: ID!): Topic
   topics(after: String, before: String, first: Int, last: Int, order: TopicOrder): TopicConnection!
+  userByUsername(username: String!): User
 }
 
 type RGBA {
@@ -366,33 +404,6 @@ type RepositoryEdge {
   node: Repository!
 }
 
-type RepositorySelection implements Node {
-  createdAt: DateObject!
-  description: String
-  featuredAt: DateObject!
-  id: ID!
-  issue: Int!
-  repositories: [Repository!]!
-  title: String!
-}
-
-type RepositorySelectionConnection {
-  """A list of edges"""
-  edges: [RepositorySelectionEdge!]
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-}
-
-"""A RepositorySelection edge."""
-type RepositorySelectionEdge {
-  """A cursor for use in pagination."""
-  cursor: String!
-
-  """The item at the end of RepositorySelectionEdge."""
-  node: RepositorySelection!
-}
-
 """A repository owner could any of these types."""
 enum ScriptDirection {
   """left-to-right"""
@@ -454,6 +465,16 @@ type TopicEdge {
 enum TopicOrder {
   """Order by repositories count in descending direction."""
   REPOSITORIES_DESC
+}
+
+type User implements Node {
+  avatar: String
+  bio: String
+  id: ID!
+  name: String
+  posts(after: String, before: String, first: Int, last: Int): PostConnection!
+  repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
+  username: String!
 }
 
 type UserError {

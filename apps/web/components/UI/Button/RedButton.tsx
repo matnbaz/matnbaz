@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { Button, IButtonProps } from './Button';
+import { Button, ButtonProps } from './Button';
 
-export const RedButton = ({ children, className, ...props }: IButtonProps) => {
+export const RedButton = ({ children, className, ...props }: ButtonProps) => {
   return (
     <Button
       {...props}

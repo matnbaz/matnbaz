@@ -21,7 +21,7 @@ enum SizeEnum {
   'xl' = 'text-xl border-2 font-bold py-3 px-8',
 }
 
-export interface IButtonProps
+export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   children: React.ReactNode;
   href?: string;
@@ -38,7 +38,7 @@ export const Button = ({
   size = 'md',
   className,
   ...props
-}: IButtonProps) => {
+}: ButtonProps) => {
   const Component = href ? 'a' : `button`;
   const output = (
     <Component

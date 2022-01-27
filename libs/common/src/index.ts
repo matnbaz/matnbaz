@@ -7,3 +7,4 @@ export * from './lib/random';
 export * from './lib/repo-requirements';
 export * from './lib/slugify';
 export * from './lib/timer';
+export * from './lib/word-limiter';

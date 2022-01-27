@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import { Button, IButtonProps } from './Button';
+import { Button, ButtonProps } from './Button';
 
 export const GhostButton = ({
   children,
   className,
   ...props
-}: IButtonProps) => {
+}: ButtonProps) => {
   return (
     <Button {...props} className={classNames(className, 'border-transparent')}>
       {children}

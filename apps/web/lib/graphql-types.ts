@@ -304,6 +304,46 @@ export enum PlatformType {
   GitLab = 'GitLab'
 }
 
+export type Post = Node & {
+  __typename?: 'Post';
+  author: User;
+  content: Scalars['String'];
+  contentHtml: Scalars['String'];
+  createdAt: DateObject;
+  id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
+  publishedAt?: Maybe<DateObject>;
+  slug: Scalars['String'];
+  summary?: Maybe<Scalars['String']>;
+  summaryLimited?: Maybe<Scalars['String']>;
+  tags: Array<PostTag>;
+  title: Scalars['String'];
+  updatedAt: DateObject;
+};
+
+export type PostConnection = {
+  __typename?: 'PostConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<PostEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A Post edge. */
+export type PostEdge = {
+  __typename?: 'PostEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of PostEdge. */
+  node: Post;
+};
+
+export type PostTag = Node & {
+  __typename?: 'PostTag';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   collect: Collect;
@@ -317,16 +357,16 @@ export type Query = {
   owner?: Maybe<Owner>;
   ownerByPlatform?: Maybe<Owner>;
   ownerByPlatformId?: Maybe<Owner>;
+  postBySlug?: Maybe<Post>;
+  posts: PostConnection;
   repositories: RepositoryConnection;
   repositoryById?: Maybe<Repository>;
   repositoryByPlatform?: Maybe<Repository>;
   repositoryByPlatformId?: Maybe<Repository>;
-  selection?: Maybe<RepositorySelection>;
-  selectionByIssue?: Maybe<RepositorySelection>;
-  selections: RepositorySelectionConnection;
   topic?: Maybe<Topic>;
   topicById?: Maybe<Topic>;
   topics: TopicConnection;
+  userByUsername?: Maybe<User>;
 };
 
 
@@ -393,6 +433,19 @@ export type QueryOwnerByPlatformIdArgs = {
 };
 
 
+export type QueryPostBySlugArgs = {
+  slug: Scalars['String'];
+};
+
+
+export type QueryPostsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryRepositoriesArgs = {
   after?: InputMaybe<Scalars['String']>;
   archiveStatus?: InputMaybe<ArchiveStatusType>;
@@ -426,24 +479,6 @@ export type QueryRepositoryByPlatformIdArgs = {
 };
 
 
-export type QuerySelectionArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type QuerySelectionByIssueArgs = {
-  issue: Scalars['Int'];
-};
-
-
-export type QuerySelectionsArgs = {
-  after?: InputMaybe<Scalars['String']>;
-  before?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  last?: InputMaybe<Scalars['Int']>;
-};
-
-
 export type QueryTopicArgs = {
   name: Scalars['String'];
 };
@@ -460,6 +495,11 @@ export type QueryTopicsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   order?: InputMaybe<TopicOrder>;
+};
+
+
+export type QueryUserByUsernameArgs = {
+  username: Scalars['String'];
 };
 
 export type Rgba = {
@@ -567,34 +607,6 @@ export type RepositoryEdge = {
   node: Repository;
 };
 
-export type RepositorySelection = Node & {
-  __typename?: 'RepositorySelection';
-  createdAt: DateObject;
-  description?: Maybe<Scalars['String']>;
-  featuredAt: DateObject;
-  id: Scalars['ID'];
-  issue: Scalars['Int'];
-  repositories: Array<Repository>;
-  title: Scalars['String'];
-};
-
-export type RepositorySelectionConnection = {
-  __typename?: 'RepositorySelectionConnection';
-  /** A list of edges */
-  edges?: Maybe<Array<RepositorySelectionEdge>>;
-  /** Information to aid in pagination. */
-  pageInfo: PageInfo;
-};
-
-/** A RepositorySelection edge. */
-export type RepositorySelectionEdge = {
-  __typename?: 'RepositorySelectionEdge';
-  /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
-  /** The item at the end of RepositorySelectionEdge. */
-  node: RepositorySelection;
-};
-
 /** A repository owner could any of these types. */
 export enum ScriptDirection {
   /** left-to-right */
@@ -666,6 +678,33 @@ export enum TopicOrder {
   RepositoriesDesc = 'REPOSITORIES_DESC'
 }
 
+export type User = Node & {
+  __typename?: 'User';
+  avatar?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  posts: PostConnection;
+  repositories: RepositoryConnection;
+  username: Scalars['String'];
+};
+
+
+export type UserPostsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type UserRepositoriesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
 export type UserError = {
   __typename?: 'UserError';
   message: Scalars['String'];
@@ -727,6 +766,21 @@ export type GetOwnerQueryVariables = Exact<{
 
 export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'Owner', id: string, repositoriesCount: number, type: OwnerType, login: string, platformId: string, platform: PlatformType, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } } | null | undefined };
 
+export type GetPostQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, contentHtml: string, summaryLimited?: string | null | undefined, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } } | null | undefined };
+
+export type GetPostsQueryVariables = Exact<{
+  count?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, summaryLimited?: string | null | undefined, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } } }> | null | undefined } };
+
 export type GetRepositoriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
@@ -757,21 +811,6 @@ export type GetSearchedRepositoriesQueryVariables = Exact<{
 
 
 export type GetSearchedRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined } };
-
-export type GetSelectionQueryVariables = Exact<{
-  issue: Scalars['Int'];
-}>;
-
-
-export type GetSelectionQuery = { __typename?: 'Query', selectionByIssue?: { __typename?: 'RepositorySelection', id: string, title: string, issue: number, description?: string | null | undefined, createdAt: { __typename?: 'DateObject', formatted: string }, featuredAt: { __typename?: 'DateObject', formatted: string }, repositories: Array<{ __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined }> } | null | undefined };
-
-export type GetSelectionsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type GetSelectionsQuery = { __typename?: 'Query', selections: { __typename?: 'RepositorySelectionConnection', edges?: Array<{ __typename?: 'RepositorySelectionEdge', node: { __typename?: 'RepositorySelection', id: string, title: string, issue: number, description?: string | null | undefined, createdAt: { __typename?: 'DateObject', formatted: string }, featuredAt: { __typename?: 'DateObject', formatted: string } } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
 
 export type MetadataQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1130,6 +1169,122 @@ export function useGetOwnerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetOwnerQueryHookResult = ReturnType<typeof useGetOwnerQuery>;
 export type GetOwnerLazyQueryHookResult = ReturnType<typeof useGetOwnerLazyQuery>;
 export type GetOwnerQueryResult = Apollo.QueryResult<GetOwnerQuery, GetOwnerQueryVariables>;
+export const GetPostDocument = gql`
+    query GetPost($slug: String!) {
+  postBySlug(slug: $slug) {
+    id
+    slug
+    title
+    image
+    contentHtml
+    tags {
+      name
+    }
+    summaryLimited
+    publishedAt {
+      formatted
+      difference
+    }
+    author {
+      id
+      name
+      username
+      bio
+      avatar
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostQuery__
+ *
+ * To run a query within a React component, call `useGetPostQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetPostQuery(baseOptions: Apollo.QueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+      }
+export function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+        }
+export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
+export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
+export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
+export const GetPostsDocument = gql`
+    query GetPosts($count: Int = 12, $after: String) {
+  posts(first: $count, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        slug
+        title
+        image
+        tags {
+          name
+        }
+        summaryLimited
+        publishedAt {
+          formatted
+          difference
+        }
+        author {
+          id
+          name
+          username
+          bio
+          avatar
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsQuery__
+ *
+ * To run a query within a React component, call `useGetPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsQuery({
+ *   variables: {
+ *      count: // value for 'count'
+ *      after: // value for 'after'
+ *   },
+ * });
+ */
+export function useGetPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+      }
+export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+        }
+export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
+export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
+export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export const GetRepositoriesDocument = gql`
     query GetRepositories($first: Int = 12, $after: String, $searchTerm: String, $languages: [String!], $order: RepoOrder, $forkStatus: ForkStatusType, $templateStatus: TemplateStatusType) {
   repositories(
@@ -1277,106 +1432,6 @@ export function useGetSearchedRepositoriesLazyQuery(baseOptions?: Apollo.LazyQue
 export type GetSearchedRepositoriesQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesQuery>;
 export type GetSearchedRepositoriesLazyQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesLazyQuery>;
 export type GetSearchedRepositoriesQueryResult = Apollo.QueryResult<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>;
-export const GetSelectionDocument = gql`
-    query GetSelection($issue: Int!) {
-  selectionByIssue(issue: $issue) {
-    id
-    title
-    issue
-    description
-    createdAt {
-      formatted
-    }
-    featuredAt {
-      formatted
-    }
-    repositories {
-      ...repoPreview
-    }
-  }
-}
-    ${RepoPreviewFragmentDoc}`;
-
-/**
- * __useGetSelectionQuery__
- *
- * To run a query within a React component, call `useGetSelectionQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetSelectionQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetSelectionQuery({
- *   variables: {
- *      issue: // value for 'issue'
- *   },
- * });
- */
-export function useGetSelectionQuery(baseOptions: Apollo.QueryHookOptions<GetSelectionQuery, GetSelectionQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetSelectionQuery, GetSelectionQueryVariables>(GetSelectionDocument, options);
-      }
-export function useGetSelectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSelectionQuery, GetSelectionQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetSelectionQuery, GetSelectionQueryVariables>(GetSelectionDocument, options);
-        }
-export type GetSelectionQueryHookResult = ReturnType<typeof useGetSelectionQuery>;
-export type GetSelectionLazyQueryHookResult = ReturnType<typeof useGetSelectionLazyQuery>;
-export type GetSelectionQueryResult = Apollo.QueryResult<GetSelectionQuery, GetSelectionQueryVariables>;
-export const GetSelectionsDocument = gql`
-    query GetSelections($first: Int = 12, $after: String) {
-  selections(first: $first, after: $after) {
-    edges {
-      node {
-        id
-        title
-        issue
-        description
-        createdAt {
-          formatted
-        }
-        featuredAt {
-          formatted
-        }
-      }
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-  }
-}
-    `;
-
-/**
- * __useGetSelectionsQuery__
- *
- * To run a query within a React component, call `useGetSelectionsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetSelectionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetSelectionsQuery({
- *   variables: {
- *      first: // value for 'first'
- *      after: // value for 'after'
- *   },
- * });
- */
-export function useGetSelectionsQuery(baseOptions?: Apollo.QueryHookOptions<GetSelectionsQuery, GetSelectionsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetSelectionsQuery, GetSelectionsQueryVariables>(GetSelectionsDocument, options);
-      }
-export function useGetSelectionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSelectionsQuery, GetSelectionsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetSelectionsQuery, GetSelectionsQueryVariables>(GetSelectionsDocument, options);
-        }
-export type GetSelectionsQueryHookResult = ReturnType<typeof useGetSelectionsQuery>;
-export type GetSelectionsLazyQueryHookResult = ReturnType<typeof useGetSelectionsLazyQuery>;
-export type GetSelectionsQueryResult = Apollo.QueryResult<GetSelectionsQuery, GetSelectionsQueryVariables>;
 export const MetadataDocument = gql`
     query Metadata {
   metadata {
@@ -1427,11 +1482,13 @@ export type MetadataQueryResult = Apollo.QueryResult<MetadataQuery, MetadataQuer
       "Language",
       "License",
       "Owner",
+      "Post",
+      "PostTag",
       "Report",
       "Repository",
-      "RepositorySelection",
       "Submission",
-      "Topic"
+      "Topic",
+      "User"
     ]
   }
 };
