@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { HiClock, HiUser } from 'react-icons/hi';
 import { Card, CardProps } from '../UI/Card';
 
@@ -33,7 +32,7 @@ export const PostPreview = ({ post, ...props }: PostPreviewProps) => {
     >
       <div className="relative">
         {post.image && (
-          <Image
+          <img
             src={post.image}
             alt={`عکس پست "${post.title}"`}
             width={640}

@@ -1,6 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
-import Image from 'next/image';
 import { useMemo } from 'react';
 import { HiClock, HiUser } from 'react-icons/hi';
 import { MainLayout } from '../../../components/Layout/MainLayout';
@@ -38,7 +37,7 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
 
       <div className="max-w-3xl mx-auto">
         <div className="rounded-lg shadow-lg dark:shadow-none">
-          <Image
+          <img
             width={1280}
             height={640}
             src={post.image}
