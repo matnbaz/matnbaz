@@ -235,7 +235,7 @@ type Post implements Node {
   slug: String!
   summary: String
   summaryLimited: String
-  tags: [String!]!
+  tags: [PostTag!]!
   title: String!
   updatedAt: DateObject!
 }
@@ -255,6 +255,11 @@ type PostEdge {
 
   """The item at the end of PostEdge."""
   node: Post!
+}
+
+type PostTag implements Node {
+  id: ID!
+  name: String!
 }
 
 type Query {

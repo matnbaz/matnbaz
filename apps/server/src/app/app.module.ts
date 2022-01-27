@@ -27,6 +27,7 @@ import { MarkdownModule } from '../markdown/markdown.module';
 import { MetadataModule } from '../metadata/metadata.module';
 import { OwnerModule } from '../owner/owner.module';
 import { ComplexityPlugin } from '../plugins/complexity.plugin';
+import { PostTagModule } from '../post-tag/post-tag.module';
 import { PostModule } from '../post/post.module';
 import { ReportModule } from '../report/report.module';
 import { RepositoryModule } from '../repository/repository.module';
@@ -137,8 +138,9 @@ import { AppService } from './app.service';
     MetadataModule,
     CollectionModule,
     CollectModule,
-    PostModule,
     UserModule,
+    PostModule,
+    PostTagModule,
   ],
   controllers: [AppController],
   providers: [

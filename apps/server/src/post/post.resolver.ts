@@ -7,6 +7,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { createDateObject } from '../date/utils';
 import { PostConnection } from '../models/connections/post.connections';
 import { DateObject } from '../models/date.model';
+import { PostTag } from '../models/post-tag.model';
 import { Post } from '../models/post.model';
 import { User } from '../models/user.model';
 
@@ -51,11 +52,9 @@ export class PostResolver {
     ).User;
   }
 
-  @ResolveField(() => [String])
+  @ResolveField(() => [PostTag])
   async tags(@Parent() { id }: P.Post) {
-    return (await this.prisma.post.findUnique({ where: { id } }).Tags()).map(
-      (tag) => tag.name
-    );
+    return this.prisma.post.findUnique({ where: { id } }).Tags();
   }
   @ResolveField(() => String, { nullable: true })
   summaryLimited(@Parent() { summary }: P.Post) {
