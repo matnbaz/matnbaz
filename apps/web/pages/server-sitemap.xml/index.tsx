@@ -56,6 +56,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const posts = await prisma.post.findMany({
+    where: { publishedAt: { not: null } },
     select: { slug: true },
   });
 
