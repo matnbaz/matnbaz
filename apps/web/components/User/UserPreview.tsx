@@ -31,7 +31,7 @@ export const UserPreview = ({ user, ...props }: UserPreviewProps) => {
         </div>
         <div>
           {user.name && <div className="text-xl font-bold">{user.name}</div>}
-          <div className="text-sm" dir="ltr">
+          <div className="text-sm mt-1" dir="ltr">
             @{user.username}
           </div>
           {user.bio && (
