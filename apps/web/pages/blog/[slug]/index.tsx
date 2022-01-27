@@ -46,7 +46,9 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
             alt={`عکس پست "${post.title}"`}
           />
         </div>
-        <h1 className="mt-12 text-5xl font-extrabold">{post.title}</h1>
+        <h1 className="mt-12 text-3xl sm:text-5xl font-extrabold">
+          {post.title}
+        </h1>
         <div className="mt-6 flex items-center space-x-4 space-x-reverse">
           {post.publishedAt && (
             <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
