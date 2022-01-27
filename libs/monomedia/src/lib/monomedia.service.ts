@@ -69,16 +69,19 @@ export class MonomediaService {
           image?: string;
           url?: string;
         };
+        withTimestamp?: boolean;
       }
     ) =>
       this.discordWebhook.send(
         (new MessageBuilder() as any) // Have to do this because of this issue: https://github.com/matthew1232/discord-webhook-node/pull/39
           .setImage(photo)
+          .setTimestamp()
           .setTitle(caption)
           .setText(extra?.text)
           .setURL(extra?.url)
           .setColor(extra?.color)
           .setFooter(extra?.footer)
+
           .setAuthor(
             extra?.author?.name,
             extra.author?.image,
