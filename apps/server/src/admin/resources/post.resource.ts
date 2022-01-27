@@ -33,8 +33,8 @@ export const postResource: Resource = ({
             );
           }
           try {
-            await resource.update(request.params.recordId, {
-              publishedAt: new Date(),
+            await mainQueue.add(MAIN_PROCESSES.PUBLISH_POST, {
+              id: request.params.recordId,
             });
           } catch (error) {
             if (error instanceof ValidationError && error.baseError) {

@@ -1,3 +1,4 @@
+import { MonomediaService } from '@matnbaz/monomedia';
 import { Process, Processor } from '@nestjs/bull';
 import { Job } from 'bull';
 import { PrismaService } from 'nestjs-prisma';
@@ -8,8 +9,17 @@ import { MAIN_PROCESSES, MAIN_QUEUE } from '../queue';
 export class PostProcessor {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly markdownService: MarkdownService
+    private readonly markdownService: MarkdownService,
+    private readonly monomedia: MonomediaService
   ) {}
+
+  @Process(MAIN_PROCESSES.PUBLISH_POST)
+  async publishPostProcess(job: Job<{ id: string }>) {
+    const post = await this.prisma.post.update({
+      where: { id: job.data.id },
+      data: { publishedAt: new Date() },
+    });
+  }
 
   @Process(MAIN_PROCESSES.PARSE_POST_README)
   async parseMarkdownProcess(job: Job<{ id: string }>) {
