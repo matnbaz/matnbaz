@@ -18,16 +18,29 @@ export class PostProcessor {
     const post = await this.prisma.post.update({
       where: { id: job.data.id },
       data: { publishedAt: new Date() },
-      include: { Tags: true },
+      include: { Tags: true, User: { select: { name: true, avatar: true } } },
     });
 
     // TODO: implement a link shortener?
 
     if (post.image) {
-      await this.monomedia.discord.sendPhoto(
-        post.image,
-        `پست جدید: **${post.title}**\nhttps://matnbaz.net/blog/${post.slug}`
-      );
+      try {
+        await this.monomedia.discord.sendPhoto(
+          post.image,
+          `پست جدید: **${post.title}**`,
+          {
+            url: `https://matnbaz.net/blog/${post.slug}`,
+            color: 2003199,
+            author: {
+              name: post.User.name,
+              image: post.User.avatar,
+            },
+            footer: 'بلاگ متن‌باز',
+          }
+        );
+      } catch (e) {
+        console.log(e);
+      }
 
       await this.monomedia.telegram.sendPhoto(
         post.image,
