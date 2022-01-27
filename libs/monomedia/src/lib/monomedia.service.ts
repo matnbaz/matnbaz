@@ -14,11 +14,6 @@ import {
 import { TwitterPuppeteer } from './twitter/twitter';
 import { normalizeTelegramUsername } from './utils';
 
-export interface MonomediaSocialMedia {
-  sendMessage?: (message: string) => Promise<any>;
-  sendPhoto?: (photo: string, caption?: string) => Promise<any>;
-}
-
 @Injectable()
 export class MonomediaService {
   constructor(
@@ -29,7 +24,7 @@ export class MonomediaService {
     @Inject(INSTAGRAM) private readonly instagramSdk
   ) {}
 
-  public telegram: MonomediaSocialMedia = {
+  public telegram = {
     sendMessage: (message: string) =>
       this.telegraf.telegram.sendMessage(
         normalizeTelegramUsername(this.options.telegram.channelUsername),
@@ -48,7 +43,7 @@ export class MonomediaService {
       ),
   };
 
-  public instagram: MonomediaSocialMedia = {
+  public instagram = {
     sendPhoto: async (photo: string, caption: string) => {
       await this.instagramSdk.login();
       await this.instagramSdk.uploadPhoto({
@@ -59,15 +54,40 @@ export class MonomediaService {
     },
   };
 
-  public discord: MonomediaSocialMedia = {
+  public discord = {
     sendMessage: (message: string) => this.discordWebhook.send(message),
-    sendPhoto: (photo: string, caption: string) =>
+    sendPhoto: (
+      photo: string,
+      caption: string,
+      extra?: {
+        text?: string;
+        color?: number;
+        footer?: string;
+        url?: string;
+        author?: {
+          name?: string;
+          image?: string;
+          url?: string;
+        };
+      }
+    ) =>
       this.discordWebhook.send(
-        new MessageBuilder().setImage(photo).setText(caption)
+        (new MessageBuilder() as any) // Have to do this because of this issue: https://github.com/matthew1232/discord-webhook-node/pull/39
+          .setImage(photo)
+          .setTitle(caption)
+          .setText(extra?.text)
+          .setURL(extra?.url)
+          .setColor(extra?.color)
+          .setFooter(extra?.footer)
+          .setAuthor(
+            extra?.author?.name,
+            extra.author?.image,
+            extra.author?.url
+          )
       ),
   };
 
-  public twitter: MonomediaSocialMedia = {
+  public twitter = {
     sendMessage: (message: string) => this.twitterSdk.postTweet(message),
   };
 }
