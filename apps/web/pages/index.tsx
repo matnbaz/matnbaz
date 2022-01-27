@@ -36,7 +36,7 @@ const Index: NextPage = () => {
       />
 
       <LogoJsonLd
-        logo="https://github.com/matnbaz/visual-identity/blob/main/readme-logo.png"
+        logo="https://github.com/matnbaz/visual/blob/main/readme-logo.png"
         url="https://matnbaz.net"
       />
 
