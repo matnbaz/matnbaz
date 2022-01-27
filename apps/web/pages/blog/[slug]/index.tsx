@@ -45,22 +45,22 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
           alt={`عکس پست "${post.title}"`}
         />
         <h1 className="mt-6 text-5xl font-extrabold">{post.title}</h1>
-        <div className="mt-2 flex items-center space-x-4 space-x-reverse">
+        <div className="mt-6 flex items-center space-x-4 space-x-reverse">
           {post.publishedAt && (
-            <div className="inline-flex items-center space-x-1 space-x-reverse text-xs text-secondary">
+            <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
               <HiClock />
               <span>{post.publishedAt.formatted}</span>
             </div>
           )}
           {post.author && (
-            <div className="inline-flex items-center space-x-1 space-x-reverse text-xs text-secondary">
+            <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
               <HiUser />
               <span>{post.author.name}</span>
             </div>
           )}
         </div>
         {post.tags && (
-          <div className="mt-1 space-x-2 space-x-reverse text-sm text-secondary">
+          <div className="mt-2 space-x-2 space-x-reverse text-sm text-secondary">
             {post.tags.map((tag) => (
               <span className="inline-block" key={tag}>
                 #{tag}
