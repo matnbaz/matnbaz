@@ -19,7 +19,9 @@ export class PostProcessor {
     await this.prisma.post.update({
       where: { id: job.data.id },
       data: {
-        contentHtml: this.markdownService.parse(post.content),
+        contentHtml: this.markdownService.parse(post.content, {
+          openLinksInNewTab: true,
+        }),
       },
     });
   }

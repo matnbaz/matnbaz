@@ -46,14 +46,29 @@ export class MarkdownService {
     return readmeHtml;
   }
 
-  parse(markdown: string) {
-    return marked.parse(emoji.emojify(markdown), {
-      gfm: true,
-    });
-  }
+  parse(
+    markdown: string,
+    options?: {
+      bidi?: boolean;
+      openLinksInNewTab?: boolean;
+    }
+  ) {
+    options.bidi = options.bidi || false;
+    options.openLinksInNewTab = options.openLinksInNewTab || false;
 
-  parseWithDirections(markdown: string) {
-    const renderer = this.applyDirectionRenderer(new Renderer());
+    let renderer = new Renderer();
+    if (options.bidi) {
+      renderer = this.applyDirectionRenderer(renderer);
+    }
+
+    if (options.openLinksInNewTab) {
+      const ogLinkRender = renderer.link.bind(renderer);
+      renderer.link = (href, ...rest) =>
+        ogLinkRender(href, ...rest).replace(
+          /^<a/,
+          '<a target="_blank" rel="noopener"'
+        );
+    }
 
     return marked.parse(emoji.emojify(markdown), {
       gfm: true,
