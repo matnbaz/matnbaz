@@ -19,6 +19,15 @@ export class PostProcessor {
       where: { id: job.data.id },
       data: { publishedAt: new Date() },
     });
+
+    await this.monomedia.discord.sendPhoto(
+      post.image,
+      `پست جدید: **${post.title}**\nhttps://matnbaz.net/blog/${post.slug}`
+    );
+
+    await this.monomedia.telegram.sendMessage(
+      `پست جدید: **${post.title}**\nhttps://matnbaz.net/blog/${post.slug}`
+    );
   }
 
   @Process(MAIN_PROCESSES.PARSE_POST_README)
