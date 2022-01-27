@@ -35,6 +35,7 @@ export class PostProcessor {
               name: post.User.name,
               image: post.User.avatar,
             },
+            withTimestamp: true,
             footer: 'بلاگ متن‌باز',
           }
         );
