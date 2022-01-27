@@ -40,8 +40,8 @@ export const PostPreviewList = ({
 
   const skeletonLoaders = useMemo(
     () =>
-      [...Array(8).keys()].map((number) => (
-        <PostPreviewSkeletonLoader padded key={number} />
+      [...Array(12).keys()].map((number) => (
+        <PostPreviewSkeletonLoader key={number} />
       )),
     []
   );
@@ -60,7 +60,7 @@ export const PostPreviewList = ({
         : mappedPosts}
       {networkStatus === 3 &&
         [...Array(2).keys()].map((number) => (
-          <PostPreviewSkeletonLoader padded key={number} />
+          <PostPreviewSkeletonLoader key={number} />
         ))}
     </InfiniteScroll>
   ) : (
