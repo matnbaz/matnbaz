@@ -56,6 +56,7 @@ export class PostResolver {
   async tags(@Parent() { id }: P.Post) {
     return this.prisma.post.findUnique({ where: { id } }).Tags();
   }
+
   @ResolveField(() => String, { nullable: true })
   summaryLimited(@Parent() { summary }: P.Post) {
     return summary ? limitWords(summary, 256) : null;
