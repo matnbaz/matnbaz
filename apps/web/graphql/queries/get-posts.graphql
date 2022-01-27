@@ -10,7 +10,9 @@ query GetPosts($count: Int = 12, $after: String) {
         slug
         title
         image
-        tags
+        tags {
+          name
+        }
         summaryLimited
         publishedAt {
           formatted

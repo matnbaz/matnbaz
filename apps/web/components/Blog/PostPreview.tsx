@@ -8,7 +8,7 @@ export interface PostPreviewProps extends Omit<CardProps, 'children'> {
     slug: string;
     title: string;
     image?: string;
-    tags?: string[];
+    tags?: { name: string }[];
     summary?: string;
     summaryLimited?: string;
     publishedAt?: {
@@ -65,9 +65,9 @@ export const PostPreview = ({ post, ...props }: PostPreviewProps) => {
         )}
         {post.tags && (
           <div className="flex flex-wrap gap-2 text-sm text-secondary">
-            {post.tags.map((tag) => (
-              <span className="inline-block underline" key={tag}>
-                #{tag}
+            {post.tags.map(({ name }) => (
+              <span className="inline-block underline" key={name}>
+                #{name}
               </span>
             ))}
           </div>

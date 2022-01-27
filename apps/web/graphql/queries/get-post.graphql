@@ -5,7 +5,9 @@ query GetPost($slug: String!) {
     title
     image
     contentHtml
-    tags
+    tags {
+      name
+    }
     summaryLimited
     publishedAt {
       formatted
