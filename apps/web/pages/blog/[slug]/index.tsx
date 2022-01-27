@@ -63,25 +63,31 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
             </div>
           )}
         </div>
-        {post.tags && (
-          <div className="mt-2 space-x-2 space-x-reverse text-sm text-secondary">
-            {post.tags.map((tag) => (
-              <span className="inline-block" key={tag}>
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
+
         <div
           className="mt-10 prose dark:prose-invert prose-h1:mt-10 prose-h1:font-extrabold prose-h2:font-extrabold"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
+
+        {post.tags && (
+          <div className="flex items-center mt-8 space-x-2 space-x-reverse">
+            <div>برچسب‌ها: </div>
+            <div className="space-x-2 space-x-reverse text-xs text-secondary">
+              {post.tags.map(({ name }) => (
+                <span className="inline-block" key={name}>
+                  #{name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
         <UserPreview
           padded
           colored
           border="none"
           user={post.author}
-          className="mt-12"
+          className="mt-8"
         />
       </div>
     </MainLayout>
