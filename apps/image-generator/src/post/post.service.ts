@@ -184,10 +184,10 @@ export class PostService {
                     text-center
                     max-w-3xl
                     mx-auto
-                    text-2xl
                     font-medium
                     text-gray-700
-                    ${options.mode === 'wide' ? 'mt-6' : 'mt-4'}
+                    mt-4
+                    ${options.mode === 'wide' ? 'text-3xl' : 'text-2xl'}
                   "
                 >
                 ${options.description}
