@@ -87,6 +87,6 @@ export class PostResolver {
 
   @ResolveField(() => DateObject, { nullable: true })
   publishedAt(@Parent() { publishedAt }: P.Post) {
-    return createDateObject(publishedAt);
+    return publishedAt ? createDateObject(publishedAt) : null;
   }
 }
