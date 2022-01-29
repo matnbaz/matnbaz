@@ -62,7 +62,7 @@ export class PostProcessor {
     });
 
     const parsedData = this.markdownService.matter(post.content);
-    const tags = parsedData.data.tags.split(' ') || [];
+    const tags = parsedData.data.tags?.split(' ') || [];
 
     await this.prisma.post.update({
       where: { id: job.data.id },
