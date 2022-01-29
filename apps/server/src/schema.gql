@@ -184,6 +184,7 @@ type Owner implements Node {
   id: ID!
   location: String
   login: String!
+  name: String
   platform: PlatformType!
   platformId: ID!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!

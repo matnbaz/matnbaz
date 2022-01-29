@@ -11,6 +11,7 @@ export class Owner {
   @Field(() => ID)
   platformId: string;
 
+  name?: string;
   login: string;
 
   @Field(() => OwnerType)
