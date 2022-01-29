@@ -21,6 +21,9 @@ export class Owner {
   contributionsCount?: number;
 
   @Field(() => Int)
+  publicContributionsCount?: number;
+
+  @Field(() => Int)
   followersCount?: number;
 
   twitterUsername?: string;

@@ -187,6 +187,7 @@ type Owner implements Node {
   name: String
   platform: PlatformType!
   platformId: ID!
+  publicContributionsCount: Int
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int!
   twitterUsername: String
