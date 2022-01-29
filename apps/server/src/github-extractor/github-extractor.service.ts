@@ -385,6 +385,9 @@ export class GithubExtractorService {
         twitterUsername,
         type: __typename,
         latestExtractionAt: new Date(),
+        contributionsCount:
+          contributionsCollection.contributionCalendar.totalContributions,
+        followersCount: followers.totalCount,
       },
     });
 
