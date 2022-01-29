@@ -5,6 +5,7 @@ import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { PostConnection } from '../models/connections/post.connections';
 import { PostTag } from '../models/post-tag.model';
+import { paginationComplexity } from '../plugins/pagination-complexity';
 
 @Resolver(() => PostTag)
 export class PostTagResolver {
@@ -17,7 +18,9 @@ export class PostTagResolver {
     });
   }
 
-  @ResolveField(() => PostConnection)
+  @ResolveField(() => PostConnection, {
+    complexity: paginationComplexity,
+  })
   posts(@Args() pagination: PaginationArgs, @Parent() tag: P.PostTag) {
     return findManyCursorConnection(
       (args) =>
