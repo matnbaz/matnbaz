@@ -223,6 +223,28 @@ export const ownerResource: Resource = ({
           };
         },
       },
+
+      forceExtractAll: {
+        name: 'forceExtractAll',
+        isVisible: true,
+        actionType: 'record',
+        icon: 'Checkmark',
+        component: false,
+        variant: 'success',
+        handler: async (request, response, data) => {
+          try {
+            await githubQueue.add(GITHUB_PROCESSES.EXTRACT, { forceAll: true });
+          } catch (error) {
+            console.error(error);
+          }
+          return {
+            notice: {
+              message: 'Added to the queue.',
+              type: 'success',
+            },
+          };
+        },
+      },
     },
   },
 });

@@ -1,3 +1,4 @@
+import { Job } from 'bull';
 import { Command, CommandRunner, Option } from 'nest-commander';
 import { GithubExtractorProcessor } from './github-extractor.processor';
 import { GithubExtractorScheduler } from './github-extractor.scheduler';
@@ -15,7 +16,9 @@ export class GithubExtractorCommand implements CommandRunner {
   ): Promise<void> {
     options.schedule
       ? await this.githubRepositoryScheduler.extract()
-      : await this.githubRepositoryProcessor.extractProcess();
+      : await this.githubRepositoryProcessor.extractProcess({
+          data: {},
+        } as Job);
   }
 
   @Option({
