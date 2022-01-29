@@ -386,8 +386,8 @@ export class GithubExtractorService {
         type: __typename,
         latestExtractionAt: new Date(),
         contributionsCount:
-          contributionsCollection.contributionCalendar.totalContributions,
-        followersCount: followers.totalCount,
+          contributionsCollection?.contributionCalendar?.totalContributions,
+        followersCount: followers?.totalCount,
       },
     });
 
