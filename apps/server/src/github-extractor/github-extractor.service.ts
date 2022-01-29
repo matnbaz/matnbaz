@@ -99,14 +99,14 @@ export class GithubExtractorService {
   ) {}
   private logger = new Logger(GithubExtractorService.name);
 
-  async fullExtract() {
+  async fullExtract(forceAll = false) {
     let lastOwnerId;
     const ownersCount = await this.prisma.owner.count({
       where: {
         platform: 'GitHub',
         blockedAt: null,
         OR: [
-          {
+          forceAll && {
             latestExtractionAt: { lt: subHours(new Date(), 12) },
           },
           {
@@ -131,7 +131,7 @@ export class GithubExtractorService {
           platform: 'GitHub',
           blockedAt: null,
           OR: [
-            {
+            forceAll && {
               latestExtractionAt: { lt: subHours(new Date(), 12) },
             },
             {
