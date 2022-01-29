@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
+import Link from 'next/link';
 import { useMemo } from 'react';
 import { HiClock, HiUser } from 'react-icons/hi';
 import { MainLayout } from '../../../components/Layout/MainLayout';
@@ -73,9 +74,11 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
             <div>برچسب‌ها: </div>
             <div className="space-x-2 space-x-reverse text-xs text-secondary">
               {post.tags.map(({ name }) => (
-                <span className="inline-block" key={name}>
-                  #{name}
-                </span>
+                <Link href={`/blog/tags/${name}`} key={name}>
+                  <a>
+                    <span className="inline-block">#{name}</span>
+                  </a>
+                </Link>
               ))}
             </div>
           </div>
