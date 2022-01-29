@@ -21,4 +21,9 @@ export class Owner {
 
   @Field(() => Int)
   followersCount?: number;
+
+  twitterUsername?: string;
+  location?: string;
+  company?: string;
+  websiteUrl?: string;
 }
