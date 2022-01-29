@@ -15,6 +15,11 @@ export function createApolloClient() {
             repositories: relayStylePagination(),
           },
         },
+        PostTag: {
+          fields: {
+            posts: relayStylePagination(),
+          },
+        },
         Collection: {
           fields: {
             collects: relayStylePagination(),

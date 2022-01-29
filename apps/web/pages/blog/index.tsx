@@ -10,6 +10,7 @@ const BlogPage: NextPage = () => {
     variables: {},
     notifyOnNetworkStatusChange: true,
   });
+
   const postsLoadMoreHandler = () => {
     if (!data?.posts.pageInfo.hasNextPage) return;
 
