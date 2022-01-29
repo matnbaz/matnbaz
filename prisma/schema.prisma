@@ -104,6 +104,8 @@ model Owner {
   recordUpdatedAt     DateTime         @updatedAt
   blockedAt           DateTime?
   latestExtractionAt  DateTime?
+  contributionsCount  Int?
+  followersCount      Int?
   twitterUsername     String?
   User                User?            @relation(fields: [userId], references: [id])
   userId              String?
