@@ -10,7 +10,7 @@ import {
 
 const GithubTopUsersPage: NextPage = () => {
   const { data, fetchMore } = useGetGithubOwnersQuery({
-    variables: { order: OwnerOrder.ContributionsDesc },
+    variables: { order: OwnerOrder.PublicContributionsDesc },
   });
 
   const ownersLoadMoreHandler = () => {
@@ -35,41 +35,41 @@ const GithubTopUsersPage: NextPage = () => {
           dir="ltr"
           className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700"
         >
-          <thead className="bg-zinc-50 dark:bg-zinc-800">
+          <thead className="bg-zinc-50 dark:bg-zinc-800" dir="rtl">
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-center text-xs font-medium text-secondary uppercase tracking-wider"
+                className="px-6 py-3 text-center text-xs font-medium text-secondary tracking-wider"
               >
                 رتبه
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider"
+                className="px-6 py-3 text-left text-xs font-medium text-secondary tracking-wider"
               >
                 نام کاربر
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider"
+                className="px-6 py-3 text-left text-xs font-medium text-secondary tracking-wider"
               >
                 شرکت
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider"
+                className="px-6 py-3 text-left text-xs font-medium text-secondary tracking-wider"
               >
                 توییتر
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-center text-xs font-medium text-secondary uppercase tracking-wider"
+                className="px-6 py-3 text-center text-xs font-medium text-secondary tracking-wider"
               >
-                مشارکت‌ها
+                مشارکت‌های عمومی
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-center text-xs font-medium text-secondary uppercase tracking-wider"
+                className="px-6 py-3 text-center text-xs font-medium text-secondary tracking-wider"
               >
                 دنبال‌کنندگان
               </th>
@@ -115,7 +115,7 @@ const GithubTopUsersPage: NextPage = () => {
                     className="px-6 py-4 whitespace-nowrap text-center"
                     dir="rtl"
                   >
-                    {persianNumbers(owner.contributionsCount)}
+                    {persianNumbers(owner.publicContributionsCount)}
                   </td>
                   <td
                     className="px-6 py-4 whitespace-nowrap text-center"

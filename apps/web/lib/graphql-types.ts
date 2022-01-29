@@ -264,6 +264,7 @@ export type Owner = Node & {
   name?: Maybe<Scalars['String']>;
   platform: PlatformType;
   platformId: Scalars['ID'];
+  publicContributionsCount?: Maybe<Scalars['Int']>;
   repositories: RepositoryConnection;
   repositoriesCount: Scalars['Int'];
   twitterUsername?: Maybe<Scalars['String']>;
@@ -302,8 +303,8 @@ export enum OwnerOrder {
   ContributionsDesc = 'CONTRIBUTIONS_DESC',
   /** Order by followers count in descending order. */
   FollowersDesc = 'FOLLOWERS_DESC',
-  /** Order by repos count in descending order. */
-  RepositoriesCountDesc = 'REPOSITORIES_COUNT_DESC'
+  /** Order by public contributions count in descending order. */
+  PublicContributionsDesc = 'PUBLIC_CONTRIBUTIONS_DESC'
 }
 
 /** A repository owner could any of these types. */
@@ -824,7 +825,7 @@ export type GetGithubOwnersQueryVariables = Exact<{
 }>;
 
 
-export type GetGithubOwnersQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'Owner', name?: string | null | undefined, login: string, contributionsCount?: number | null | undefined, followersCount?: number | null | undefined, twitterUsername?: string | null | undefined, websiteUrl?: string | null | undefined, company?: string | null | undefined } }> | null | undefined } };
+export type GetGithubOwnersQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'Owner', name?: string | null | undefined, login: string, contributionsCount?: number | null | undefined, publicContributionsCount?: number | null | undefined, followersCount?: number | null | undefined, twitterUsername?: string | null | undefined, websiteUrl?: string | null | undefined, company?: string | null | undefined } }> | null | undefined } };
 
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1187,7 +1188,7 @@ export type GetCollectionsQueryHookResult = ReturnType<typeof useGetCollectionsQ
 export type GetCollectionsLazyQueryHookResult = ReturnType<typeof useGetCollectionsLazyQuery>;
 export type GetCollectionsQueryResult = Apollo.QueryResult<GetCollectionsQuery, GetCollectionsQueryVariables>;
 export const GetGithubOwnersDocument = gql`
-    query GetGithubOwners($first: Int = 18, $after: String, $order: OwnerOrder = FOLLOWERS_DESC) {
+    query GetGithubOwners($first: Int = 18, $after: String, $order: OwnerOrder = PUBLIC_CONTRIBUTIONS_DESC) {
   owners(
     first: $first
     type: User
@@ -1204,6 +1205,7 @@ export const GetGithubOwnersDocument = gql`
         name
         login
         contributionsCount
+        publicContributionsCount
         followersCount
         twitterUsername
         websiteUrl

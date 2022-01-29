@@ -1,7 +1,7 @@
 query GetGithubOwners(
   $first: Int = 18
   $after: String
-  $order: OwnerOrder = FOLLOWERS_DESC
+  $order: OwnerOrder = PUBLIC_CONTRIBUTIONS_DESC
 ) {
   owners(
     first: $first
@@ -19,6 +19,7 @@ query GetGithubOwners(
         name
         login
         contributionsCount
+        publicContributionsCount
         followersCount
         twitterUsername
         websiteUrl
