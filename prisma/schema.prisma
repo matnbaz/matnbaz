@@ -107,6 +107,8 @@ model Owner {
   contributionsCount  Int?
   followersCount      Int?
   twitterUsername     String?
+  company             String?
+  location            String?
   User                User?            @relation(fields: [userId], references: [id])
   userId              String?
   Repositories        Repository[]
