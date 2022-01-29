@@ -19,7 +19,7 @@ const CollectionsPage: NextPage = () => {
   //   };
   let template;
   if (!loading && !data)
-    template = <p className="text-center font-bold">هیچ مجموعهی یافت نشد.</p>;
+    template = <p className="text-center font-bold">هیچ مجموعه‌ای یافت نشد.</p>;
   else
     template = (
       <div className="mb-12 grid gap-10 md:grid-cols-12">
