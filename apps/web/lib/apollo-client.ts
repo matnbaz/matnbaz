@@ -13,6 +13,7 @@ export function createApolloClient() {
           fields: {
             posts: relayStylePagination(),
             repositories: relayStylePagination(),
+            owners: relayStylePagination(),
           },
         },
         PostTag: {

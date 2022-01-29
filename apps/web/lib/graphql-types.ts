@@ -255,14 +255,20 @@ export type Node = {
 
 export type Owner = Node & {
   __typename?: 'Owner';
+  company?: Maybe<Scalars['String']>;
+  contributionsCount?: Maybe<Scalars['Int']>;
+  followersCount?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
+  location?: Maybe<Scalars['String']>;
   login: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   platform: PlatformType;
   platformId: Scalars['ID'];
   repositories: RepositoryConnection;
   repositoriesCount: Scalars['Int'];
-  siteAdmin: Scalars['Boolean'];
+  twitterUsername?: Maybe<Scalars['String']>;
   type: OwnerType;
+  websiteUrl?: Maybe<Scalars['String']>;
 };
 
 
@@ -272,6 +278,33 @@ export type OwnerRepositoriesArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
 };
+
+export type OwnerConnection = {
+  __typename?: 'OwnerConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<OwnerEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A Owner edge. */
+export type OwnerEdge = {
+  __typename?: 'OwnerEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of OwnerEdge. */
+  node: Owner;
+};
+
+/** You can order repositories with one of these options. */
+export enum OwnerOrder {
+  /** Order by contributions count in descending order. */
+  ContributionsDesc = 'CONTRIBUTIONS_DESC',
+  /** Order by followers count in descending order. */
+  FollowersDesc = 'FOLLOWERS_DESC',
+  /** Order by repos count in descending order. */
+  RepositoriesCountDesc = 'REPOSITORIES_COUNT_DESC'
+}
 
 /** A repository owner could any of these types. */
 export enum OwnerType {
@@ -366,6 +399,7 @@ export type Query = {
   owner?: Maybe<Owner>;
   ownerByPlatform?: Maybe<Owner>;
   ownerByPlatformId?: Maybe<Owner>;
+  owners: OwnerConnection;
   postBySlug?: Maybe<Post>;
   posts: PostConnection;
   repositories: RepositoryConnection;
@@ -440,6 +474,18 @@ export type QueryOwnerByPlatformArgs = {
 export type QueryOwnerByPlatformIdArgs = {
   id: Scalars['ID'];
   platform: PlatformType;
+};
+
+
+export type QueryOwnersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  order?: InputMaybe<OwnerOrder>;
+  platform?: InputMaybe<PlatformType>;
+  type?: InputMaybe<OwnerType>;
+  withStatistics?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -770,6 +816,15 @@ export type GetCollectionsQueryVariables = Exact<{
 
 
 export type GetCollectionsQuery = { __typename?: 'Query', collections: { __typename?: 'CollectionConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'CollectionEdge', node: { __typename?: 'Collection', id: string, name: string, slug: string, description?: string | null | undefined, repositoriesCount: number, image?: string | null | undefined, color?: { __typename?: 'Color', hexString: string } | null | undefined } }> | null | undefined } };
+
+export type GetGithubOwnersQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<OwnerOrder>;
+}>;
+
+
+export type GetGithubOwnersQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'Owner', name?: string | null | undefined, login: string, contributionsCount?: number | null | undefined, followersCount?: number | null | undefined, twitterUsername?: string | null | undefined, websiteUrl?: string | null | undefined, company?: string | null | undefined } }> | null | undefined } };
 
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1131,6 +1186,63 @@ export function useGetCollectionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetCollectionsQueryHookResult = ReturnType<typeof useGetCollectionsQuery>;
 export type GetCollectionsLazyQueryHookResult = ReturnType<typeof useGetCollectionsLazyQuery>;
 export type GetCollectionsQueryResult = Apollo.QueryResult<GetCollectionsQuery, GetCollectionsQueryVariables>;
+export const GetGithubOwnersDocument = gql`
+    query GetGithubOwners($first: Int = 18, $after: String, $order: OwnerOrder = FOLLOWERS_DESC) {
+  owners(
+    first: $first
+    type: User
+    after: $after
+    order: $order
+    withStatistics: true
+  ) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        name
+        login
+        contributionsCount
+        followersCount
+        twitterUsername
+        websiteUrl
+        company
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetGithubOwnersQuery__
+ *
+ * To run a query within a React component, call `useGetGithubOwnersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetGithubOwnersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetGithubOwnersQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      order: // value for 'order'
+ *   },
+ * });
+ */
+export function useGetGithubOwnersQuery(baseOptions?: Apollo.QueryHookOptions<GetGithubOwnersQuery, GetGithubOwnersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetGithubOwnersQuery, GetGithubOwnersQueryVariables>(GetGithubOwnersDocument, options);
+      }
+export function useGetGithubOwnersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetGithubOwnersQuery, GetGithubOwnersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetGithubOwnersQuery, GetGithubOwnersQueryVariables>(GetGithubOwnersDocument, options);
+        }
+export type GetGithubOwnersQueryHookResult = ReturnType<typeof useGetGithubOwnersQuery>;
+export type GetGithubOwnersLazyQueryHookResult = ReturnType<typeof useGetGithubOwnersLazyQuery>;
+export type GetGithubOwnersQueryResult = Apollo.QueryResult<GetGithubOwnersQuery, GetGithubOwnersQueryVariables>;
 export const GetLanguagesDocument = gql`
     query GetLanguages {
   languages {

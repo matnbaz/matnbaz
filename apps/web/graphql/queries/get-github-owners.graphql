@@ -1,0 +1,29 @@
+query GetGithubOwners(
+  $first: Int = 18
+  $after: String
+  $order: OwnerOrder = FOLLOWERS_DESC
+) {
+  owners(
+    first: $first
+    type: User
+    after: $after
+    order: $order
+    withStatistics: true
+  ) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        name
+        login
+        contributionsCount
+        followersCount
+        twitterUsername
+        websiteUrl
+        company
+      }
+    }
+  }
+}
