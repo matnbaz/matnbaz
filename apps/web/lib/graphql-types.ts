@@ -342,6 +342,15 @@ export type PostTag = Node & {
   __typename?: 'PostTag';
   id: Scalars['ID'];
   name: Scalars['String'];
+  posts: PostConnection;
+};
+
+
+export type PostTagPostsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
 export type Query = {
@@ -363,6 +372,7 @@ export type Query = {
   repositoryById?: Maybe<Repository>;
   repositoryByPlatform?: Maybe<Repository>;
   repositoryByPlatformId?: Maybe<Repository>;
+  tag?: Maybe<PostTag>;
   topic?: Maybe<Topic>;
   topicById?: Maybe<Topic>;
   topics: TopicConnection;
@@ -443,6 +453,7 @@ export type QueryPostsArgs = {
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
 };
 
 
@@ -476,6 +487,11 @@ export type QueryRepositoryByPlatformArgs = {
 export type QueryRepositoryByPlatformIdArgs = {
   id: Scalars['ID'];
   platform: PlatformType;
+};
+
+
+export type QueryTagArgs = {
+  name: Scalars['String'];
 };
 
 
@@ -711,7 +727,11 @@ export type UserError = {
   path?: Maybe<Array<Scalars['String']>>;
 };
 
-export type FullRepoFragment = { __typename?: 'Repository', id: string, fullName: string, name: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, openGraphImageUrl?: string | null | undefined, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined };
+export type PostFullFragment = { __typename?: 'Post', contentHtml: string, id: string, slug: string, title: string, image?: string | null | undefined, summaryLimited?: string | null | undefined, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } };
+
+export type PostPreviewFragment = { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, summaryLimited?: string | null | undefined, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } };
+
+export type RepoFullFragment = { __typename?: 'Repository', id: string, fullName: string, name: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, openGraphImageUrl?: string | null | undefined, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined };
 
 export type RepoPreviewWithoutOwnerFragment = { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined };
 
@@ -817,8 +837,37 @@ export type MetadataQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MetadataQuery = { __typename?: 'Query', metadata: { __typename?: 'Metadata', totalOwnersCount: number, totalReposCount: number, totalTopicsCount: number } };
 
-export const FullRepoFragmentDoc = gql`
-    fragment fullRepo on Repository {
+export const PostPreviewFragmentDoc = gql`
+    fragment postPreview on Post {
+  id
+  slug
+  title
+  image
+  tags {
+    name
+  }
+  summaryLimited
+  publishedAt {
+    formatted
+    difference
+  }
+  author {
+    id
+    name
+    username
+    bio
+    avatar
+  }
+}
+    `;
+export const PostFullFragmentDoc = gql`
+    fragment postFull on Post {
+  ...postPreview
+  contentHtml
+}
+    ${PostPreviewFragmentDoc}`;
+export const RepoFullFragmentDoc = gql`
+    fragment repoFull on Repository {
   id
   fullName
   name
@@ -1345,7 +1394,7 @@ export type GetRepositoriesQueryResult = Apollo.QueryResult<GetRepositoriesQuery
 export const GetRepositoryDocument = gql`
     query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!, $relatedReposFirst: Int = 8) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
-    ...fullRepo
+    ...repoFull
     relatedRepos(first: $relatedReposFirst) {
       edges {
         node {
@@ -1359,7 +1408,7 @@ export const GetRepositoryDocument = gql`
     }
   }
 }
-    ${FullRepoFragmentDoc}
+    ${RepoFullFragmentDoc}
 ${RepoPreviewFragmentDoc}`;
 
 /**

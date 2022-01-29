@@ -1,0 +1,4 @@
+fragment postFull on Post {
+  ...postPreview
+  contentHtml
+}

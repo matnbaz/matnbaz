@@ -1,4 +1,4 @@
-fragment fullRepo on Repository {
+fragment repoFull on Repository {
   id
   fullName
   name

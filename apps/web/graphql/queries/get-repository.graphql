@@ -5,7 +5,7 @@ query GetRepository(
   $relatedReposFirst: Int = 8
 ) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
-    ...fullRepo
+    ...repoFull
     relatedRepos(first: $relatedReposFirst) {
       edges {
         node {

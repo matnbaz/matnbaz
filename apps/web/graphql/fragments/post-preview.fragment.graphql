@@ -1,0 +1,21 @@
+fragment postPreview on Post {
+  id
+  slug
+  title
+  image
+  tags {
+    name
+  }
+  summaryLimited
+  publishedAt {
+    formatted
+    difference
+  }
+  author {
+    id
+    name
+    username
+    bio
+    avatar
+  }
+}
