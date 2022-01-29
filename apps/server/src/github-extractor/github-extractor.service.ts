@@ -25,6 +25,8 @@ query ($id: ID!) {
       }
       databaseId
       twitterUsername
+      company
+      location
     }
     ... on Organization {
       databaseId
@@ -347,6 +349,8 @@ export class GithubExtractorService {
     contributionsCollection,
     followers,
     twitterUsername,
+    company,
+    location,
     __typename,
   }: {
     id: string;
@@ -358,6 +362,8 @@ export class GithubExtractorService {
       };
     };
     twitterUsername;
+    company?: string;
+    location?: string;
     followers?: { totalCount: number };
     __typename: 'Organization' | 'User';
   }) {
@@ -374,6 +380,8 @@ export class GithubExtractorService {
         platform: 'GitHub',
         platformId: databaseId.toString(),
         twitterUsername,
+        company,
+        location,
         type: __typename,
         latestExtractionAt: new Date(),
       },
@@ -383,6 +391,8 @@ export class GithubExtractorService {
         platform: 'GitHub',
         platformId: databaseId.toString(),
         twitterUsername,
+        company,
+        location,
         type: __typename,
         latestExtractionAt: new Date(),
         contributionsCount:
