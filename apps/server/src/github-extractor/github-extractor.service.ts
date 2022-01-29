@@ -364,7 +364,7 @@ export class GithubExtractorService {
         totalContributions: number;
       };
     };
-    twitterUsername;
+    twitterUsername?: string;
     websiteUrl?: string;
     company?: string;
     location?: string;
