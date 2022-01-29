@@ -16,6 +16,7 @@ query ($id: ID!) {
         contributionCalendar {
           totalContributions
         }
+        restrictedContributionsCount
       }
       followers(first: 0) {
         totalCount
@@ -371,6 +372,7 @@ export class GithubExtractorService {
       contributionCalendar: {
         totalContributions: number;
       };
+      restrictedContributionsCount: number;
     };
     twitterUsername?: string;
     websiteUrl?: string;
@@ -379,6 +381,17 @@ export class GithubExtractorService {
     followers?: { totalCount: number };
     __typename: 'Organization' | 'User';
   }) {
+    const allContributions =
+      __typename === 'User'
+        ? contributionsCollection?.contributionCalendar?.totalContributions
+        : 0;
+
+    const publicContributions =
+      __typename === 'User'
+        ? allContributions -
+          contributionsCollection.restrictedContributionsCount
+        : 0;
+
     const owner = await this.prisma.owner.upsert({
       where: {
         platform_platformId: {
@@ -411,8 +424,8 @@ export class GithubExtractorService {
         websiteUrl,
         type: __typename,
         latestExtractionAt: new Date(),
-        contributionsCount:
-          contributionsCollection?.contributionCalendar?.totalContributions,
+        contributionsCount: allContributions,
+        publicContributionsCount: publicContributions,
         followersCount: followers?.totalCount,
       },
     });
@@ -429,8 +442,8 @@ export class GithubExtractorService {
               },
             },
           },
-          contributionsCount:
-            contributionsCollection.contributionCalendar.totalContributions,
+          contributionsCount: allContributions,
+          publicContributionsCount: publicContributions,
           followersCount: followers.totalCount,
         },
       });
