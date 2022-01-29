@@ -105,16 +105,16 @@ export class GithubExtractorService {
       where: {
         platform: 'GitHub',
         blockedAt: null,
-        OR: [
-          forceAll
-            ? {
+        OR: !forceAll
+          ? [
+              {
                 latestExtractionAt: { lt: subHours(new Date(), 12) },
-              }
-            : undefined,
-          {
-            latestExtractionAt: null,
-          },
-        ],
+              },
+              {
+                latestExtractionAt: null,
+              },
+            ]
+          : undefined,
       },
     });
     let completedCount = 0;
@@ -132,16 +132,16 @@ export class GithubExtractorService {
         where: {
           platform: 'GitHub',
           blockedAt: null,
-          OR: [
-            forceAll
-              ? {
+          OR: !forceAll
+            ? [
+                {
                   latestExtractionAt: { lt: subHours(new Date(), 12) },
-                }
-              : undefined,
-            {
-              latestExtractionAt: null,
-            },
-          ],
+                },
+                {
+                  latestExtractionAt: null,
+                },
+              ]
+            : undefined,
         },
         select: { id: true, login: true, nodeId: true },
         cursor: lastOwnerId && { id: lastOwnerId },
