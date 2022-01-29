@@ -305,7 +305,19 @@ type Query {
   owner(id: ID!): Owner
   ownerByPlatform(owner: String!, platform: PlatformType!): Owner
   ownerByPlatformId(id: ID!, platform: PlatformType!): Owner
-  owners(after: String, before: String, first: Int, last: Int, order: OwnerOrder, type: OwnerType): OwnerConnection!
+  owners(
+    after: String
+    before: String
+    first: Int
+    last: Int
+    order: OwnerOrder
+    type: OwnerType
+
+    """
+    Retrieves only the records that have `followersCount` and `contributionsCount`
+    """
+    withStatistics: Boolean
+  ): OwnerConnection!
   postBySlug(slug: String!): Post
   posts(
     after: String

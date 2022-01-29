@@ -8,4 +8,9 @@ export class OwnerFilterArgs {
    */
   @Field(() => OwnerType)
   type?: OwnerType;
+
+  /**
+   * Retrieves only the records that have `followersCount` and `contributionsCount`
+   */
+  withStatistics?: boolean;
 }
