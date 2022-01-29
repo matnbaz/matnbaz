@@ -106,9 +106,11 @@ export class GithubExtractorService {
         platform: 'GitHub',
         blockedAt: null,
         OR: [
-          forceAll && {
-            latestExtractionAt: { lt: subHours(new Date(), 12) },
-          },
+          forceAll
+            ? {
+                latestExtractionAt: { lt: subHours(new Date(), 12) },
+              }
+            : undefined,
           {
             latestExtractionAt: null,
           },
@@ -131,9 +133,11 @@ export class GithubExtractorService {
           platform: 'GitHub',
           blockedAt: null,
           OR: [
-            forceAll && {
-              latestExtractionAt: { lt: subHours(new Date(), 12) },
-            },
+            forceAll
+              ? {
+                  latestExtractionAt: { lt: subHours(new Date(), 12) },
+                }
+              : undefined,
             {
               latestExtractionAt: null,
             },
