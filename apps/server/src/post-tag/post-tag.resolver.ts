@@ -25,14 +25,16 @@ export class PostTagResolver {
           .findUnique({
             where: { id: tag.id },
           })
-          .Posts(args),
+          .Posts({ where: { publishedAt: { not: null } }, ...args }),
       async () =>
         (
-          await this.prisma.postTag.findUnique({
-            where: { id: tag.id },
-            select: { Posts: { select: { id: true } } },
-          })
-        ).Posts.length,
+          await this.prisma.postTag
+            .findUnique({
+              where: { id: tag.id },
+              select: { id: true },
+            })
+            .Posts({ where: { publishedAt: { not: null } } })
+        ).length,
       pagination
     );
   }
