@@ -10,17 +10,27 @@ import { DateObject } from '../models/date.model';
 import { PostTag } from '../models/post-tag.model';
 import { Post } from '../models/post.model';
 import { User } from '../models/user.model';
+import { PostFilterArgs } from './args/post-filter.args';
 
 @Resolver(() => Post)
 export class PostResolver {
   constructor(private readonly prisma: PrismaService) {}
 
   @Query(() => PostConnection)
-  posts(@Args() pagination: PaginationArgs) {
+  posts(@Args() pagination: PaginationArgs, @Args() { tags }: PostFilterArgs) {
     return findManyCursorConnection(
       (args) =>
         this.prisma.post.findMany({
-          where: { publishedAt: { not: null } },
+          where: {
+            publishedAt: { not: null },
+            OR:
+              tags && tags.length > 0
+                ? tags.map((tag) => ({
+                    Tags: { some: { name: tag } },
+                  }))
+                : undefined,
+          },
+
           orderBy: { publishedAt: 'desc' },
           ...args,
         }),

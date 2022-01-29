@@ -275,7 +275,15 @@ type Query {
   ownerByPlatform(owner: String!, platform: PlatformType!): Owner
   ownerByPlatformId(id: ID!, platform: PlatformType!): Owner
   postBySlug(slug: String!): Post
-  posts(after: String, before: String, first: Int, last: Int): PostConnection!
+  posts(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """Tags"""
+    tags: [String!]
+  ): PostConnection!
   repositories(
     after: String
     archiveStatus: ArchiveStatusType
