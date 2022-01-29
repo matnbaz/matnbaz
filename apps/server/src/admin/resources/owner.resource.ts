@@ -180,8 +180,8 @@ export const ownerResource: Resource = ({
         },
       },
 
-      'discover-all': {
-        name: 'discover-all',
+      discoverAll: {
+        name: 'discoverAll',
         isVisible: true,
         actionType: 'record',
         icon: 'Checkmark',
@@ -202,8 +202,8 @@ export const ownerResource: Resource = ({
         },
       },
 
-      'extract-all': {
-        name: 'extract-all',
+      extractAll: {
+        name: 'extractAll',
         isVisible: true,
         actionType: 'record',
         icon: 'Checkmark',
