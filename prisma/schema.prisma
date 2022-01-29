@@ -67,12 +67,13 @@ model RepositoryStatistic {
 }
 
 model OwnerStatistic {
-  id                 String   @id @default(cuid())
-  contributionsCount Int
-  followersCount     Int
-  createdAt          DateTime @default(now())
-  ownerId            String
-  Owner              Owner    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  id                       String   @id @default(cuid())
+  contributionsCount       Int
+  publicContributionsCount Int
+  followersCount           Int
+  createdAt                DateTime @default(now())
+  ownerId                  String
+  Owner                    Owner    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 }
 
 model License {
@@ -93,29 +94,31 @@ model Topic {
 }
 
 model Owner {
-  id                  String           @id @default(cuid())
-  platform            PlatformType
-  platformId          String
-  nodeId              String?          @unique
-  login               String
-  type                OwnerType
-  reason              String?
-  extractedAt         DateTime         @default(now()) // TODO: recordCreatedAt
-  recordUpdatedAt     DateTime         @updatedAt
-  blockedAt           DateTime?
-  latestExtractionAt  DateTime?
-  contributionsCount  Int?
-  followersCount      Int?
-  twitterUsername     String?
-  websiteUrl          String?
-  company             String?
-  location            String?
-  User                User?            @relation(fields: [userId], references: [id])
-  userId              String?
-  Repositories        Repository[]
-  Collections         Collection[]     @relation("owners")
-  CollectionsExcluded Collection[]     @relation("owners_excluded")
-  Statistics          OwnerStatistic[]
+  id                       String           @id @default(cuid())
+  platform                 PlatformType
+  platformId               String
+  nodeId                   String?          @unique
+  name                     String?
+  login                    String
+  type                     OwnerType
+  reason                   String?
+  extractedAt              DateTime         @default(now()) // TODO: recordCreatedAt
+  recordUpdatedAt          DateTime         @updatedAt
+  blockedAt                DateTime?
+  latestExtractionAt       DateTime?
+  contributionsCount       Int?
+  publicContributionsCount Int?
+  followersCount           Int?
+  twitterUsername          String?
+  websiteUrl               String?
+  company                  String?
+  location                 String?
+  User                     User?            @relation(fields: [userId], references: [id])
+  userId                   String?
+  Repositories             Repository[]
+  Collections              Collection[]     @relation("owners")
+  CollectionsExcluded      Collection[]     @relation("owners_excluded")
+  Statistics               OwnerStatistic[]
 
   @@unique([platform, login])
   @@unique([platform, platformId])

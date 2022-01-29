@@ -11,6 +11,7 @@ export class Owner {
   @Field(() => ID)
   platformId: string;
 
+  name?: string;
   login: string;
 
   @Field(() => OwnerType)
@@ -20,5 +21,13 @@ export class Owner {
   contributionsCount?: number;
 
   @Field(() => Int)
+  publicContributionsCount?: number;
+
+  @Field(() => Int)
   followersCount?: number;
+
+  twitterUsername?: string;
+  location?: string;
+  company?: string;
+  websiteUrl?: string;
 }

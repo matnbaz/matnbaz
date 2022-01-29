@@ -34,17 +34,24 @@ export class OwnerResolver extends ReportableResolver(Owner) {
   owners(
     @Args() pagination: PaginationArgs,
     @Args() { order }: OwnerOrderArgs,
-    @Args() { type }: OwnerFilterArgs
+    @Args() { type, withStatistics, platform }: OwnerFilterArgs
   ) {
-    order = order || OwnerOrder.CONTRIBUTIONS_DESC;
+    order = order || OwnerOrder.PUBLIC_CONTRIBUTIONS_DESC;
 
     return findManyCursorConnection(
       (args) =>
         this.prisma.owner.findMany({
-          where: { type },
+          where: {
+            type,
+            platform,
+            followersCount: withStatistics ? { not: null } : undefined,
+          },
           orderBy: {
             [OwnerOrder.CONTRIBUTIONS_DESC]: {
               contributionsCount: 'desc' as const,
+            },
+            [OwnerOrder.PUBLIC_CONTRIBUTIONS_DESC]: {
+              publicContributionsCount: 'desc' as const,
             },
             [OwnerOrder.FOLLOWERS_DESC]: { followersCount: 'desc' as const },
           }[order],
@@ -52,7 +59,11 @@ export class OwnerResolver extends ReportableResolver(Owner) {
         }),
       () =>
         this.prisma.owner.count({
-          where: { type },
+          where: {
+            type,
+            platform,
+            followersCount: withStatistics ? { not: null } : undefined,
+          },
         }),
       pagination
     );

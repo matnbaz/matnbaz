@@ -16,6 +16,7 @@ query ($id: ID!) {
         contributionCalendar {
           totalContributions
         }
+        restrictedContributionsCount
       }
       followers(first: 0) {
         totalCount
@@ -24,6 +25,7 @@ query ($id: ID!) {
         totalCount
       }
       databaseId
+      name
       twitterUsername
       websiteUrl
       company
@@ -31,6 +33,7 @@ query ($id: ID!) {
     }
     ... on Organization {
       databaseId
+      name
       twitterUsername
       websiteUrl
     }
@@ -350,6 +353,7 @@ export class GithubExtractorService {
 
   async populateOwner({
     id, // nodeId
+    name,
     login,
     databaseId,
     contributionsCollection,
@@ -361,12 +365,14 @@ export class GithubExtractorService {
     __typename,
   }: {
     id: string;
+    name?: string;
     login: string;
     databaseId: number;
     contributionsCollection?: {
       contributionCalendar: {
         totalContributions: number;
       };
+      restrictedContributionsCount: number;
     };
     twitterUsername?: string;
     websiteUrl?: string;
@@ -375,6 +381,17 @@ export class GithubExtractorService {
     followers?: { totalCount: number };
     __typename: 'Organization' | 'User';
   }) {
+    const allContributions =
+      __typename === 'User'
+        ? contributionsCollection?.contributionCalendar?.totalContributions
+        : 0;
+
+    const publicContributions =
+      __typename === 'User'
+        ? allContributions -
+          contributionsCollection.restrictedContributionsCount
+        : 0;
+
     const owner = await this.prisma.owner.upsert({
       where: {
         platform_platformId: {
@@ -384,6 +401,7 @@ export class GithubExtractorService {
       },
       create: {
         nodeId: id,
+        name,
         login,
         platform: 'GitHub',
         platformId: databaseId.toString(),
@@ -396,6 +414,7 @@ export class GithubExtractorService {
       },
       update: {
         nodeId: id,
+        name,
         login,
         platform: 'GitHub',
         platformId: databaseId.toString(),
@@ -405,8 +424,8 @@ export class GithubExtractorService {
         websiteUrl,
         type: __typename,
         latestExtractionAt: new Date(),
-        contributionsCount:
-          contributionsCollection?.contributionCalendar?.totalContributions,
+        contributionsCount: allContributions,
+        publicContributionsCount: publicContributions,
         followersCount: followers?.totalCount,
       },
     });
@@ -423,8 +442,8 @@ export class GithubExtractorService {
               },
             },
           },
-          contributionsCount:
-            contributionsCollection.contributionCalendar.totalContributions,
+          contributionsCount: allContributions,
+          publicContributionsCount: publicContributions,
           followersCount: followers.totalCount,
         },
       });
