@@ -24,6 +24,7 @@ query ($id: ID!) {
         totalCount
       }
       databaseId
+      name
       twitterUsername
       websiteUrl
       company
@@ -31,6 +32,7 @@ query ($id: ID!) {
     }
     ... on Organization {
       databaseId
+      name
       twitterUsername
       websiteUrl
     }
@@ -350,6 +352,7 @@ export class GithubExtractorService {
 
   async populateOwner({
     id, // nodeId
+    name,
     login,
     databaseId,
     contributionsCollection,
@@ -361,6 +364,7 @@ export class GithubExtractorService {
     __typename,
   }: {
     id: string;
+    name?: string;
     login: string;
     databaseId: number;
     contributionsCollection?: {
@@ -384,6 +388,7 @@ export class GithubExtractorService {
       },
       create: {
         nodeId: id,
+        name,
         login,
         platform: 'GitHub',
         platformId: databaseId.toString(),
@@ -396,6 +401,7 @@ export class GithubExtractorService {
       },
       update: {
         nodeId: id,
+        name,
         login,
         platform: 'GitHub',
         platformId: databaseId.toString(),
