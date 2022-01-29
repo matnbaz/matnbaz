@@ -36,7 +36,7 @@ export class OwnerResolver extends ReportableResolver(Owner) {
     @Args() { order }: OwnerOrderArgs,
     @Args() { type, withStatistics, platform }: OwnerFilterArgs
   ) {
-    order = order || OwnerOrder.CONTRIBUTIONS_DESC;
+    order = order || OwnerOrder.PUBLIC_CONTRIBUTIONS_DESC;
 
     return findManyCursorConnection(
       (args) =>
@@ -49,6 +49,9 @@ export class OwnerResolver extends ReportableResolver(Owner) {
           orderBy: {
             [OwnerOrder.CONTRIBUTIONS_DESC]: {
               contributionsCount: 'desc' as const,
+            },
+            [OwnerOrder.PUBLIC_CONTRIBUTIONS_DESC]: {
+              publicContributionsCount: 'desc' as const,
             },
             [OwnerOrder.FOLLOWERS_DESC]: { followersCount: 'desc' as const },
           }[order],

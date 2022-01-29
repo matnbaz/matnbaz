@@ -219,8 +219,8 @@ enum OwnerOrder {
   """Order by followers count in descending order."""
   FOLLOWERS_DESC
 
-  """Order by repos count in descending order."""
-  REPOSITORIES_COUNT_DESC
+  """Order by public contributions count in descending order."""
+  PUBLIC_CONTRIBUTIONS_DESC
 }
 
 """A repository owner could any of these types."""
