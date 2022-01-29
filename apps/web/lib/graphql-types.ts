@@ -832,6 +832,13 @@ export type GetSearchedRepositoriesQueryVariables = Exact<{
 
 export type GetSearchedRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined } };
 
+export type GetTagQueryVariables = Exact<{
+  name: Scalars['String'];
+}>;
+
+
+export type GetTagQuery = { __typename?: 'Query', tag?: { __typename?: 'PostTag', name: string, posts: { __typename?: 'PostConnection', edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, summaryLimited?: string | null | undefined, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } } }> | null | undefined } } | null | undefined };
+
 export type MetadataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1481,6 +1488,48 @@ export function useGetSearchedRepositoriesLazyQuery(baseOptions?: Apollo.LazyQue
 export type GetSearchedRepositoriesQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesQuery>;
 export type GetSearchedRepositoriesLazyQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesLazyQuery>;
 export type GetSearchedRepositoriesQueryResult = Apollo.QueryResult<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>;
+export const GetTagDocument = gql`
+    query GetTag($name: String!) {
+  tag(name: $name) {
+    name
+    posts {
+      edges {
+        node {
+          ...postPreview
+        }
+      }
+    }
+  }
+}
+    ${PostPreviewFragmentDoc}`;
+
+/**
+ * __useGetTagQuery__
+ *
+ * To run a query within a React component, call `useGetTagQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTagQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTagQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useGetTagQuery(baseOptions: Apollo.QueryHookOptions<GetTagQuery, GetTagQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTagQuery, GetTagQueryVariables>(GetTagDocument, options);
+      }
+export function useGetTagLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTagQuery, GetTagQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTagQuery, GetTagQueryVariables>(GetTagDocument, options);
+        }
+export type GetTagQueryHookResult = ReturnType<typeof useGetTagQuery>;
+export type GetTagLazyQueryHookResult = ReturnType<typeof useGetTagLazyQuery>;
+export type GetTagQueryResult = Apollo.QueryResult<GetTagQuery, GetTagQueryVariables>;
 export const MetadataDocument = gql`
     query Metadata {
   metadata {

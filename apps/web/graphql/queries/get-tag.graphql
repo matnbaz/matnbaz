@@ -1,0 +1,12 @@
+query GetTag($name: String!) {
+  tag(name: $name) {
+    name
+    posts {
+      edges {
+        node {
+          ...postPreview
+        }
+      }
+    }
+  }
+}
