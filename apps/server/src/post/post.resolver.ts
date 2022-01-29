@@ -10,13 +10,16 @@ import { DateObject } from '../models/date.model';
 import { PostTag } from '../models/post-tag.model';
 import { Post } from '../models/post.model';
 import { User } from '../models/user.model';
+import { paginationComplexity } from '../plugins/pagination-complexity';
 import { PostFilterArgs } from './args/post-filter.args';
 
 @Resolver(() => Post)
 export class PostResolver {
   constructor(private readonly prisma: PrismaService) {}
 
-  @Query(() => PostConnection)
+  @Query(() => PostConnection, {
+    complexity: paginationComplexity,
+  })
   posts(@Args() pagination: PaginationArgs, @Args() { tags }: PostFilterArgs) {
     return findManyCursorConnection(
       (args) =>
