@@ -12,16 +12,50 @@ import {
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { PlatformByIdArgs } from '../models/args/platform-by-id.args';
+import { OwnerConnection } from '../models/connections/owner.connection';
 import { RepositoryConnection } from '../models/connections/repository.connection';
 import { Owner } from '../models/owner.model';
 import { paginationComplexity } from '../plugins/pagination-complexity';
 import { ReportableResolver } from '../report/reportable.resolver';
+import { OwnerFilterArgs } from './args/owner-filter.args';
+import { OwnerOrderArgs } from './args/owner-order.args';
 import { PlatformArgs } from './args/platform.args';
+import { OwnerOrder } from './enums/owner-order.enum';
 
 @Resolver(() => Owner)
 export class OwnerResolver extends ReportableResolver(Owner) {
   constructor(private readonly prisma: PrismaService) {
     super();
+  }
+
+  @Query(() => OwnerConnection, {
+    complexity: paginationComplexity,
+  })
+  owners(
+    @Args() pagination: PaginationArgs,
+    @Args() { order }: OwnerOrderArgs,
+    @Args() { type }: OwnerFilterArgs
+  ) {
+    order = order || OwnerOrder.CONTRIBUTIONS_DESC;
+
+    return findManyCursorConnection(
+      (args) =>
+        this.prisma.owner.findMany({
+          where: { type },
+          orderBy: {
+            [OwnerOrder.CONTRIBUTIONS_DESC]: {
+              contributionsCount: 'desc' as const,
+            },
+            [OwnerOrder.FOLLOWERS_DESC]: { followersCount: 'desc' as const },
+          }[order],
+          ...args,
+        }),
+      () =>
+        this.prisma.owner.count({
+          where: { type },
+        }),
+      pagination
+    );
   }
 
   @Query(() => Owner, { nullable: true })

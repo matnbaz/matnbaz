@@ -178,14 +178,44 @@ interface Node {
 }
 
 type Owner implements Node {
+  contributionsCount: Int
+  followersCount: Int
   id: ID!
   login: String!
   platform: PlatformType!
   platformId: ID!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int!
-  siteAdmin: Boolean!
   type: OwnerType!
+}
+
+type OwnerConnection {
+  """A list of edges"""
+  edges: [OwnerEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A Owner edge."""
+type OwnerEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of OwnerEdge."""
+  node: Owner!
+}
+
+"""You can order repositories with one of these options."""
+enum OwnerOrder {
+  """Order by contributions count in descending order."""
+  CONTRIBUTIONS_DESC
+
+  """Order by followers count in descending order."""
+  FOLLOWERS_DESC
+
+  """Order by repos count in descending order."""
+  REPOSITORIES_COUNT_DESC
 }
 
 """A repository owner could any of these types."""
@@ -275,6 +305,7 @@ type Query {
   owner(id: ID!): Owner
   ownerByPlatform(owner: String!, platform: PlatformType!): Owner
   ownerByPlatformId(id: ID!, platform: PlatformType!): Owner
+  owners(after: String, before: String, first: Int, last: Int, order: OwnerOrder, type: OwnerType): OwnerConnection!
   postBySlug(slug: String!): Post
   posts(
     after: String

@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { OwnerType } from './enums/owner-type.enum';
 import { PlatformType } from './enums/platform-type.enum';
 import { Node } from './node.model';
@@ -16,5 +16,9 @@ export class Owner {
   @Field(() => OwnerType)
   type: OwnerType;
 
-  siteAdmin: boolean;
+  @Field(() => Int)
+  contributionsCount?: number;
+
+  @Field(() => Int)
+  followersCount?: number;
 }
