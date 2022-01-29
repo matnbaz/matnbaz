@@ -834,6 +834,8 @@ export type GetSearchedRepositoriesQuery = { __typename?: 'Query', repositories:
 
 export type GetTagQueryVariables = Exact<{
   name: Scalars['String'];
+  postsCount?: InputMaybe<Scalars['Int']>;
+  postsAfter?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -1489,10 +1491,10 @@ export type GetSearchedRepositoriesQueryHookResult = ReturnType<typeof useGetSea
 export type GetSearchedRepositoriesLazyQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesLazyQuery>;
 export type GetSearchedRepositoriesQueryResult = Apollo.QueryResult<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>;
 export const GetTagDocument = gql`
-    query GetTag($name: String!) {
+    query GetTag($name: String!, $postsCount: Int = 12, $postsAfter: String) {
   tag(name: $name) {
     name
-    posts {
+    posts(first: $postsCount, after: $postsAfter) {
       edges {
         node {
           ...postPreview
@@ -1520,6 +1522,8 @@ export const GetTagDocument = gql`
  * const { data, loading, error } = useGetTagQuery({
  *   variables: {
  *      name: // value for 'name'
+ *      postsCount: // value for 'postsCount'
+ *      postsAfter: // value for 'postsAfter'
  *   },
  * });
  */

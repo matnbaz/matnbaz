@@ -1,7 +1,7 @@
-query GetTag($name: String!) {
+query GetTag($name: String!, $postsCount: Int = 12, $postsAfter: String) {
   tag(name: $name) {
     name
-    posts {
+    posts(first: $postsCount, after: $postsAfter) {
       edges {
         node {
           ...postPreview
