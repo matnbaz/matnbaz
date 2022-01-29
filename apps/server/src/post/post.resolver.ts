@@ -26,7 +26,7 @@ export class PostResolver {
         this.prisma.post.findMany({
           where: {
             publishedAt: { not: null },
-            OR:
+            AND:
               tags && tags.length > 0
                 ? tags.map((tag) => ({
                     Tags: { some: { name: tag } },
