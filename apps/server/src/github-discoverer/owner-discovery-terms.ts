@@ -12,6 +12,7 @@ export const ownerDiscoveryTerms = [
   'location:tabriz',
   'location:shiraz',
   'location:fars',
+  'location:qom',
   'location:ahvaz',
   'location:ahwaz',
   'location:rasht',
