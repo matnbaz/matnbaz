@@ -1,5 +1,6 @@
 import { persianNumbers } from '@matnbaz/common';
 import { NextPage } from 'next';
+import Link from 'next/link';
 import { InfiniteScroll } from '../../../components/Feature/InfiniteScroll';
 import { MainLayout } from '../../../components/Layout/MainLayout';
 import { PageHeader } from '../../../components/Layout/PageHeader';
@@ -65,13 +66,13 @@ const GithubTopUsersPage: NextPage = () => {
                       scope="col"
                       className="px-6 py-3 text-center text-xs font-medium text-secondary tracking-wider"
                     >
-                      مشارکت‌های عمومی
+                      دنبال‌کنندگان
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-center text-xs font-medium text-secondary tracking-wider"
                     >
-                      دنبال‌کنندگان
+                      مشارکت‌های عمومی
                     </th>
                   </tr>
                 </thead>
@@ -89,23 +90,27 @@ const GithubTopUsersPage: NextPage = () => {
                           <span dir="rtl">{persianNumbers(index + 1)}</span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10">
-                              <img
-                                className="h-10 w-10 rounded-full"
-                                src={`https://github.com/${owner.login}.png`}
-                                alt={`عکس ${owner.name || owner.login}`}
-                              />
-                            </div>
-                            <div className="ml-4">
-                              <div className="text-sm font-medium">
-                                {owner.name}
+                          <Link href={`/github/${owner.login}`}>
+                            <a target="_blank">
+                              <div className="flex items-center">
+                                <div className="flex-shrink-0 h-10 w-10">
+                                  <img
+                                    className="h-10 w-10 rounded-full"
+                                    src={`https://github.com/${owner.login}.png`}
+                                    alt={`عکس ${owner.name || owner.login}`}
+                                  />
+                                </div>
+                                <div className="ml-4">
+                                  <div className="text-sm font-medium">
+                                    {owner.name}
+                                  </div>
+                                  <div className="text-sm text-secondary">
+                                    @{owner.login}
+                                  </div>
+                                </div>
                               </div>
-                              <div className="text-sm text-secondary">
-                                @{owner.login}
-                              </div>
-                            </div>
-                          </div>
+                            </a>
+                          </Link>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm truncate">
@@ -113,18 +118,27 @@ const GithubTopUsersPage: NextPage = () => {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm">{owner.twitterUsername}</div>
+                          {owner.twitterUsername && (
+                            <a
+                              href={`https://twitter.com/${owner.twitterUsername}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-sm underline"
+                            >
+                              @{owner.twitterUsername}
+                            </a>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-center">
+                          <span dir="rtl">
+                            {persianNumbers(owner.followersCount)} نفر
+                          </span>
                         </td>
                         <td
                           className="px-6 py-4 whitespace-nowrap text-center"
                           dir="rtl"
                         >
                           {persianNumbers(owner.publicContributionsCount)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span dir="rtl">
-                            {persianNumbers(owner.followersCount)} نفر
-                          </span>
                         </td>
                       </tr>
                     ))}
