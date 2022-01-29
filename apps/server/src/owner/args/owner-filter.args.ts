@@ -1,5 +1,6 @@
 import { ArgsType, Field } from '@nestjs/graphql';
 import { OwnerType } from '../../models/enums/owner-type.enum';
+import { PlatformType } from '../../models/enums/platform-type.enum';
 
 @ArgsType()
 export class OwnerFilterArgs {
@@ -13,4 +14,9 @@ export class OwnerFilterArgs {
    * Retrieves only the records that have `followersCount` and `contributionsCount`
    */
   withStatistics?: boolean;
+
+  /**
+   * The platform owner belongs to
+   */
+  platform?: PlatformType;
 }

@@ -178,15 +178,19 @@ interface Node {
 }
 
 type Owner implements Node {
+  company: String
   contributionsCount: Int
   followersCount: Int
   id: ID!
+  location: String
   login: String!
   platform: PlatformType!
   platformId: ID!
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int!
+  twitterUsername: String
   type: OwnerType!
+  websiteUrl: String
 }
 
 type OwnerConnection {
@@ -311,6 +315,9 @@ type Query {
     first: Int
     last: Int
     order: OwnerOrder
+
+    """The platform owner belongs to"""
+    platform: PlatformType
     type: OwnerType
 
     """
