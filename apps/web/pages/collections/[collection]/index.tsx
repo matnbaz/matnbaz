@@ -57,7 +57,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
         <Link href="/collections">
           <a className="inline-flex items-center text-sm text-secondary space-x-2 space-x-reverse">
             <MdChevronRight />
-            <span>مشاهده همه کالکشن‌ها</span>
+            <span>مشاهده همه مجموعه‌ها</span>
           </a>
         </Link>
         <div className="mt-4 space-y-10">

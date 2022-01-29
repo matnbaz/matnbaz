@@ -19,7 +19,7 @@ const CollectionsPage: NextPage = () => {
   //   };
   let template;
   if (!loading && !data)
-    template = <p className="text-center font-bold">هیچ کالکشنی یافت نشد.</p>;
+    template = <p className="text-center font-bold">هیچ مجموعهی یافت نشد.</p>;
   else
     template = (
       <div className="mb-12 grid gap-10 md:grid-cols-12">
@@ -50,13 +50,13 @@ const CollectionsPage: NextPage = () => {
   return (
     <MainLayout withFooterPromo>
       <NextSeo
-        title="کالکشن‌ها"
-        description="کالکشن های مختلف از پروژه های اوپن سورس ایرانی"
+        title="مجموعه‌ها"
+        description="مجموعه های مختلف از پروژه های اوپن سورس ایرانی"
       />
 
       <PageHeader
-        title="کالکشن‌ها"
-        description="کالکشن‌ها به شما کمک می‌کنند پروژه‌های مربوط به حوزه و تکنولوژی دلخواه خود را راحت‌تر و سریع‌تر پیدا کنید."
+        title="مجموعه‌ها"
+        description="مجموعه‌ها به شما کمک می‌کنند پروژه‌های مربوط به حوزه و تکنولوژی دلخواه خود را راحت‌تر و سریع‌تر پیدا کنید."
       />
       {template}
     </MainLayout>

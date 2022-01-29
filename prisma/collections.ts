@@ -35,7 +35,7 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     slug: 'php-minus-laravel',
     color: '#777BB4',
     description:
-      'این کالکشن برای افرادی‌ست که از پی‌اچ‌پی استفاده می‌کنند اما از فریم‌ورک لاراول استفاده نمی‌کنند.',
+      'این مجموعه برای افرادی‌ست که از پی‌اچ‌پی استفاده می‌کنند اما از فریم‌ورک لاراول استفاده نمی‌کنند.',
     image: 'https://simpleicons.org/icons/php.svg',
     Languages: { connect: { slug: 'php' } },
     TopicsExcluded: { connect: ['laravel'].map((topic) => ({ name: topic })) },
@@ -361,7 +361,7 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     slug: 'telegram',
     color: '#26A5E4',
     description:
-      'تلگرام یک سرویس پیام‌رسان رایگان، چند‌پلتفرمی و مبتنی بر ابر است. در این کالکشن پروژه‌های مربوط به این پیام‌رسان گرد آمده‌اند.',
+      'تلگرام یک سرویس پیام‌رسان رایگان، چند‌پلتفرمی و مبتنی بر ابر است. در این مجموعه پروژه‌های مربوط به این پیام‌رسان گرد آمده‌اند.',
     image: 'https://simpleicons.org/icons/telegram.svg',
     Topics: {
       connect: ['telegram'].map((topic) => ({
@@ -375,7 +375,7 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     slug: 'instagram',
     color: '#E4405F',
     description:
-      'اینستاگرام یک سرویس شبکه‌اجتماعی اشتراک‌گذاری عکس و ویدیو است. در این کالکشن پروژه‌های مربوط به این شبکه‌اجتماعی گرد آمده‌اند.',
+      'اینستاگرام یک سرویس شبکه‌اجتماعی اشتراک‌گذاری عکس و ویدیو است. در این مجموعه پروژه‌های مربوط به این شبکه‌اجتماعی گرد آمده‌اند.',
     image: 'https://simpleicons.org/icons/instagram.svg',
     Topics: {
       connect: ['instagram'].map((topic) => ({
@@ -389,7 +389,7 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     slug: 'twitter',
     color: '#1DA1F2',
     description:
-      'توییتر یک سرویس شبکه‌اجتماعی و میکرو‌بلاگ است. در این کالکشن پروژه‌های مربوط به این شبکه‌اجتماعی گرد آمده‌اند.',
+      'توییتر یک سرویس شبکه‌اجتماعی و میکرو‌بلاگ است. در این مجموعه پروژه‌های مربوط به این شبکه‌اجتماعی گرد آمده‌اند.',
     image: 'https://simpleicons.org/icons/twitter.svg',
     Topics: {
       connect: ['twitter'].map((topic) => ({
@@ -403,7 +403,7 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     slug: 'discord',
     color: '#5865F2',
     description:
-      'دیسکورد یک پلتفرم پیام‌رسان، تماس تصویری و صوتی است. در این کالکشن پروژه‌های مربوط به این پلتفرم گرد آمده‌اند.',
+      'دیسکورد یک پلتفرم پیام‌رسان، تماس تصویری و صوتی است. در این مجموعه پروژه‌های مربوط به این پلتفرم گرد آمده‌اند.',
     image: 'https://simpleicons.org/icons/discord.svg',
     Topics: {
       connect: ['discord'].map((topic) => ({

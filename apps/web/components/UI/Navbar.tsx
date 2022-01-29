@@ -65,9 +65,9 @@ const links: LinkItem[] = [
   //       },
   //       {
   //         type: 'link',
-  //         name: 'کالکشن‌ها',
+  //         name: 'مجموعه‌ها',
   //         description:
-  //           'کالکشن‌ها به شما کمک می‌کنند مخزن‌های متن‌باز مورد نظر را سریع‌تر و راحت‌تر پیدا کنید.',
+  //           'مجموعه‌ها به شما کمک می‌کنند مخزن‌های متن‌باز مورد نظر را سریع‌تر و راحت‌تر پیدا کنید.',
   //         href: '/collections',
   //         icon: HiCollection,
   //       },
@@ -99,7 +99,7 @@ const links: LinkItem[] = [
   // },
   { type: 'link', name: 'خانه', href: '/' },
   { type: 'link', name: 'کاوش‌گر', href: '/explore' },
-  { type: 'link', name: 'کالکشن‌ها', href: '/collections' },
+  { type: 'link', name: 'مجموعه‌ها', href: '/collections' },
   // { type: 'link', name: 'پروژه‌های منتخب', href: '/selections' },
   { type: 'link', name: 'بلاگ', href: '/blog' },
   {

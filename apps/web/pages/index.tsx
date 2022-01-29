@@ -200,18 +200,18 @@ const Index: NextPage = () => {
             <div className="grid sm:grid-cols-2 items-center gap-12 sm:grid-flow-row-dense">
               <div className="sm:col-start-1">
                 <h3 className="inline-flex items-center text-2xl tracking-tight font-extrabold sm:text-4xl xl:text-4xl">
-                  کالکشن‌ها
+                  مجموعه‌ها
                   <span className="mr-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary-100 text-primary-800 dark:bg-primary-600 dark:text-primary-100">
                     جدید
                   </span>
                 </h3>
                 <p className="mt-1 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  کالکشن‌ها به شما کمک می‌کنند مخزن‌های متن‌باز مورد نظر را
+                  مجموعه‌ها به شما کمک می‌کنند مخزن‌های متن‌باز مورد نظر را
                   سریع‌تر و راحت‌تر پیدا کنید.
                 </p>
                 <div className="mt-4">
                   <Button.Primary href="/collections" size="lg">
-                    مشاهده کالکشن‌ها
+                    مشاهده مجموعه‌ها
                   </Button.Primary>
                 </div>
               </div>
