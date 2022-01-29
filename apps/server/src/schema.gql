@@ -260,6 +260,7 @@ type PostEdge {
 type PostTag implements Node {
   id: ID!
   name: String!
+  posts(after: String, before: String, first: Int, last: Int): PostConnection!
 }
 
 type Query {
