@@ -14,4 +14,24 @@ const nextConfig = {
   },
 };
 
-module.exports = withNx(nextConfig);
+module.exports = {
+  ...withNx(nextConfig), async redirects() {
+    return [
+      {
+        source: "/selections",
+        destination: "/blog",
+        permanent: false,
+      },
+      {
+        source: "/s",
+        destination: "/blog",
+        permanent: false,
+      },
+      {
+        source: "/c/:path*",
+        destination: "/collections/:path*",
+        permanent: false,
+      }
+    ]
+  }
+};
