@@ -42,6 +42,7 @@ export class OwnerResolver extends ReportableResolver(Owner) {
       (args) =>
         this.prisma.owner.findMany({
           where: {
+            blockedAt: null,
             type,
             platform,
             followersCount: withStatistics ? { not: null } : undefined,
@@ -60,6 +61,7 @@ export class OwnerResolver extends ReportableResolver(Owner) {
       () =>
         this.prisma.owner.count({
           where: {
+            blockedAt: null,
             type,
             platform,
             followersCount: withStatistics ? { not: null } : undefined,
