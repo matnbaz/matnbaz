@@ -96,27 +96,35 @@ const GithubTopUsersPage: NextPage = () => {
                           <span dir="rtl">{persianNumbers(index + 1)}</span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <Link href={`/github/${owner.login}`}>
-                            <a target="_blank">
-                              <div className="flex items-center">
-                                <div className="flex-shrink-0 h-10 w-10">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-10 w-10">
+                              <Link href={`/github/${owner.login}`}>
+                                <a target="_blank">
                                   <img
                                     className="h-10 w-10 rounded-full"
                                     src={`https://github.com/${owner.login}.png`}
                                     alt={`عکس ${owner.name || owner.login}`}
                                   />
-                                </div>
-                                <div className="ml-4">
+                                </a>
+                              </Link>
+                            </div>
+                            <div className="ml-4">
+                              <Link href={`/github/${owner.login}`}>
+                                <a target="_blank">
                                   <div className="text-sm font-medium">
                                     {owner.name}
                                   </div>
+                                </a>
+                              </Link>
+                              <Link href={`/github/${owner.login}`}>
+                                <a target="_blank">
                                   <div className="text-sm text-secondary">
                                     @{owner.login}
                                   </div>
-                                </div>
-                              </div>
-                            </a>
-                          </Link>
+                                </a>
+                              </Link>
+                            </div>
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm truncate">
