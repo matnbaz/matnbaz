@@ -1,5 +1,6 @@
 import { persianNumbers } from '@matnbaz/common';
 import { NextPage } from 'next';
+import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { InfiniteScroll } from '../../../components/Feature/InfiniteScroll';
 import { MainLayout } from '../../../components/Layout/MainLayout';
@@ -26,6 +27,11 @@ const GithubTopUsersPage: NextPage = () => {
 
   return (
     <MainLayout>
+      <NextSeo
+        title="کاربران برتر گیت‌هاب"
+        description="در این صفحه کاربران ایرانی گیت‌هاب بر اساس مشارکت‌های عمومی آن‌ها به مخزن‌های اپن‌سورس لیست شده‌اند."
+      />
+
       <PageHeader
         title="کاربران برتر گیت‌هاب"
         description="در این صفحه کاربران ایرانی گیت‌هاب بر اساس مشارکت‌های عمومی آن‌ها به مخزن‌های اپن‌سورس لیست شده‌اند."
