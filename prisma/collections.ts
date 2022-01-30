@@ -188,7 +188,7 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
       'دات‌نت یک فریم‌ورک نرم‌افزاری است که توسط مایکروسافت توسعه یافته و عمدتاً روی ویندوز مایکروسافت اجرا می‌شود.',
     image: 'https://simpleicons.org/icons/dotnet.svg',
     Topics: { connect: ['dotnet'].map((topic) => ({ name: topic })) },
-    terms: ['dotnet', 'دات نت'],
+    terms: ['dotnet', 'دات نت', 'دات‌نت'],
   },
   {
     name: 'Django',
