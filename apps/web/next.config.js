@@ -18,6 +18,11 @@ module.exports = {
   ...withNx(nextConfig), async redirects() {
     return [
       {
+        source: "/explorer/:path*",
+        destination: "/explore/:path*",
+        permanent: false,
+      },
+      {
         source: "/selections",
         destination: "/blog",
         permanent: false,
