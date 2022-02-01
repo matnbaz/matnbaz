@@ -9,6 +9,7 @@ export const ownerDiscoveryTerms = [
   'location:karaj',
   'location:mashhad',
   'location:isfahan',
+  'location:esfehan',
   'location:tabriz',
   'location:shiraz',
   'location:fars',
