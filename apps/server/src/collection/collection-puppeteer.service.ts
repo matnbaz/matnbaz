@@ -91,7 +91,7 @@ export class CollectionPuppeteerService {
             با ${persianNumbers(
               reposCount,
               true
-            )} پروژه اوپن‌سورس ایرانی با موضوع ${name} آشنا شوید!
+            )} پروژه اپن‌سورس ایرانی با موضوع ${name} آشنا شوید!
           </h3>
         </div>
         <div class="self-center place-self-center">

@@ -27,6 +27,9 @@ module.exports = {
           ],
         },
       }),
+      maxWidth: {
+        '8xl': '92rem',
+      },
       colors: {
         primary: {
           50: '#f4f9ff',

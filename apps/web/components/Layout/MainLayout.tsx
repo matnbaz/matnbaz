@@ -52,7 +52,7 @@ export const MainLayout = ({
       <Navbar className="min-h-[5rem]" />
       <div
         className={classNames(
-          maxWidth && 'max-w-[92rem]',
+          maxWidth && 'max-w-8xl',
           !withoutPadding && 'pt-24 pb-6 px-6',
           'mx-auto w-full'
         )}

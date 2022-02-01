@@ -59,7 +59,7 @@ const links: LinkItem[] = [
   //         type: 'link',
   //         name: 'کاوش‌گر',
   //         description:
-  //           'با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اوپن‌سورس ایرانی را کشف کنید.',
+  //           'با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اپن‌سورس ایرانی را کشف کنید.',
   //         href: '/explore',
   //         icon: HiSearch,
   //       },
@@ -121,6 +121,18 @@ const links: LinkItem[] = [
           type: 'link',
           name: 'انجمن دیسکورد',
           href: matnbazLinks.discord,
+          external: true,
+        },
+        {
+          type: 'link',
+          name: 'نقشه‌راه',
+          href: matnbazLinks.githubRoadmap,
+          external: true,
+        },
+        {
+          type: 'link',
+          name: 'هویت بصری',
+          href: matnbazLinks.visualIdentity,
           external: true,
         },
       ],
