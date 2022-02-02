@@ -1,6 +1,7 @@
 import { links, persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
 import { NextPage } from 'next';
+import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
 import { CSSProperties } from 'react';
 import { GoPencil, GoRepo } from 'react-icons/go';
 import {
@@ -27,6 +28,28 @@ const HomePage: NextPage = () => {
 
   return (
     <MainLayout withoutPadding maxWidth={false}>
+      <NextSeo
+        title="جامعه اُپِن‌سورس ایرانی"
+        titleTemplate="متن‌باز – %s"
+        description="متن‌باز با هدف جمع‌آوری و معرفی پروژه‌ها و توسعه‌دهندگان ایرانی، ترویج فرهنگ اپن‌سورس، متصل کردن توسعه‌دهندگان ایرانی و ارائه راهکار‌های حمایتی برای توسعه‌دهندگان اپن‌سورس حرفه‌ای ساخته شده‌است."
+      />
+
+      <SocialProfileJsonLd
+        type="Organization"
+        name="متن‌باز"
+        url="http://matnbaz.net"
+        sameAs={[
+          'http://twitter.com/matnbaz_net',
+          'http://instagram.com/matnbaz_net',
+          'http://t.me/matnbaz_net',
+        ]}
+      />
+
+      <LogoJsonLd
+        logo="https://github.com/matnbaz/visual/blob/main/readme-logo.png"
+        url="https://matnbaz.net"
+      />
+
       <div className="overflow-hidden mb-12 sm:mb-24">
         <div className="h-screen md:min-h-[40rem] flex flex-col items-center max-w-8xl mx-auto">
           <div className="m-auto px-4 sm:px-6 sm:text-center lg:text-right flex items-center">
