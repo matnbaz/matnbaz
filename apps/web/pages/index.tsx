@@ -83,7 +83,7 @@ const HomePage: NextPage = () => {
         <div className="h-screen md:min-h-[40rem] flex flex-col items-center max-w-8xl mx-auto">
           <div className="m-auto px-4 sm:px-6 sm:text-center lg:text-right flex items-center">
             <div className="grid lg:grid-cols-2 gap-5">
-              <div className="lg:col-start-1">
+              <div className="">
                 <div className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-5xl lg:mt-6 xl:text-5xl">
                   <h1 className="inline">
                     <span className="text-transparent bg-clip-text ltr:bg-gradient-to-r rtl:bg-gradient-to-l from-primary-400 to-primary-500">
@@ -113,7 +113,7 @@ const HomePage: NextPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="lg:col-start-2 hidden lg:block">
+              <div className="hidden lg:block">
                 <IranVector />
               </div>
             </div>
@@ -191,8 +191,8 @@ const HomePage: NextPage = () => {
 
             <div className="mt-12 lg:mt-28">
               <div className="m-auto max-w-7xl px-6">
-                <div className="grid md:grid-cols-3 gap-24 sm:grid-flow-row-dense">
-                  <div id="explorer" className="sm:col-start-1">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-24 sm:grid-flow-row-dense">
+                  <div id="explorer" className="md:col-span-2 lg:col-span-1">
                     <Feature
                       centered
                       title="کاوش‌گر"
@@ -203,7 +203,7 @@ const HomePage: NextPage = () => {
                       iconWrapperClassName="bg-gradient-to-bl from-green-500 to-emerald-400"
                     />
                   </div>
-                  <div id="collections" className="sm:col-start-2">
+                  <div id="collections">
                     <Feature
                       centered
                       title="مجموعه‌ها"
@@ -214,7 +214,7 @@ const HomePage: NextPage = () => {
                       iconWrapperClassName="bg-gradient-to-bl from-red-500 to-rose-400"
                     />
                   </div>
-                  <div id="selections" className="sm:col-start-3">
+                  <div id="selections">
                     <Feature
                       centered
                       title="پروژه‌های منتخب"
@@ -246,8 +246,8 @@ const HomePage: NextPage = () => {
             />
             <div className="mt-12 lg:mt-28">
               <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6 space-y-36">
-                <div className="grid md:grid-cols-3 gap-24 sm:grid-flow-row-dense">
-                  <div id="education" className="sm:col-start-1">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-24 sm:grid-flow-row-dense">
+                  <div id="education" className="md:col-span-2 lg:col-span-1">
                     <Feature
                       centered
                       title="مطالب آموزشی"
@@ -258,7 +258,7 @@ const HomePage: NextPage = () => {
                       href={`/blog`}
                     />
                   </div>
-                  <div id="events" className="sm:col-start-2">
+                  <div id="events">
                     <Feature
                       centered
                       title="رویداد‌های برنامه‌نویسی"
@@ -269,7 +269,7 @@ const HomePage: NextPage = () => {
                       cta="در آینده"
                     />
                   </div>
-                  <div id="source-code" className="sm:col-start-3">
+                  <div id="source-code">
                     <Feature
                       centered
                       title="سورس‌کد متن‌باز"
@@ -310,7 +310,7 @@ const HomePage: NextPage = () => {
             <div className="mt-12 lg:mt-28">
               <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
                 <div className="grid sm:grid-cols-2 gap-24 sm:grid-flow-row-dense">
-                  <div id="discord-community" className="sm:col-start-1">
+                  <div id="discord-community">
                     <Feature
                       centered
                       title="انجمن دیسکورد متن‌باز"
@@ -329,7 +329,7 @@ const HomePage: NextPage = () => {
                       }
                     />
                   </div>
-                  <div id="top-users" className="sm:col-start-2">
+                  <div id="top-users">
                     <Feature
                       centered
                       title="کاربران برتر گیت‌هاب"
@@ -381,8 +381,8 @@ const HomePage: NextPage = () => {
             // className="mt-20 sm:mt-40"
           >
             <div className="m-auto max-w-7xl px-6">
-              <div className="grid md:grid-cols-3 gap-24 sm:grid-flow-row-dense">
-                <div id="roadmap">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-24 sm:grid-flow-row-dense">
+                <div id="roadmap" className="md:col-span-2 lg:col-span-1">
                   <Feature
                     centered
                     title="نقشه‌راه"
