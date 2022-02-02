@@ -207,7 +207,7 @@ const HomePage: NextPage = () => {
                     <Feature
                       centered
                       title="مجموعه‌ها"
-                      description="مجموعه‌ها به شما کمک می‌کنند مخزن‌های متن‌باز مورد نظر را سریع‌تر و راحت‌تر پیدا کنید."
+                      description="مجموعه‌ها به شما کمک می‌کنند مخزن‌های اپن‌سورس مورد نظر را سریع‌تر و راحت‌تر پیدا کنید."
                       href="/collections"
                       cta="مشاهده مجموعه‌ها"
                       icon={HiCollection}
@@ -411,7 +411,7 @@ const HomePage: NextPage = () => {
                   <Feature
                     centered
                     title="راهنماهای متن‌باز"
-                    description="اگر قصد شروع یک پروژه متن‌باز را دارید، این راهنما‌ها شروع خیلی خوبی برای شما هستند."
+                    description="اگر قصد شروع یک پروژه اپن‌سورس را دارید، این راهنما‌ها شروع خیلی خوبی برای شما هستند."
                     href="https://opensource.guide/fa/"
                     cta="مشاهده راهنما‌ها"
                     external
