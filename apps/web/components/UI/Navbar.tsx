@@ -108,6 +108,11 @@ const links: LinkItem[] = [
     size: 'small',
     flyout: {
       links: [
+        {
+          type: 'link',
+          name: 'کاربران برتر گیت‌هاب',
+          href: '/github/top-users',
+        },
         { type: 'link', name: 'درباره', href: '/about' },
         { type: 'link', name: 'ثبت کاربر', href: '/submit-user' },
         { type: 'link', name: 'پرسش‌های متداول', href: '/faq' },
