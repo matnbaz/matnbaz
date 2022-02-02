@@ -25,11 +25,11 @@ const BlogPage: NextPage = () => {
     <MainLayout withFooterPromo>
       <NextSeo
         title="بلاگ"
-        description="معرفی پروژه‌های اوپن‌سورس، پست‌های آموزشی، اخبار متن‌باز و..."
+        description="معرفی پروژه‌های اپن‌سورس، پست‌های آموزشی، اخبار متن‌باز و..."
       />
       <PageHeader
         title="بلاگ"
-        description="معرفی پروژه‌های اوپن‌سورس، پست‌های آموزشی، اخبار متن‌باز و..."
+        description="معرفی پروژه‌های اپن‌سورس، پست‌های آموزشی، اخبار متن‌باز و..."
       />
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">

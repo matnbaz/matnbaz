@@ -51,7 +51,7 @@ const CollectionsPage: NextPage = () => {
     <MainLayout withFooterPromo>
       <NextSeo
         title="مجموعه‌ها"
-        description="مجموعه های مختلف از پروژه های اوپن سورس ایرانی"
+        description="مجموعه های مختلف از پروژه های اپن سورس ایرانی"
       />
 
       <PageHeader

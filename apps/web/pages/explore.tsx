@@ -48,12 +48,12 @@ const Explore: NextPage = () => {
     <MainLayout withoutFooter={!error}>
       <NextSeo
         title="کاوش‌گر"
-        description="با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اوپن‌سورس/متن‌باز ایرانی را کشف کنید."
+        description="با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اپن‌سورس/متن‌باز ایرانی را کشف کنید."
       />
 
       <PageHeader
         title="کاوش‌گر"
-        description="با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اوپن‌سورس ایرانی را کشف کنید."
+        description="با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اپن‌سورس ایرانی را کشف کنید."
       />
 
       <div className="grid grid-cols-1 md:grid-cols-6 pb-6 gap-6 max-w-6xl mx-auto auto-rows-min auto-cols-min">

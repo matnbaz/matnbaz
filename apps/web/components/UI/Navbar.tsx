@@ -59,7 +59,7 @@ const links: LinkItem[] = [
   //         type: 'link',
   //         name: 'کاوش‌گر',
   //         description:
-  //           'با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اوپن‌سورس ایرانی را کشف کنید.',
+  //           'با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اپن‌سورس ایرانی را کشف کنید.',
   //         href: '/explore',
   //         icon: HiSearch,
   //       },
@@ -108,6 +108,11 @@ const links: LinkItem[] = [
     size: 'small',
     flyout: {
       links: [
+        {
+          type: 'link',
+          name: 'کاربران برتر گیت‌هاب',
+          href: '/github/top-users',
+        },
         { type: 'link', name: 'درباره', href: '/about' },
         { type: 'link', name: 'ثبت کاربر', href: '/submit-user' },
         { type: 'link', name: 'پرسش‌های متداول', href: '/faq' },
@@ -121,6 +126,18 @@ const links: LinkItem[] = [
           type: 'link',
           name: 'انجمن دیسکورد',
           href: matnbazLinks.discord,
+          external: true,
+        },
+        {
+          type: 'link',
+          name: 'نقشه‌راه',
+          href: matnbazLinks.githubRoadmap,
+          external: true,
+        },
+        {
+          type: 'link',
+          name: 'هویت بصری',
+          href: matnbazLinks.visualIdentity,
           external: true,
         },
       ],
