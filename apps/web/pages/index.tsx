@@ -11,6 +11,7 @@ import {
   HiLightningBolt,
   HiMap,
   HiSearch,
+  HiSparkles,
   HiUsers,
 } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
@@ -138,7 +139,7 @@ const HomePage: NextPage = () => {
 
             <div className="mt-12 lg:mt-28">
               <div className="m-auto max-w-7xl px-6">
-                <div className="grid sm:grid-cols-2 gap-24 sm:grid-flow-row-dense">
+                <div className="grid md:grid-cols-3 gap-24 sm:grid-flow-row-dense">
                   <div id="explorer" className="sm:col-start-1">
                     <Feature
                       centered
@@ -159,6 +160,17 @@ const HomePage: NextPage = () => {
                       cta="مشاهده مجموعه‌ها"
                       icon={HiCollection}
                       iconWrapperClassName="bg-gradient-to-bl from-red-500 to-rose-400"
+                    />
+                  </div>
+                  <div id="selections" className="sm:col-start-3">
+                    <Feature
+                      centered
+                      title="پروژه‌های منتخب"
+                      description="آخر هر هفته در متن‌باز پروژه‌هایی انتخاب شده و در سایت و شبکه‌های اجتماعی متن‌باز قرار می‌گیرند."
+                      href="/blog/tags/معرفی_پروژه"
+                      cta="مشاهده پروژه‌های منتخب"
+                      icon={HiSparkles}
+                      iconWrapperClassName="bg-gradient-to-bl from-pink-500 to-pink-400"
                     />
                   </div>
                 </div>
@@ -182,7 +194,7 @@ const HomePage: NextPage = () => {
             />
             <div className="mt-12 lg:mt-28">
               <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6 space-y-36">
-                <div className="grid md:grid-cols-3 items-center gap-24 sm:grid-flow-row-dense">
+                <div className="grid md:grid-cols-3 gap-24 sm:grid-flow-row-dense">
                   <div id="education" className="sm:col-start-1">
                     <Feature
                       centered
@@ -300,7 +312,7 @@ const HomePage: NextPage = () => {
             // className="mt-20 sm:mt-40"
           >
             <div className="m-auto max-w-7xl px-6">
-              <div className="grid md:grid-cols-3 items-center gap-24 sm:grid-flow-row-dense">
+              <div className="grid md:grid-cols-3 gap-24 sm:grid-flow-row-dense">
                 <div id="roadmap">
                   <Feature
                     centered
