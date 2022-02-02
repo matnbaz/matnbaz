@@ -14,6 +14,7 @@ import {
   HiSearch,
   HiSparkles,
   HiStar,
+  HiStatusOnline,
   HiUsers,
 } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
@@ -26,16 +27,32 @@ import { useMetadataQuery } from '../lib/graphql-types';
 
 const HomePage: NextPage = () => {
   const { data: metadata } = useMetadataQuery();
-  const [stargazersCount, setStargazersCount] = useState<number | null>(null);
+  const [githubStargazersCount, setGithubStargazersCount] = useState<
+    number | null
+  >(null);
+  const [discordPresenceCount, setDiscordPresenceCount] = useState<
+    number | null
+  >(null);
+
   useEffect(() => {
-    const main = async () => {
+    const updateStargazersCount = async () => {
       const response = await fetch(
         'https://api.github.com/repos/matnbaz/matnbaz'
       );
       const json = await response.json();
-      setStargazersCount(json.stargazers_count);
+      setGithubStargazersCount(json.stargazers_count);
     };
-    main();
+
+    const updateDiscordOnlineCount = async () => {
+      const response = await fetch(
+        'https://discord.com/api/guilds/912032955956871188/widget.json'
+      );
+      const json = await response.json();
+      setDiscordPresenceCount(json.presence_count);
+    };
+
+    updateStargazersCount();
+    updateDiscordOnlineCount();
   }, []);
 
   return (
@@ -262,10 +279,10 @@ const HomePage: NextPage = () => {
                       cta="مشاهده سورس‌کد"
                       href={links.githubRepo}
                       badge={
-                        stargazersCount !== null && (
+                        githubStargazersCount !== null && (
                           <span className="flex justify-center items-center">
                             <HiStar className="ml-1 w-4 h-4" />
-                            {persianNumbers(stargazersCount)}
+                            {persianNumbers(githubStargazersCount)}
                           </span>
                         )
                       }
@@ -302,6 +319,14 @@ const HomePage: NextPage = () => {
                       icon={SiDiscord}
                       cta="ورود به سرور"
                       href={links.discord}
+                      badge={
+                        discordPresenceCount !== null && (
+                          <span className="flex justify-center items-center">
+                            <HiStatusOnline className="ml-1 w-4 h-4" />
+                            {persianNumbers(discordPresenceCount)}
+                          </span>
+                        )
+                      }
                     />
                   </div>
                   <div id="top-users" className="sm:col-start-2">
