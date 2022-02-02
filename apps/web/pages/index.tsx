@@ -389,6 +389,7 @@ const HomePage: NextPage = () => {
                     description="برنامه متن‌باز برای قابلیت‌ها‌ی آینده و مواردی که بر روی آن‌ها کار می‌کنیم را مشاهده کنید."
                     href={links.githubRoadmap}
                     cta="مشاهده نقشه‌راه"
+                    external
                     icon={HiMap}
                     iconWrapperClassName="bg-gradient-to-bl from-green-500 to-green-400"
                   />
@@ -413,6 +414,7 @@ const HomePage: NextPage = () => {
                     description="اگر قصد شروع یک پروژه متن‌باز را دارید، این راهنما‌ها شروع خیلی خوبی برای شما هستند."
                     href="https://opensource.guide/fa/"
                     cta="مشاهده راهنما‌ها"
+                    external
                     icon={HiBookOpen}
                     iconWrapperClassName="bg-gradient-to-bl from-amber-500 to-amber-400"
                   />
@@ -477,6 +479,7 @@ interface FeatureProps {
   centered?: boolean;
   disabled?: boolean;
   badge?: string | JSX.Element;
+  external?: boolean;
 }
 
 const Feature = ({
@@ -489,6 +492,7 @@ const Feature = ({
   centered,
   disabled,
   badge,
+  external,
 }: FeatureProps) => {
   return (
     <div className={classNames('relative max-w-lg', centered && 'mx-auto')}>
@@ -522,7 +526,12 @@ const Feature = ({
       </p>
       {cta && (
         <div className={classNames('flex mt-8', centered && 'justify-center')}>
-          <Button.Primary disabled={disabled} href={href} size="lg">
+          <Button.Primary
+            target={external ? '_blank' : undefined}
+            disabled={disabled}
+            href={href}
+            size="lg"
+          >
             {cta}
           </Button.Primary>
         </div>
