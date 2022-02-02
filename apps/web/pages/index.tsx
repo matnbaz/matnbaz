@@ -8,9 +8,9 @@ import {
   HiBookOpen,
   HiChevronDown,
   HiCollection,
-  HiColorSwatch,
   HiLightningBolt,
   HiMap,
+  HiQuestionMarkCircle,
   HiSearch,
   HiSparkles,
   HiStar,
@@ -369,6 +369,18 @@ const HomePage: NextPage = () => {
                   />
                 </div>
 
+                <div id="faq">
+                  <Feature
+                    centered
+                    title="پرسش‌های متداول"
+                    description="در این صفحه پرسش‌هایی که به‌صورت متداول از ما پرسیده شده را مشاهده می‌کنید."
+                    href="/faq"
+                    cta="مشاهده پرسش‌ها"
+                    icon={HiQuestionMarkCircle}
+                    iconWrapperClassName="bg-gradient-to-bl from-indigo-500 to-indigo-400"
+                  />
+                </div>
+
                 <div id="guide">
                   <Feature
                     centered
@@ -378,18 +390,6 @@ const HomePage: NextPage = () => {
                     cta="مشاهده راهنما‌ها"
                     icon={HiBookOpen}
                     iconWrapperClassName="bg-gradient-to-bl from-amber-500 to-amber-400"
-                  />
-                </div>
-
-                <div id="visual-identity">
-                  <Feature
-                    centered
-                    title="هویت بصری"
-                    description="راهنما و فایل‌های مربوط به لوگو و هویت بصری متن‌باز در این صفحه موجود می‌باشند."
-                    href={links.visualIdentity}
-                    cta="مشاهده"
-                    icon={HiColorSwatch}
-                    iconWrapperClassName="bg-gradient-to-bl from-indigo-500 to-indigo-400"
                   />
                 </div>
               </div>
