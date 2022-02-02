@@ -2,7 +2,7 @@ import { links, persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
 import { NextPage } from 'next';
 import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
-import { CSSProperties } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { GoPencil, GoRepo } from 'react-icons/go';
 import {
   HiBookOpen,
@@ -13,6 +13,7 @@ import {
   HiMap,
   HiSearch,
   HiSparkles,
+  HiStar,
   HiUsers,
 } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
@@ -25,6 +26,17 @@ import { useMetadataQuery } from '../lib/graphql-types';
 
 const HomePage: NextPage = () => {
   const { data: metadata } = useMetadataQuery();
+  const [stargazersCount, setStargazersCount] = useState<number | null>(null);
+  useEffect(() => {
+    const main = async () => {
+      const response = await fetch(
+        'https://api.github.com/repos/matnbaz/matnbaz'
+      );
+      const json = await response.json();
+      setStargazersCount(json.stargazers_count);
+    };
+    main();
+  }, []);
 
   return (
     <MainLayout withoutPadding maxWidth={false}>
@@ -249,6 +261,14 @@ const HomePage: NextPage = () => {
                       icon={GoRepo}
                       cta="مشاهده سورس‌کد"
                       href={links.githubRepo}
+                      badge={
+                        stargazersCount !== null && (
+                          <span className="flex justify-center items-center">
+                            <HiStar className="ml-1 w-4 h-4" />
+                            {persianNumbers(stargazersCount)}
+                          </span>
+                        )
+                      }
                     />
                   </div>
                 </div>
@@ -293,6 +313,7 @@ const HomePage: NextPage = () => {
                       icon={HiUsers}
                       cta="مشاهده کاربران"
                       href={`/github/top-users`}
+                      badge="جدید"
                     />
                   </div>
                 </div>
@@ -430,6 +451,7 @@ interface FeatureProps {
   href?: string;
   centered?: boolean;
   disabled?: boolean;
+  badge?: string | JSX.Element;
 }
 
 const Feature = ({
@@ -441,14 +463,21 @@ const Feature = ({
   icon: Icon,
   centered,
   disabled,
+  badge,
 }: FeatureProps) => {
   return (
-    <div className={classNames('max-w-lg', centered && 'mx-auto')}>
-      <div className={classNames('w-min', centered && 'mx-auto')}>
+    <div className={classNames('relative max-w-lg', centered && 'mx-auto')}>
+      <div className={classNames('relative w-min', centered && 'mx-auto')}>
+        {badge && (
+          <span className="absolute -right-4 -top-4 inline-flex items-center px-2 py-1 rounded-full text-sm font-bold bg-red-500 text-red-100">
+            {badge}
+          </span>
+        )}
         <div className={classNames('p-4 rounded-xl', iconWrapperClassName)}>
           <Icon className="text-white w-10 h-10" />
         </div>
       </div>
+
       <h3
         className={classNames(
           'mt-5 text-2xl tracking-tight font-extrabold sm:text-3xl',
@@ -457,6 +486,7 @@ const Feature = ({
       >
         {title}
       </h3>
+
       <p
         className={classNames(
           ' text-secondary sm:mt-5 sm:text-xl lg:text-lg xl:text-xl',
