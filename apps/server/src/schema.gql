@@ -160,6 +160,7 @@ enum LicenseOrder {
 }
 
 type Metadata {
+  totalCollectionsCount: Int!
   totalLanguagesCount: Int!
   totalOwnersCount: Float!
   totalReposCount: Float!

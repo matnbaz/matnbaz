@@ -53,6 +53,21 @@ export class MetadataResolver {
   }
 
   @ResolveField(() => Int)
+  async totalCollectionsCount() {
+    const ownersCount = await this.cacheManager.wrap(
+      'totalCollectionsCount',
+      () => {
+        return this.prisma.collection.count({
+          where: {},
+        });
+      },
+      { ttl: this.CACHE_TTL }
+    );
+
+    return ownersCount;
+  }
+
+  @ResolveField(() => Int)
   async totalTopicsCount() {
     const topicsCount = await this.cacheManager.wrap(
       'totalTopicsCount',
