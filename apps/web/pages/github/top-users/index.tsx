@@ -2,6 +2,7 @@ import { persianNumbers } from '@matnbaz/common';
 import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import { CgSpinner } from 'react-icons/cg';
 import { InfiniteScroll } from '../../../components/Feature/InfiniteScroll';
 import { MainLayout } from '../../../components/Layout/MainLayout';
 import { PageHeader } from '../../../components/Layout/PageHeader';
@@ -11,7 +12,7 @@ import {
 } from '../../../lib/graphql-types';
 
 const GithubTopUsersPage: NextPage = () => {
-  const { data, fetchMore } = useGetGithubOwnersQuery({
+  const { data, fetchMore, loading } = useGetGithubOwnersQuery({
     variables: { order: OwnerOrder.PublicContributionsDesc },
   });
 
@@ -159,6 +160,9 @@ const GithubTopUsersPage: NextPage = () => {
                   </InfiniteScroll>
                 </tbody>
               </table>
+              {loading && (
+                <CgSpinner className="w-10 h-10 mx-auto mt-4 animate-spin" />
+              )}
             </div>
           </div>
         </div>
