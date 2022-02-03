@@ -146,14 +146,16 @@ const GithubTopUsersPage: NextPage = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
                           <span dir="rtl">
-                            {persianNumbers(owner.followersCount)} نفر
+                            {owner.followersCount &&
+                              `${persianNumbers(owner.followersCount)} نفر`}
                           </span>
                         </td>
                         <td
                           className="px-6 py-4 whitespace-nowrap text-center"
                           dir="rtl"
                         >
-                          {persianNumbers(owner.publicContributionsCount)}
+                          {owner.publicContributionsCount &&
+                            `${persianNumbers(owner.publicContributionsCount)}`}
                         </td>
                       </tr>
                     ))}
