@@ -1188,7 +1188,7 @@ export type GetCollectionsQueryHookResult = ReturnType<typeof useGetCollectionsQ
 export type GetCollectionsLazyQueryHookResult = ReturnType<typeof useGetCollectionsLazyQuery>;
 export type GetCollectionsQueryResult = Apollo.QueryResult<GetCollectionsQuery, GetCollectionsQueryVariables>;
 export const GetGithubOwnersDocument = gql`
-    query GetGithubOwners($first: Int = 18, $after: String, $order: OwnerOrder = PUBLIC_CONTRIBUTIONS_DESC) {
+    query GetGithubOwners($first: Int = 20, $after: String, $order: OwnerOrder = PUBLIC_CONTRIBUTIONS_DESC) {
   owners(
     first: $first
     type: User
