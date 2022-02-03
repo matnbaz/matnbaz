@@ -163,7 +163,7 @@ const GithubTopUsersPage: NextPage = () => {
                 </tbody>
               </table>
               {loading && (
-                <CgSpinner className="w-10 h-10 mx-auto mt-4 animate-spin" />
+                <CgSpinner className="w-10 h-10 mx-auto m-6 animate-spin" />
               )}
             </div>
           </div>
