@@ -2,16 +2,6 @@ import { links, localize } from '@matnbaz/common';
 import classNames from 'classnames';
 import { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
-//  <div className="mx-auto w-[1px] h-24 bg-gradient-to-b from-transparent to-green-400" />
-//  <div className="flex items-center justify-center">
-//  <div className="bg-gradient-to-b from-green-400 to-green-500 rounded-full p-2">
-//    <HiUserGroup className="text-white w-4 h-4" />
-//  </div>
-// </div>
-// <h1 className="mt-2 text-center text-2xl font-light bg-gradient-to-bl from-green-400 to-green-500 text-transparent bg-clip-text">
-//  انجمن توسعه‌دهندگان
-// </h1>
-// <span className="ltr:ml-3 rtl:mr-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary-100 text-primary-800 dark:bg-primary-600 dark:text-primary-100">جدید</span>
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -74,9 +64,9 @@ const HomePage: NextPage = () => {
   return (
     <MainLayout withoutPadding maxWidth={false}>
       <NextSeo
-        title="جامعه اُپِن‌سورس ایرانی"
-        titleTemplate="متن‌باز – %s"
-        description="متن‌باز با هدف جمع‌آوری و معرفی پروژه‌ها و توسعه‌دهندگان ایرانی، ترویج فرهنگ اپن‌سورس، متصل کردن توسعه‌دهندگان ایرانی و ارائه راهکار‌های حمایتی برای توسعه‌دهندگان اپن‌سورس حرفه‌ای ساخته شده‌است."
+        title={t('page-title')}
+        description={t('page-description')}
+        titleTemplate={`${t('site-name', { ns: 'common' })} – %s`}
       />
 
       <SocialProfileJsonLd
@@ -646,7 +636,6 @@ export async function getStaticProps({ locale }) {
         ['common', 'home'],
         nextI18nextConfig
       )),
-      // Will be passed to the page component as props
     },
   };
 }
