@@ -19,5 +19,9 @@
     "about": "About",
     "faq": "FAQ",
     "source-code": "Source Code"
+  },
+  "locale": {
+    "en": "English",
+    "fa": "Persian - فارسی"
   }
 }

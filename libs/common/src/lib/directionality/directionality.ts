@@ -22,5 +22,5 @@ export const setBodyDirection = (locale: string) => {
       'This utility is not intended to be used in a non-browser environment.'
     );
 
-  document.body.dir = getDirectionality(locale);
+  document.documentElement.dir = getDirectionality(locale);
 };

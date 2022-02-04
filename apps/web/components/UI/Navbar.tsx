@@ -13,8 +13,8 @@ import { CgClose } from 'react-icons/cg';
 import { HiChevronDown } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
 import { MatnbazLogo } from '../Icons/MatnbazLogo';
-import { RepositorySearchInput } from '../Repository/RepositorySearchInput';
 import { IconButton } from './IconButton';
+import { LocaleSelector } from './LocaleSelector';
 export interface NavbarProps {
   className?: string;
 }
@@ -170,7 +170,7 @@ export const Navbar = ({ className }: NavbarProps) => {
       )}
     >
       <div className="flex flex-col w-full max-w-full md:max-w-[92rem] mx-auto py-3 md:py-6 px-2 md:px-8 space-y-6">
-        <div className="flex w-full justify-between items-center">
+        <div className="flex justify-between items-center">
           <div className="flex items-center space-x-8 rtl:space-x-reverse ltr:mr-4 ltr:md:mr-0 rtl:ml-4 rtl:md:ml-0">
             <Link href="/">
               <a className="flex space-x-3 rtl:space-x-reverse items-center">
@@ -327,38 +327,38 @@ export const Navbar = ({ className }: NavbarProps) => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4 rtl:space-x-reverse w-full md:w-auto">
-            <div className="w-full md:w-auto">
-              <RepositorySearchInput />
+          <div className="flex items-center space-x-4 rtl:space-x-reverse md:w-auto">
+            <div className="flex space-x-2 rtl:space-x-reverse items-center">
+              <LocaleSelector />
+              {mounted && (
+                <>
+                  <IconButton
+                    className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
+                    onClick={() =>
+                      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+                    }
+                  >
+                    {resolvedTheme === 'light' ? (
+                      <BsFillSunFill className="w-5 h-5" />
+                    ) : (
+                      <BsFillMoonFill className="w-5 h-5" />
+                    )}
+                  </IconButton>
+                  <IconButton
+                    className="block md:hidden dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
+                    onClick={() => {
+                      setMenuOpen((previousMenuOpen) => !previousMenuOpen);
+                    }}
+                  >
+                    {menuOpen ? (
+                      <CgClose className="w-5 h-5" />
+                    ) : (
+                      <AiOutlineMenu className="w-5 h-5" />
+                    )}
+                  </IconButton>
+                </>
+              )}
             </div>
-            {mounted && (
-              <div className="flex space-x-2 rtl:space-x-reverse items-center">
-                <IconButton
-                  className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
-                  onClick={() =>
-                    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-                  }
-                >
-                  {resolvedTheme === 'light' ? (
-                    <BsFillSunFill className="w-5 h-5" />
-                  ) : (
-                    <BsFillMoonFill className="w-5 h-5" />
-                  )}
-                </IconButton>
-                <IconButton
-                  className="block md:hidden dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
-                  onClick={() => {
-                    setMenuOpen((previousMenuOpen) => !previousMenuOpen);
-                  }}
-                >
-                  {menuOpen ? (
-                    <CgClose className="w-5 h-5" />
-                  ) : (
-                    <AiOutlineMenu className="w-5 h-5" />
-                  )}
-                </IconButton>
-              </div>
-            )}
           </div>
         </div>
 
