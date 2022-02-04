@@ -2,10 +2,11 @@ import { Popover, Transition } from '@headlessui/react';
 import { links as matnbazLinks } from '@matnbaz/common';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
+import { useTranslation } from 'next-i18next';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { CgClose } from 'react-icons/cg';
@@ -48,113 +49,119 @@ interface Flyout {
 
 type LinkItem = BasicLink | Flyout;
 
-const links: LinkItem[] = [
-  // {
-  //   type: 'flyout',
-  //   name: 'قابلیت‌ها',
-  //   size: 'normal',
-  //   flyout: {
-  //     links: [
-  //       {
-  //         type: 'link',
-  //         name: 'کاوش‌گر',
-  //         description:
-  //           'با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اپن‌سورس ایرانی را کشف کنید.',
-  //         href: '/explore',
-  //         icon: HiSearch,
-  //       },
-  //       {
-  //         type: 'link',
-  //         name: 'مجموعه‌ها',
-  //         description:
-  //           'مجموعه‌ها به شما کمک می‌کنند مخزن‌های متن‌باز مورد نظر را سریع‌تر و راحت‌تر پیدا کنید.',
-  //         href: '/collections',
-  //         icon: HiCollection,
-  //       },
-  //       {
-  //         type: 'link',
-  //         name: 'پروژه‌های منتخب',
-  //         description:
-  //           'آخر هر هفته در متن‌باز پروژه‌هایی به عنوان «پروژه‌های منتخب» انتخاب شده و در سایت و شبکه‌های اجتماعی متن‌باز قرار می‌گیرند.',
-  //         href: '/selections',
-  //         icon: HiStar,
-  //       },
-  //     ],
-  //     footerLinks: [
-  //       {
-  //         type: 'link',
-  //         name: 'ثبت کاربران',
-  //         description:
-  //           'کاربرانی که به صورت خودکار پیدا نشده‌اند را دستی اضافه کنید.',
-  //         href: '/submit-user',
-  //       },
-  //       {
-  //         type: 'link',
-  //         name: 'پرسش‌های متداول',
-  //         description: 'به پرسش‌های متداول شما اینجا پاسخ داده‌ایم.',
-  //         href: '/submit-user',
-  //       },
-  //     ],
-  //   },
-  // },
-  { type: 'link', name: 'خانه', href: '/' },
-  { type: 'link', name: 'کاوش‌گر', href: '/explore' },
-  { type: 'link', name: 'مجموعه‌ها', href: '/collections' },
-  // { type: 'link', name: 'پروژه‌های منتخب', href: '/selections' },
-  { type: 'link', name: 'بلاگ', href: '/blog' },
-  {
-    type: 'flyout',
-    name: 'بیشتر',
-    size: 'small',
-    flyout: {
-      links: [
-        {
-          type: 'link',
-          name: 'کاربران برتر گیت‌هاب',
-          href: '/github/top-users',
-        },
-        { type: 'link', name: 'درباره', href: '/about' },
-        { type: 'link', name: 'ثبت کاربر', href: '/submit-user' },
-        { type: 'link', name: 'پرسش‌های متداول', href: '/faq' },
-        {
-          type: 'link',
-          name: 'سورس‌کد متن‌باز',
-          href: matnbazLinks.github,
-          external: true,
-        },
-        {
-          type: 'link',
-          name: 'انجمن دیسکورد',
-          href: matnbazLinks.discord,
-          external: true,
-        },
-        {
-          type: 'link',
-          name: 'نقشه‌راه',
-          href: matnbazLinks.githubRoadmap,
-          external: true,
-        },
-        {
-          type: 'link',
-          name: 'هویت بصری',
-          href: matnbazLinks.visualIdentity,
-          external: true,
-        },
-      ],
-    },
-  },
-];
-
 export const Navbar = ({ className }: NavbarProps) => {
+  const { t } = useTranslation('common');
   const { setTheme, resolvedTheme } = useTheme();
   const [atFirst, setAtFirst] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+
   useScrollPosition(({ prevPos, currPos }) => {
     setAtFirst(currPos.y > -20);
   });
+
   useEffect(() => setMounted(true), []);
   const { pathname } = useRouter();
+
+  const links: LinkItem[] = useMemo(
+    () => [
+      // {
+      //   type: 'flyout',
+      //   name: 'قابلیت‌ها',
+      //   size: 'normal',
+      //   flyout: {
+      //     links: [
+      //       {
+      //         type: 'link',
+      //         name: 'کاوش‌گر',
+      //         description:
+      //           'با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اپن‌سورس ایرانی را کشف کنید.',
+      //         href: '/explore',
+      //         icon: HiSearch,
+      //       },
+      //       {
+      //         type: 'link',
+      //         name: 'مجموعه‌ها',
+      //         description:
+      //           'مجموعه‌ها به شما کمک می‌کنند مخزن‌های متن‌باز مورد نظر را سریع‌تر و راحت‌تر پیدا کنید.',
+      //         href: '/collections',
+      //         icon: HiCollection,
+      //       },
+      //       {
+      //         type: 'link',
+      //         name: 'پروژه‌های منتخب',
+      //         description:
+      //           'آخر هر هفته در متن‌باز پروژه‌هایی به عنوان «پروژه‌های منتخب» انتخاب شده و در سایت و شبکه‌های اجتماعی متن‌باز قرار می‌گیرند.',
+      //         href: '/selections',
+      //         icon: HiStar,
+      //       },
+      //     ],
+      //     footerLinks: [
+      //       {
+      //         type: 'link',
+      //         name: 'ثبت کاربران',
+      //         description:
+      //           'کاربرانی که به صورت خودکار پیدا نشده‌اند را دستی اضافه کنید.',
+      //         href: '/submit-user',
+      //       },
+      //       {
+      //         type: 'link',
+      //         name: 'پرسش‌های متداول',
+      //         description: 'به پرسش‌های متداول شما اینجا پاسخ داده‌ایم.',
+      //         href: '/submit-user',
+      //       },
+      //     ],
+      //   },
+      // },
+      { type: 'link', name: t('home'), href: '/' },
+      { type: 'link', name: 'کاوش‌گر', href: '/explore' },
+      { type: 'link', name: 'مجموعه‌ها', href: '/collections' },
+      // { type: 'link', name: 'پروژه‌های منتخب', href: '/selections' },
+      { type: 'link', name: 'بلاگ', href: '/blog' },
+      {
+        type: 'flyout',
+        name: 'بیشتر',
+        size: 'small',
+        flyout: {
+          links: [
+            {
+              type: 'link',
+              name: 'کاربران برتر گیت‌هاب',
+              href: '/github/top-users',
+            },
+            { type: 'link', name: 'درباره', href: '/about' },
+            { type: 'link', name: 'ثبت کاربر', href: '/submit-user' },
+            { type: 'link', name: 'پرسش‌های متداول', href: '/faq' },
+            {
+              type: 'link',
+              name: 'سورس‌کد متن‌باز',
+              href: matnbazLinks.github,
+              external: true,
+            },
+            {
+              type: 'link',
+              name: 'انجمن دیسکورد',
+              href: matnbazLinks.discord,
+              external: true,
+            },
+            {
+              type: 'link',
+              name: 'نقشه‌راه',
+              href: matnbazLinks.githubRoadmap,
+              external: true,
+            },
+            {
+              type: 'link',
+              name: 'هویت بصری',
+              href: matnbazLinks.visualIdentity,
+              external: true,
+            },
+          ],
+        },
+      },
+    ],
+    []
+  );
 
   return (
     <div

@@ -1,3 +1,4 @@
+import { getDirectionality } from '@matnbaz/common';
 import Document, {
   DocumentContext,
   Head,
@@ -15,7 +16,11 @@ class AppDocument extends Document {
 
   render() {
     return (
-      <Html dir="rtl" id="document" lang="fa">
+      <Html
+        dir={getDirectionality((this.props as any).locale)}
+        id="document"
+        lang={(this.props as any).locale}
+      >
         <Head />
         <link
           type="text/css"

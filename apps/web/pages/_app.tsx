@@ -1,4 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
+import { appWithTranslation } from 'next-i18next';
 import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import { AppProps } from 'next/app';
@@ -46,4 +47,4 @@ function CustomApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default CustomApp;
+export default appWithTranslation(CustomApp);
