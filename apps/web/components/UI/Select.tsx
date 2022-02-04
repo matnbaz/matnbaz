@@ -46,7 +46,7 @@ export const Select = ({ options, value = null, onChange }: SelectProps) => {
           >
             <span>{selectedOption?.name || 'انتخاب کنید...'}</span>
             <HiChevronDown
-              className="-ml-1 mr-2 h-5 w-5 flex-shrink-0"
+              className="ltr:-mr-1 ltr:ml-2 rtl:-ml-1 rtl:mr-2 h-5 w-5 flex-shrink-0"
               aria-hidden="true"
             />
           </Listbox.Button>

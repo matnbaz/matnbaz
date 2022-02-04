@@ -90,7 +90,7 @@ export const RepositoryPreview = ({
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
         /> */}
         {repository.isNew && (
-          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 -mr-3 -mt-6">
+          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 ltr:-ml-3 rtl:-mr-3 -mt-6">
             جدید
           </span>
         )}
@@ -130,12 +130,12 @@ export const RepositoryPreview = ({
             </div>
           )}
 
-          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 mr-auto">
+          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 ltr:ml-auto rtl:mr-auto">
             {hasStatistics &&
               statistics.slice(0, 1).map((statistic) => (
                 <div
                   key={statistic.name}
-                  className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
+                  className="flex space-x-1 rtl:space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
                 >
                   <span>{persianNumbers(statistic.value)}</span>
                   <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
@@ -153,7 +153,7 @@ export const RepositoryPreview = ({
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
         /> */}
         {repository.isNew && (
-          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 -mr-3 -mt-6">
+          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 ltr:-ml-3 rtl:-mr-3 -mt-6">
             جدید
           </span>
         )}
@@ -200,12 +200,12 @@ export const RepositoryPreview = ({
             </div>
           )}
 
-          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 mr-auto">
+          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 ltr:ml-auto rtl:mr-auto">
             {hasStatistics &&
               statistics.map((statistic) => (
                 <div
                   key={statistic.name}
-                  className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
+                  className="flex space-x-1 rtl:space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
                 >
                   <span>{persianNumbers(statistic.value)}</span>
                   <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />

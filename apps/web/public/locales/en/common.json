@@ -1,3 +1,22 @@
 {
-  "home": "Home"
+  "navbar": {
+    "home": "Home",
+    "explore": "Explore",
+    "collections": "Collections",
+    "blog": "Blog",
+    "more": "More",
+    "github-top-users": "Github Top Users",
+    "about": "About",
+    "submit-user": "Submit Users",
+    "faq": "Frequently Asked Questions",
+    "source-code": "Source Code",
+    "discord-community": "Discord Community",
+    "roadmap": "Roadmap",
+    "visual-identity": "Visual Identity"
+  },
+  "footer": {
+    "about": "About",
+    "faq": "FAQ",
+    "source-code": "Source Code"
+  }
 }

@@ -16,7 +16,7 @@ export const UserPreview = ({ user, ...props }: UserPreviewProps) => {
       // TODO: href={`/users/${user.username}`}
       {...props}
     >
-      <div className="flex flex-col sm:flex-row gap-3 text-right">
+      <div className="flex flex-col sm:flex-row gap-3 ltr:text-left rtl:text-right">
         <div className="flex-shrink-0">
           <img
             width={72}

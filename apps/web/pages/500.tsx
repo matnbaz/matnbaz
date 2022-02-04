@@ -16,7 +16,7 @@ const Error500Page: NextPage = () => {
           مشکلات گیت‌هاب گزارش کنید.
         </span>
         <Divider className="my-6" />
-        <div className="space-x-4 space-x-reverse">
+        <div className="space-x-4 rtl:space-x-reverse">
           <Button.Primary
             target="_blank"
             href={`${links.githubRepo}/issues/new`}

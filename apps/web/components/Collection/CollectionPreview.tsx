@@ -48,14 +48,14 @@ export const CollectionPreview = ({
               )}
             />
           )}
-          <div className="mt-4 flex items-center space-x-2 space-x-reverse">
+          <div className="mt-4 flex items-center space-x-2 rtl:space-x-reverse">
             <div
               className="w-4 h-4 rounded-full"
               style={color && { backgroundColor: color.hexString, ...style }}
             />
             <h3
-              className="text-sm sm:text-xl sm:font-bold text-right"
-              dir="ltr"
+              className="text-sm sm:text-xl sm:font-bold ltr:text-left rtl:text-right"
+              dir="auto"
             >
               {name}
             </h3>

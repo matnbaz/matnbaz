@@ -1,3 +1,22 @@
 {
-  "home": "خانه"
+  "navbar": {
+    "home": "خانه",
+    "explore": "کاوش‌گر",
+    "collections": "مجموعه‌ها",
+    "blog": "بلاگ",
+    "more": "بیش‌تر",
+    "github-top-users": "کاربران برتر گیت‌هاب",
+    "about": "درباره",
+    "submit-user": "ثبت کاربران",
+    "faq": "پرسش‌های متداول",
+    "source-code": "سورس‌کد",
+    "discord-community": "انجمن دیسکورد",
+    "roadmap": "نقشه‌راه",
+    "visual-identity": "هویت بصری"
+  },
+  "footer": {
+    "about": "درباره",
+    "faq": "پرسش‌های متداول",
+    "source-code": "سورس‌کد"
+  }
 }

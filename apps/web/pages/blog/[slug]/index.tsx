@@ -7,10 +7,10 @@ import { MainLayout } from '../../../components/Layout/MainLayout';
 import { UserPreview } from '../../../components/User/UserPreview';
 import { initializeApollo } from '../../../lib/apollo';
 import {
-  GetPostDocument,
-  GetPostQueryResult,
-  GetPostQueryVariables,
-  useGetPostQuery,
+    GetPostDocument,
+    GetPostQueryResult,
+    GetPostQueryVariables,
+    useGetPostQuery
 } from '../../../lib/graphql-types';
 
 export interface PostPageProps {
@@ -49,15 +49,15 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
         <h1 className="mt-12 text-3xl sm:text-5xl font-extrabold">
           {post.title}
         </h1>
-        <div className="mt-6 flex items-center space-x-4 space-x-reverse">
+        <div className="mt-6 flex items-center space-x-4 rtl:space-x-reverse">
           {post.publishedAt && (
-            <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
+            <div className="inline-flex items-center space-x-1 rtl:space-x-reverse text-sm text-secondary">
               <HiClock />
               <span>{post.publishedAt.formatted}</span>
             </div>
           )}
           {post.author && (
-            <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
+            <div className="inline-flex items-center space-x-1 rtl:space-x-reverse text-sm text-secondary">
               <HiUser />
               <span>{post.author.name}</span>
             </div>
@@ -70,9 +70,9 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
         />
 
         {post.tags && (
-          <div className="flex items-center mt-8 space-x-2 space-x-reverse">
+          <div className="flex items-center mt-8 space-x-2 rtl:space-x-reverse">
             <div>برچسب‌ها: </div>
-            <div className="space-x-2 space-x-reverse text-xs text-secondary">
+            <div className="space-x-2 rtl:space-x-reverse text-xs text-secondary">
               {post.tags.map(({ name }) => (
                 <Link href={`/blog/tags/${name}`} key={name}>
                   <a>

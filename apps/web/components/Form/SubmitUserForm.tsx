@@ -2,8 +2,8 @@ import { MINIMUM_STARS, persianNumbers } from '@matnbaz/common';
 import classNames from 'classnames';
 import { useCallback, useMemo, useState } from 'react';
 import {
-  PlatformType,
-  useSendSubmissionMutation,
+    PlatformType,
+    useSendSubmissionMutation
 } from '../../lib/graphql-types';
 import { Button } from '../UI/Button/Button';
 import { Input } from '../UI/Input/Input';
@@ -43,7 +43,7 @@ export const SubmitUserForm = () => {
             e.preventDefault();
             if (isValidated) sendSubmissionInfo();
           }}
-          className="flex items-center space-x-2 space-x-reverse w-full"
+          className="flex items-center space-x-2 rtl:space-x-reverse w-full"
         >
           <Input.Text
             autoFocus

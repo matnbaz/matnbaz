@@ -8,10 +8,10 @@ import { MainLayout } from '../../../components/Layout/MainLayout';
 import { RepositoryPreviewList } from '../../../components/Repository/RepositoryPreviewList';
 import { initializeApollo } from '../../../lib/apollo';
 import {
-  GetCollectionDocument,
-  GetCollectionQueryResult,
-  GetCollectionQueryVariables,
-  useGetCollectionQuery,
+    GetCollectionDocument,
+    GetCollectionQueryResult,
+    GetCollectionQueryVariables,
+    useGetCollectionQuery
 } from '../../../lib/graphql-types';
 
 interface CollectionPageProps {
@@ -55,7 +55,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
       />
       <div className="max-w-3xl mx-auto">
         <Link href="/collections">
-          <a className="inline-flex items-center text-sm text-secondary space-x-2 space-x-reverse">
+          <a className="inline-flex items-center text-sm text-secondary space-x-2 rtl:space-x-reverse">
             <MdChevronRight />
             <span>مشاهده همه مجموعه‌ها</span>
           </a>

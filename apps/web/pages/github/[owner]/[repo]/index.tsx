@@ -116,7 +116,7 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
         <div className="px-6 space-y-4 lg:space-y-0 pb-4 pt-24 m-auto flex flex-col items-center bg-gray-300/60 dark:bg-gray-900/75 w-full h-full">
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 items-center m-auto">
             <OwnerImage owner={repo.owner} width={120} height={120} />
-            <div className="flex flex-col space-y-4 items-center md:items-start md:mr-6">
+            <div className="flex flex-col space-y-4 items-center md:items-start ltr:md:ml-6 rtl:md:mr-6">
               <div className="text-center text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">
                 <Link href={`/github/${repo.owner.login}`}>
                   {repo.owner.login}
@@ -132,7 +132,7 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
                 </a>
               </div>
               <span
-                className="text-secondary text-sm md:text-base max-w-[45rem] text-right"
+                className="text-secondary text-sm md:text-base max-w-[45rem] ltr:text-left rtl:text-right"
                 dir={repo.descriptionDirection.toLowerCase()}
               >
                 {repo.descriptionLimited}
@@ -149,7 +149,7 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
             </div>
           </div>
           <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0  items-center lg:items-end justify-between w-full px-4 pb-4">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:flex lg:space-x-8 xl:space-x-10 lg:space-x-reverse xl:space-x-reverse items-start">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:flex lg:space-x-8 xl:space-x-10 rtl:lg:space-x-reverse rtl:xl:space-x-reverse items-start">
               {statistics.map(({ name, icon: Icon, value }) =>
                 value === null || value === undefined ? null : (
                   <div
@@ -157,7 +157,7 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
                     className="flex flex-col space-y-3 items-center lg:items-start lg:max-w-[9rem] xl:max-w-none"
                   >
                     <span className="text-xs text-secondary">{name}</span>
-                    <div className="flex items-center space-x-2 space-x-reverse text-gray-700 dark:text-gray-400 text-xs md:text-base">
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse text-gray-700 dark:text-gray-400 text-xs md:text-base">
                       <Icon className="w-5 h-5 flex-shrink-0" />
 
                       <span className="font-bold">{value}</span>
@@ -167,7 +167,7 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
               )}
             </div>
 
-            <div className="flex items-center space-x-2 space-x-reverse flex-shrink-0">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse flex-shrink-0">
               <Button.Ghost href={repo.platformUrl} target="_blank">
                 مشاهده مخزن
               </Button.Ghost>

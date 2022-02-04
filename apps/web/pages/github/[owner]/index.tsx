@@ -8,11 +8,11 @@ import { RepositoryPreviewList } from '../../../components/Repository/Repository
 import { Button } from '../../../components/UI/Button/Button';
 import { initializeApollo } from '../../../lib/apollo';
 import {
-  GetOwnerDocument,
-  GetOwnerQueryResult,
-  GetOwnerQueryVariables,
-  PlatformType,
-  useGetOwnerQuery,
+    GetOwnerDocument,
+    GetOwnerQueryResult,
+    GetOwnerQueryVariables,
+    PlatformType,
+    useGetOwnerQuery
 } from '../../../lib/graphql-types';
 interface OwnerPageProps {
   ownerSlug: string;
@@ -66,7 +66,7 @@ const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
             {persianNumbers(owner.repositoriesCount)} پروژه
           </div>
 
-          <div className="mt-4 flex justify-center items-center space-x-2 space-x-reverse">
+          <div className="mt-4 flex justify-center items-center space-x-2 rtl:space-x-reverse">
             <Button.Ghost
               href={`https://github.com/${owner.login}`}
               target="_blank"

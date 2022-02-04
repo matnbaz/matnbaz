@@ -13,6 +13,9 @@ export interface CheckboxListProps {
   options: Option[];
   value?: TValue;
   className?: string;
+  /**
+   * @deprecated ?
+   */
   dir?: 'ltr' | 'rtl';
   onChange?: (values: TValue) => void;
 }
@@ -46,10 +49,9 @@ export const CheckboxList = ({
         <div
           key={option.id || option.key || option.name}
           className={classNames(
-            dir === 'ltr' && 'text-right',
-            'flex items-center flex-row-reverse'
+            'flex items-center flex-row-reverse ltr:text-left rtl:text-right'
           )}
-          dir={dir}
+          dir="auto"
         >
           <Input.Checkbox
             label={option.name}

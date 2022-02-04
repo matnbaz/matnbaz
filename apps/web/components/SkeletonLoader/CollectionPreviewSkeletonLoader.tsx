@@ -25,7 +25,7 @@ export const CollectionPreviewSkeletonLoader = ({
           className="absolute top-0 left-0"
         />
         <div className="flex flex-col items-end w-full my-2">
-          <div className="flex items-center flex-row-reverse space-x-reverse space-x-2 w-full">
+          <div className="flex items-center flex-row-reverse rtl:space-x-reverse space-x-2 w-full">
             <SkeletonLoaderShape shape="circle" width="24px" height="24px" />
             <SkeletonLoaderShape shape="rectangle" width="40%" height="16px" />
           </div>

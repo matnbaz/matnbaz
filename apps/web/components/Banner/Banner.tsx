@@ -103,7 +103,7 @@ export const Banner = ({
               >
                 <Icon className="h-6 w-6 text-white" aria-hidden="true" />
               </span>
-              <p className="mr-3 font-medium text-white truncate">
+              <p className="ltr:ml-3 rtl:mr-3 font-medium text-white truncate">
                 <span className="md:hidden">{mobile || text}</span>
                 <span className="hidden md:inline">{text}</span>
               </p>
@@ -122,12 +122,12 @@ export const Banner = ({
                 </a>
               )}
             </div>
-            <div className="order-2 flex-shrink-0 sm:order-3 sm:mr-3">
+            <div className="order-2 flex-shrink-0 sm:order-3 ltr:sm:ml-3 rtl:sm:mr-3">
               <button
                 onClick={() => onDismiss && onDismiss()}
                 type="button"
                 className={classNames(
-                  '-ml-1 flex p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white sm:-ml-2',
+                  'ltr:-mr-1 rtl:-ml-1 flex p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white ltr:sm:-mr-2 rtl:sm:-ml-2',
                   bannerThemes[theme].dismiss,
                   !onDismiss && 'invisible sm:hidden'
                 )}
