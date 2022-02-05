@@ -1,0 +1,9 @@
+{
+  "page-title": "Submit Users",
+  "page-description": "If you know an Iranian user/organization that hasn't been discovered by Matnbaz, you can submit them here.",
+  "about-submission": "If you know an Iranian user/organization that hasn't been discovered by Matnbaz, you can submit them here.",
+  "submission-requirements": "Please note that in order to get added the user/org is required to have at least 1 repository with more than {{minStars}} stars.",
+  "submit": "Submit",
+  "error-occurred": "An error occurred, please try again later.",
+  "submitted": "Request submitted successfully."
+}

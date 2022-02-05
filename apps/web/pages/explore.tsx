@@ -110,7 +110,7 @@ export async function getStaticProps({ locale }) {
     props: {
       ...(await serverSideTranslations(
         locale,
-        ['common', 'explore', 'repo-filters'],
+        ['common', 'explore', 'repo-filters', 'submit-user'],
         nextI18nextConfig
       )),
     },

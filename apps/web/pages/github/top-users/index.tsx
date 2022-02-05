@@ -1,5 +1,7 @@
 import { persianNumbers } from '@matnbaz/common';
 import { NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { CgSpinner } from 'react-icons/cg';
@@ -10,8 +12,10 @@ import {
   OwnerOrder,
   useGetGithubOwnersQuery,
 } from '../../../lib/graphql-types';
+import nextI18nextConfig from '../../../next-i18next.config';
 
 const GithubTopUsersPage: NextPage = () => {
+  const { t } = useTranslation('github-top-users');
   const { data, fetchMore, loading } = useGetGithubOwnersQuery({
     variables: { order: OwnerOrder.PublicContributionsDesc },
   });
@@ -28,15 +32,8 @@ const GithubTopUsersPage: NextPage = () => {
 
   return (
     <MainLayout>
-      <NextSeo
-        title="کاربران برتر گیت‌هاب"
-        description="در این صفحه کاربران ایرانی گیت‌هاب بر اساس مشارکت‌های عمومی آن‌ها به مخزن‌های اپن‌سورس لیست شده‌اند."
-      />
-
-      <PageHeader
-        title="کاربران برتر گیت‌هاب"
-        description="در این صفحه کاربران ایرانی گیت‌هاب بر اساس مشارکت‌های عمومی آن‌ها به مخزن‌های اپن‌سورس لیست شده‌اند."
-      />
+      <NextSeo title={t('page-title')} description={t('page-description')} />
+      <PageHeader title={t('page-title')} description={t('page-description')} />
 
       <div dir="ltr" className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -49,37 +46,37 @@ const GithubTopUsersPage: NextPage = () => {
                       scope="col"
                       className="px-6 py-3 text-center text-xs font-medium text-secondary tracking-wider"
                     >
-                      رتبه
+                      {t('rank')}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-secondary tracking-wider"
                     >
-                      نام کاربر
+                      {t('user')}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-secondary tracking-wider"
                     >
-                      شرکت
+                      {t('company')}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-secondary tracking-wider"
                     >
-                      توییتر
+                      {t('twitter')}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-center text-xs font-medium text-secondary tracking-wider"
                     >
-                      دنبال‌کنندگان
+                      {t('followers')}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-center text-xs font-medium text-secondary tracking-wider"
                     >
-                      مشارکت‌های عمومی
+                      {t('public-contributions')}
                     </th>
                   </tr>
                 </thead>
@@ -147,7 +144,7 @@ const GithubTopUsersPage: NextPage = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-center">
                           <span dir="rtl">
                             {owner.followersCount &&
-                              `${persianNumbers(owner.followersCount)} نفر`}
+                              `${persianNumbers(owner.followersCount)}`}
                           </span>
                         </td>
                         <td
@@ -174,3 +171,15 @@ const GithubTopUsersPage: NextPage = () => {
 };
 
 export default GithubTopUsersPage;
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'github-top-users'],
+        nextI18nextConfig
+      )),
+    },
+  };
+}
