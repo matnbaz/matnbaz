@@ -1,0 +1,43 @@
+{
+  "order": {
+    "title": "Sort By",
+    "options": {
+      "CREATED_ASC": "Oldest",
+      "CREATED_DESC": "Newest",
+      "PUSHED_ASC": "Oldest Push",
+      "PUSHED_DESC": "Latest Push",
+      "STARS_DESC": "Most Stars",
+      "TRENDING_MONTHLY": "Trending (Monthly)",
+      "TRENDING_WEEKLY": "Trending (Weekly)",
+      "TRENDING_YEARLY": "Trending (Yearly)"
+    }
+  },
+  "fork-status": {
+    "title": "Fork Status",
+    "options": {
+      "ALL": "All",
+      "FORK": "Fork",
+      "SOURCE": "Source"
+    }
+  },
+  "template-status": {
+    "title": "Template Status",
+    "options": {
+      "ALL": "All",
+      "NOT_TEMPLATE": "Non-template",
+      "TEMPLATE": "Template"
+    }
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Start typing..."
+  },
+  "language": {
+    "title": "Programming Languages",
+    "search-placeholder": "Search...",
+    "no-result-found": "No result was found.",
+    "error-occurred": "An error occurred.",
+    "try-again": "Try Again"
+  },
+  "remove-filters": "Remove Filters"
+}

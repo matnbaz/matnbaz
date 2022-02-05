@@ -1,4 +1,5 @@
 import { Transition } from '@headlessui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/dist/client/router';
 import React, {
   useCallback,
@@ -18,8 +19,11 @@ import {
   useRepositoryFilterContext,
 } from '../../context/repository-filter-context';
 import {
+  ForkStatusType,
   GetLanguagesQuery,
   GetRepositoriesQueryVariables,
+  RepoOrder,
+  TemplateStatusType,
   useGetLanguagesLazyQuery,
 } from '../../lib/graphql-types';
 import { LanguagesFilterSkeletonLoader } from '../SkeletonLoader/LanguagesFilterSkeletonLoader';
@@ -62,6 +66,7 @@ export const RepositoryFilters = ({
   called,
   loading = false,
 }: RepositoryFiltersProps) => {
+  const { t } = useTranslation('repo-filters');
   const filterCtx = useRepositoryFilterContext();
 
   let [state, dispatch] = useReducer(
@@ -247,18 +252,30 @@ export const RepositoryFilters = ({
       )}
       <div className="space-y-6">
         <Card>
-          <Collapsible title="مرتب سازی بر اساس" open={true}>
+          <Collapsible title={t('order.title')} open={true}>
             <RadioList
-              options={Object.values(repoOrderOptions)}
-              value={state.order}
+              options={[
+                RepoOrder.TrendingWeekly,
+                RepoOrder.TrendingMonthly,
+                RepoOrder.StarsDesc,
+                RepoOrder.CreatedDesc,
+                RepoOrder.PushedDesc,
+              ].map((order) => ({
+                name: t(`order.options.${order}`),
+                id: order,
+              }))}
+              value={{
+                id: state.order.value,
+                name: t(`order.options.${state.order.value}`),
+              }}
               onChange={orderChangeHandler}
             />
           </Collapsible>
         </Card>
         <Card>
-          <Collapsible title="جست‌و‌جوی پروژه">
+          <Collapsible title={t(`search.title`)}>
             <Input
-              placeholder="جست‌و‌جو..."
+              placeholder={t(`search.placeholder`)}
               onChange={searchTermChangeHandler}
               icon={AiOutlineSearch}
               value={state.searchTerm}
@@ -268,14 +285,14 @@ export const RepositoryFilters = ({
         </Card>
         <Card>
           <Collapsible
-            title="زبان برنامه‌نویسی"
+            title={t(`language.title`)}
             onClick={() => {
               // Remove this listener and don't use lazy useQuery if open is set to true for this collapsible
               if (!languagesNode && !error) runQuery();
             }}
           >
             <Input
-              placeholder="جست‌و‌جو..."
+              placeholder={t(`language.search-placeholder`)}
               onChange={(event) => {
                 setLanguageSearchInput(event.target.value);
               }}
@@ -283,31 +300,31 @@ export const RepositoryFilters = ({
               className="w-full"
             />
             {languages && languages.length ? (
-              <CheckboxList
-                className="max-h-52 overflow-y-auto mt-4 ltr:text-left rtl:text-right flex-row-reverse"
-                // Languages are all in english
-                dir="ltr"
-                options={languages}
-                value={state.languages}
-                onChange={languagesFilterChangeHandler}
-              />
+              <div dir="ltr">
+                <CheckboxList
+                  className="max-h-52 overflow-y-auto mt-4 ltr:text-left rtl:text-right flex-row-reverse"
+                  options={languages}
+                  value={state.languages}
+                  onChange={languagesFilterChangeHandler}
+                />
+              </div>
             ) : (
               !languagesLoading && (
                 <div className="mt-4 text-sm text-secondary">
-                  <span>نتیجه‌ای پیدا نشد.</span>
+                  {t('language.no-result-found')}
                 </div>
               )
             )}
             {error && (
               <div className="flex flex-col space-y-2 items-center mt-2">
-                <span>خطایی رخ داد</span>
+                <span>{t('language.error-occurred')}</span>
                 <Button.Primary
                   size="sm"
                   onClick={() => {
                     refetchLanguages();
                   }}
                 >
-                  امتحان مجدد
+                  {t('language.try-again')}
                 </Button.Primary>
               </div>
             )}
@@ -321,19 +338,33 @@ export const RepositoryFilters = ({
           </Collapsible>
         </Card>
         <Card>
-          <Collapsible title="وضعیت فورک">
+          <Collapsible title={t('fork-status.title')}>
             <RadioList
-              options={Object.values(forkStatusOptions)}
-              value={state.forkStatus}
+              options={Object.values(ForkStatusType).map((status) => ({
+                id: status,
+                name: t(`fork-status.options.${status}`),
+              }))}
+              value={{
+                id: state.forkStatus.value,
+                name: t(`fork-status.options.${state.forkStatus.value}`),
+              }}
               onChange={forkStatusChangeHandler}
             />
           </Collapsible>
         </Card>
         <Card>
-          <Collapsible title="وضعیت قالب (Template)">
+          <Collapsible title={t('template-status.title')}>
             <RadioList
-              options={Object.values(templateStatusOptions)}
-              value={state.templateStatus}
+              options={Object.values(TemplateStatusType).map((status) => ({
+                id: status,
+                name: t(`template-status.options.${status}`),
+              }))}
+              value={{
+                id: state.templateStatus.value,
+                name: t(
+                  `template-status.options.${state.templateStatus.value}`
+                ),
+              }}
               onChange={templateStatusChangeHandler}
             />
           </Collapsible>
@@ -355,7 +386,7 @@ export const RepositoryFilters = ({
               dispatch({ type: 'clear', payload: null });
             }}
           >
-            حذف فیلتر‌ها
+            {t('remove-filters')}
           </Button.Ghost>
         </Transition>
       </div>
