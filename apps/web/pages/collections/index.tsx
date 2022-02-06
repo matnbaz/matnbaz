@@ -7,14 +7,15 @@ import { CollectionPreview } from '../../components/Collection/CollectionPreview
 import { MainLayout } from '../../components/Layout/MainLayout';
 import { PageHeader } from '../../components/Layout/PageHeader';
 import { CollectionPreviewSkeletonLoader } from '../../components/SkeletonLoader/CollectionPreviewSkeletonLoader';
-import { Locale, useGetCollectionsQuery } from '../../lib/graphql-types';
+import { useGetCollectionsQuery } from '../../lib/graphql-types';
 import nextI18nextConfig from '../../next-i18next.config';
+import { localeToEnum } from '../../utils/locale';
 
 const CollectionsPage: NextPage = () => {
   const { t } = useTranslation('collections');
   const { locale } = useRouter();
   const { data, fetchMore, loading } = useGetCollectionsQuery({
-    variables: { locale: locale === 'en' ? Locale.En : Locale.Fa },
+    variables: { locale: localeToEnum(locale) },
   });
   //   const collectionsLoadMoreHandler = () => {
   //     if (!collections.pageInfo.hasNextPage) return;

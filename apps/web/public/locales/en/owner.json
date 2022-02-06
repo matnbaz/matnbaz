@@ -1,5 +1,5 @@
 {
   "page-description": "{{name}}'s open-source contributions",
   "platform-url": "GitHub Page",
-  "repos-count": "{{reposcount}} Project(s)"
+  "repos-count": "{{reposCount}} Project(s)"
 }

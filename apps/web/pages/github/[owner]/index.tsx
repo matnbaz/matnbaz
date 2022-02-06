@@ -136,7 +136,7 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
       initialApolloState: apolloClient.cache.extract(),
       ...(await serverSideTranslations(
         locale,
-        ['common', 'owner'],
+        ['common', 'owner', 'report'],
         nextI18nextConfig
       )),
 

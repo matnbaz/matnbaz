@@ -1,5 +1,7 @@
-import { persianNumbers } from '@matnbaz/common';
+import { localize } from '@matnbaz/common';
 import classNames from 'classnames';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { Card, CardProps } from '../UI/Card';
 
 export interface CollectionPreviewProps
@@ -22,6 +24,8 @@ export const CollectionPreview = ({
   style = {},
   ...props
 }: CollectionPreviewProps) => {
+  const { t } = useTranslation('collections');
+  const { locale } = useRouter();
   const { name, slug, color, image, description, repositoriesCount } =
     collection;
   return (
@@ -44,7 +48,7 @@ export const CollectionPreview = ({
               alt={name}
               src={image}
               className={classNames(
-                'brightness-0 dark:invert w-10 h-10 float-left'
+                'brightness-0 dark:invert w-10 h-10 ltr:float-right rtl:float-left'
               )}
             />
           )}
@@ -60,9 +64,11 @@ export const CollectionPreview = ({
               {name}
             </h3>
           </div>
-          {repositoriesCount && (
+          {typeof repositoriesCount !== 'undefined' && (
             <div className="text-secondary font-medium">
-              {persianNumbers(repositoriesCount)} پروژه
+              {t('repositories-count', {
+                repositoriesCount: localize(repositoriesCount, locale),
+              })}
             </div>
           )}
           {description && <p className="mt-2 text-secondary">{description}</p>}

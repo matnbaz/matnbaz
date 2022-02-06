@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
 import { ReportableType, useReportMutation } from '../../lib/graphql-types';
 import { Button } from '../UI/Button/Button';
@@ -24,10 +25,16 @@ export const Report = ({
   subject,
   subjectId,
   reasons,
-  modalTitle = 'گزارش',
-  modalDescription = 'درصورتی که یکی از موارد ذیل و یا یکی از قوانین سایت نقض شده است، از شما در خواست می شود به ما گزارش دهید.',
-  buttonTitle = 'گزارش',
+  modalTitle,
+  modalDescription,
+  buttonTitle,
 }: ReportProps) => {
+  const { t } = useTranslation('report');
+
+  modalTitle = modalTitle || t('report');
+  modalDescription = modalDescription || t('report-description');
+  buttonTitle = buttonTitle || t('report-button');
+
   const [report, { data, loading }] = useReportMutation();
 
   const [showReportModal, setShowReportModal] = useState(false);
@@ -63,7 +70,7 @@ export const Report = ({
           {selectedReportReason?.customValue && (
             <Input.Textarea
               rows={5}
-              placeholder="بنویسید (حداقل ۵ کاراکتر)..."
+              placeholder={t('custom-report-placeholder')}
               className="w-full"
               onChange={(event) => {
                 setReportReason(event.target.value);
@@ -82,7 +89,7 @@ export const Report = ({
               });
             }}
           >
-            ارسال
+            {t('report-submit')}
           </Button.Primary>
         </div>
       </Modal>
@@ -93,7 +100,7 @@ export const Report = ({
           setShowReportModal(true);
         }}
       >
-        {buttonTitle}
+        {t('report-button')}
       </Button.Ghost>
     </>
   );

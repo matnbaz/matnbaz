@@ -254,7 +254,7 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
         initialApolloState: apolloClient.cache.extract(),
         ...(await serverSideTranslations(
           locale,
-          ['common', 'repository'],
+          ['common', 'repository', 'report'],
           nextI18nextConfig
         )),
         repoSlug: repo,

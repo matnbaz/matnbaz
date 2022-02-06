@@ -1,0 +1,20 @@
+{
+  "report": "Report",
+  "report-description": "Feel free to submit a report if you think this item shouldn't be on the site.",
+  "report-button": "Report",
+  "report-submit": "Submit",
+  "reasons": {
+    "inappropriate-name-or-avatar": "Inappropriate name or image",
+    "non-iranian": "It is not Iranian/Persian",
+    "other": "Others"
+  },
+  "custom-report-placeholder": "Report body",
+  "report-repository": {
+    "title": "Report Repository",
+    "description": "Feel free to submit a report if you think {{name}} shouldn't be on the site."
+  },
+  "report-owner": {
+    "title": "Report User",
+    "description": "Feel free to submit a report if you think {{name}} shouldn't be on the site."
+  }
+}
