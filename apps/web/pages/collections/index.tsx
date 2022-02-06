@@ -2,16 +2,20 @@ import { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 import { CollectionPreview } from '../../components/Collection/CollectionPreview';
 import { MainLayout } from '../../components/Layout/MainLayout';
 import { PageHeader } from '../../components/Layout/PageHeader';
 import { CollectionPreviewSkeletonLoader } from '../../components/SkeletonLoader/CollectionPreviewSkeletonLoader';
-import { useGetCollectionsQuery } from '../../lib/graphql-types';
+import { Locale, useGetCollectionsQuery } from '../../lib/graphql-types';
 import nextI18nextConfig from '../../next-i18next.config';
 
 const CollectionsPage: NextPage = () => {
   const { t } = useTranslation('collections');
-  const { data, fetchMore, loading } = useGetCollectionsQuery({});
+  const { locale } = useRouter();
+  const { data, fetchMore, loading } = useGetCollectionsQuery({
+    variables: { locale: locale === 'en' ? Locale.En : Locale.Fa },
+  });
   //   const collectionsLoadMoreHandler = () => {
   //     if (!collections.pageInfo.hasNextPage) return;
 

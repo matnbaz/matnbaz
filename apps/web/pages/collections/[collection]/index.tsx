@@ -2,16 +2,18 @@ import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { MdChevronRight } from 'react-icons/md';
 import { PromotionBanner } from '../../../components/Banner/PromotionBanner';
 import { MainLayout } from '../../../components/Layout/MainLayout';
 import { RepositoryPreviewList } from '../../../components/Repository/RepositoryPreviewList';
 import { initializeApollo } from '../../../lib/apollo';
 import {
-    GetCollectionDocument,
-    GetCollectionQueryResult,
-    GetCollectionQueryVariables,
-    useGetCollectionQuery
+  GetCollectionDocument,
+  GetCollectionQueryResult,
+  GetCollectionQueryVariables,
+  Locale,
+  useGetCollectionQuery,
 } from '../../../lib/graphql-types';
 
 interface CollectionPageProps {
@@ -19,6 +21,7 @@ interface CollectionPageProps {
 }
 
 const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
+  const { locale } = useRouter();
   const {
     data: { collection },
     fetchMore,
@@ -26,7 +29,10 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
     networkStatus,
     called,
   } = useGetCollectionQuery({
-    variables: { slug: collectionSlug },
+    variables: {
+      slug: collectionSlug,
+      locale: locale === 'en' ? Locale.Fa : Locale.En,
+    },
     notifyOnNetworkStatusChange: true,
   });
 

@@ -71,6 +71,11 @@ export type CollectionCollectsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+
+export type CollectionDescriptionArgs = {
+  locale?: InputMaybe<Locale>;
+};
+
 /** Nice name, isn't it? */
 export type CollectionConnection = {
   __typename?: 'CollectionConnection';
@@ -206,8 +211,17 @@ export enum LicenseOrder {
   RepositoriesDesc = 'REPOSITORIES_DESC'
 }
 
+/** A locale used for internationalization. */
+export enum Locale {
+  /** English */
+  En = 'En',
+  /** Farsi/Persian (The default language) */
+  Fa = 'Fa'
+}
+
 export type Metadata = {
   __typename?: 'Metadata';
+  totalCollectionsCount: Scalars['Int'];
   totalLanguagesCount: Scalars['Int'];
   totalOwnersCount: Scalars['Float'];
   totalReposCount: Scalars['Float'];
@@ -805,6 +819,7 @@ export type GetCollectionQueryVariables = Exact<{
   slug: Scalars['String'];
   reposCount?: InputMaybe<Scalars['Int']>;
   reposAfter?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Locale>;
 }>;
 
 
@@ -813,6 +828,7 @@ export type GetCollectionQuery = { __typename?: 'Query', collection?: { __typena
 export type GetCollectionsQueryVariables = Exact<{
   count?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Locale>;
 }>;
 
 
@@ -1078,12 +1094,12 @@ export type SendSubmissionMutationHookResult = ReturnType<typeof useSendSubmissi
 export type SendSubmissionMutationResult = Apollo.MutationResult<SendSubmissionMutation>;
 export type SendSubmissionMutationOptions = Apollo.BaseMutationOptions<SendSubmissionMutation, SendSubmissionMutationVariables>;
 export const GetCollectionDocument = gql`
-    query GetCollection($slug: String!, $reposCount: Int = 12, $reposAfter: String) {
+    query GetCollection($slug: String!, $reposCount: Int = 12, $reposAfter: String, $locale: Locale = Fa) {
   collection(slug: $slug) {
     id
     name
     slug
-    description
+    description(locale: $locale)
     repositoriesCount
     image
     color {
@@ -1121,6 +1137,7 @@ export const GetCollectionDocument = gql`
  *      slug: // value for 'slug'
  *      reposCount: // value for 'reposCount'
  *      reposAfter: // value for 'reposAfter'
+ *      locale: // value for 'locale'
  *   },
  * });
  */
@@ -1136,7 +1153,7 @@ export type GetCollectionQueryHookResult = ReturnType<typeof useGetCollectionQue
 export type GetCollectionLazyQueryHookResult = ReturnType<typeof useGetCollectionLazyQuery>;
 export type GetCollectionQueryResult = Apollo.QueryResult<GetCollectionQuery, GetCollectionQueryVariables>;
 export const GetCollectionsDocument = gql`
-    query GetCollections($count: Int, $after: String) {
+    query GetCollections($count: Int, $after: String, $locale: Locale = Fa) {
   collections(first: $count, after: $after) {
     pageInfo {
       hasNextPage
@@ -1147,7 +1164,7 @@ export const GetCollectionsDocument = gql`
         id
         name
         slug
-        description
+        description(locale: $locale)
         repositoriesCount
         image
         color {
@@ -1173,6 +1190,7 @@ export const GetCollectionsDocument = gql`
  *   variables: {
  *      count: // value for 'count'
  *      after: // value for 'after'
+ *      locale: // value for 'locale'
  *   },
  * });
  */
