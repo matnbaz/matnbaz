@@ -40,7 +40,7 @@ type CollectEdge {
 type Collection implements Node {
   collects(after: String, before: String, first: Int, last: Int): CollectConnection!
   color: Color
-  description: String
+  description(locale: Locale): String
   id: ID!
   image: String
   name: String!
@@ -157,6 +157,15 @@ type LicenseEdge {
 enum LicenseOrder {
   """Order by repositories count in descending direction."""
   REPOSITORIES_DESC
+}
+
+"""A locale used for internationalization."""
+enum Locale {
+  """English"""
+  En
+
+  """Farsi/Persian (The default language)"""
+  Fa
 }
 
 type Metadata {

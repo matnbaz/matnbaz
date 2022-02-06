@@ -169,35 +169,36 @@ model User {
 }
 
 model Collection {
-  id                  String                @id @default(cuid())
-  name                String
-  slug                String                @unique
-  description         String?
-  color               String?
-  image               String?
-  terms               String[]
-  termsExcluded       String[]
-  readmeTerms         String[]
-  readmeTermsExcluded String[]
-  minStargazers       Int?
-  minForks            Int?
-  archived            Boolean?
-  template            Boolean?
-  minCreatedAt        DateTime?
-  maxCreatedAt        DateTime?
-  minPushedAt         DateTime?
-  maxPushedAt         DateTime?
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime              @updatedAt
-  Collects            Collect[]
-  Blacklist           CollectionBlacklist[]
-  Whitelist           CollectionWhitelist[]
-  Languages           Language[]            @relation("collections")
-  LanguagesExcluded   Language[]            @relation("collections_excluded")
-  Owners              Owner[]               @relation("owners")
-  OwnersExcluded      Owner[]               @relation("owners_excluded")
-  Topics              Topic[]               @relation("topics")
-  TopicsExcluded      Topic[]               @relation("topics_excluded")
+  id                      String                @id @default(cuid())
+  name                    String
+  slug                    String                @unique
+  Description             TranslatedField?      @relation(fields: [translatedDescriptionId], references: [id])
+  translatedDescriptionId String?
+  color                   String?
+  image                   String?
+  terms                   String[]
+  termsExcluded           String[]
+  readmeTerms             String[]
+  readmeTermsExcluded     String[]
+  minStargazers           Int?
+  minForks                Int?
+  archived                Boolean?
+  template                Boolean?
+  minCreatedAt            DateTime?
+  maxCreatedAt            DateTime?
+  minPushedAt             DateTime?
+  maxPushedAt             DateTime?
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime              @updatedAt
+  Collects                Collect[]
+  Blacklist               CollectionBlacklist[]
+  Whitelist               CollectionWhitelist[]
+  Languages               Language[]            @relation("collections")
+  LanguagesExcluded       Language[]            @relation("collections_excluded")
+  Owners                  Owner[]               @relation("owners")
+  OwnersExcluded          Owner[]               @relation("owners_excluded")
+  Topics                  Topic[]               @relation("topics")
+  TopicsExcluded          Topic[]               @relation("topics_excluded")
 }
 
 model CollectionBlacklist {
@@ -252,6 +253,13 @@ model PostTag {
   name      String   @unique
   createdAt DateTime @default(now())
   Posts     Post[]
+}
+
+model TranslatedField {
+  id         String       @id @default(cuid())
+  fa         String
+  en         String
+  Collection Collection[]
 }
 
 enum OwnerType {
