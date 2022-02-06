@@ -1,4 +1,9 @@
-query GetPosts($count: Int = 12, $after: String) {
+query GetPosts(
+  $count: Int = 12
+  $after: String
+  $locale: Locale = Fa
+  $calendar: Calendar = Persian
+) {
   posts(first: $count, after: $after) {
     pageInfo {
       hasNextPage
@@ -15,8 +20,8 @@ query GetPosts($count: Int = 12, $after: String) {
         }
         summaryLimited
         publishedAt {
-          formatted
-          difference
+          formatted(locale: $locale, calendar: $calendar)
+          difference(locale: $locale, calendar: $calendar)
         }
         author {
           id

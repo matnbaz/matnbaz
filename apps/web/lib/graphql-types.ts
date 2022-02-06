@@ -27,6 +27,14 @@ export enum ArchiveStatusType {
   NotArchived = 'NOT_ARCHIVED'
 }
 
+/** The calendar type. */
+export enum Calendar {
+  /** Georgian calendar. */
+  Georgian = 'Georgian',
+  /** Persian / Jalali calendar. */
+  Persian = 'Persian'
+}
+
 export type Collect = Node & {
   __typename?: 'Collect';
   collection: Collection;
@@ -109,13 +117,15 @@ export type DateObject = {
 
 
 export type DateObjectDifferenceArgs = {
-  persianNumbers?: InputMaybe<Scalars['Boolean']>;
+  calendar?: InputMaybe<Calendar>;
+  locale?: InputMaybe<Locale>;
 };
 
 
 export type DateObjectFormattedArgs = {
+  calendar?: InputMaybe<Calendar>;
   format?: InputMaybe<Scalars['String']>;
-  persianNumbers?: InputMaybe<Scalars['Boolean']>;
+  locale?: InputMaybe<Locale>;
 };
 
 /** The repo type used in filters. */
@@ -860,6 +870,8 @@ export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typena
 
 export type GetPostQueryVariables = Exact<{
   slug: Scalars['String'];
+  locale?: InputMaybe<Locale>;
+  calendar?: InputMaybe<Calendar>;
 }>;
 
 
@@ -868,6 +880,8 @@ export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: '
 export type GetPostsQueryVariables = Exact<{
   count?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Locale>;
+  calendar?: InputMaybe<Calendar>;
 }>;
 
 
@@ -891,6 +905,8 @@ export type GetRepositoryQueryVariables = Exact<{
   repo: Scalars['String'];
   platform: PlatformType;
   relatedReposFirst?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Locale>;
+  calendar?: InputMaybe<Calendar>;
 }>;
 
 
@@ -908,6 +924,8 @@ export type GetTagQueryVariables = Exact<{
   name: Scalars['String'];
   postsCount?: InputMaybe<Scalars['Int']>;
   postsAfter?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Locale>;
+  calendar?: InputMaybe<Calendar>;
 }>;
 
 
@@ -929,8 +947,8 @@ export const PostPreviewFragmentDoc = gql`
   }
   summaryLimited
   publishedAt {
-    formatted
-    difference
+    formatted(locale: $locale, calendar: $calendar)
+    difference(locale: $locale, calendar: $calendar)
   }
   author {
     id
@@ -960,10 +978,10 @@ export const RepoFullFragmentDoc = gql`
   isTemplate
   defaultBranch
   pushedAt {
-    difference(persianNumbers: true)
+    difference(locale: $locale, calendar: $calendar)
   }
   createdAt {
-    formatted(persianNumbers: true)
+    formatted(locale: $locale, calendar: $calendar)
   }
   homePage
   stargazersCount
@@ -1361,7 +1379,7 @@ export type GetOwnerQueryHookResult = ReturnType<typeof useGetOwnerQuery>;
 export type GetOwnerLazyQueryHookResult = ReturnType<typeof useGetOwnerLazyQuery>;
 export type GetOwnerQueryResult = Apollo.QueryResult<GetOwnerQuery, GetOwnerQueryVariables>;
 export const GetPostDocument = gql`
-    query GetPost($slug: String!) {
+    query GetPost($slug: String!, $locale: Locale = Fa, $calendar: Calendar = Persian) {
   postBySlug(slug: $slug) {
     id
     slug
@@ -1373,8 +1391,8 @@ export const GetPostDocument = gql`
     }
     summaryLimited
     publishedAt {
-      formatted
-      difference
+      formatted(locale: $locale, calendar: $calendar)
+      difference(locale: $locale, calendar: $calendar)
     }
     author {
       id
@@ -1400,6 +1418,8 @@ export const GetPostDocument = gql`
  * const { data, loading, error } = useGetPostQuery({
  *   variables: {
  *      slug: // value for 'slug'
+ *      locale: // value for 'locale'
+ *      calendar: // value for 'calendar'
  *   },
  * });
  */
@@ -1415,7 +1435,7 @@ export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const GetPostsDocument = gql`
-    query GetPosts($count: Int = 12, $after: String) {
+    query GetPosts($count: Int = 12, $after: String, $locale: Locale = Fa, $calendar: Calendar = Persian) {
   posts(first: $count, after: $after) {
     pageInfo {
       hasNextPage
@@ -1432,8 +1452,8 @@ export const GetPostsDocument = gql`
         }
         summaryLimited
         publishedAt {
-          formatted
-          difference
+          formatted(locale: $locale, calendar: $calendar)
+          difference(locale: $locale, calendar: $calendar)
         }
         author {
           id
@@ -1462,6 +1482,8 @@ export const GetPostsDocument = gql`
  *   variables: {
  *      count: // value for 'count'
  *      after: // value for 'after'
+ *      locale: // value for 'locale'
+ *      calendar: // value for 'calendar'
  *   },
  * });
  */
@@ -1534,7 +1556,7 @@ export type GetRepositoriesQueryHookResult = ReturnType<typeof useGetRepositorie
 export type GetRepositoriesLazyQueryHookResult = ReturnType<typeof useGetRepositoriesLazyQuery>;
 export type GetRepositoriesQueryResult = Apollo.QueryResult<GetRepositoriesQuery, GetRepositoriesQueryVariables>;
 export const GetRepositoryDocument = gql`
-    query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!, $relatedReposFirst: Int = 8) {
+    query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!, $relatedReposFirst: Int = 8, $locale: Locale = Fa, $calendar: Calendar = Persian) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
     ...repoFull
     relatedRepos(first: $relatedReposFirst) {
@@ -1569,6 +1591,8 @@ ${RepoPreviewFragmentDoc}`;
  *      repo: // value for 'repo'
  *      platform: // value for 'platform'
  *      relatedReposFirst: // value for 'relatedReposFirst'
+ *      locale: // value for 'locale'
+ *      calendar: // value for 'calendar'
  *   },
  * });
  */
@@ -1624,7 +1648,7 @@ export type GetSearchedRepositoriesQueryHookResult = ReturnType<typeof useGetSea
 export type GetSearchedRepositoriesLazyQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesLazyQuery>;
 export type GetSearchedRepositoriesQueryResult = Apollo.QueryResult<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>;
 export const GetTagDocument = gql`
-    query GetTag($name: String!, $postsCount: Int = 12, $postsAfter: String) {
+    query GetTag($name: String!, $postsCount: Int = 12, $postsAfter: String, $locale: Locale = Fa, $calendar: Calendar = Persian) {
   tag(name: $name) {
     name
     posts(first: $postsCount, after: $postsAfter) {
@@ -1657,6 +1681,8 @@ export const GetTagDocument = gql`
  *      name: // value for 'name'
  *      postsCount: // value for 'postsCount'
  *      postsAfter: // value for 'postsAfter'
+ *      locale: // value for 'locale'
+ *      calendar: // value for 'calendar'
  *   },
  * });
  */

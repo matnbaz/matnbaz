@@ -24,6 +24,7 @@ import { Card } from '../../../../components/UI/Card';
 import { Expandable } from '../../../../components/UI/Expandable';
 import { initializeApollo } from '../../../../lib/apollo';
 import {
+  Calendar,
   GetRepositoryDocument,
   GetRepositoryQueryResult,
   GetRepositoryQueryVariables,
@@ -32,6 +33,7 @@ import {
 } from '../../../../lib/graphql-types';
 import nextI18nextConfig from '../../../../next-i18next.config';
 import { getGradientFromString } from '../../../../utils/gradient-util';
+import { localeToEnum } from '../../../../utils/locale';
 interface RepositoryPageProps {
   repoSlug: string;
   ownerSlug: string;
@@ -41,6 +43,7 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
   repoSlug,
 }) => {
   const { t } = useTranslation('repository');
+  const { locale } = useRouter();
   const {
     data: { repositoryByPlatform: repo },
     loading,
@@ -49,9 +52,10 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
       owner: ownerSlug,
       repo: repoSlug,
       platform: PlatformType.GitHub,
+      calendar: locale === 'fa' ? Calendar.Persian : Calendar.Georgian,
+      locale: localeToEnum(locale),
     },
   });
-  const { locale } = useRouter();
 
   const statistics = [
     {
@@ -242,6 +246,8 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
         owner,
         repo,
         platform: PlatformType.GitHub,
+        calendar: locale === 'fa' ? Calendar.Persian : Calendar.Georgian,
+        locale: localeToEnum(locale),
       },
     });
 

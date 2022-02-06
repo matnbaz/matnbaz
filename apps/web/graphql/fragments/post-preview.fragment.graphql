@@ -8,8 +8,8 @@ fragment postPreview on Post {
   }
   summaryLimited
   publishedAt {
-    formatted
-    difference
+    formatted(locale: $locale, calendar: $calendar)
+    difference(locale: $locale, calendar: $calendar)
   }
   author {
     id

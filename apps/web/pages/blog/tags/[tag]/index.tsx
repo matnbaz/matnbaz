@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 import { PostPreviewList } from '../../../../components/Blog/PostPreviewList';
 import { MainLayout } from '../../../../components/Layout/MainLayout';
 import { PageHeader } from '../../../../components/Layout/PageHeader';
@@ -10,14 +11,20 @@ import {
   GetTagQueryVariables,
   useGetTagQuery,
 } from '../../../../lib/graphql-types';
+import { calendarFromLocale, localeToEnum } from '../../../../utils/locale';
 
 export interface TagPageProps {
   tagName: string;
 }
 
 const TagPage: NextPage<TagPageProps> = ({ tagName }) => {
+  const { locale } = useRouter();
   const { data, called, loading, networkStatus, fetchMore } = useGetTagQuery({
-    variables: { name: tagName },
+    variables: {
+      name: tagName,
+      locale: localeToEnum(locale),
+      calendar: calendarFromLocale(locale),
+    },
   });
 
   const postsLoadMoreHandler = () => {

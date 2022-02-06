@@ -1,25 +1,33 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { HiClock, HiUser } from 'react-icons/hi';
 import { MainLayout } from '../../../components/Layout/MainLayout';
 import { UserPreview } from '../../../components/User/UserPreview';
 import { initializeApollo } from '../../../lib/apollo';
 import {
-    GetPostDocument,
-    GetPostQueryResult,
-    GetPostQueryVariables,
-    useGetPostQuery
+  GetPostDocument,
+  GetPostQueryResult,
+  GetPostQueryVariables,
+  useGetPostQuery,
 } from '../../../lib/graphql-types';
+import { calendarFromLocale, localeToEnum } from '../../../utils/locale';
 
 export interface PostPageProps {
   postSlug: string;
 }
 
 const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
+  const { locale } = useRouter();
+
   const { data } = useGetPostQuery({
-    variables: { slug: postSlug },
+    variables: {
+      slug: postSlug,
+      locale: localeToEnum(locale),
+      calendar: calendarFromLocale(locale),
+    },
   });
 
   const post = useMemo(() => data.postBySlug, [data]);
@@ -100,6 +108,7 @@ export default PostPage;
 
 export const getServerSideProps: GetServerSideProps<PostPageProps> = async ({
   query: { slug: postSlug },
+  locale,
 }) => {
   if (typeof postSlug !== 'string')
     return {
@@ -117,6 +126,8 @@ export const getServerSideProps: GetServerSideProps<PostPageProps> = async ({
     query: GetPostDocument,
     variables: {
       slug: postSlug,
+      locale: localeToEnum(locale),
+      calendar: calendarFromLocale(locale),
     },
   });
 
