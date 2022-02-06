@@ -1,4 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,6 +14,7 @@ import {
   GetPostQueryVariables,
   useGetPostQuery,
 } from '../../../lib/graphql-types';
+import nextI18nextConfig from '../../../next-i18next.config';
 import { calendarFromLocale, localeToEnum } from '../../../utils/locale';
 
 export interface PostPageProps {
@@ -139,6 +141,7 @@ export const getServerSideProps: GetServerSideProps<PostPageProps> = async ({
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),
+      ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
       postSlug,
     },
   };
