@@ -1,0 +1,14 @@
+{
+  "statistics": {
+    "open-issues-count": "موضوع‌ها",
+    "forks-count": "فورک‌ها",
+    "stargazers-count": "ستاره‌ها",
+    "created-at": "تاریخ ایجاد",
+    "pushed-at": "آخرین بروزرسانی",
+    "license": "لایسنس"
+  },
+  "view-repo": "مشاهده مخزن",
+  "no-readme-found": "فایل README پیدا نشد.",
+  "related-projects": "پروژه‌های مشابه",
+  "no-projects-found": "پروژه ای یافت نشد."
+}

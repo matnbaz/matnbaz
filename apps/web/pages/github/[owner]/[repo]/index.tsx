@@ -1,7 +1,10 @@
-import { persianNumbers } from '@matnbaz/common';
+import { localize } from '@matnbaz/common';
 import { GetServerSideProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import {
   AiOutlineCalendar,
@@ -27,6 +30,7 @@ import {
   PlatformType,
   useGetRepositoryQuery,
 } from '../../../../lib/graphql-types';
+import nextI18nextConfig from '../../../../next-i18next.config';
 import { getGradientFromString } from '../../../../utils/gradient-util';
 interface RepositoryPageProps {
   repoSlug: string;
@@ -36,6 +40,7 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
   ownerSlug,
   repoSlug,
 }) => {
+  const { t } = useTranslation('repository');
   const {
     data: { repositoryByPlatform: repo },
     loading,
@@ -46,35 +51,36 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
       platform: PlatformType.GitHub,
     },
   });
+  const { locale } = useRouter();
 
   const statistics = [
     {
-      name: 'موضوع‌ها',
+      name: t('statistics.open-issues-count'),
       icon: AiOutlineExclamationCircle,
-      value: persianNumbers(+repo.openIssuesCount),
+      value: localize(+repo.openIssuesCount, locale),
     },
     {
-      name: 'فورک‌ها',
+      name: t('statistics.forks-count'),
       icon: AiOutlineFork,
-      value: persianNumbers(+repo.forksCount),
+      value: localize(+repo.forksCount, locale),
     },
     {
-      name: 'ستاره‌ها',
+      name: t('statistics.stargazers-count'),
       icon: AiOutlineStar,
-      value: persianNumbers(+repo.stargazersCount),
+      value: localize(+repo.stargazersCount, locale),
     },
     {
-      name: 'تاریخ ایجاد',
+      name: t('statistics.created-at'),
       icon: AiOutlineCalendar,
       value: repo.createdAt.formatted,
     },
     {
-      name: 'آخرین به‌روزرسانی',
+      name: t('statistics.pushed-at'),
       icon: AiOutlineClockCircle,
       value: repo.pushedAt.difference,
     },
     {
-      name: 'لایسنس',
+      name: t('statistics.license'),
       icon: AiOutlineSafetyCertificate,
       value: repo.license?.name,
     },
@@ -169,7 +175,7 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
 
             <div className="flex items-center space-x-2 rtl:space-x-reverse flex-shrink-0">
               <Button.Ghost href={repo.platformUrl} target="_blank">
-                مشاهده مخزن
+                {t('view-repo')}
               </Button.Ghost>
 
               <RepositoryReport repository={repo} />
@@ -190,21 +196,21 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
                 ></div>
               </Expandable>
             ) : (
-              <h1 className="text-lg text-secondary">
-                فایل readme برای نمایش پیدا نشد.
-              </h1>
+              <h1 className="text-lg text-secondary">{t('no-readme-found')}</h1>
             )}
           </Card>
 
           <div className="flex flex-col space-y-6 col-span-1 lg:col-span-2">
-            <h1 className="text-base text-secondary">پروژه‌های مشابه</h1>
+            <h1 className="text-base text-secondary">
+              {t('related-projects')}
+            </h1>
             {repo.relatedRepos.edges.length > 0 ? (
               <RepositoryPreviewList
                 repositories={repo.relatedRepos.edges.map((edge) => edge.node)}
               />
             ) : (
               <div className="text-gray-500 dark:text-gray-400 text-sm">
-                پروژه ای یافت نشد.
+                {t('no-projects-found')}
               </div>
             )}
           </div>
@@ -217,7 +223,7 @@ const RepositoryPage: NextPage<RepositoryPageProps> = ({
 export default RepositoryPage;
 
 export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
-  async ({ query: { owner, repo }, res }) => {
+  async ({ query: { owner, repo }, locale }) => {
     if (typeof owner !== 'string' || typeof repo !== 'string')
       return {
         notFound: true,
@@ -246,6 +252,11 @@ export const getServerSideProps: GetServerSideProps<RepositoryPageProps> =
     return {
       props: {
         initialApolloState: apolloClient.cache.extract(),
+        ...(await serverSideTranslations(
+          locale,
+          ['common', 'repository'],
+          nextI18nextConfig
+        )),
         repoSlug: repo,
         ownerSlug: owner,
       },
