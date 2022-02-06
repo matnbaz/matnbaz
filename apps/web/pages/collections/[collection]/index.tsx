@@ -1,5 +1,7 @@
 import { persianNumbers } from '@matnbaz/common';
 import { GetServerSideProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -15,12 +17,14 @@ import {
   Locale,
   useGetCollectionQuery,
 } from '../../../lib/graphql-types';
+import nextI18nextConfig from '../../../next-i18next.config';
 
 interface CollectionPageProps {
   collectionSlug: string;
 }
 
 const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
+  const { t } = useTranslation('collections');
   const { locale } = useRouter();
   const {
     data: { collection },
@@ -63,7 +67,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
         <Link href="/collections">
           <a className="inline-flex items-center text-sm text-secondary space-x-2 rtl:space-x-reverse">
             <MdChevronRight />
-            <span>مشاهده همه مجموعه‌ها</span>
+            <span>{t('all-collections')}</span>
           </a>
         </Link>
         <div className="mt-4 space-y-10">
@@ -112,7 +116,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
 export default CollectionPage;
 
 export const getServerSideProps: GetServerSideProps<CollectionPageProps> =
-  async ({ query: { collection: collectionSlug }, res }) => {
+  async ({ query: { collection: collectionSlug }, locale }) => {
     if (typeof collectionSlug !== 'string')
       return {
         notFound: true,
@@ -140,6 +144,11 @@ export const getServerSideProps: GetServerSideProps<CollectionPageProps> =
     return {
       props: {
         initialApolloState: apolloClient.cache.extract(),
+        ...(await serverSideTranslations(
+          locale,
+          ['common', 'collections'],
+          nextI18nextConfig
+        )),
         collectionSlug,
       },
     };
