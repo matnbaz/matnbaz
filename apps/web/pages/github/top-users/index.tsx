@@ -106,7 +106,7 @@ const GithubTopUsersPage: NextPage = () => {
                                 </a>
                               </Link>
                             </div>
-                            <div className="ltr:mr-4 rtl:ml-4">
+                            <div className="ml-4">
                               <Link href={`/github/${owner.login}`}>
                                 <a target="_blank">
                                   <div className="text-sm font-medium">
