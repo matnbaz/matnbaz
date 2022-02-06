@@ -23,5 +23,37 @@
   "locale": {
     "en": "English",
     "fa": "Persian - فارسی"
+  },
+  "promotion": {
+    "telegram": {
+      "text": "Make sure to join our Telegram channel.",
+      "mobile": "Follow us on Telegram.",
+      "cta": "View Channel"
+    },
+    "instagram": {
+      "text": "Follow our Instagram page.",
+      "mobile": "Follow our Instagram page.",
+      "cta": "Show Page"
+    },
+    "twitter": {
+      "text": "Follow our Twitter page.",
+      "mobile": "Follow our Twitter page.",
+      "cta": "Show Page"
+    },
+    "twitterTweet": {
+      "text": "Help Matnbaz by tweeting about it. ❤️",
+      "mobile": "Tweet about Matnbaz. ❤️",
+      "cta": "Tweet"
+    },
+    "github": {
+      "text": "Help Matnbaz grow by giving it a star on GitHub. ⭐️",
+      "mobile": "Give us a star on GitHub.",
+      "cta": "Show Repo"
+    },
+    "discord": {
+      "text": "Join our discord server.",
+      "mobile": "Join our discord server.",
+      "cta": "Join Server"
+    }
   }
 }
