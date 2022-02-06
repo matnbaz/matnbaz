@@ -1,6 +1,9 @@
-import { persianNumbers } from '@matnbaz/common';
+import { localize } from '@matnbaz/common';
 import { GetServerSideProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 import { MainLayout } from '../../../components/Layout/MainLayout';
 import { OwnerImage } from '../../../components/Owner/OwnerImage';
 import { OwnerReport } from '../../../components/Report/OwnerReport';
@@ -8,17 +11,20 @@ import { RepositoryPreviewList } from '../../../components/Repository/Repository
 import { Button } from '../../../components/UI/Button/Button';
 import { initializeApollo } from '../../../lib/apollo';
 import {
-    GetOwnerDocument,
-    GetOwnerQueryResult,
-    GetOwnerQueryVariables,
-    PlatformType,
-    useGetOwnerQuery
+  GetOwnerDocument,
+  GetOwnerQueryResult,
+  GetOwnerQueryVariables,
+  PlatformType,
+  useGetOwnerQuery,
 } from '../../../lib/graphql-types';
+import nextI18nextConfig from '../../../next-i18next.config';
 interface OwnerPageProps {
   ownerSlug: string;
 }
 
 const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
+  const { t } = useTranslation('owner');
+  const { locale } = useRouter();
   const {
     data: { ownerByPlatform: owner },
     fetchMore,
@@ -43,7 +49,7 @@ const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
     <MainLayout withoutFooter>
       <NextSeo
         title={owner.login}
-        description={`پروفایل ${owner.login} از پلتفرم ${owner.platform}`}
+        description={t('page-description', { name: owner.name || owner.login })}
         openGraph={{
           images: [
             {
@@ -63,7 +69,9 @@ const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
             {owner.login}
           </h1>
           <div className="mt-2 text-center text-secondary text-lg">
-            {persianNumbers(owner.repositoriesCount)} پروژه
+            {t('repos-count', {
+              reposCount: localize(owner.repositoriesCount, locale),
+            })}
           </div>
 
           <div className="mt-4 flex justify-center items-center space-x-2 rtl:space-x-reverse">
@@ -72,7 +80,7 @@ const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
               target="_blank"
             >
               {/* TODO: Change based on platform */}
-              صفحه گیت‌هاب
+              {t('platform-url')}
             </Button.Ghost>
             <OwnerReport owner={owner} />
           </div>
@@ -96,7 +104,7 @@ export default OwnerPage;
 
 export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
   query: { owner },
-  res,
+  locale,
 }) => {
   if (typeof owner !== 'string')
     return {
@@ -126,6 +134,12 @@ export const getServerSideProps: GetServerSideProps<OwnerPageProps> = async ({
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'owner'],
+        nextI18nextConfig
+      )),
+
       ownerSlug: owner,
     },
   };
