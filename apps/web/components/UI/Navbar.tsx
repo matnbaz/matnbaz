@@ -84,6 +84,11 @@ export const Navbar = ({ className }: NavbarProps) => {
         href: '/blog',
       },
       {
+        type: 'link',
+        name: t('navbar.support'),
+        href: '/support',
+      },
+      {
         type: 'flyout',
         name: t('navbar.more'),
         size: 'small',

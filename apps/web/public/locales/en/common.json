@@ -5,6 +5,7 @@
     "explore": "Explore",
     "collections": "Collections",
     "blog": "Blog",
+    "support": "Support",
     "more": "More",
     "github-top-users": "Github Top Users",
     "about": "About",
@@ -17,6 +18,7 @@
   },
   "footer": {
     "about": "About",
+    "support": "Support Us",
     "faq": "FAQ",
     "source-code": "Source Code"
   },

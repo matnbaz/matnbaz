@@ -45,6 +45,14 @@ export const Footer = (props: FooterProps) => {
               </div>
 
               <div>
+                <Link href="/support">
+                  <a className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
+                    {t('footer.support')}
+                  </a>
+                </Link>
+              </div>
+
+              <div>
                 <Link href="/faq">
                   <a className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
                     {t('footer.faq')}
