@@ -23,6 +23,7 @@ interface BasicLink {
   name: string;
   type: 'link';
   languagesScope?: string[];
+  pinging?: boolean;
   href: string;
   external?: boolean;
 }
@@ -31,6 +32,7 @@ interface Flyout {
   name: string;
   type: 'flyout';
   languagesScope?: string[];
+  pinging?: boolean;
   size: 'small' | 'normal';
   flyout: {
     links: Array<
@@ -87,6 +89,7 @@ export const Navbar = ({ className }: NavbarProps) => {
         type: 'link',
         name: t('navbar.support'),
         href: '/support',
+        pinging: true,
       },
       {
         type: 'flyout',
@@ -194,10 +197,16 @@ export const Navbar = ({ className }: NavbarProps) => {
                           pathname === link.href
                             ? 'text-black dark:text-white font-bold'
                             : 'text-secondary',
-                          'hover:text-black dark:hover:text-white'
+                          'hover:text-black dark:hover:text-white relative'
                         )}
                         target={link.external ? '_blank' : ''}
                       >
+                        {link.pinging && (
+                          <span className="flex h-2 w-2 absolute top-0 ltr:left-full rtl:right-full">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                          </span>
+                        )}
                         {link.name}
                       </a>
                     </Link>
