@@ -405,8 +405,8 @@ const HomePage: NextPage = () => {
 
           <div
             id="links"
-            className="mt-40 sm:mt-96"
-            // className="mt-20 sm:mt-40"
+            // className="mt-40 sm:mt-96"
+            className="mt-20 sm:mt-40"
           >
             <div className="m-auto max-w-7xl px-6">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-24 sm:grid-flow-row-dense">
