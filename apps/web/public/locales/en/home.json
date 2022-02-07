@@ -36,7 +36,7 @@
     "description": "We try to promote the open-source and free software culture, hoping to inspire Iranian developers to do more open-source work.",
     "education": {
       "title": "Educational Content",
-      "description": "Matnbaz' community members write posts about open-source. (In Persian)",
+      "description": "Our community members write posts about open-source. (In Persian)",
       "cta": "Show Blog"
     },
     "events": {
@@ -53,7 +53,7 @@
   "developers-network": {
     "title": "Connecting {{accent}}",
     "title-accent": "Developers",
-    "description": "Matnbaz tries to connect Iranian open-source enthusiasts in different ways.",
+    "description": "Matnbaz tries to connect Iranian open-source enthusiasts.",
     "discord-community": {
       "title": "Discord Community",
       "description": "You can meet other developers and find your future teammates in our Discord community.",
