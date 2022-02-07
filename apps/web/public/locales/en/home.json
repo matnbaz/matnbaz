@@ -65,6 +65,11 @@
       "cta": "Show Users Chart"
     }
   },
+  "support": {
+    "title": "Support Matnbaz",
+    "description": "Matnbaz needs support to grow and continue...",
+    "more-info": "More Info"
+  },
   "links": {
     "roadmap": {
       "title": "Roadmap",

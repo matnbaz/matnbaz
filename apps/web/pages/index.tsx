@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { CSSProperties, useEffect, useState } from 'react';
 import { GoPencil, GoRepo } from 'react-icons/go';
@@ -11,6 +12,7 @@ import {
   HiBookOpen,
   HiChevronDown,
   HiCollection,
+  HiHeart,
   HiLightningBolt,
   HiMap,
   HiQuestionMarkCircle,
@@ -377,35 +379,29 @@ const HomePage: NextPage = () => {
               </div>
             </div>
 
-            {/* <NextSectionChevron id="support" /> */}
+            <NextSectionChevron id="support" />
           </div>
 
-          {/* <div id="support" className="mt-20 sm:mt-40">
+          <div id="support" className="mt-20 sm:mt-40">
             <div className="bg-gradient-to-bl from-red-600 to-rose-600">
               <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
                 <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-                  به متن‌باز کمک کنید!
+                  {t('support.title')}
                 </h2>
                 <p className="mt-4 text-lg leading-6 text-red-200">
-                  متن‌باز برای ادامه پیدا‌کردن به کمک نیاز دارد.
+                  {t('support.description')}
                 </p>
                 <div className="mt-8 flex items-center justify-center flex-wrap gap-4">
-                  <Link href="/support#organizations">
+                  <Link href="/support">
                     <a className="w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-red-50 sm:w-auto">
                       <HiHeart className="w-5 h-5 ltr:mr-2 rtl:ml-2" />
-                      برای شرکت‌ها
-                    </a>
-                  </Link>
-                  <Link href="/support#personal">
-                    <a className="w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-red-50 sm:w-auto">
-                      <HiHeart className="w-5 h-5 ltr:mr-2 rtl:ml-2" />
-                      برای اشخاص
+                      {t('support.more-info')}
                     </a>
                   </Link>
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
           <div
             id="links"
