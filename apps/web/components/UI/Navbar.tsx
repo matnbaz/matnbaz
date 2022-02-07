@@ -98,7 +98,6 @@ export const Navbar = ({ className }: NavbarProps) => {
               type: 'link',
               name: t('navbar.about'),
               href: '/about',
-              languagesScope: ['fa'],
             },
             {
               type: 'link',
@@ -109,7 +108,6 @@ export const Navbar = ({ className }: NavbarProps) => {
               type: 'link',
               name: t('navbar.faq'),
               href: '/faq',
-              languagesScope: ['fa'],
             },
             {
               type: 'link',

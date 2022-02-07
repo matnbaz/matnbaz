@@ -31,13 +31,7 @@ export default About;
 export const getStaticProps: GetStaticProps<AboutProps> = async ({
   locale,
 }) => {
-  if (locale !== 'fa') {
-    return {
-      notFound: true,
-    };
-  }
-
-  const aboutMarkdown = readFileSync(join(process.cwd(), 'README.md'));
+  const aboutMarkdown = readFileSync(join(process.cwd(), `ABOUT-${locale}.md`));
   const renderedMarkdown = marked.parse(aboutMarkdown.toString());
 
   return {
