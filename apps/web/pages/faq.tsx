@@ -36,7 +36,9 @@ export default FaqPage;
 export const getStaticProps: GetStaticProps<FaqPageProps> = async ({
   locale,
 }) => {
-  const faqMarkdown = readFileSync(join(process.cwd(), `FAQ-${locale}.md`));
+  const faqMarkdown = readFileSync(
+    join(process.cwd(), `markdown/${locale}/FAQ.md`)
+  );
   const faqHtml = marked.parse(faqMarkdown.toString());
   const faq = faqMarkdown
     .toString()
