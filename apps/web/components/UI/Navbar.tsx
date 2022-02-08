@@ -99,18 +99,8 @@ export const Navbar = ({ className }: NavbarProps) => {
           links: [
             {
               type: 'link',
-              name: t('navbar.github-top-users'),
-              href: '/github/top-users',
-            },
-            {
-              type: 'link',
               name: t('navbar.about'),
               href: '/about',
-            },
-            {
-              type: 'link',
-              name: t('navbar.submit-user'),
-              href: '/submit-user',
             },
             {
               type: 'link',
@@ -119,14 +109,24 @@ export const Navbar = ({ className }: NavbarProps) => {
             },
             {
               type: 'link',
-              name: t('navbar.source-code'),
-              href: matnbazLinks.github,
-              external: true,
+              name: t('navbar.github-top-users'),
+              href: '/github/top-users',
+            },
+            {
+              type: 'link',
+              name: t('navbar.submit-user'),
+              href: '/submit-user',
             },
             {
               type: 'link',
               name: t('navbar.discord-community'),
               href: matnbazLinks.discord,
+              external: true,
+            },
+            {
+              type: 'link',
+              name: t('navbar.source-code'),
+              href: matnbazLinks.github,
               external: true,
             },
             {
