@@ -16,7 +16,7 @@ const About: NextPage<AboutProps> = ({ about }) => {
   const { t } = useTranslation('about');
 
   return (
-    <MainLayout withFooterPromo>
+    <MainLayout>
       <NextSeo title={t('page-title')} description={t('page-description')} />
       <div
         className="prose dark:prose-invert prose-h1:mt-10 max-w-4xl mx-auto mb-5"

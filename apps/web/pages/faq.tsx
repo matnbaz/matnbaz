@@ -18,7 +18,7 @@ const FaqPage: NextPage<FaqPageProps> = ({ faq, faqHtml }) => {
   const { t } = useTranslation('faq');
 
   return (
-    <MainLayout withFooterPromo>
+    <MainLayout>
       <NextSeo title={t('page-title')} description={t('page-description')} />
 
       <FAQPageJsonLd mainEntity={faq} />
