@@ -295,6 +295,7 @@ const HomePage: NextPage = () => {
                   <div id="source-code">
                     <Feature
                       centered
+                      external
                       title={t('promote-open-source.source-code.title')}
                       description={t(
                         'promote-open-source.source-code.description'
@@ -343,6 +344,7 @@ const HomePage: NextPage = () => {
                   <div id="discord-community">
                     <Feature
                       centered
+                      external
                       title={t('developers-network.discord-community.title')}
                       description={t(
                         'developers-network.discord-community.description'
