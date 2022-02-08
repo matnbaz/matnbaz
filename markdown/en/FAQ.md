@@ -18,6 +18,6 @@ If that's not the case, your user is probably not discovered yet. You could manu
 
 <!-- question-separator -->
 
-# Why is my repository not added to the respective collection?
+# Why is my repository not added to the related collection?
 
 Try to add related topics to your GitHub repository. For instance, if you have a Laravel package and you want it to be added to the Laravel collection, add `laravel` to the repo topics. Please note that abusing topics will result in your repos getting removed from the site.
