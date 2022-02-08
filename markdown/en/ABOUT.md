@@ -10,4 +10,8 @@ In the meantime, our community was growing, so we created a blog for community m
 
 # Future of Matnbaz
 
-We have many plans for the future of Matnbaz, which you can see in the [roadmap](https://github.com/orgs/matnbaz/projects/1/) page.
+We are planning to create solutions for Iranian open-source maintainers. The absence of services like Patreon and Open Collective is felt in the Iranian open-source community. We are planning to either somehow integrate them with Iranian Rial or create a similar platform.
+
+We also love to hold events related to the open-source, like hackathons and programming competitions.
+
+You can see some other things we're working on in the [roadmap](https://github.com/orgs/matnbaz/projects/1/) page.
