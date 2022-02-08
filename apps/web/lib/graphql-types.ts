@@ -27,6 +27,14 @@ export enum ArchiveStatusType {
   NotArchived = 'NOT_ARCHIVED'
 }
 
+/** The calendar type. */
+export enum Calendar {
+  /** Georgian calendar. */
+  Georgian = 'Georgian',
+  /** Persian / Jalali calendar. */
+  Persian = 'Persian'
+}
+
 export type Collect = Node & {
   __typename?: 'Collect';
   collection: Collection;
@@ -71,6 +79,11 @@ export type CollectionCollectsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
+
+export type CollectionDescriptionArgs = {
+  locale?: InputMaybe<Locale>;
+};
+
 /** Nice name, isn't it? */
 export type CollectionConnection = {
   __typename?: 'CollectionConnection';
@@ -104,13 +117,15 @@ export type DateObject = {
 
 
 export type DateObjectDifferenceArgs = {
-  persianNumbers?: InputMaybe<Scalars['Boolean']>;
+  calendar?: InputMaybe<Calendar>;
+  locale?: InputMaybe<Locale>;
 };
 
 
 export type DateObjectFormattedArgs = {
+  calendar?: InputMaybe<Calendar>;
   format?: InputMaybe<Scalars['String']>;
-  persianNumbers?: InputMaybe<Scalars['Boolean']>;
+  locale?: InputMaybe<Locale>;
 };
 
 /** The repo type used in filters. */
@@ -206,8 +221,17 @@ export enum LicenseOrder {
   RepositoriesDesc = 'REPOSITORIES_DESC'
 }
 
+/** A locale used for internationalization. */
+export enum Locale {
+  /** English */
+  En = 'En',
+  /** Farsi/Persian (The default language) */
+  Fa = 'Fa'
+}
+
 export type Metadata = {
   __typename?: 'Metadata';
+  totalCollectionsCount: Scalars['Int'];
   totalLanguagesCount: Scalars['Int'];
   totalOwnersCount: Scalars['Float'];
   totalReposCount: Scalars['Float'];
@@ -805,6 +829,7 @@ export type GetCollectionQueryVariables = Exact<{
   slug: Scalars['String'];
   reposCount?: InputMaybe<Scalars['Int']>;
   reposAfter?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Locale>;
 }>;
 
 
@@ -813,6 +838,7 @@ export type GetCollectionQuery = { __typename?: 'Query', collection?: { __typena
 export type GetCollectionsQueryVariables = Exact<{
   count?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Locale>;
 }>;
 
 
@@ -840,10 +866,12 @@ export type GetOwnerQueryVariables = Exact<{
 }>;
 
 
-export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'Owner', id: string, repositoriesCount: number, type: OwnerType, login: string, platformId: string, platform: PlatformType, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } } | null | undefined };
+export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'Owner', id: string, repositoriesCount: number, type: OwnerType, name?: string | null | undefined, login: string, platformId: string, platform: PlatformType, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } } | null | undefined };
 
 export type GetPostQueryVariables = Exact<{
   slug: Scalars['String'];
+  locale?: InputMaybe<Locale>;
+  calendar?: InputMaybe<Calendar>;
 }>;
 
 
@@ -852,6 +880,8 @@ export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: '
 export type GetPostsQueryVariables = Exact<{
   count?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Locale>;
+  calendar?: InputMaybe<Calendar>;
 }>;
 
 
@@ -875,6 +905,8 @@ export type GetRepositoryQueryVariables = Exact<{
   repo: Scalars['String'];
   platform: PlatformType;
   relatedReposFirst?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Locale>;
+  calendar?: InputMaybe<Calendar>;
 }>;
 
 
@@ -892,6 +924,8 @@ export type GetTagQueryVariables = Exact<{
   name: Scalars['String'];
   postsCount?: InputMaybe<Scalars['Int']>;
   postsAfter?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Locale>;
+  calendar?: InputMaybe<Calendar>;
 }>;
 
 
@@ -913,8 +947,8 @@ export const PostPreviewFragmentDoc = gql`
   }
   summaryLimited
   publishedAt {
-    formatted
-    difference
+    formatted(locale: $locale, calendar: $calendar)
+    difference(locale: $locale, calendar: $calendar)
   }
   author {
     id
@@ -944,10 +978,10 @@ export const RepoFullFragmentDoc = gql`
   isTemplate
   defaultBranch
   pushedAt {
-    difference(persianNumbers: true)
+    difference(locale: $locale, calendar: $calendar)
   }
   createdAt {
-    formatted(persianNumbers: true)
+    formatted(locale: $locale, calendar: $calendar)
   }
   homePage
   stargazersCount
@@ -1078,12 +1112,12 @@ export type SendSubmissionMutationHookResult = ReturnType<typeof useSendSubmissi
 export type SendSubmissionMutationResult = Apollo.MutationResult<SendSubmissionMutation>;
 export type SendSubmissionMutationOptions = Apollo.BaseMutationOptions<SendSubmissionMutation, SendSubmissionMutationVariables>;
 export const GetCollectionDocument = gql`
-    query GetCollection($slug: String!, $reposCount: Int = 12, $reposAfter: String) {
+    query GetCollection($slug: String!, $reposCount: Int = 12, $reposAfter: String, $locale: Locale = Fa) {
   collection(slug: $slug) {
     id
     name
     slug
-    description
+    description(locale: $locale)
     repositoriesCount
     image
     color {
@@ -1121,6 +1155,7 @@ export const GetCollectionDocument = gql`
  *      slug: // value for 'slug'
  *      reposCount: // value for 'reposCount'
  *      reposAfter: // value for 'reposAfter'
+ *      locale: // value for 'locale'
  *   },
  * });
  */
@@ -1136,7 +1171,7 @@ export type GetCollectionQueryHookResult = ReturnType<typeof useGetCollectionQue
 export type GetCollectionLazyQueryHookResult = ReturnType<typeof useGetCollectionLazyQuery>;
 export type GetCollectionQueryResult = Apollo.QueryResult<GetCollectionQuery, GetCollectionQueryVariables>;
 export const GetCollectionsDocument = gql`
-    query GetCollections($count: Int, $after: String) {
+    query GetCollections($count: Int, $after: String, $locale: Locale = Fa) {
   collections(first: $count, after: $after) {
     pageInfo {
       hasNextPage
@@ -1147,7 +1182,7 @@ export const GetCollectionsDocument = gql`
         id
         name
         slug
-        description
+        description(locale: $locale)
         repositoriesCount
         image
         color {
@@ -1173,6 +1208,7 @@ export const GetCollectionsDocument = gql`
  *   variables: {
  *      count: // value for 'count'
  *      after: // value for 'after'
+ *      locale: // value for 'locale'
  *   },
  * });
  */
@@ -1304,6 +1340,7 @@ export const GetOwnerDocument = gql`
     id
     repositoriesCount
     type
+    name
     login
     platformId
     platform
@@ -1342,7 +1379,7 @@ export type GetOwnerQueryHookResult = ReturnType<typeof useGetOwnerQuery>;
 export type GetOwnerLazyQueryHookResult = ReturnType<typeof useGetOwnerLazyQuery>;
 export type GetOwnerQueryResult = Apollo.QueryResult<GetOwnerQuery, GetOwnerQueryVariables>;
 export const GetPostDocument = gql`
-    query GetPost($slug: String!) {
+    query GetPost($slug: String!, $locale: Locale = Fa, $calendar: Calendar = Persian) {
   postBySlug(slug: $slug) {
     id
     slug
@@ -1354,8 +1391,8 @@ export const GetPostDocument = gql`
     }
     summaryLimited
     publishedAt {
-      formatted
-      difference
+      formatted(locale: $locale, calendar: $calendar)
+      difference(locale: $locale, calendar: $calendar)
     }
     author {
       id
@@ -1381,6 +1418,8 @@ export const GetPostDocument = gql`
  * const { data, loading, error } = useGetPostQuery({
  *   variables: {
  *      slug: // value for 'slug'
+ *      locale: // value for 'locale'
+ *      calendar: // value for 'calendar'
  *   },
  * });
  */
@@ -1396,7 +1435,7 @@ export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
 export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
 export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;
 export const GetPostsDocument = gql`
-    query GetPosts($count: Int = 12, $after: String) {
+    query GetPosts($count: Int = 12, $after: String, $locale: Locale = Fa, $calendar: Calendar = Persian) {
   posts(first: $count, after: $after) {
     pageInfo {
       hasNextPage
@@ -1413,8 +1452,8 @@ export const GetPostsDocument = gql`
         }
         summaryLimited
         publishedAt {
-          formatted
-          difference
+          formatted(locale: $locale, calendar: $calendar)
+          difference(locale: $locale, calendar: $calendar)
         }
         author {
           id
@@ -1443,6 +1482,8 @@ export const GetPostsDocument = gql`
  *   variables: {
  *      count: // value for 'count'
  *      after: // value for 'after'
+ *      locale: // value for 'locale'
+ *      calendar: // value for 'calendar'
  *   },
  * });
  */
@@ -1515,7 +1556,7 @@ export type GetRepositoriesQueryHookResult = ReturnType<typeof useGetRepositorie
 export type GetRepositoriesLazyQueryHookResult = ReturnType<typeof useGetRepositoriesLazyQuery>;
 export type GetRepositoriesQueryResult = Apollo.QueryResult<GetRepositoriesQuery, GetRepositoriesQueryVariables>;
 export const GetRepositoryDocument = gql`
-    query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!, $relatedReposFirst: Int = 8) {
+    query GetRepository($owner: String!, $repo: String!, $platform: PlatformType!, $relatedReposFirst: Int = 8, $locale: Locale = Fa, $calendar: Calendar = Persian) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
     ...repoFull
     relatedRepos(first: $relatedReposFirst) {
@@ -1550,6 +1591,8 @@ ${RepoPreviewFragmentDoc}`;
  *      repo: // value for 'repo'
  *      platform: // value for 'platform'
  *      relatedReposFirst: // value for 'relatedReposFirst'
+ *      locale: // value for 'locale'
+ *      calendar: // value for 'calendar'
  *   },
  * });
  */
@@ -1605,7 +1648,7 @@ export type GetSearchedRepositoriesQueryHookResult = ReturnType<typeof useGetSea
 export type GetSearchedRepositoriesLazyQueryHookResult = ReturnType<typeof useGetSearchedRepositoriesLazyQuery>;
 export type GetSearchedRepositoriesQueryResult = Apollo.QueryResult<GetSearchedRepositoriesQuery, GetSearchedRepositoriesQueryVariables>;
 export const GetTagDocument = gql`
-    query GetTag($name: String!, $postsCount: Int = 12, $postsAfter: String) {
+    query GetTag($name: String!, $postsCount: Int = 12, $postsAfter: String, $locale: Locale = Fa, $calendar: Calendar = Persian) {
   tag(name: $name) {
     name
     posts(first: $postsCount, after: $postsAfter) {
@@ -1638,6 +1681,8 @@ export const GetTagDocument = gql`
  *      name: // value for 'name'
  *      postsCount: // value for 'postsCount'
  *      postsAfter: // value for 'postsAfter'
+ *      locale: // value for 'locale'
+ *      calendar: // value for 'calendar'
  *   },
  * });
  */

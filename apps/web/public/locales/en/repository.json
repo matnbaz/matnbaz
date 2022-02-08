@@ -1,0 +1,14 @@
+{
+  "statistics": {
+    "open-issues-count": "Open Issues",
+    "forks-count": "Forks",
+    "stargazers-count": "Stars",
+    "created-at": "Created At",
+    "pushed-at": "Last Push",
+    "license": "License"
+  },
+  "view-repo": "View Repository",
+  "no-readme-found": "No README file was found.",
+  "related-projects": "Related Projects",
+  "no-projects-found": "No Projects Found."
+}

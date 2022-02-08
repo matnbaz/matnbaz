@@ -2,18 +2,19 @@ import { Popover, Transition } from '@headlessui/react';
 import { links as matnbazLinks } from '@matnbaz/common';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
+import { useTranslation } from 'next-i18next';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { CgClose } from 'react-icons/cg';
 import { HiChevronDown } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
 import { MatnbazLogo } from '../Icons/MatnbazLogo';
-import { RepositorySearchInput } from '../Repository/RepositorySearchInput';
 import { IconButton } from './IconButton';
+import { LocaleSelector } from './LocaleSelector';
 export interface NavbarProps {
   className?: string;
 }
@@ -21,6 +22,8 @@ export interface NavbarProps {
 interface BasicLink {
   name: string;
   type: 'link';
+  languagesScope?: string[];
+  pinging?: boolean;
   href: string;
   external?: boolean;
 }
@@ -28,6 +31,8 @@ interface BasicLink {
 interface Flyout {
   name: string;
   type: 'flyout';
+  languagesScope?: string[];
+  pinging?: boolean;
   size: 'small' | 'normal';
   flyout: {
     links: Array<
@@ -48,113 +53,118 @@ interface Flyout {
 
 type LinkItem = BasicLink | Flyout;
 
-const links: LinkItem[] = [
-  // {
-  //   type: 'flyout',
-  //   name: 'قابلیت‌ها',
-  //   size: 'normal',
-  //   flyout: {
-  //     links: [
-  //       {
-  //         type: 'link',
-  //         name: 'کاوش‌گر',
-  //         description:
-  //           'با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اپن‌سورس ایرانی را کشف کنید.',
-  //         href: '/explore',
-  //         icon: HiSearch,
-  //       },
-  //       {
-  //         type: 'link',
-  //         name: 'مجموعه‌ها',
-  //         description:
-  //           'مجموعه‌ها به شما کمک می‌کنند مخزن‌های متن‌باز مورد نظر را سریع‌تر و راحت‌تر پیدا کنید.',
-  //         href: '/collections',
-  //         icon: HiCollection,
-  //       },
-  //       {
-  //         type: 'link',
-  //         name: 'پروژه‌های منتخب',
-  //         description:
-  //           'آخر هر هفته در متن‌باز پروژه‌هایی به عنوان «پروژه‌های منتخب» انتخاب شده و در سایت و شبکه‌های اجتماعی متن‌باز قرار می‌گیرند.',
-  //         href: '/selections',
-  //         icon: HiStar,
-  //       },
-  //     ],
-  //     footerLinks: [
-  //       {
-  //         type: 'link',
-  //         name: 'ثبت کاربران',
-  //         description:
-  //           'کاربرانی که به صورت خودکار پیدا نشده‌اند را دستی اضافه کنید.',
-  //         href: '/submit-user',
-  //       },
-  //       {
-  //         type: 'link',
-  //         name: 'پرسش‌های متداول',
-  //         description: 'به پرسش‌های متداول شما اینجا پاسخ داده‌ایم.',
-  //         href: '/submit-user',
-  //       },
-  //     ],
-  //   },
-  // },
-  { type: 'link', name: 'خانه', href: '/' },
-  { type: 'link', name: 'کاوش‌گر', href: '/explore' },
-  { type: 'link', name: 'مجموعه‌ها', href: '/collections' },
-  // { type: 'link', name: 'پروژه‌های منتخب', href: '/selections' },
-  { type: 'link', name: 'بلاگ', href: '/blog' },
-  {
-    type: 'flyout',
-    name: 'بیشتر',
-    size: 'small',
-    flyout: {
-      links: [
-        {
-          type: 'link',
-          name: 'کاربران برتر گیت‌هاب',
-          href: '/github/top-users',
-        },
-        { type: 'link', name: 'درباره', href: '/about' },
-        { type: 'link', name: 'ثبت کاربر', href: '/submit-user' },
-        { type: 'link', name: 'پرسش‌های متداول', href: '/faq' },
-        {
-          type: 'link',
-          name: 'سورس‌کد متن‌باز',
-          href: matnbazLinks.github,
-          external: true,
-        },
-        {
-          type: 'link',
-          name: 'انجمن دیسکورد',
-          href: matnbazLinks.discord,
-          external: true,
-        },
-        {
-          type: 'link',
-          name: 'نقشه‌راه',
-          href: matnbazLinks.githubRoadmap,
-          external: true,
-        },
-        {
-          type: 'link',
-          name: 'هویت بصری',
-          href: matnbazLinks.visualIdentity,
-          external: true,
-        },
-      ],
-    },
-  },
-];
-
 export const Navbar = ({ className }: NavbarProps) => {
+  const { t } = useTranslation('common');
   const { setTheme, resolvedTheme } = useTheme();
   const [atFirst, setAtFirst] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+
   useScrollPosition(({ prevPos, currPos }) => {
     setAtFirst(currPos.y > -20);
   });
+
   useEffect(() => setMounted(true), []);
-  const { pathname } = useRouter();
+  const { pathname, locale } = useRouter();
+
+  const links = useMemo(() => {
+    const _links: LinkItem[] = [
+      { type: 'link', name: t('navbar.home'), href: '/' },
+      {
+        type: 'link',
+        name: t('navbar.explore'),
+        href: '/explore',
+      },
+      {
+        type: 'link',
+        name: t('navbar.collections'),
+        href: '/collections',
+      },
+      {
+        type: 'link',
+        name: t('navbar.blog'),
+        href: '/blog',
+      },
+      {
+        type: 'link',
+        name: t('navbar.support'),
+        href: '/support',
+        pinging: true,
+      },
+      {
+        type: 'flyout',
+        name: t('navbar.more'),
+        size: 'small',
+        flyout: {
+          links: [
+            {
+              type: 'link',
+              name: t('navbar.about'),
+              href: '/about',
+            },
+            {
+              type: 'link',
+              name: t('navbar.faq'),
+              href: '/faq',
+            },
+            {
+              type: 'link',
+              name: t('navbar.github-top-users'),
+              href: '/github/top-users',
+            },
+            {
+              type: 'link',
+              name: t('navbar.submit-user'),
+              href: '/submit-user',
+            },
+            {
+              type: 'link',
+              name: t('navbar.discord-community'),
+              href: matnbazLinks.discord,
+              external: true,
+            },
+            {
+              type: 'link',
+              name: t('navbar.source-code'),
+              href: matnbazLinks.github,
+              external: true,
+            },
+            {
+              type: 'link',
+              name: t('navbar.roadmap'),
+              href: matnbazLinks.githubRoadmap,
+              external: true,
+            },
+            {
+              type: 'link',
+              name: t('navbar.visual-identity'),
+              href: matnbazLinks.visualIdentity,
+              external: true,
+            },
+          ],
+        },
+      },
+    ];
+
+    const filterByLocale = (linksToFilter: any[]) =>
+      linksToFilter.filter(
+        (link) =>
+          typeof link.languagesScope === 'undefined' ||
+          link.languagesScope.includes(locale)
+      );
+
+    return filterByLocale(_links).map((link) =>
+      link.type === 'flyout'
+        ? {
+            ...link,
+            flyout: {
+              ...link.flyout,
+              links: filterByLocale(link.flyout.links),
+            },
+          }
+        : link
+    );
+  }, [locale]);
 
   return (
     <div
@@ -166,10 +176,10 @@ export const Navbar = ({ className }: NavbarProps) => {
       )}
     >
       <div className="flex flex-col w-full max-w-full md:max-w-[92rem] mx-auto py-3 md:py-6 px-2 md:px-8 space-y-6">
-        <div className="flex w-full justify-between items-center">
-          <div className="flex items-center space-x-8 space-x-reverse ml-4 md:ml-0">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center space-x-8 rtl:space-x-reverse ltr:mr-4 ltr:md:mr-0 rtl:ml-4 rtl:md:ml-0">
             <Link href="/">
-              <a className="flex space-x-3 space-x-reverse items-center">
+              <a className="flex space-x-3 rtl:space-x-reverse items-center">
                 <MatnbazLogo className="w-10 h-10 dark:text-white text-gray-900" />
 
                 <h2 className="hidden md:block text-3xl font-extrabold">
@@ -177,7 +187,7 @@ export const Navbar = ({ className }: NavbarProps) => {
                 </h2>
               </a>
             </Link>
-            <div className="hidden md:flex items-center flex-wrap space-x-4 space-x-reverse">
+            <div className="hidden md:flex items-center flex-wrap space-x-4 rtl:space-x-reverse">
               {links.map((link) => (
                 <div key={link.name} className="my-2">
                   {link.type === 'link' && (
@@ -187,10 +197,16 @@ export const Navbar = ({ className }: NavbarProps) => {
                           pathname === link.href
                             ? 'text-black dark:text-white font-bold'
                             : 'text-secondary',
-                          'hover:text-black dark:hover:text-white'
+                          'hover:text-black dark:hover:text-white relative'
                         )}
                         target={link.external ? '_blank' : ''}
                       >
+                        {link.pinging && (
+                          <span className="flex h-2 w-2 absolute top-0 ltr:left-full rtl:right-full">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                          </span>
+                        )}
                         {link.name}
                       </a>
                     </Link>
@@ -213,7 +229,7 @@ export const Navbar = ({ className }: NavbarProps) => {
                                 open
                                   ? 'text-black dark:text-white font-bold'
                                   : 'text-secondary',
-                                'mr-1 h-5 w-5 group-hover:text-black dark:group-hover:text-white'
+                                'ltr:ml-1 rtl:mr-1 h-5 w-5 group-hover:text-black dark:group-hover:text-white'
                               )}
                               aria-hidden="true"
                             />
@@ -265,7 +281,7 @@ export const Navbar = ({ className }: NavbarProps) => {
                                             />
                                           </div>
                                         )}
-                                        <div className="mr-4">
+                                        <div className="ltr:ml-4 rtl:mr-4">
                                           <p
                                             className={classNames(
                                               'text-base',
@@ -298,7 +314,7 @@ export const Navbar = ({ className }: NavbarProps) => {
                                               {item.name}
                                             </span>
                                             {item.isNew && (
-                                              <span className="mr-3 inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium leading-5 bg-primary-100 text-primary-800">
+                                              <span className="ltr:ml-3 rtl:mr-3 inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium leading-5 bg-primary-100 text-primary-800">
                                                 New
                                               </span>
                                             )}
@@ -323,38 +339,38 @@ export const Navbar = ({ className }: NavbarProps) => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4 space-x-reverse w-full md:w-auto">
-            <div className="w-full md:w-auto">
-              <RepositorySearchInput />
+          <div className="flex items-center space-x-4 rtl:space-x-reverse md:w-auto">
+            <div className="flex space-x-2 rtl:space-x-reverse items-center">
+              <LocaleSelector />
+              {mounted && (
+                <>
+                  <IconButton
+                    className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
+                    onClick={() =>
+                      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+                    }
+                  >
+                    {resolvedTheme === 'light' ? (
+                      <BsFillSunFill className="w-5 h-5" />
+                    ) : (
+                      <BsFillMoonFill className="w-5 h-5" />
+                    )}
+                  </IconButton>
+                  <IconButton
+                    className="block md:hidden dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
+                    onClick={() => {
+                      setMenuOpen((previousMenuOpen) => !previousMenuOpen);
+                    }}
+                  >
+                    {menuOpen ? (
+                      <CgClose className="w-5 h-5" />
+                    ) : (
+                      <AiOutlineMenu className="w-5 h-5" />
+                    )}
+                  </IconButton>
+                </>
+              )}
             </div>
-            {mounted && (
-              <div className="flex space-x-2 space-x-reverse items-center">
-                <IconButton
-                  className="dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
-                  onClick={() =>
-                    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-                  }
-                >
-                  {resolvedTheme === 'light' ? (
-                    <BsFillSunFill className="w-5 h-5" />
-                  ) : (
-                    <BsFillMoonFill className="w-5 h-5" />
-                  )}
-                </IconButton>
-                <IconButton
-                  className="block md:hidden dark:text-gray-200 dark:hover:text-white text-gray-700 hover:text-gray-800"
-                  onClick={() => {
-                    setMenuOpen((previousMenuOpen) => !previousMenuOpen);
-                  }}
-                >
-                  {menuOpen ? (
-                    <CgClose className="w-5 h-5" />
-                  ) : (
-                    <AiOutlineMenu className="w-5 h-5" />
-                  )}
-                </IconButton>
-              </div>
-            )}
           </div>
         </div>
 

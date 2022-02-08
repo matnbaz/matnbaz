@@ -12,40 +12,37 @@ import {
   TemplateStatusType,
 } from '../lib/graphql-types';
 
-export const repoOrderOptions: Record<
-  string,
-  { name: string; value: RepoOrder }
-> = {
-  TRENDING_WEEKLY: { name: 'رشد در مدت اخیر', value: RepoOrder.TrendingWeekly },
-  STARS_DESC: { name: 'بیشترین تعداد ستاره', value: RepoOrder.StarsDesc },
-  CREATED_DESC: { name: 'جدید‌ترین', value: RepoOrder.CreatedDesc },
-  PUSHED_DESC: { name: 'جدید‌ترین به‌روزرسانی', value: RepoOrder.PushedDesc },
+export const repoOrderOptions: Record<string, { value: RepoOrder }> = {
+  TRENDING_WEEKLY: { value: RepoOrder.TrendingWeekly },
+  STARS_DESC: { value: RepoOrder.StarsDesc },
+  CREATED_DESC: { value: RepoOrder.CreatedDesc },
+  PUSHED_DESC: { value: RepoOrder.PushedDesc },
 };
 
 export const forkStatusOptions: Record<
   ForkStatusType,
-  { name: string; value: ForkStatusType }
+  { value: ForkStatusType }
 > = {
-  ALL: { name: 'همه', value: ForkStatusType.All },
-  FORK: { name: 'فورک', value: ForkStatusType.Fork },
-  SOURCE: { name: 'سورس', value: ForkStatusType.Source },
+  ALL: { value: ForkStatusType.All },
+  FORK: { value: ForkStatusType.Fork },
+  SOURCE: { value: ForkStatusType.Source },
 };
 
 export const templateStatusOptions: Record<
   TemplateStatusType,
-  { name: string; value: TemplateStatusType }
+  { value: TemplateStatusType }
 > = {
-  ALL: { name: 'همه', value: TemplateStatusType.All },
-  NOT_TEMPLATE: { name: 'غیر قالب', value: TemplateStatusType.NotTemplate },
-  TEMPLATE: { name: 'قالب', value: TemplateStatusType.Template },
+  ALL: { value: TemplateStatusType.All },
+  NOT_TEMPLATE: { value: TemplateStatusType.NotTemplate },
+  TEMPLATE: { value: TemplateStatusType.Template },
 };
 
 export type TRepositoryFiltersState = {
   searchTerm: string | null;
   languages: GetLanguagesQuery['languages']['edges'][0]['node'][] | null;
-  order: { name: string; value: RepoOrder } | null;
-  forkStatus: { name: string; value: ForkStatusType };
-  templateStatus: { name: string; value: TemplateStatusType };
+  order: { value: RepoOrder } | null;
+  forkStatus: { value: ForkStatusType };
+  templateStatus: { value: TemplateStatusType };
 };
 
 export const initialFilters: TRepositoryFiltersState = {

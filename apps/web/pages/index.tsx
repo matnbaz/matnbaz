@@ -1,13 +1,18 @@
-import { links, persianNumbers } from '@matnbaz/common';
+import { links, localize } from '@matnbaz/common';
 import classNames from 'classnames';
 import { NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { CSSProperties, useEffect, useState } from 'react';
 import { GoPencil, GoRepo } from 'react-icons/go';
 import {
   HiBookOpen,
   HiChevronDown,
   HiCollection,
+  HiHeart,
   HiLightningBolt,
   HiMap,
   HiQuestionMarkCircle,
@@ -24,8 +29,10 @@ import { MainLayout } from '../components/Layout/MainLayout';
 import { Button } from '../components/UI/Button/Button';
 import { Card } from '../components/UI/Card';
 import { useMetadataQuery } from '../lib/graphql-types';
+import nextI18nextConfig from '../next-i18next.config';
 
 const HomePage: NextPage = () => {
+  const { t } = useTranslation('home');
   const { data: metadata } = useMetadataQuery();
   const [githubStargazersCount, setGithubStargazersCount] = useState<
     number | null
@@ -33,6 +40,7 @@ const HomePage: NextPage = () => {
   const [discordPresenceCount, setDiscordPresenceCount] = useState<
     number | null
   >(null);
+  const { locale } = useRouter();
 
   useEffect(() => {
     const updateStargazersCount = async () => {
@@ -58,9 +66,9 @@ const HomePage: NextPage = () => {
   return (
     <MainLayout withoutPadding maxWidth={false}>
       <NextSeo
-        title="جامعه اُپِن‌سورس ایرانی"
-        titleTemplate="متن‌باز – %s"
-        description="متن‌باز با هدف جمع‌آوری و معرفی پروژه‌ها و توسعه‌دهندگان ایرانی، ترویج فرهنگ اپن‌سورس، متصل کردن توسعه‌دهندگان ایرانی و ارائه راهکار‌های حمایتی برای توسعه‌دهندگان اپن‌سورس حرفه‌ای ساخته شده‌است."
+        title={t('page-title')}
+        description={t('page-description')}
+        titleTemplate={`${t('site-name', { ns: 'common' })} – %s`}
       />
 
       <SocialProfileJsonLd
@@ -81,34 +89,37 @@ const HomePage: NextPage = () => {
 
       <div className="overflow-hidden mb-12 sm:mb-24">
         <div className="h-screen md:min-h-[40rem] flex flex-col items-center max-w-8xl mx-auto">
-          <div className="m-auto px-4 sm:px-6 sm:text-center lg:text-right flex items-center">
+          <div className="m-auto px-4 sm:px-6 sm:text-center ltr:lg:text-left rtl:lg:text-right flex items-center">
             <div className="grid lg:grid-cols-2 gap-5">
               <div className="">
                 <div className="mt-4 text-4xl tracking-tight font-extrabold sm:mt-5 sm:text-5xl lg:mt-6 xl:text-5xl">
                   <h1 className="inline">
                     <span className="text-transparent bg-clip-text ltr:bg-gradient-to-r rtl:bg-gradient-to-l from-primary-400 to-primary-500">
-                      متن‌باز
+                      {t('hero.title-h1')}
                     </span>
                   </h1>
                   :{' '}
-                  <h2 className="inline">
-                    جامعه اُپِن‌سورس{' '}
-                    <span className="text-transparent bg-clip-text ltr:bg-gradient-to-r rtl:bg-gradient-to-l from-green-400 to-red-600">
-                      ایرانی
-                    </span>
-                  </h2>
+                  <h2
+                    className="inline"
+                    dangerouslySetInnerHTML={{
+                      __html: `<span>${t('hero.title-h2', {
+                        interpolation: { escapeValue: false },
+                        accent: `<span class="text-transparent bg-clip-text ltr:bg-gradient-to-r rtl:bg-gradient-to-l from-green-400 to-red-600">${t(
+                          'hero.title-h2-accent'
+                        )}</span>`,
+                      })}</span>`,
+                    }}
+                  />
                 </div>
+
                 <p className="mt-3 text-base text-gray-700 dark:text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  متن‌باز با هدف جمع‌آوری و معرفی پروژه‌ها و توسعه‌دهندگان
-                  ایرانی، ترویج فرهنگ اپن‌سورس، متصل کردن توسعه‌دهندگان ایرانی و
-                  ارائه راهکار‌های حمایتی برای توسعه‌دهندگان اپن‌سورس حرفه‌ای
-                  ساخته شده‌است.
+                  {t('hero.description')}
                 </p>
                 <div className="mt-8 sm:mt-12">
-                  <div className="mt-3 space-x-3 space-x-reverse">
+                  <div className="mt-3 space-x-3 rtl:space-x-reverse">
                     <Button.Primary href="#more" size="lg">
-                      اطلاعات بیش‌تر
-                      <HiChevronDown className="w-5 h-5 mr-2" />
+                      {t('hero.more-info')}
+                      <HiChevronDown className="w-5 h-5 ltr:ml-2 rtl:mr-2" />
                     </Button.Primary>
                   </div>
                 </div>
@@ -132,7 +143,7 @@ const HomePage: NextPage = () => {
                     </a>
                   </div>
                   <div className="flow-root self-center mt-8 lg:mt-0">
-                    <div className="-mt-4 -mr-8 flex flex-wrap justify-between lg:-mr-4">
+                    <div className="-mt-4 ltr:-ml-8 rtl:-mr-8 flex flex-wrap justify-between ltr:lg:-ml-4 rtl:lg:-mr-4">
                       <SponsorImage
                         name="Empty sponsor"
                         image="/sponsors/empty-light.png"
@@ -154,17 +165,22 @@ const HomePage: NextPage = () => {
           <div id="ease-discovery">
             <FeatureCategory
               title={
-                <>
-                  جمع‌آوری{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary-400 to-primary-500">
-                    پروژه‌های ایرانی
-                  </span>
-                </>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: `<span>${t('ease-discovery.title', {
+                      interpolation: { escapeValue: false },
+                      accent: `<span class="text-transparent bg-clip-text bg-gradient-to-l from-primary-400 to-primary-500"> ${t(
+                        'ease-discovery.title-accent'
+                      )}</span>`,
+                    })}
+                `,
+                  }}
+                />
               }
               description={
                 <>
-                  متن‌باز سعی بر جمع‌آوری پروژه‌ها و توسعه‌دهندگان ایرانی دارد.
-                  {metadata && (
+                  {t('ease-discovery.description')}
+                  {/* {metadata && (
                     <>
                       {' '}
                       در حال حاضر متن‌باز موفق به پیدا‌کردن{' '}
@@ -183,7 +199,7 @@ const HomePage: NextPage = () => {
                       </span>{' '}
                       شده است.
                     </>
-                  )}
+                  )} */}
                 </>
               }
               // با متن‌باز شما می‌توانید پروژه های اپن‌سورس (Open-Source) مختلف ایرانی را کشف کنید. اگر شما هم کار اپن‌سورس کرده‌اید، به احتمال زیاد اسم خود را در سایت پیدا خواهید کرد!
@@ -195,10 +211,10 @@ const HomePage: NextPage = () => {
                   <div id="explorer" className="md:col-span-2 lg:col-span-1">
                     <Feature
                       centered
-                      title="کاوش‌گر"
-                      description="با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اپن‌سورس ایرانی را کشف کنید."
+                      title={t('ease-discovery.explorer.title')}
+                      description={t('ease-discovery.explorer.description')}
                       href="/explore"
-                      cta="مشاهده کاوش‌گر"
+                      cta={t('ease-discovery.explorer.cta')}
                       icon={HiSearch}
                       iconWrapperClassName="bg-gradient-to-bl from-green-500 to-emerald-400"
                     />
@@ -206,10 +222,10 @@ const HomePage: NextPage = () => {
                   <div id="collections">
                     <Feature
                       centered
-                      title="مجموعه‌ها"
-                      description="مجموعه‌ها به شما کمک می‌کنند مخزن‌های اپن‌سورس مورد نظر را سریع‌تر و راحت‌تر پیدا کنید."
+                      title={t('ease-discovery.collections.title')}
+                      description={t('ease-discovery.collections.description')}
                       href="/collections"
-                      cta="مشاهده مجموعه‌ها"
+                      cta={t('ease-discovery.collections.cta')}
                       icon={HiCollection}
                       iconWrapperClassName="bg-gradient-to-bl from-red-500 to-rose-400"
                     />
@@ -217,10 +233,10 @@ const HomePage: NextPage = () => {
                   <div id="selections">
                     <Feature
                       centered
-                      title="پروژه‌های منتخب"
-                      description="آخر هر هفته در متن‌باز پروژه‌هایی انتخاب شده و در سایت و شبکه‌های اجتماعی متن‌باز قرار می‌گیرند."
+                      title={t('ease-discovery.selections.title')}
+                      description={t('ease-discovery.selections.description')}
                       href="/blog/tags/معرفی_پروژه"
-                      cta="مشاهده پروژه‌های منتخب"
+                      cta={t('ease-discovery.selections.cta')}
                       icon={HiSparkles}
                       iconWrapperClassName="bg-gradient-to-bl from-pink-500 to-pink-400"
                     />
@@ -235,14 +251,19 @@ const HomePage: NextPage = () => {
           <div id="promote-open-source" className="mt-40 sm:mt-96">
             <FeatureCategory
               title={
-                <>
-                  ترویج{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary-400 to-primary-500">
-                    فرهنگ اپن‌سورس
-                  </span>
-                </>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: `<span>${t('promote-open-source.title', {
+                      interpolation: { escapeValue: false },
+                      accent: `<span class="text-transparent bg-clip-text bg-gradient-to-l from-primary-400 to-primary-500"> ${t(
+                        'promote-open-source.title-accent'
+                      )}</span>`,
+                    })}
+                `,
+                  }}
+                />
               }
-              description="متن‌باز قصد دارد با ترویج فرهنگ اپن‌سورس، توسعه‌دهندگان را به انجام پروژه‌های اپن‌سورس حرفه‌ای ترغیب کند."
+              description={t('promote-open-source.description')}
             />
             <div className="mt-12 lg:mt-28">
               <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6 space-y-36">
@@ -250,39 +271,44 @@ const HomePage: NextPage = () => {
                   <div id="education" className="md:col-span-2 lg:col-span-1">
                     <Feature
                       centered
-                      title="مطالب آموزشی"
-                      description="نویسندگان انجمن متن‌باز پست‌های آموزشی با موضوع اپن‌سورس منتشر می‌کنند."
+                      title={t('promote-open-source.education.title')}
+                      description={t(
+                        'promote-open-source.education.description'
+                      )}
                       iconWrapperClassName="bg-gradient-to-bl from-purple-500 to-purple-400"
                       icon={GoPencil}
-                      cta="مشاهده بلاگ"
+                      cta={t('promote-open-source.education.cta')}
                       href={`/blog`}
                     />
                   </div>
                   <div id="events">
                     <Feature
                       centered
-                      title="رویداد‌های برنامه‌نویسی"
-                      description="دوست داریم در آینده رویداد‌هایی با محوریت برنامه‌نویسی و اپن‌سورس برگزار کنیم."
+                      title={t('promote-open-source.events.title')}
+                      description={t('promote-open-source.events.description')}
                       iconWrapperClassName="bg-gradient-to-bl from-cyan-500 to-cyan-400"
                       icon={HiLightningBolt}
                       disabled
-                      cta="در آینده"
+                      cta={t('in-future')}
                     />
                   </div>
                   <div id="source-code">
                     <Feature
                       centered
-                      title="سورس‌کد متن‌باز"
-                      description="سورس‌کد بک‌اند، فرانت‌اند، اپلیکیشن موبایل و فایل‌های گرافیکی متن‌باز به صورت اپن‌سورس در دسترس عموم قرار دارند."
+                      external
+                      title={t('promote-open-source.source-code.title')}
+                      description={t(
+                        'promote-open-source.source-code.description'
+                      )}
                       iconWrapperClassName="bg-gradient-to-bl from-yellow-500 to-orange-400"
                       icon={GoRepo}
-                      cta="مشاهده سورس‌کد"
+                      cta={t('promote-open-source.source-code.cta')}
                       href={links.githubRepo}
                       badge={
                         githubStargazersCount !== null && (
                           <span className="flex justify-center items-center">
-                            <HiStar className="ml-1 w-4 h-4" />
-                            {persianNumbers(githubStargazersCount)}
+                            <HiStar className="ltr:mr-1 rtl:ml-1 w-4 h-4" />
+                            {localize(githubStargazersCount.toString(), locale)}
                           </span>
                         )
                       }
@@ -298,14 +324,19 @@ const HomePage: NextPage = () => {
           <div id="developers-network" className="mt-40 sm:mt-96">
             <FeatureCategory
               title={
-                <>
-                  متصل‌کردن{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary-400 to-primary-500">
-                    توسعه‌دهندگان
-                  </span>
-                </>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: `<span>${t('developers-network.title', {
+                      interpolation: { escapeValue: false },
+                      accent: `<span class="text-transparent bg-clip-text bg-gradient-to-l from-primary-400 to-primary-500"> ${t(
+                        'developers-network.title-accent'
+                      )}</span>`,
+                    })}
+              `,
+                  }}
+                />
               }
-              description="متن‌باز سعی در متصل کردن افراد فعال در فضای اپن‌سورس ایران را دارد."
+              description={t('developers-network.description')}
             />
             <div className="mt-12 lg:mt-28">
               <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
@@ -313,17 +344,20 @@ const HomePage: NextPage = () => {
                   <div id="discord-community">
                     <Feature
                       centered
-                      title="انجمن دیسکورد متن‌باز"
-                      description="در انجمن متن‌باز افراد می‌توانند با توسعه‌دهندگان دیگر آشنا شوند و شبکه خود را گسترش دهند."
+                      external
+                      title={t('developers-network.discord-community.title')}
+                      description={t(
+                        'developers-network.discord-community.description'
+                      )}
                       iconWrapperClassName="bg-gradient-to-bl from-[#5865F2] to-[#7E88F5]"
                       icon={SiDiscord}
-                      cta="ورود به سرور"
+                      cta={t('developers-network.discord-community.cta')}
                       href={links.discord}
                       badge={
                         discordPresenceCount !== null && (
                           <span className="flex justify-center items-center">
-                            <HiStatusOnline className="ml-1 w-4 h-4" />
-                            {persianNumbers(discordPresenceCount)}
+                            <HiStatusOnline className="ltr:mr-1 rtl:ml-1 w-4 h-4" />
+                            {localize(discordPresenceCount.toString(), locale)}
                           </span>
                         )
                       }
@@ -332,63 +366,59 @@ const HomePage: NextPage = () => {
                   <div id="top-users">
                     <Feature
                       centered
-                      title="کاربران برتر گیت‌هاب"
-                      description="در این صفحه کاربران ایرانی گیت‌هاب بر اساس مشارکت‌های عمومی آن‌ها به مخزن‌های اپن‌سورس لیست شده‌اند."
+                      title={t('developers-network.top-users.title')}
+                      description={t(
+                        'developers-network.top-users.description'
+                      )}
                       iconWrapperClassName="bg-gradient-to-bl from-teal-500 to-teal-400"
                       icon={HiUsers}
-                      cta="مشاهده کاربران"
+                      cta={t('developers-network.top-users.cta')}
                       href={`/github/top-users`}
-                      badge="جدید"
+                      badge={t('new')}
                     />
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* <NextSectionChevron id="support" /> */}
+            <NextSectionChevron id="support" />
           </div>
 
-          {/* <div id="support" className="mt-20 sm:mt-40">
+          <div id="support" className="mt-20 sm:mt-40">
             <div className="bg-gradient-to-bl from-red-600 to-rose-600">
               <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
                 <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-                  به متن‌باز کمک کنید!
+                  {t('support.title')}
                 </h2>
                 <p className="mt-4 text-lg leading-6 text-red-200">
-                  متن‌باز برای ادامه پیدا‌کردن به کمک نیاز دارد.
+                  {t('support.description')}
                 </p>
                 <div className="mt-8 flex items-center justify-center flex-wrap gap-4">
-                  <Link href="/support#organizations">
+                  <Link href="/support">
                     <a className="w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-red-50 sm:w-auto">
-                      <HiHeart className="w-5 h-5 ml-2" />
-                      برای شرکت‌ها
-                    </a>
-                  </Link>
-                  <Link href="/support#personal">
-                    <a className="w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-red-50 sm:w-auto">
-                      <HiHeart className="w-5 h-5 ml-2" />
-                      برای اشخاص
+                      <HiHeart className="w-5 h-5 ltr:mr-2 rtl:ml-2" />
+                      {t('support.more-info')}
                     </a>
                   </Link>
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
           <div
             id="links"
-            className="mt-40 sm:mt-96"
-            // className="mt-20 sm:mt-40"
+            // className="mt-40 sm:mt-96"
+            className="mt-20 sm:mt-40"
           >
             <div className="m-auto max-w-7xl px-6">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-24 sm:grid-flow-row-dense">
                 <div id="roadmap" className="md:col-span-2 lg:col-span-1">
                   <Feature
                     centered
-                    title="نقشه‌راه"
-                    description="برنامه متن‌باز برای قابلیت‌ها‌ی آینده و مواردی که بر روی آن‌ها کار می‌کنیم را مشاهده کنید."
+                    title={t('links.roadmap.title')}
+                    description={t('links.roadmap.description')}
                     href={links.githubRoadmap}
-                    cta="مشاهده نقشه‌راه"
+                    cta={t('links.roadmap.cta')}
                     external
                     icon={HiMap}
                     iconWrapperClassName="bg-gradient-to-bl from-green-500 to-green-400"
@@ -398,22 +428,22 @@ const HomePage: NextPage = () => {
                 <div id="faq">
                   <Feature
                     centered
-                    title="پرسش‌های متداول"
-                    description="در این صفحه پرسش‌هایی که به‌صورت متداول از ما پرسیده شده را مشاهده می‌کنید."
+                    title={t('links.faq.title')}
+                    description={t('links.faq.description')}
                     href="/faq"
-                    cta="مشاهده پرسش‌ها"
+                    cta={t('links.faq.cta')}
                     icon={HiQuestionMarkCircle}
                     iconWrapperClassName="bg-gradient-to-bl from-indigo-500 to-indigo-400"
                   />
                 </div>
 
-                <div id="guide">
+                <div id="guides">
                   <Feature
                     centered
-                    title="راهنماهای متن‌باز"
-                    description="اگر قصد شروع یک پروژه اپن‌سورس را دارید، این راهنما‌ها شروع خیلی خوبی برای شما هستند."
+                    title={t('links.guides.title')}
+                    description={t('links.guides.description')}
                     href="https://opensource.guide/fa/"
-                    cta="مشاهده راهنما‌ها"
+                    cta={t('links.guides.cta')}
                     external
                     icon={HiBookOpen}
                     iconWrapperClassName="bg-gradient-to-bl from-amber-500 to-amber-400"
@@ -573,7 +603,7 @@ const LinkCard = ({
 }: LinkCardProps) => {
   return (
     <Card bgColor="standout" border="none" href={href}>
-      <div className="flex items-center space-x-4 space-x-reverse">
+      <div className="flex items-center space-x-4 rtl:space-x-reverse">
         <div className={classNames('p-3 rounded-r-lg', iconWrapperClassName)}>
           <Icon className="text-white w-5 h-5" />
         </div>
@@ -596,14 +626,14 @@ const NextSectionChevron = ({ id }: NextSectionChevronProps) => {
   );
 };
 
-//  <div className="mx-auto w-[1px] h-24 bg-gradient-to-b from-transparent to-green-400" />
-//  <div className="flex items-center justify-center">
-//  <div className="bg-gradient-to-b from-green-400 to-green-500 rounded-full p-2">
-//    <HiUserGroup className="text-white w-4 h-4" />
-//  </div>
-// </div>
-// <h1 className="mt-2 text-center text-2xl font-light bg-gradient-to-bl from-green-400 to-green-500 text-transparent bg-clip-text">
-//  انجمن توسعه‌دهندگان
-// </h1>
-
-// <span className="mr-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-primary-100 text-primary-800 dark:bg-primary-600 dark:text-primary-100">جدید</span>
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'home'],
+        nextI18nextConfig
+      )),
+    },
+  };
+}

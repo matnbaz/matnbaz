@@ -1,5 +1,12 @@
 ![Matnbaz Logo](https://raw.githubusercontent.com/matnbaz/visual/main/readme-logo.png)
 
+[![Discord](https://img.shields.io/discord/912032955956871188?label=Discord%20Server&logo=discord)](https://discord.com/invite/SNHSYWsKYQ)
+[![Telegram](https://img.shields.io/badge/Telegram%20Channel-Join-26A5E4?logo=telegram)](https://t.me/matnbaz_net)
+[![Instagram](https://img.shields.io/badge/Instagram%20Page-Follow-E4405F?logo=instagram)](https://www.instagram.com/matnbaz_net)
+[![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fmatnbaz.net&label=Tweet)](https://twitter.com/intent/tweet?text=%D8%A8%D9%87%20%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2%20%DB%8C%DA%A9%20%D8%B3%D8%B1%DB%8C%20%D8%A8%D8%B2%D9%86%DB%8C%D8%AF.%20%0A&url=matnbaz.net&via=matnbaz_net)
+
+<!-- [![Twitter](![Twitter](https://img.shields.io/twitter/follow/matnbaz_net?label=Twitter)](https://twitter.com/matnbaz_net) -->
+
 # انگیزه
 
 ایده و انگیزه پروژه وقتی به ذهن ما رسید که خودمان شروع به ساخت و
@@ -11,7 +18,7 @@
 
 # نحوه کار
 
-نرم‌افزار سمت سرور ما - [که اپن‌سورس است](https://github.com/matnbaz/matnbaz) - در فاصله‌های معین، به دنبال مخزن‌های ایرانی شروع به گردش در گیت‌هاب می‌کند. مخزن‌هایی که با معیار‌های تعریف شده هماهنگ هستند (مواردی مانند حداقل ستاره) به لیست مخزن‌های سایت اضافه می شوند و قابل مشاهده از بخش [کاوش](https://matnbaz.net/explore) سایت هستند.
+نرم‌افزار سمت سرور ما - [که اپن‌سورس است](https://github.com/matnbaz/matnbaz) - در فاصله‌های معین، به دنبال مخزن‌های ایرانی شروع به گردش در گیت‌هاب می‌کند. مخزن‌هایی که با معیار‌های تعریف شده هماهنگ هستند (مواردی مانند حداقل ستاره) به لیست مخزن‌های سایت اضافه می شوند و قابل مشاهده از بخش [جست‌و‌جو](https://matnbaz.net/explore) سایت هستند.
 
 اما هم‌چنان ممکن است مخازنی به طور اشتباه شناسایی و ذخیره شوند. برای حل این مشکل قابلیت گزارش را به کاربران و مخزن‌ها اضافه کردیم تا در صورت مشاهده مخزن‌های غیر‌مرتبط،‌ بازدید‌کنندگان بتوانند آن‌ها را گزارش دهند تا به لیست سیاه اضافه شوند.
 

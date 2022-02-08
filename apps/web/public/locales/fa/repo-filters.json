@@ -1,0 +1,43 @@
+{
+  "order": {
+    "title": "مرتب‌سازی بر اساس",
+    "options": {
+      "CREATED_ASC": "قدیمی‌ترین",
+      "CREATED_DESC": "جدید‌ترین",
+      "PUSHED_ASC": "قدیمی‌ترین بروزرسانی",
+      "PUSHED_DESC": "جدید‌ترین بروزرسانی",
+      "STARS_DESC": "بیش‌ترین تعداد ستاره",
+      "TRENDING_MONTHLY": "رشد (ماه اخیر)",
+      "TRENDING_WEEKLY": "رشد (هفته اخیر)",
+      "TRENDING_YEARLY": "رشد (سال اخیر)"
+    }
+  },
+  "fork-status": {
+    "title": "وضعیت فورک",
+    "options": {
+      "ALL": "همه",
+      "FORK": "فورک",
+      "SOURCE": "سورس"
+    }
+  },
+  "template-status": {
+    "title": "وضعیت قالب (Template)",
+    "options": {
+      "ALL": "همه",
+      "NOT_TEMPLATE": "غیر قالب",
+      "TEMPLATE": "قالب"
+    }
+  },
+  "search": {
+    "title": "جست‌و‌جو",
+    "placeholder": "شروع به تایپ کنید..."
+  },
+  "language": {
+    "title": "زبان برنامه‌نویسی",
+    "search-placeholder": "جست‌و‌جو...",
+    "no-result-found": "نتیجه‌ای پیدا نشد.",
+    "error-occurred": "خطایی رخ داد.",
+    "try-again": "امتحان مجدد"
+  },
+  "remove-filters": "حذف فیلتر‌ها"
+}

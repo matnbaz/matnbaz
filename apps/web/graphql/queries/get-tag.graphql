@@ -1,4 +1,10 @@
-query GetTag($name: String!, $postsCount: Int = 12, $postsAfter: String) {
+query GetTag(
+  $name: String!
+  $postsCount: Int = 12
+  $postsAfter: String
+  $locale: Locale = Fa
+  $calendar: Calendar = Persian
+) {
   tag(name: $name) {
     name
     posts(first: $postsCount, after: $postsAfter) {

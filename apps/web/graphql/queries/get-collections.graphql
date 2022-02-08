@@ -1,4 +1,4 @@
-query GetCollections($count: Int, $after: String) {
+query GetCollections($count: Int, $after: String, $locale: Locale = Fa) {
   collections(first: $count, after: $after) {
     pageInfo {
       hasNextPage
@@ -9,7 +9,7 @@ query GetCollections($count: Int, $after: String) {
         id
         name
         slug
-        description
+        description(locale: $locale)
         repositoriesCount
         image
         color {

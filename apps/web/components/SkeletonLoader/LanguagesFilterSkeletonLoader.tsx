@@ -2,7 +2,7 @@ import { SkeletonLoaderShape } from './SkeletonLoaderShape';
 
 export const LanguagesFilterSkeletonLoader = () => {
   return (
-    <div className="flex items-center space-x-2 space-x-reverse">
+    <div className="flex items-center space-x-2 rtl:space-x-reverse">
       <SkeletonLoaderShape
         shape="rectangle"
         width="15px"

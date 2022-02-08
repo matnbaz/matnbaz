@@ -2,12 +2,13 @@ query GetCollection(
   $slug: String!
   $reposCount: Int = 12
   $reposAfter: String
+  $locale: Locale = Fa
 ) {
   collection(slug: $slug) {
     id
     name
     slug
-    description
+    description(locale: $locale)
     repositoriesCount
     image
     color {

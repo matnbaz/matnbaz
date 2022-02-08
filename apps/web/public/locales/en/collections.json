@@ -1,0 +1,7 @@
+{
+  "page-title": "Collections",
+  "page-description": "Collections help you find open-source repositories that fit your need easier and faster.",
+  "no-result-found": "No collections found.",
+  "all-collections": "View All Collections",
+  "repositories-count": "{{repositoriesCount}} Project(s)"
+}

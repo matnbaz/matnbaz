@@ -1,4 +1,5 @@
 const withNx = require('@nrwl/next/plugins/with-nx');
+const { i18n } = require('./next-i18next.config');
 
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
@@ -15,7 +16,9 @@ const nextConfig = {
 };
 
 module.exports = {
-  ...withNx(nextConfig), async redirects() {
+  ...withNx(nextConfig),
+  i18n,
+  async redirects() {
     return [
       {
         source: "/explorer/:path*",

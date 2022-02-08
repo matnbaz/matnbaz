@@ -20,6 +20,7 @@ query GetOwner(
     id
     repositoriesCount
     type
+    name
     login
     platformId
     platform

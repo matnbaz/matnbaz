@@ -1,0 +1,90 @@
+{
+  "page-title": "The Iranian open-source community",
+  "page-description": "Matnbaz is created to detect and collect Iranian open-source projects and maintainers, promote open-source, connect developers and create financial solutions for Iranian open-source maintainers.",
+  "new": "New",
+  "in-future": "In Future",
+  "hero": {
+    "title-h1": "Matnbaz",
+    "title-h2": "The {{accent}} open-source community",
+    "title-h2-accent": "Iranian",
+    "description": "Matnbaz (\"open-source\" in Persian, pronounced |matn baaz|) is created to detect and collect Iranian open-source projects and maintainers, promote open-source, connect developers and create financial solutions for Iranian open-source maintainers.",
+    "more-info": "More Info"
+  },
+  "ease-discovery": {
+    "title": "Collecting {{accent}}",
+    "title-accent": "Iranian Projects",
+    "description": "Matnbaz tries to detect and collect all existing Iranian open-source maintainers and their repositories.",
+    "explorer": {
+      "title": "Explorer",
+      "description": "Find Iranian open-source packages, libraries and projects using different filters.",
+      "cta": "See Explorer"
+    },
+    "collections": {
+      "title": "Collections",
+      "description": "Collections help you find open-source repositories that fit your need easier and faster.",
+      "cta": "See Collections"
+    },
+    "selections": {
+      "title": "Selections",
+      "description": "Every weekend, we select a few open-source projects and feature them in a blog post. (written in Persian)",
+      "cta": "See Selections"
+    }
+  },
+  "promote-open-source": {
+    "title": "Promoting {{accent}}",
+    "title-accent": "Open-Source",
+    "description": "We try to promote the open-source and free software culture, hoping to inspire Iranian developers to do more open-source work.",
+    "education": {
+      "title": "Educational Content",
+      "description": "Our community members write posts about open-source. (In Persian)",
+      "cta": "Show Blog"
+    },
+    "events": {
+      "title": "Events",
+      "description": "We'd love to hold events and competitions about open-source developments in the future.",
+      "cta": "Show Events"
+    },
+    "source-code": {
+      "title": "Matnbaz is open-source",
+      "description": "The code for back-end, front-end, mobile app and all the graphical content are open-source and publicly available.",
+      "cta": "Show Repository"
+    }
+  },
+  "developers-network": {
+    "title": "Connecting {{accent}}",
+    "title-accent": "Developers",
+    "description": "Matnbaz tries to connect Iranian open-source enthusiasts.",
+    "discord-community": {
+      "title": "Discord Community",
+      "description": "You can meet other developers and find your future teammates in our Discord community.",
+      "cta": "Join Server"
+    },
+    "top-users": {
+      "title": "Top Users Chart",
+      "description": "Meet the most active Iranian developers in GitHub based on their contributions count.",
+      "cta": "Show Users Chart"
+    }
+  },
+  "support": {
+    "title": "Support Matnbaz",
+    "description": "Matnbaz needs support to grow and continue...",
+    "more-info": "More Info"
+  },
+  "links": {
+    "roadmap": {
+      "title": "Roadmap",
+      "description": "See what features we're working on and what are our plans for the future of Matnbaz.",
+      "cta": "Show Roadmap"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "description": "Read the answers of questions we've been asked about frequently.",
+      "cta": "Show FAQ"
+    },
+    "guides": {
+      "title": "Open-Source Guides",
+      "description": "If you're planning to start an open-source project, the open-source guides will definitely help you. (Not maintained by Matnbaz)",
+      "cta": "Show Guides"
+    }
+  }
+}

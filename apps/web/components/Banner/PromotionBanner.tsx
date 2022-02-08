@@ -1,5 +1,6 @@
 import { links, randomBetween } from '@matnbaz/common';
-import { useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import { useEffect, useMemo, useState } from 'react';
 import {
   SiDiscord,
   SiGithub,
@@ -17,67 +18,69 @@ type PromotionBannerType =
   | 'github'
   | 'discord';
 
-const bannerProps: Record<PromotionBannerType, BannerProps> = {
-  telegram: {
-    text: 'حتما در کانال تلگرامی متن‌باز عضو شوید.',
-    mobile: 'ما را در تلگرام دنبال کنید.',
-    icon: SiTelegram,
-    url: links.telegram,
-    cta: 'ورود به کانال',
-    theme: 'primary',
-  },
-
-  instagram: {
-    text: 'صفحه اینستاگرام متن‌باز را دنبال کنید.',
-    mobile: 'ما را در اینستاگرام دنبال کنید.',
-    icon: SiInstagram,
-    url: links.instagram,
-    cta: 'مشاهده صفحه',
-    theme: 'instagram',
-  },
-
-  twitter: {
-    text: 'صفحه توییتری متن‌باز را دنبال کنید.',
-    mobile: 'ما را در توییتر دنبال کنید.',
-    icon: SiTwitter,
-    url: links.twitter,
-    cta: 'مشاهده صفحه',
-    theme: 'twitter',
-  },
-
-  twitterTweet: {
-    text: 'با توییت کردن درمورد متن‌باز به گسترش آن کمک کنید. ❤️',
-    mobile: 'درمورد متن‌باز توییت کنید. ❤️',
-    icon: SiTwitter,
-    url: links.twitterTweet,
-    cta: 'توییت',
-    theme: 'twitter',
-  },
-
-  github: {
-    text: 'با ستاره دادن به پروژه در گیت‌هاب به ما کمک کنید. ⭐️',
-    mobile: 'به ما در گیت‌هاب ستاره دهید.',
-    icon: SiGithub,
-    url: links.githubRepo,
-    cta: 'مشاهده مخزن',
-    theme: 'github',
-  },
-
-  discord: {
-    text: 'به انجمن دیسکوردی متن‌باز ملحق شوید.',
-    mobile: 'به انجمن دیسکورد بپیوندید.',
-    icon: SiDiscord,
-    url: links.discord,
-    cta: 'ورود به انجمن',
-    theme: 'discord',
-  },
-};
-
 export interface PromotionBannerProps extends Partial<BannerProps> {
   type?: PromotionBannerType;
 }
 
 export const PromotionBanner = ({ type, ...props }: PromotionBannerProps) => {
+  const { t } = useTranslation();
+  const bannerProps = useMemo<Record<PromotionBannerType, BannerProps>>(() => {
+    return {
+      telegram: {
+        text: t('promotion.telegram.text'),
+        mobile: t('promotion.telegram.mobile'),
+        icon: SiTelegram,
+        url: links.telegram,
+        cta: t('promotion.telegram.cta'),
+        theme: 'primary',
+      },
+
+      instagram: {
+        text: t('promotion.instagram.text'),
+        mobile: t('promotion.instagram.mobile'),
+        icon: SiInstagram,
+        url: links.instagram,
+        cta: t('promotion.instagram.cta'),
+        theme: 'instagram',
+      },
+
+      twitter: {
+        text: t('promotion.twitter.text'),
+        mobile: t('promotion.twitter.mobile'),
+        icon: SiTwitter,
+        url: links.twitter,
+        cta: t('promotion.twitter.cta'),
+        theme: 'twitter',
+      },
+
+      twitterTweet: {
+        text: t('promotion.twitterTweet.text'),
+        mobile: t('promotion.twitterTweet.mobile'),
+        icon: SiTwitter,
+        url: links.twitterTweet,
+        cta: t('promotion.twitterTweet.cta'),
+        theme: 'twitter',
+      },
+
+      github: {
+        text: t('promotion.github.text'),
+        mobile: t('promotion.github.mobile'),
+        icon: SiGithub,
+        url: links.githubRepo,
+        cta: t('promotion.github.cta'),
+        theme: 'github',
+      },
+
+      discord: {
+        text: t('promotion.discord.text'),
+        mobile: t('promotion.discord.mobile'),
+        icon: SiDiscord,
+        url: links.discord,
+        cta: t('promotion.discord.cta'),
+        theme: 'discord',
+      },
+    };
+  }, [t]);
   const [promoBanner, setPromoBanner] = useState<BannerProps | null>(
     bannerProps[type] || null
   );

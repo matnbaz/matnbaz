@@ -1,13 +1,22 @@
 import { NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 import { CollectionPreview } from '../../components/Collection/CollectionPreview';
 import { MainLayout } from '../../components/Layout/MainLayout';
 import { PageHeader } from '../../components/Layout/PageHeader';
 import { CollectionPreviewSkeletonLoader } from '../../components/SkeletonLoader/CollectionPreviewSkeletonLoader';
 import { useGetCollectionsQuery } from '../../lib/graphql-types';
+import nextI18nextConfig from '../../next-i18next.config';
+import { localeToEnum } from '../../utils/locale';
 
 const CollectionsPage: NextPage = () => {
-  const { data, fetchMore, loading } = useGetCollectionsQuery({});
+  const { t } = useTranslation('collections');
+  const { locale } = useRouter();
+  const { data, fetchMore, loading } = useGetCollectionsQuery({
+    variables: { locale: localeToEnum(locale) },
+  });
   //   const collectionsLoadMoreHandler = () => {
   //     if (!collections.pageInfo.hasNextPage) return;
 
@@ -19,7 +28,7 @@ const CollectionsPage: NextPage = () => {
   //   };
   let template;
   if (!loading && !data)
-    template = <p className="text-center font-bold">هیچ مجموعه‌ای یافت نشد.</p>;
+    template = <p className="text-center font-bold">{t('no-result-found')}</p>;
   else
     template = (
       <div className="mb-12 grid gap-10 md:grid-cols-12">
@@ -49,18 +58,23 @@ const CollectionsPage: NextPage = () => {
     );
   return (
     <MainLayout withFooterPromo>
-      <NextSeo
-        title="مجموعه‌ها"
-        description="مجموعه های مختلف از پروژه های اپن سورس ایرانی"
-      />
-
-      <PageHeader
-        title="مجموعه‌ها"
-        description="مجموعه‌ها به شما کمک می‌کنند پروژه‌های مربوط به حوزه و تکنولوژی دلخواه خود را راحت‌تر و سریع‌تر پیدا کنید."
-      />
+      <NextSeo title={t('page-title')} description={t('page-description')} />
+      <PageHeader title={t('page-title')} description={t('page-description')} />
       {template}
     </MainLayout>
   );
 };
 
 export default CollectionsPage;
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'collections'],
+        nextI18nextConfig
+      )),
+    },
+  };
+}

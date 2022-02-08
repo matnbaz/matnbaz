@@ -1,5 +1,7 @@
 import { useApolloClient } from '@apollo/client';
 import { NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
 import { useEffect, useMemo } from 'react';
 import { PromotionBanner } from '../components/Banner/PromotionBanner';
@@ -11,9 +13,11 @@ import { RepositoryPreviewList } from '../components/Repository/RepositoryPrevie
 import { Divider } from '../components/UI/Divider';
 import { RepositoryFilterContextWrapper } from '../context/repository-filter-context';
 import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
+import nextI18nextConfig from '../next-i18next.config';
 import Error500Page from './500';
 
 const Explore: NextPage = () => {
+  const { t } = useTranslation('explore');
   const [
     getRepositories,
     { loading, data, error, fetchMore, refetch, networkStatus, called },
@@ -46,15 +50,8 @@ const Explore: NextPage = () => {
 
   return (
     <MainLayout withoutFooter={!error}>
-      <NextSeo
-        title="کاوش‌گر"
-        description="با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اپن‌سورس/متن‌باز ایرانی را کشف کنید."
-      />
-
-      <PageHeader
-        title="کاوش‌گر"
-        description="با استفاده از فیلتر‌های مختلف پکیج‌ها، کتابخانه‌ها و پروژه‌های اپن‌سورس ایرانی را کشف کنید."
-      />
+      <NextSeo title={t('page-title')} description={t('page-description')} />
+      <PageHeader title={t('page-title')} description={t('page-description')} />
 
       <div className="grid grid-cols-1 md:grid-cols-6 pb-6 gap-6 max-w-6xl mx-auto auto-rows-min auto-cols-min">
         <div className="md:col-span-2">
@@ -73,18 +70,15 @@ const Explore: NextPage = () => {
         </div>
         {data?.repositories?.edges.length === 0 ? (
           <div className="flex flex-col space-y-4 md:col-span-4">
-            <h1 className="text-2xl font-semibold">نتیجه ای یافت نشد.</h1>
-            <span className="font-lg">
-              نتیجه ای با فیلتر‌های وارد شده یافت نشد.
-            </span>
+            <h1 className="text-2xl font-semibold">{t('no-result-found')}</h1>
+            <span className="font-lg">{t('no-result-found-description')}</span>
             <Divider />
             <span className="text-sm text-secondary">
-              می توانید با{' '}
+              <span>{t('submit-hint')}</span>{' '}
               <SubmitUserModal
                 className="text-blue-500"
-                title="ثبت دستی کاربر"
-              />{' '}
-              به کاوش بهتر مخزن‌ها کمک کنید.
+                title={t('submit-cta')}
+              />
             </span>
           </div>
         ) : (
@@ -110,3 +104,15 @@ const Explore: NextPage = () => {
 };
 
 export default Explore;
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'explore', 'repo-filters', 'submit-user'],
+        nextI18nextConfig
+      )),
+    },
+  };
+}

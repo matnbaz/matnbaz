@@ -14,6 +14,15 @@ enum ArchiveStatusType {
   NOT_ARCHIVED
 }
 
+"""The calendar type."""
+enum Calendar {
+  """Georgian calendar."""
+  Georgian
+
+  """Persian / Jalali calendar."""
+  Persian
+}
+
 type Collect implements Node {
   collection: Collection!
   id: ID!
@@ -40,7 +49,7 @@ type CollectEdge {
 type Collection implements Node {
   collects(after: String, before: String, first: Int, last: Int): CollectConnection!
   color: Color
-  description: String
+  description(locale: Locale = Fa): String
   id: ID!
   image: String
   name: String!
@@ -72,8 +81,8 @@ type Color {
 }
 
 type DateObject {
-  difference(persianNumbers: Boolean = true): String!
-  formatted(format: String = "d MMMM yyyy", persianNumbers: Boolean = true): String!
+  difference(calendar: Calendar = Persian, locale: Locale = Fa): String!
+  formatted(calendar: Calendar = Persian, format: String = "d MMMM yyyy", locale: Locale = Fa): String!
   original: DateTime!
 }
 
@@ -157,6 +166,15 @@ type LicenseEdge {
 enum LicenseOrder {
   """Order by repositories count in descending direction."""
   REPOSITORIES_DESC
+}
+
+"""A locale used for internationalization."""
+enum Locale {
+  """English"""
+  En
+
+  """Farsi/Persian (The default language)"""
+  Fa
 }
 
 type Metadata {

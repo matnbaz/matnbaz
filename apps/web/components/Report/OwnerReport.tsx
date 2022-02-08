@@ -1,23 +1,26 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { ReportableType } from '../../lib/graphql-types';
 import { Reason, Report } from './Report';
 
 export interface OwnerReportProps {
-  owner: { login: string; id: string };
+  owner: { name?: string; login: string; id: string };
 }
 
 export const OwnerReport = ({ owner }: OwnerReportProps) => {
+  const { t } = useTranslation('report');
+
   const reasons: Reason[] = [
     {
-      name: 'تصویر یا نام غیر اخلاقی',
-      value: 'این کاربر یک تصویر و یا نام غیر اخلاقی برای خود انتخاب کرده است.',
+      name: t('reasons.inappropriate-name-or-avatar'),
+      value: t('reasons.inappropriate-name-or-avatar'),
     },
     {
-      name: 'حساب غیر ایرانی',
-      value: 'این کاربر ایرانی نمی باشد.',
+      name: t('reasons.non-iranian'),
+      value: t('reasons.non-iranian'),
     },
     {
-      name: 'دیگر',
+      name: t('reasons.other'),
       customValue: true,
     },
   ];
@@ -26,8 +29,10 @@ export const OwnerReport = ({ owner }: OwnerReportProps) => {
     <Report
       subject={ReportableType.Owner}
       subjectId={owner.id}
-      modalTitle={`گزارش کاربر`}
-      modalDescription={`درصورتی که ${owner.login} یکی از موارد ذیل و یا یکی از قوانین سایت را نقض کرده است، از شما در خواست می شود به ما گزارش دهید.`}
+      modalTitle={t('report-repository.title')}
+      modalDescription={t('report-repository.description', {
+        name: owner.name || owner.login,
+      })}
       reasons={reasons}
     />
   );

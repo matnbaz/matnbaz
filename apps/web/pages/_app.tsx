@@ -1,4 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
+import { appWithTranslation, useTranslation } from 'next-i18next';
 import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import { AppProps } from 'next/app';
@@ -6,17 +7,30 @@ import NextNProgress from 'nextjs-progressbar';
 import { useApollo } from '../lib/apollo';
 import '../styles/global.css';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+const withTerritory = (locale: string) => {
+  switch (locale) {
+    case 'fa':
+      return 'fa_IR';
+    case 'en':
+      return 'en_US';
+    default:
+      return locale;
+  }
+};
+
+function CustomApp({ Component, pageProps, router: { locale } }: AppProps) {
   const client = useApollo(pageProps.initialApolloState);
+  const { t } = useTranslation();
+
   return (
     <ThemeProvider attribute="class">
       <DefaultSeo
         openGraph={{
           type: 'website',
-          locale: 'fa_IR',
+          locale: withTerritory(locale),
           url: 'https://matnbaz.net/',
-          site_name: 'متن‌باز',
-          title: 'متن‌باز',
+          site_name: t('site-name'),
+          title: t('site-name'),
           images: [
             {
               url: 'https://raw.githubusercontent.com/matnbaz/visual/main/banner.jpg',
@@ -27,7 +41,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
           defaultImageWidth: 1280,
           defaultImageHeight: 640,
         }}
-        titleTemplate={'%s – متن‌باز'}
+        titleTemplate={`%s – ${t('site-name')}`}
         twitter={{
           handle: '@alitnk_',
           site: '@matnbaz_net',
@@ -46,4 +60,4 @@ function CustomApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default CustomApp;
+export default appWithTranslation(CustomApp);

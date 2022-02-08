@@ -57,7 +57,7 @@ export const Modal = ({ children, show, title, onClose }: Props) => {
                 &#8203;
               </span>
 
-              <div className="inline-block p-6 align-bottom bg-white dark:bg-gray-800 rounded-lg text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <div className="inline-block p-6 align-bottom bg-white dark:bg-gray-800 rounded-lg ltr:text-left rtl:text-right overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 {title && (
                   <>
                     <div className="w-full flex items-start justify-between">

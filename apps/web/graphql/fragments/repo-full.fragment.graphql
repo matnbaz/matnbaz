@@ -10,10 +10,10 @@ fragment repoFull on Repository {
   isTemplate
   defaultBranch
   pushedAt {
-    difference(persianNumbers: true)
+    difference(locale: $locale, calendar: $calendar)
   }
   createdAt {
-    formatted(persianNumbers: true)
+    formatted(locale: $locale, calendar: $calendar)
   }
   homePage
   stargazersCount

@@ -3,6 +3,8 @@ query GetRepository(
   $repo: String!
   $platform: PlatformType!
   $relatedReposFirst: Int = 8
+  $locale: Locale = Fa
+  $calendar: Calendar = Persian
 ) {
   repositoryByPlatform(owner: $owner, repo: $repo, platform: $platform) {
     ...repoFull

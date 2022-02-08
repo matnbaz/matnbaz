@@ -1,4 +1,8 @@
-query GetPost($slug: String!) {
+query GetPost(
+  $slug: String!
+  $locale: Locale = Fa
+  $calendar: Calendar = Persian
+) {
   postBySlug(slug: $slug) {
     id
     slug
@@ -10,8 +14,8 @@ query GetPost($slug: String!) {
     }
     summaryLimited
     publishedAt {
-      formatted
-      difference
+      formatted(locale: $locale, calendar: $calendar)
+      difference(locale: $locale, calendar: $calendar)
     }
     author {
       id

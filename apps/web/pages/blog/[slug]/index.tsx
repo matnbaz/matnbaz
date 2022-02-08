@@ -1,6 +1,8 @@
 import { GetServerSideProps, NextPage } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { HiClock, HiUser } from 'react-icons/hi';
 import { MainLayout } from '../../../components/Layout/MainLayout';
@@ -12,14 +14,22 @@ import {
   GetPostQueryVariables,
   useGetPostQuery,
 } from '../../../lib/graphql-types';
+import nextI18nextConfig from '../../../next-i18next.config';
+import { calendarFromLocale, localeToEnum } from '../../../utils/locale';
 
 export interface PostPageProps {
   postSlug: string;
 }
 
 const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
+  const { locale } = useRouter();
+
   const { data } = useGetPostQuery({
-    variables: { slug: postSlug },
+    variables: {
+      slug: postSlug,
+      locale: localeToEnum(locale),
+      calendar: calendarFromLocale(locale),
+    },
   });
 
   const post = useMemo(() => data.postBySlug, [data]);
@@ -49,15 +59,15 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
         <h1 className="mt-12 text-3xl sm:text-5xl font-extrabold">
           {post.title}
         </h1>
-        <div className="mt-6 flex items-center space-x-4 space-x-reverse">
+        <div className="mt-6 flex items-center space-x-4 rtl:space-x-reverse">
           {post.publishedAt && (
-            <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
+            <div className="inline-flex items-center space-x-1 rtl:space-x-reverse text-sm text-secondary">
               <HiClock />
               <span>{post.publishedAt.formatted}</span>
             </div>
           )}
           {post.author && (
-            <div className="inline-flex items-center space-x-1 space-x-reverse text-sm text-secondary">
+            <div className="inline-flex items-center space-x-1 rtl:space-x-reverse text-sm text-secondary">
               <HiUser />
               <span>{post.author.name}</span>
             </div>
@@ -70,9 +80,9 @@ const PostPage: NextPage<PostPageProps> = ({ postSlug }) => {
         />
 
         {post.tags && (
-          <div className="flex items-center mt-8 space-x-2 space-x-reverse">
+          <div className="flex items-center mt-8 space-x-2 rtl:space-x-reverse">
             <div>برچسب‌ها: </div>
-            <div className="space-x-2 space-x-reverse text-xs text-secondary">
+            <div className="space-x-2 rtl:space-x-reverse text-xs text-secondary">
               {post.tags.map(({ name }) => (
                 <Link href={`/blog/tags/${name}`} key={name}>
                   <a>
@@ -100,6 +110,7 @@ export default PostPage;
 
 export const getServerSideProps: GetServerSideProps<PostPageProps> = async ({
   query: { slug: postSlug },
+  locale,
 }) => {
   if (typeof postSlug !== 'string')
     return {
@@ -117,6 +128,8 @@ export const getServerSideProps: GetServerSideProps<PostPageProps> = async ({
     query: GetPostDocument,
     variables: {
       slug: postSlug,
+      locale: localeToEnum(locale),
+      calendar: calendarFromLocale(locale),
     },
   });
 
@@ -128,6 +141,7 @@ export const getServerSideProps: GetServerSideProps<PostPageProps> = async ({
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),
+      ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
       postSlug,
     },
   };

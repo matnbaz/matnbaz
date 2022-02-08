@@ -1,8 +1,11 @@
-import { persianNumbers } from '@matnbaz/common';
+import { localize } from '@matnbaz/common';
 import { GetServerSideProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
-import { MdChevronRight } from 'react-icons/md';
+import { useRouter } from 'next/router';
+import { MdChevronLeft } from 'react-icons/md';
 import { PromotionBanner } from '../../../components/Banner/PromotionBanner';
 import { MainLayout } from '../../../components/Layout/MainLayout';
 import { RepositoryPreviewList } from '../../../components/Repository/RepositoryPreviewList';
@@ -13,29 +16,31 @@ import {
   GetCollectionQueryVariables,
   useGetCollectionQuery,
 } from '../../../lib/graphql-types';
+import nextI18nextConfig from '../../../next-i18next.config';
+import { localeToEnum } from '../../../utils/locale';
 
 interface CollectionPageProps {
   collectionSlug: string;
 }
 
 const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
-  const {
-    data: { collection },
-    fetchMore,
-    loading,
-    networkStatus,
-    called,
-  } = useGetCollectionQuery({
-    variables: { slug: collectionSlug },
-    notifyOnNetworkStatusChange: true,
-  });
+  const { t } = useTranslation('collections');
+  const { locale } = useRouter();
+  const { data, fetchMore, loading, networkStatus, called } =
+    useGetCollectionQuery({
+      variables: {
+        slug: collectionSlug,
+        locale: localeToEnum(locale),
+      },
+      notifyOnNetworkStatusChange: true,
+    });
 
   const repositoriesLoadMoreHandler = () => {
-    if (!collection.collects.pageInfo.hasNextPage) return;
+    if (!data?.collection.collects.pageInfo.hasNextPage) return;
 
     fetchMore({
       variables: {
-        reposAfter: collection.collects.pageInfo.endCursor,
+        reposAfter: data?.collection.collects.pageInfo.endCursor,
       },
     });
   };
@@ -43,42 +48,47 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
   return (
     <MainLayout withoutFooter>
       <NextSeo
-        title={collection.name}
-        description={collection.description}
+        title={data?.collection.name}
+        description={data?.collection.description}
         openGraph={{
           images: [
             {
-              url: `https://server.matnbaz.net/collections/${collection.slug}.jpg`,
+              url: `https://server.matnbaz.net/collections/${data?.collection.slug}.jpg`,
             },
           ],
         }}
       />
       <div className="max-w-3xl mx-auto">
         <Link href="/collections">
-          <a className="inline-flex items-center text-sm text-secondary space-x-2 space-x-reverse">
-            <MdChevronRight />
-            <span>مشاهده همه مجموعه‌ها</span>
+          <a className="inline-flex items-center text-sm text-secondary space-x-2 rtl:space-x-reverse">
+            <MdChevronLeft className="rtl:rotate-180" />
+            <span>{t('all-collections')}</span>
           </a>
         </Link>
         <div className="mt-4 space-y-10">
           <div className="">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={collection.image}
-              alt={collection.name}
+              src={data?.collection.image}
+              alt={data?.collection.name}
               className="brightness-0 dark:invert w-24 h-24 mx-auto"
             />
             <h1
               className="mt-4 text-center text-2xl sm:text-4xl font-bold truncate"
               dir="ltr"
             >
-              {collection.name}
+              {data?.collection.name}
             </h1>
             <div className="text-secondary font-medium text-center">
-              {persianNumbers(collection.repositoriesCount)} پروژه
+              {t('repositories-count', {
+                repositoriesCount: localize(
+                  data?.collection.repositoriesCount,
+                  locale
+                ),
+              })}
             </div>
             <p className="mt-2 text-center text-secondary text-lg">
-              {collection.description}
+              {data?.collection.description}
             </p>
           </div>
 
@@ -87,7 +97,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
               networkStatus={networkStatus}
               called={called}
               loading={loading}
-              repositories={collection.collects.edges.map(
+              repositories={data?.collection.collects.edges.map(
                 (collect) => collect.node.repository
               )}
               onLoadMore={repositoriesLoadMoreHandler}
@@ -106,7 +116,7 @@ const CollectionPage: NextPage<CollectionPageProps> = ({ collectionSlug }) => {
 export default CollectionPage;
 
 export const getServerSideProps: GetServerSideProps<CollectionPageProps> =
-  async ({ query: { collection: collectionSlug }, res }) => {
+  async ({ query: { collection: collectionSlug }, locale }) => {
     if (typeof collectionSlug !== 'string')
       return {
         notFound: true,
@@ -123,6 +133,7 @@ export const getServerSideProps: GetServerSideProps<CollectionPageProps> =
       query: GetCollectionDocument,
       variables: {
         slug: collectionSlug,
+        locale: localeToEnum(locale),
       },
     });
 
@@ -134,6 +145,11 @@ export const getServerSideProps: GetServerSideProps<CollectionPageProps> =
     return {
       props: {
         initialApolloState: apolloClient.cache.extract(),
+        ...(await serverSideTranslations(
+          locale,
+          ['common', 'collections'],
+          nextI18nextConfig
+        )),
         collectionSlug,
       },
     };

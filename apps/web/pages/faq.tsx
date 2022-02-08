@@ -1,10 +1,13 @@
 import { readFileSync } from 'fs';
 import { marked } from 'marked';
 import { GetStaticProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { FAQPageJsonLd, NextSeo } from 'next-seo';
 import { Question } from 'next-seo/lib/jsonld/faqPage';
 import { join } from 'path';
 import { MainLayout } from '../components/Layout/MainLayout';
+import nextI18nextConfig from '../next-i18next.config';
 
 interface FaqPageProps {
   faqHtml: string;
@@ -12,12 +15,11 @@ interface FaqPageProps {
 }
 
 const FaqPage: NextPage<FaqPageProps> = ({ faq, faqHtml }) => {
+  const { t } = useTranslation('faq');
+
   return (
-    <MainLayout withFooterPromo>
-      <NextSeo
-        title="پرسش‌های متداول"
-        description="در این صفحه پرسش‌هایی که به‌صورت متداول از ما پرسیده شده را مشاهده می‌کنید."
-      />
+    <MainLayout>
+      <NextSeo title={t('page-title')} description={t('page-description')} />
 
       <FAQPageJsonLd mainEntity={faq} />
 
@@ -31,8 +33,12 @@ const FaqPage: NextPage<FaqPageProps> = ({ faq, faqHtml }) => {
 
 export default FaqPage;
 
-export const getStaticProps: GetStaticProps<FaqPageProps> = () => {
-  const faqMarkdown = readFileSync(join(process.cwd(), 'FAQ.md'));
+export const getStaticProps: GetStaticProps<FaqPageProps> = async ({
+  locale,
+}) => {
+  const faqMarkdown = readFileSync(
+    join(process.cwd(), `markdown/${locale}/FAQ.md`)
+  );
   const faqHtml = marked.parse(faqMarkdown.toString());
   const faq = faqMarkdown
     .toString()
@@ -48,6 +54,14 @@ export const getStaticProps: GetStaticProps<FaqPageProps> = () => {
     });
 
   return {
-    props: { faq, faqHtml },
+    props: {
+      faq,
+      faqHtml,
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'faq'],
+        nextI18nextConfig
+      )),
+    },
   };
 };

@@ -1,5 +1,7 @@
-import { MINIMUM_STARS, persianNumbers } from '@matnbaz/common';
+import { localize, MINIMUM_STARS } from '@matnbaz/common';
 import classNames from 'classnames';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import {
   PlatformType,
@@ -9,6 +11,8 @@ import { Button } from '../UI/Button/Button';
 import { Input } from '../UI/Input/Input';
 
 export const SubmitUserForm = () => {
+  const { t } = useTranslation('submit-user');
+  const { locale } = useRouter();
   const [submit, { data, loading, error }] = useSendSubmissionMutation();
   const [username, setUsername] = useState('');
 
@@ -28,12 +32,11 @@ export const SubmitUserForm = () => {
   return (
     <>
       <p className="mt-5">
-        در صورتی که کاربر یا گروه ایرانی‌ای را در گیت‌هاب می شناسید که هنوز توسط
-        سایت پیدا نشده، نام کاربری ایشان را در فرم زیر وارد کنید تا بررسی و به
-        سایت اضافه شوند.{' '}
+        {t('about-submission')}{' '}
         <span className="font-bold">
-          توجه کنید که برای اضافه شدن باید حداقل یک مخزن با بیش‌تر از{' '}
-          {persianNumbers(MINIMUM_STARS)} ستاره داشته باشید.
+          {t('submission-requirements', {
+            minStars: localize(MINIMUM_STARS, locale),
+          })}
         </span>
       </p>
 
@@ -43,7 +46,7 @@ export const SubmitUserForm = () => {
             e.preventDefault();
             if (isValidated) sendSubmissionInfo();
           }}
-          className="flex items-center space-x-2 space-x-reverse w-full"
+          className="flex items-center space-x-2 rtl:space-x-reverse w-full"
         >
           <Input.Text
             autoFocus
@@ -54,7 +57,7 @@ export const SubmitUserForm = () => {
             placeholder="GitHub username"
           />
           <Button.Primary disabled={!isValidated || loading} type="submit">
-            ثبت
+            {t('submit')}
           </Button.Primary>
         </form>
         {data && (
@@ -65,14 +68,12 @@ export const SubmitUserForm = () => {
             )}
           >
             {data.sendSubmission.submission
-              ? `درخواست شما با آیدی ${data.sendSubmission.submission.id} ثبت شد. خیلی ممنون!`
+              ? t('submitted')
               : data.sendSubmission.userErrors[0]?.message || ''}
           </div>
         )}
         {error && (
-          <div className="mt-4 text-sm text-red-600">
-            متاسفانه مشکلی در ارسال فرم پیش آمد. لطفا دوباره تلاش کنید.
-          </div>
+          <div className="mt-4 text-sm text-red-600">{t('error-occurred')}</div>
         )}
       </div>
     </>

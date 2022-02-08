@@ -1,5 +1,6 @@
-import { persianNumbers } from '@matnbaz/common';
+import { localize } from '@matnbaz/common';
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import {
   AiOutlineExclamationCircle,
@@ -51,17 +52,14 @@ export const RepositoryPreview = ({
   const statistics = useMemo(
     () => [
       {
-        name: 'ستاره‌ها',
         icon: AiOutlineStar,
         value: +repository.stargazersCount,
       },
       {
-        name: 'فورک‌ها',
         icon: AiOutlineFork,
         value: +repository.forksCount,
       },
       {
-        name: 'موضوع‌ها',
         icon: AiOutlineExclamationCircle,
         value: +repository.openIssuesCount,
       },
@@ -79,6 +77,7 @@ export const RepositoryPreview = ({
       ),
     [statistics]
   );
+  const { locale } = useRouter();
 
   const template =
     variation === 'summary' ? (
@@ -90,7 +89,7 @@ export const RepositoryPreview = ({
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
         /> */}
         {repository.isNew && (
-          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 -mr-3 -mt-6">
+          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 ltr:-ml-3 rtl:-mr-3 -mt-6">
             جدید
           </span>
         )}
@@ -117,27 +116,30 @@ export const RepositoryPreview = ({
             <div className="flex items-center">
               <>
                 {/* // Dir set to ltr to avoid displaying languages like C# as #C */}
-                <span className="pl-1.5 py-1.5 text-sm" dir="ltr">
-                  {repository.language.name}
-                </span>
                 <div
                   className="rounded-full w-2 h-2"
                   style={{
                     backgroundColor: repository.language.color?.hexString,
                   }}
                 />
+                <span
+                  className="ltr:pr-1.5 rtl:pl-1.5 py-1.5 text-sm"
+                  dir="ltr"
+                >
+                  {repository.language.name}
+                </span>
               </>
             </div>
           )}
 
-          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 mr-auto">
+          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 ltr:ml-auto rtl:mr-auto">
             {hasStatistics &&
-              statistics.slice(0, 1).map((statistic) => (
+              statistics.slice(0, 1).map((statistic, statIdx) => (
                 <div
-                  key={statistic.name}
-                  className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
+                  key={statIdx}
+                  className="flex space-x-1 rtl:space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
                 >
-                  <span>{persianNumbers(statistic.value)}</span>
+                  <span>{localize(statistic.value, locale)}</span>
                   <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
                 </div>
               ))}
@@ -153,7 +155,7 @@ export const RepositoryPreview = ({
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
         /> */}
         {repository.isNew && (
-          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 -mr-3 -mt-6">
+          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 ltr:-ml-3 rtl:-mr-3 -mt-6">
             جدید
           </span>
         )}
@@ -184,30 +186,30 @@ export const RepositoryPreview = ({
         </div>
         <div className="flex justify-between items-center md:absolute bottom-0 w-full mt-2 md:mt-0">
           {repository.language && (
-            <div className="flex items-center">
+            <div className="flex items-center" dir="ltr">
               <>
                 {/* // Dir set to ltr to avoid displaying languages like C# as #C */}
-                <span className="pl-1.5 py-1.5 text-sm" dir="ltr">
-                  {repository.language.name}
-                </span>
                 <div
                   className="rounded-full w-2 h-2"
                   style={{
                     backgroundColor: repository.language.color?.hexString,
                   }}
                 />
+                <span className="pl-1.5 py-1.5 text-sm">
+                  {repository.language.name}
+                </span>
               </>
             </div>
           )}
 
-          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 mr-auto">
+          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 ltr:ml-auto rtl:mr-auto">
             {hasStatistics &&
-              statistics.map((statistic) => (
+              statistics.map((statistic, statIdx) => (
                 <div
-                  key={statistic.name}
-                  className="flex space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
+                  key={statIdx}
+                  className="flex space-x-1 rtl:space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
                 >
-                  <span>{persianNumbers(statistic.value)}</span>
+                  <span>{localize(statistic.value, locale)}</span>
                   <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
                 </div>
               ))}

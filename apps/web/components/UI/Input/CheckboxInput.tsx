@@ -65,7 +65,7 @@ export const CheckboxInput = ({
         </Transition>
       </Switch>
       {label && (
-        <Switch.Label className="mx-2 text-sm text-secondary inline-flex items-center text-right">
+        <Switch.Label className="mx-2 text-sm text-secondary inline-flex items-center ltr:text-left rtl:text-right">
           {label}
         </Switch.Label>
       )}

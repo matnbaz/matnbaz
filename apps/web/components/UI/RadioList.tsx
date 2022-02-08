@@ -49,7 +49,7 @@ export const RadioList = ({
           value={option}
           className={classNames(
             dir === 'ltr' && 'text-right',
-            'text-sm text-secondary inline-flex items-center space-x-2 space-x-reverse'
+            'text-sm text-secondary inline-flex items-center space-x-2 rtl:space-x-reverse'
           )}
         >
           <Input.Radio

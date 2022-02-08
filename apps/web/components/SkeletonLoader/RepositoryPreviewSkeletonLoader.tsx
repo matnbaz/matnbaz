@@ -33,7 +33,7 @@ export const RepositoryPreviewSkeletonLoader = ({
             </div>
           </div>
           <div className="flex justify-between items-center w-full mt-8">
-            <div className="flex items-center space-x-2 space-x-reverse">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse">
               <SkeletonLoaderShape
                 shape="rectangle"
                 width="21px"
@@ -41,8 +41,8 @@ export const RepositoryPreviewSkeletonLoader = ({
               />
               <SkeletonLoaderShape shape="circle" width="8px" height="8px" />
             </div>
-            <div className="flex flex-col md:flex-row space-y-4 space-x-0 md:space-y-0 md:space-x-4 md:space-x-reverse">
-              <div className="flex items-center space-x-2 space-x-reverse">
+            <div className="flex flex-col md:flex-row space-y-4 space-x-0 md:space-y-0 md:space-x-4 rtl:md:space-x-reverse">
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
                 <SkeletonLoaderShape
                   shape="rectangle"
                   width="20px"
@@ -96,7 +96,7 @@ export const RepositoryPreviewSkeletonLoader = ({
             </div>
           </div>
           <div className="flex justify-between items-center w-full mt-8">
-            <div className="flex items-center space-x-2 space-x-reverse">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse">
               <SkeletonLoaderShape
                 shape="rectangle"
                 width="21px"
@@ -104,8 +104,8 @@ export const RepositoryPreviewSkeletonLoader = ({
               />
               <SkeletonLoaderShape shape="circle" width="8px" height="8px" />
             </div>
-            <div className="flex flex-col md:flex-row space-y-4 space-x-0 md:space-y-0 md:space-x-4 md:space-x-reverse">
-              <div className="flex items-center space-x-2 space-x-reverse">
+            <div className="flex flex-col md:flex-row space-y-4 space-x-0 md:space-y-0 md:space-x-4 rtl:md:space-x-reverse">
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
                 <SkeletonLoaderShape
                   shape="rectangle"
                   width="20px"
@@ -117,7 +117,7 @@ export const RepositoryPreviewSkeletonLoader = ({
                   height="20px"
                 />
               </div>
-              <div className="flex items-center space-x-2 space-x-reverse">
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
                 <SkeletonLoaderShape
                   shape="rectangle"
                   width="20px"
@@ -129,7 +129,7 @@ export const RepositoryPreviewSkeletonLoader = ({
                   height="20px"
                 />
               </div>
-              <div className="flex items-center space-x-2 space-x-reverse">
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
                 <SkeletonLoaderShape
                   shape="rectangle"
                   width="20px"

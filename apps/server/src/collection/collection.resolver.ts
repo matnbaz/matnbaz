@@ -12,6 +12,7 @@ import {
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { createColorObject } from '../color/utils';
+import { LocaleArgs } from '../models/args/locale.args';
 import { Collection } from '../models/collection.model';
 import { Color } from '../models/color.model';
 import { CollectConnection } from '../models/connections/collect.connection';
@@ -46,6 +47,17 @@ export class CollectionResolver {
   @Query(() => Collection, { nullable: true })
   collectionById(@Args() { id }: CollectionIdArgs) {
     return this.prisma.collection.findUnique({ where: { id } });
+  }
+
+  @ResolveField(() => String, { nullable: true })
+  async description(
+    @Args() { locale }: LocaleArgs,
+    @Parent() { id }: P.Collection
+  ) {
+    const description = await this.prisma.collection
+      .findUnique({ where: { id } })
+      .Description();
+    return description[locale.toLowerCase() || 'fa'];
   }
 
   @CacheControl({ inheritMaxAge: true })

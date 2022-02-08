@@ -1,5 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 import { PostPreviewList } from '../../../../components/Blog/PostPreviewList';
 import { MainLayout } from '../../../../components/Layout/MainLayout';
 import { PageHeader } from '../../../../components/Layout/PageHeader';
@@ -10,14 +12,21 @@ import {
   GetTagQueryVariables,
   useGetTagQuery,
 } from '../../../../lib/graphql-types';
+import nextI18nextConfig from '../../../../next-i18next.config';
+import { calendarFromLocale, localeToEnum } from '../../../../utils/locale';
 
 export interface TagPageProps {
   tagName: string;
 }
 
 const TagPage: NextPage<TagPageProps> = ({ tagName }) => {
+  const { locale } = useRouter();
   const { data, called, loading, networkStatus, fetchMore } = useGetTagQuery({
-    variables: { name: tagName },
+    variables: {
+      name: tagName,
+      locale: localeToEnum(locale),
+      calendar: calendarFromLocale(locale),
+    },
   });
 
   const postsLoadMoreHandler = () => {
@@ -55,6 +64,7 @@ export default TagPage;
 
 export const getServerSideProps: GetServerSideProps<TagPageProps> = async ({
   query: { tag },
+  locale,
 }) => {
   if (typeof tag !== 'string')
     return {
@@ -82,6 +92,7 @@ export const getServerSideProps: GetServerSideProps<TagPageProps> = async ({
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),
+      ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
       tagName: tag,
     },
   };
