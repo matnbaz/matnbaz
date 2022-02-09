@@ -1,16 +1,20 @@
 # Supporting Matnbaz
 
-Matnbaz is a useful and independent project that has great cultural value. It manifests the open-source contributions of Iranians to the world and is trying to promote the open-source culture to Iranians. It has also got a lot of love from the Iranian open-source community and has got a remarkable amount of GitHub stars and community members in a short amount of time.
+We love working on Matnbaz but since it isn't a commercial project and the core maintainers of Matnbaz are students, we can't continue to work on it if we don't get financial support. Your support is crucial for the development of Matnbaz to continue.
 
-Ever since [Nov 17, 2021](https://github.com/matnbaz/matnbaz/commit/501a75d79fa4ee66dbece238046daec838f4b356), The day we started Matnbaz, it has been under active development, requiring at least one dedicated developer to be working on it fulltime. We love working on Matnbaz but since it isn't a commercial project and the core developers of Matnbaz are students, we can't continue to work on it if we don't get financial support. Your support is crucial for Matnbaz to continue.
+Ever since [Nov 17, 2021](https://github.com/matnbaz/matnbaz/commit/501a75d79fa4ee66dbece238046daec838f4b356), The day we started Matnbaz, it has been under active development, requiring at least one dedicated developer to be working on it full-time.
+
+You can learn more about Matnbaz in the [about page](https://matnbaz.net/en/about).
 
 ## Supporting As Companies
 
-Companies can help Matnbaz with monthly financial support.
+Companies can help Matnbaz by becoming an sponsor.
 
-All financial supports from companies come with benefits like showing your company's logo and name in the home page, GitHub repo, and our social media.
+Becoming an sponsor comes with benefits like showing the company's logo and name in the home page, GitHub pages and our social media. The benefits are relative to the amount of support.
 
 - **[Fill out this form if you're interested](https://forms.gle/r9vWv94wxJY6Eo6f7)**
+
+Please note that the supporting program hasn't started yet.
 
 ## Supporting As Individuals
 
