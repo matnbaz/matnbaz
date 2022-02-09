@@ -51,6 +51,16 @@ interface Flyout {
   };
 }
 
+const shouldPing = (key: string) => {
+  if (typeof localStorage === 'undefined') return false;
+  return !localStorage.getItem(`PING_DISMISSED:${key}`);
+};
+
+const dismissPing = (key: string) => {
+  if (typeof localStorage === 'undefined') return false;
+  return localStorage.setItem(`PING_DISMISSED:${key}`, 'true');
+};
+
 type LinkItem = BasicLink | Flyout;
 
 export const Navbar = ({ className }: NavbarProps) => {
@@ -67,7 +77,7 @@ export const Navbar = ({ className }: NavbarProps) => {
   useEffect(() => setMounted(true), []);
   const { pathname, locale } = useRouter();
 
-  const links = useMemo(() => {
+  const links = useMemo<LinkItem[]>(() => {
     const _links: LinkItem[] = [
       { type: 'link', name: t('navbar.home'), href: '/' },
       {
@@ -193,6 +203,7 @@ export const Navbar = ({ className }: NavbarProps) => {
                   {link.type === 'link' && (
                     <Link href={link.href}>
                       <a
+                        onClick={() => link.pinging && dismissPing(link.href)}
                         className={classNames(
                           pathname === link.href
                             ? 'text-black dark:text-white font-bold'
@@ -201,7 +212,7 @@ export const Navbar = ({ className }: NavbarProps) => {
                         )}
                         target={link.external ? '_blank' : ''}
                       >
-                        {link.pinging && (
+                        {link.pinging && shouldPing(link.href) && (
                           <span className="flex h-2 w-2 absolute top-0 ltr:left-full rtl:right-full">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
