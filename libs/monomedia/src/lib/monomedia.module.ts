@@ -138,7 +138,7 @@ export class MonomediaModule {
   private static instantiateDiscord({
     discord,
   }: MonomediaModuleOptions): Webhook {
-    const webhook = new Webhook(discord.webhookUrl);
+    const webhook = new Webhook(discord.webhookUrl || '');
 
     if (discord.botImage) webhook.setAvatar(discord.botImage);
     if (discord.botName) webhook.setUsername(discord.botName);
