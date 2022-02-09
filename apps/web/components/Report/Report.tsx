@@ -60,8 +60,14 @@ export const Report = ({
         <div className="block space-y-6">
           <span>{modalDescription}</span>
           <RadioList
-            options={reasons}
-            value={selectedReportReason}
+            options={reasons.map((reason) => ({
+              ...reason,
+              value: reason.value || null,
+            }))}
+            value={{
+              ...selectedReportReason,
+              value: selectedReportReason.value || null,
+            }}
             onChange={(reason: Reason) => {
               setReportReason(reason.value);
               setSelectedReportReason(reason);

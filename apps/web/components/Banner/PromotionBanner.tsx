@@ -85,7 +85,6 @@ export const PromotionBanner = ({ type, ...props }: PromotionBannerProps) => {
     bannerProps[type] || null
   );
   useEffect(() => {
-    console.log(type);
     if (type) return;
     const keys = Object.keys(bannerProps);
     const random = randomBetween(0, keys.length - 1);

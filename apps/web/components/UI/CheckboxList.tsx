@@ -1,69 +1,52 @@
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
 import { Input } from './Input/Input';
 interface Option {
-  id?: string | number;
-  name: string;
+  value: string | number;
+  name?: string;
   key?: string | number;
 }
-
-type TValue = Option[];
-
 export interface CheckboxListProps {
   options: Option[];
-  value?: TValue;
+  value?: Option[];
   className?: string;
-  onChange?: (values: TValue) => void;
+  onChange?: (values: Option[]) => void;
+  search?: string;
 }
+
+const compareOptions = (firstOption: Option, secondOption: Option) => {
+  return firstOption.value === secondOption.value;
+};
 
 export const CheckboxList = ({
   options,
   value = [],
   className,
+  search,
   onChange,
 }: CheckboxListProps) => {
-  const [selectedOptions, setSelectedOptions] = useState<TValue>(value);
-
-  useEffect(() => {
-    setSelectedOptions(value);
-  }, [value]);
-
-  useEffect(() => {
-    if (selectedOptions) onChange(selectedOptions);
-  }, [JSON.stringify(selectedOptions)]);
-
-  const compareOptions = (firstOption: Option, secondOption: Option) => {
-    if (firstOption.key) return firstOption.key === secondOption.key;
-    if (firstOption.id) return firstOption.id === secondOption.id;
-    return firstOption.name === secondOption.name;
-  };
-
   return (
-    <div className={classNames(className, 'flex flex-col space-y-4 pb-2')}>
+    <div className={classNames(className, 'flex flex-col pb-2')}>
       {options.map((option) => (
         <div
-          key={option.id || option.key || option.name}
+          key={option.value || option.key || option.name}
           className={classNames(
-            'flex items-center ltr:text-left rtl:text-right'
+            typeof search !== 'undefined' &&
+              !option.name.toLowerCase().includes(search.toLowerCase()) &&
+              'hidden',
+            'flex items-center ltr:text-left rtl:text-right my-2'
           )}
         >
           <Input.Checkbox
             label={option.name}
-            checked={selectedOptions.some((selectedOption) =>
+            checked={value.some((selectedOption) =>
               compareOptions(selectedOption, option)
             )}
             onChange={(checked) => {
-              if (checked)
-                setSelectedOptions((previousSelectedOptions) => {
-                  return [...previousSelectedOptions, option];
-                });
-              else {
-                setSelectedOptions((previousSelectedOptions) => {
-                  return previousSelectedOptions.filter(
-                    (selectedOption) => !compareOptions(selectedOption, option)
-                  );
-                });
-              }
+              if (checked) onChange([...value, option]);
+              else
+                onChange([
+                  ...value.filter((item) => !compareOptions(item, option)),
+                ]);
             }}
           />
         </div>

@@ -8,6 +8,7 @@ export interface CollapsibleProps {
   title?: string;
   className?: string;
   open?: boolean;
+  divider?: boolean;
   onClick?: () => void;
 }
 
@@ -15,6 +16,7 @@ export const Collapsible = ({
   children,
   title = 'باز کردن',
   className,
+  divider,
   open: initialOpen = false,
   ...props
 }: CollapsibleProps) => {
@@ -48,10 +50,8 @@ export const Collapsible = ({
             leaveTo="transform opacity-0"
           >
             <Disclosure.Panel>
-              <div className="space-y-4">
-                <Divider />
-                <div>{children}</div>
-              </div>
+              {divider && <Divider />}
+              <div className="mt-4">{children}</div>
             </Disclosure.Panel>
           </Transition>
         </>

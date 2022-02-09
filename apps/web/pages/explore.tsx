@@ -1,9 +1,8 @@
-import { useApolloClient } from '@apollo/client';
 import { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { PromotionBanner } from '../components/Banner/PromotionBanner';
 import { RepositoryFilters } from '../components/Filter/RepositoryFilters';
 import { MainLayout } from '../components/Layout/MainLayout';
@@ -11,7 +10,6 @@ import { PageHeader } from '../components/Layout/PageHeader';
 import { SubmitUserModal } from '../components/Modal/SubmitUserModal';
 import { RepositoryPreviewList } from '../components/Repository/RepositoryPreviewList';
 import { Divider } from '../components/UI/Divider';
-import { RepositoryFilterContextWrapper } from '../context/repository-filter-context';
 import { useGetRepositoriesLazyQuery } from '../lib/graphql-types';
 import nextI18nextConfig from '../next-i18next.config';
 import Error500Page from './500';
@@ -27,7 +25,7 @@ const Explore: NextPage = () => {
     () => data?.repositories.pageInfo,
     [data]
   );
-  const repositoriesLoadMoreHandler = () => {
+  const repositoriesLoadMoreHandler = useCallback(() => {
     if (!repositoriesPageInfo?.hasNextPage || !repositoriesPageInfo) return;
 
     fetchMore({
@@ -35,16 +33,7 @@ const Explore: NextPage = () => {
         after: repositoriesPageInfo.endCursor,
       },
     });
-  };
-
-  const apolloClient = useApolloClient();
-  // Removes the cache if you navigate to another page
-  useEffect(
-    () => () => {
-      apolloClient.cache.evict({ id: 'ROOT_QUERY', fieldName: 'repositories' });
-    },
-    []
-  );
+  }, [fetchMore, repositoriesPageInfo]);
 
   if (error) return <Error500Page />;
 
@@ -57,14 +46,13 @@ const Explore: NextPage = () => {
         <div className="md:col-span-2">
           <div className="md:sticky md:top-24 md:bottom-0 flex items-start justify-around">
             <div className="md:self-start md:overflow-y-auto md:max-h-[80vh] md:pl-2 w-full">
-              <RepositoryFilterContextWrapper>
-                <RepositoryFilters
-                  called={called}
-                  query={getRepositories}
-                  refetch={refetch}
-                  loading={loading}
-                />
-              </RepositoryFilterContextWrapper>
+              <RepositoryFilters
+                onDebouncedFiltersUpdate={(filters) => {
+                  called
+                    ? refetch(filters)
+                    : getRepositories({ variables: filters });
+                }}
+              />
             </div>
           </div>
         </div>

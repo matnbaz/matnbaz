@@ -31,7 +31,6 @@ const TagPage: NextPage<TagPageProps> = ({ tagName }) => {
 
   const postsLoadMoreHandler = () => {
     if (!data?.tag.posts.pageInfo.hasNextPage) return;
-    console.log(data.tag.posts.pageInfo.endCursor);
     fetchMore({
       variables: {
         postsAfter: data.tag.posts.pageInfo.endCursor,
