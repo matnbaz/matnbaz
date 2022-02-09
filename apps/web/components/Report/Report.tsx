@@ -17,7 +17,7 @@ interface ReportProps {
 
 export interface Reason {
   name: string;
-  value?: string;
+  value: string | null;
   customValue?: boolean;
 }
 
@@ -43,7 +43,9 @@ export const Report = ({
   const [reportReason, setReportReason] = useState('');
 
   // And this is for the selected radio input option
-  const [selectedReportReason, setSelectedReportReason] = useState<Reason>();
+  const [selectedReportReason, setSelectedReportReason] = useState<Reason>(
+    reasons[0]
+  );
 
   useEffect(() => setShowReportModal(false), [data]);
 
@@ -60,14 +62,8 @@ export const Report = ({
         <div className="block space-y-6">
           <span>{modalDescription}</span>
           <RadioList
-            options={reasons.map((reason) => ({
-              ...reason,
-              value: reason.value || null,
-            }))}
-            value={{
-              ...selectedReportReason,
-              value: selectedReportReason.value || null,
-            }}
+            options={reasons}
+            value={selectedReportReason}
             onChange={(reason: Reason) => {
               setReportReason(reason.value);
               setSelectedReportReason(reason);
@@ -84,7 +80,11 @@ export const Report = ({
             />
           )}
           <Button.Primary
-            disabled={loading || (reportReason || '').trim().length <= 5}
+            disabled={
+              loading ||
+              (selectedReportReason.customValue === true &&
+                (reportReason || '').trim().length <= 5)
+            }
             onClick={() => {
               report({
                 variables: {
@@ -102,7 +102,7 @@ export const Report = ({
       <Button.Ghost
         onClick={() => {
           setReportReason('');
-          setSelectedReportReason(null);
+          setSelectedReportReason(reasons[0]);
           setShowReportModal(true);
         }}
       >

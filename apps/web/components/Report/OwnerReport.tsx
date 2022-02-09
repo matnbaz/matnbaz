@@ -12,15 +12,16 @@ export const OwnerReport = ({ owner }: OwnerReportProps) => {
 
   const reasons: Reason[] = [
     {
-      name: t('reasons.inappropriate-name-or-avatar'),
-      value: t('reasons.inappropriate-name-or-avatar'),
-    },
-    {
       name: t('reasons.non-iranian'),
       value: t('reasons.non-iranian'),
     },
     {
+      name: t('reasons.inappropriate-name-or-avatar'),
+      value: t('reasons.inappropriate-name-or-avatar'),
+    },
+    {
       name: t('reasons.other'),
+      value: null,
       customValue: true,
     },
   ];
