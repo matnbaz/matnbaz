@@ -1,5 +1,6 @@
 import { localize } from '@matnbaz/common';
 import classNames from 'classnames';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import {
@@ -49,6 +50,8 @@ export const RepositoryPreview = ({
   variation = 'default',
   ...props
 }: RepositoryPreviewProps) => {
+  const { t } = useTranslation();
+
   const statistics = useMemo(
     () => [
       {
@@ -89,8 +92,8 @@ export const RepositoryPreview = ({
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
         /> */}
         {repository.isNew && (
-          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 ltr:-ml-3 rtl:-mr-3 -mt-6">
-            جدید
+          <span className="px-2 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute right-0 text-sm z-20 ltr:-ml-3 rtl:-mr-3 -mt-6">
+            {t('new')}
           </span>
         )}
         <div
@@ -111,7 +114,7 @@ export const RepositoryPreview = ({
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center md:absolute bottom-0 w-full mt-2 md:mt-0">
+        <div className="flex justify-between items-center flex-row-reverse rtl:flex-row md:absolute bottom-0 w-full mt-2 md:mt-0">
           {repository.language && (
             <div className="flex items-center">
               <>
@@ -132,12 +135,12 @@ export const RepositoryPreview = ({
             </div>
           )}
 
-          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 ltr:ml-auto rtl:mr-auto">
+          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 mr-auto">
             {hasStatistics &&
               statistics.slice(0, 1).map((statistic, statIdx) => (
                 <div
                   key={statIdx}
-                  className="flex space-x-1 rtl:space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
+                  className="flex flex-row-reverse rtl:flex-row space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
                 >
                   <span>{localize(statistic.value, locale)}</span>
                   <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
@@ -155,8 +158,8 @@ export const RepositoryPreview = ({
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
         /> */}
         {repository.isNew && (
-          <span className="px-1.5 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute text-sm z-20 ltr:-ml-3 rtl:-mr-3 -mt-6">
-            جدید
+          <span className="px-2 py-0.5 bg-primary-500/30 backdrop-blur-sm rounded-full absolute right-0 text-sm z-20 ltr:-ml-3 rtl:-mr-3 -mt-6">
+            {t('new')}
           </span>
         )}
         <div
@@ -184,7 +187,7 @@ export const RepositoryPreview = ({
             </p>
           </div>
         </div>
-        <div className="flex justify-between items-center md:absolute bottom-0 w-full mt-2 md:mt-0">
+        <div className="flex justify-between items-center flex-row-reverse rtl:flex-row md:absolute bottom-0 w-full mt-2 md:mt-0">
           {repository.language && (
             <div className="flex items-center" dir="ltr">
               <>
@@ -202,12 +205,12 @@ export const RepositoryPreview = ({
             </div>
           )}
 
-          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 ltr:ml-auto rtl:mr-auto">
+          <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 mr-auto">
             {hasStatistics &&
               statistics.map((statistic, statIdx) => (
                 <div
                   key={statIdx}
-                  className="flex space-x-1 rtl:space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
+                  className="flex flex-row-reverse rtl:flex-row space-x-1 space-x-reverse text-gray-700 dark:text-gray-400 items-center justify-end text-sm sm:text-base"
                 >
                   <span>{localize(statistic.value, locale)}</span>
                   <statistic.icon className="w-4 h-4 md:w-5 md:h-5 m-auto" />
