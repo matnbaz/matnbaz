@@ -18,7 +18,7 @@
 - [مخزن فایل‌های گرافیکی](https://github.com/matnbaz/visual)
 - [مخزن برنامه موبایل](https://github.com/matnbaz/matnbaz-mobile)
 
-# Matnbaz: The Iranian open-source community
+# Matnbaz: The Iranian Open-Source Community
 
 Matnbaz ("open-source" in Persian, pronounced |matn baaz|) is created to detect, collect and showcase Iranian open-source projects, promote open-source, connect developers and create financial solutions for Iranian maintainers.
 
