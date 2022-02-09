@@ -1,13 +1,13 @@
 {
   "page-title": "The Iranian open-source community",
-  "page-description": "Matnbaz is created to detect and collect Iranian open-source projects and maintainers, promote open-source, connect developers and create financial solutions for Iranian open-source maintainers.",
+  "page-description": "Matnbaz is created to detect, collect and showcase Iranian open-source projects, promote open-source, connect developers and create financial solutions for Iranian open-source maintainers.",
   "new": "New",
   "in-future": "In Future",
   "hero": {
     "title-h1": "Matnbaz",
     "title-h2": "The {{accent}} open-source community",
     "title-h2-accent": "Iranian",
-    "description": "Matnbaz (\"open-source\" in Persian, pronounced |matn baaz|) is created to detect and collect Iranian open-source projects and maintainers, promote open-source, connect developers and create financial solutions for Iranian open-source maintainers.",
+    "description": "Matnbaz (\"open-source\" in Persian, pronounced |matn baaz|) is created to detect, collect and showcase Iranian open-source projects, promote open-source, connect developers and create financial solutions for Iranian maintainers.",
     "more-info": "More Info"
   },
   "ease-discovery": {
