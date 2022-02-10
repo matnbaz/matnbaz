@@ -78,7 +78,7 @@
     ora "5.4.1"
     rxjs "6.6.7"
 
-"@apollo/client@^3.4.17":
+"@apollo/client@3.4.17":
   version "3.4.17"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.4.17.tgz#4972e19a49809e16d17c5adc67f45623a6dac135"
   integrity sha512-MDt2rwMX1GqodiVEKJqmDmAz8xr0qJmq5PdWeIt0yDaT4GOkKYWZiWkyfhfv3raTk8PyJvbsNG9q2CqmUrlGfg==
@@ -4668,7 +4668,7 @@ apollo-reporting-protobuf@^3.2.0:
   dependencies:
     "@apollo/protobufjs" "1.2.2"
 
-apollo-server-cache-redis@^3.3.0:
+apollo-server-cache-redis@3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/apollo-server-cache-redis/-/apollo-server-cache-redis-3.3.0.tgz#ca1c6c339e8f8d970b6f5653cc62e7d14b22e037"
   integrity sha512-S5MycJYk2j98hGpSmCs3ESDypNij+lI1phqX0KVZ8e7UmEu3Czz/hWyV+q98SuPexJQwEQyUYey6ikiQVuhJfg==
@@ -4685,7 +4685,7 @@ apollo-server-caching@^3.3.0:
   dependencies:
     lru-cache "^6.0.0"
 
-apollo-server-core@^3.5.0:
+apollo-server-core@3.5.0, apollo-server-core@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-3.5.0.tgz#09d05554e6aed9fed296d7bff99e2b8ca31f49eb"
   integrity sha512-c3wEnPSnzvWvYvRJq1B+yIpa+vBvm0kq0tvD4j/IOw/F1s3sadu43Xr4FiLw++UfeLyh3aS5Wk68hjvrW1ceiQ==
@@ -4724,7 +4724,7 @@ apollo-server-errors@^3.3.0:
   resolved "https://registry.yarnpkg.com/apollo-server-errors/-/apollo-server-errors-3.3.0.tgz#ac8ceb1400064312f983d8d70195693fbcf2be3c"
   integrity sha512-9/MNlPZBbEjcCdJcUSbKbVEBT9xZS8GSpX7T/TyzcxHSbsXJszSDSipQNGC+PRKTKAUnv61IONScVyLKEZ5XEQ==
 
-apollo-server-express@^3.5.0:
+apollo-server-express@3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/apollo-server-express/-/apollo-server-express-3.5.0.tgz#4675ba0e84dfd14bdbb47b5d0360928d701ee6b3"
   integrity sha512-eFyBC4ate/g5GrvxM+HrtiElxCEbvG+CiJ0/R1i62L+wzXDhgD6MU0SW17ceS1mpBJgDxURu/VS5hUSNyWMa3Q==
@@ -4748,7 +4748,7 @@ apollo-server-plugin-base@^3.4.0:
   dependencies:
     apollo-server-types "^3.4.0"
 
-apollo-server-plugin-response-cache@^3.4.0:
+apollo-server-plugin-response-cache@3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/apollo-server-plugin-response-cache/-/apollo-server-plugin-response-cache-3.4.0.tgz#f611a8616c3c87b89215f0012570f65122e36f5d"
   integrity sha512-dy+a3R+kK4voXyBgiAtkOa/nB9B9W4qJbc8tDBrEY1UJY6zIa+6E89nU95J3S6nV43UqH+IrNALsIu7X96+K3A==
