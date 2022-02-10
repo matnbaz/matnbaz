@@ -44,7 +44,7 @@ services:
       - webnet
 
   postgres:
-    image: postgres:12
+    image: postgres:14
     restart: always
     networks:
       - webnet
