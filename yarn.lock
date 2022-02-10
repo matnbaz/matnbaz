@@ -12874,10 +12874,10 @@ next-router-query@0.1.3:
   resolved "https://registry.yarnpkg.com/next-router-query/-/next-router-query-0.1.3.tgz#bd29366cfc318f48344f95e60988f46c80c8b17a"
   integrity sha512-IvIX+JWidA0MybYBMp7h/D3Ok0ZkgrK2j73spj+UJemq3on8LD3U4eDZQ1FPPulSp07y9qlx1VThac8b6SMb+w==
 
-next-seo@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-5.1.0.tgz#aa9fd6249a11bf93e6da06fa2a6bc89268936edf"
-  integrity sha512-ampuQfNTOi1x+xtRIb6CZGunIo6rQXtMo2Tyu861d5GjJFIwfOXsA4lzCa4+e2rLkyXDyVpavNNUZWa3US9ELw==
+next-seo@4.28.1:
+  version "4.28.1"
+  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-4.28.1.tgz#c98ee559c8ab7196c62d0f6903afd7a8cde47a03"
+  integrity sha512-WZgwdM+UhpNF3A37zFllzmPhnOVJ9vYeYlc0n3Z/kYfz/QQgy8NEdncNNggS9dU4JD8xriaCcyknhy5OsrFsJw==
 
 next-sitemap@2.1.13:
   version "2.1.13"
