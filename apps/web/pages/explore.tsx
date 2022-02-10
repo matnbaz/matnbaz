@@ -1,8 +1,9 @@
+import { useApolloClient } from '@apollo/client';
 import { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { PromotionBanner } from '../components/Banner/PromotionBanner';
 import { RepositoryFilters } from '../components/Filter/RepositoryFilters';
 import { MainLayout } from '../components/Layout/MainLayout';
@@ -35,6 +36,15 @@ const Explore: NextPage = () => {
     });
   }, [fetchMore, repositoriesPageInfo]);
 
+  const apolloClient = useApolloClient();
+  // Removes the cache to prevent some issues with filters
+  useEffect(
+    () => () => {
+      apolloClient.cache.evict({ id: 'ROOT_QUERY', fieldName: 'repositories' });
+    },
+    []
+  );
+
   if (error) return <Error500Page />;
 
   return (
@@ -48,9 +58,14 @@ const Explore: NextPage = () => {
             <div className="md:self-start md:overflow-y-auto md:max-h-[80vh] md:pl-2 w-full">
               <RepositoryFilters
                 onDebouncedFiltersUpdate={(filters) => {
-                  called
-                    ? refetch(filters)
-                    : getRepositories({ variables: filters });
+                  console.log(filters.order);
+                  setTimeout(
+                    () =>
+                      called
+                        ? refetch(filters)
+                        : getRepositories({ variables: filters }),
+                    1000
+                  );
                 }}
               />
             </div>
