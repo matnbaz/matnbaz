@@ -25,7 +25,9 @@ export const Footer = (props: FooterProps) => {
               <a>
                 <div className="flex space-x-2 rtl:space-x-reverse items-center">
                   <MatnbazLogo className="w-8 h-8 dark:text-white text-gray-900" />
-                  <h2 className="text-2xl font-extrabold">متن‌باز</h2>
+                  <h2 className="text-2xl font-extrabold ltr:mt-0.5 ltr:-mb-0.5">
+                    {t('site-name')}
+                  </h2>
                 </div>
               </a>
             </Link>

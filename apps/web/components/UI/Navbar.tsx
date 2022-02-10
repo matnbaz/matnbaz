@@ -192,8 +192,8 @@ export const Navbar = ({ className }: NavbarProps) => {
               <a className="flex space-x-3 rtl:space-x-reverse items-center">
                 <MatnbazLogo className="w-10 h-10 dark:text-white text-gray-900" />
 
-                <h2 className="hidden md:block text-3xl font-extrabold">
-                  متن‌باز
+                <h2 className="hidden md:block text-3xl font-extrabold ltr:mt-0.5 ltr:-mb-0.5">
+                  {t('site-name')}
                 </h2>
               </a>
             </Link>
