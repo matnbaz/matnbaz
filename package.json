@@ -22,7 +22,7 @@
     "@nestjs/bull": "0.4.2",
     "@nestjs/common": "8.2.6",
     "@nestjs/core": "8.2.6",
-    "@nestjs/graphql": "9.1.2",
+    "@nestjs/graphql": "9.2.7",
     "@nestjs/platform-express": "8.2.6",
     "@nestjs/schedule": "1.0.2",
     "@nestjs/throttler": "2.0.0",
