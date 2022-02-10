@@ -6,5 +6,5 @@ import { persianNumbers } from '../persian-numbers';
  */
 export const localize = (text: string | number, locale: string) => {
   if (locale === 'fa') return persianNumbers(text);
-  return text;
+  return text.toLocaleString(locale);
 };
