@@ -18,7 +18,7 @@ Please note that the supporting program hasn't started yet.
 
 ## Supporting As Individuals
 
-Your biggest support is introducing Matnbaz to the others.
+Your biggest support is introducing Matnbaz to the others. If you are a content creator or influencer, or you have an audience, you could support Matnbaz by introducing it to them.
 
 If you work for a company that can support Matnbaz, please do introduce Matnbaz to your company.
 
