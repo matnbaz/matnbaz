@@ -29,7 +29,7 @@ export class OwnerResolver extends ReportableResolver(Owner) {
   }
 
   @Query(() => OwnerConnection, {
-    complexity: paginationComplexity,
+    // complexity: paginationComplexity,
   })
   owners(
     @Args() pagination: PaginationArgs,

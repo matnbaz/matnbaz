@@ -1,5 +1,5 @@
 query GetGithubOwners(
-  $first: Int = 20
+  $first: Int
   $after: String
   $order: OwnerOrder = PUBLIC_CONTRIBUTIONS_DESC
 ) {

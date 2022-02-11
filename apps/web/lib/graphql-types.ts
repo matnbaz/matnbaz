@@ -5,7 +5,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -798,15 +798,15 @@ export type UserError = {
   path?: Maybe<Array<Scalars['String']>>;
 };
 
-export type PostFullFragment = { __typename?: 'Post', contentHtml: string, id: string, slug: string, title: string, image?: string | null | undefined, summaryLimited?: string | null | undefined, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } };
+export type PostFullFragment = { __typename?: 'Post', contentHtml: string, id: string, slug: string, title: string, image?: string | null, summaryLimited?: string | null, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null, author: { __typename?: 'User', id: string, name?: string | null, username: string, bio?: string | null, avatar?: string | null } };
 
-export type PostPreviewFragment = { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, summaryLimited?: string | null | undefined, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } };
+export type PostPreviewFragment = { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null, summaryLimited?: string | null, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null, author: { __typename?: 'User', id: string, name?: string | null, username: string, bio?: string | null, avatar?: string | null } };
 
-export type RepoFullFragment = { __typename?: 'Repository', id: string, fullName: string, name: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, openGraphImageUrl?: string | null | undefined, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined };
+export type RepoFullFragment = { __typename?: 'Repository', id: string, fullName: string, name: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null, openGraphImageUrl?: string | null, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null };
 
-export type RepoPreviewWithoutOwnerFragment = { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined };
+export type RepoPreviewWithoutOwnerFragment = { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null };
 
-export type RepoPreviewFragment = { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined };
+export type RepoPreviewFragment = { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null };
 
 export type ReportMutationVariables = Exact<{
   subject: ReportableType;
@@ -823,7 +823,7 @@ export type SendSubmissionMutationVariables = Exact<{
 }>;
 
 
-export type SendSubmissionMutation = { __typename?: 'Mutation', sendSubmission: { __typename?: 'SubmissionPayload', submission?: { __typename?: 'Submission', id: string } | null | undefined, userErrors?: Array<{ __typename?: 'UserError', message: string }> | null | undefined } };
+export type SendSubmissionMutation = { __typename?: 'Mutation', sendSubmission: { __typename?: 'SubmissionPayload', submission?: { __typename?: 'Submission', id: string } | null, userErrors?: Array<{ __typename?: 'UserError', message: string }> | null } };
 
 export type GetCollectionQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -833,7 +833,7 @@ export type GetCollectionQueryVariables = Exact<{
 }>;
 
 
-export type GetCollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', id: string, name: string, slug: string, description?: string | null | undefined, repositoriesCount: number, image?: string | null | undefined, color?: { __typename?: 'Color', hexString: string } | null | undefined, collects: { __typename?: 'CollectConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'CollectEdge', node: { __typename?: 'Collect', repository: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } } }> | null | undefined } } | null | undefined };
+export type GetCollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', id: string, name: string, slug: string, description?: string | null, repositoriesCount: number, image?: string | null, color?: { __typename?: 'Color', hexString: string } | null, collects: { __typename?: 'CollectConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'CollectEdge', node: { __typename?: 'Collect', repository: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null } } }> | null } } | null };
 
 export type GetCollectionsQueryVariables = Exact<{
   count?: InputMaybe<Scalars['Int']>;
@@ -842,7 +842,7 @@ export type GetCollectionsQueryVariables = Exact<{
 }>;
 
 
-export type GetCollectionsQuery = { __typename?: 'Query', collections: { __typename?: 'CollectionConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'CollectionEdge', node: { __typename?: 'Collection', id: string, name: string, slug: string, description?: string | null | undefined, repositoriesCount: number, image?: string | null | undefined, color?: { __typename?: 'Color', hexString: string } | null | undefined } }> | null | undefined } };
+export type GetCollectionsQuery = { __typename?: 'Query', collections: { __typename?: 'CollectionConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'CollectionEdge', node: { __typename?: 'Collection', id: string, name: string, slug: string, description?: string | null, repositoriesCount: number, image?: string | null, color?: { __typename?: 'Color', hexString: string } | null } }> | null } };
 
 export type GetGithubOwnersQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -851,12 +851,12 @@ export type GetGithubOwnersQueryVariables = Exact<{
 }>;
 
 
-export type GetGithubOwnersQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'Owner', name?: string | null | undefined, login: string, contributionsCount?: number | null | undefined, publicContributionsCount?: number | null | undefined, followersCount?: number | null | undefined, twitterUsername?: string | null | undefined, websiteUrl?: string | null | undefined, company?: string | null | undefined } }> | null | undefined } };
+export type GetGithubOwnersQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'Owner', name?: string | null, login: string, contributionsCount?: number | null, publicContributionsCount?: number | null, followersCount?: number | null, twitterUsername?: string | null, websiteUrl?: string | null, company?: string | null } }> | null } };
 
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetLanguagesQuery = { __typename?: 'Query', languages: { __typename?: 'LanguageConnection', edges?: Array<{ __typename?: 'LanguageEdge', node: { __typename?: 'Language', id: string, name: string, slug: string, repositoriesCount: number } }> | null | undefined } };
+export type GetLanguagesQuery = { __typename?: 'Query', languages: { __typename?: 'LanguageConnection', edges?: Array<{ __typename?: 'LanguageEdge', node: { __typename?: 'Language', id: string, name: string, slug: string, repositoriesCount: number } }> | null } };
 
 export type GetOwnerQueryVariables = Exact<{
   owner: Scalars['String'];
@@ -866,7 +866,7 @@ export type GetOwnerQueryVariables = Exact<{
 }>;
 
 
-export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'Owner', id: string, repositoriesCount: number, type: OwnerType, name?: string | null | undefined, login: string, platformId: string, platform: PlatformType, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } } | null | undefined };
+export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'Owner', id: string, repositoriesCount: number, type: OwnerType, name?: string | null, login: string, platformId: string, platform: PlatformType, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null } }> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } } | null };
 
 export type GetPostQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -875,7 +875,7 @@ export type GetPostQueryVariables = Exact<{
 }>;
 
 
-export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, contentHtml: string, summaryLimited?: string | null | undefined, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } } | null | undefined };
+export type GetPostQuery = { __typename?: 'Query', postBySlug?: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null, contentHtml: string, summaryLimited?: string | null, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null, author: { __typename?: 'User', id: string, name?: string | null, username: string, bio?: string | null, avatar?: string | null } } | null };
 
 export type GetPostsQueryVariables = Exact<{
   count?: InputMaybe<Scalars['Int']>;
@@ -885,7 +885,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, summaryLimited?: string | null | undefined, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } } }> | null | undefined } };
+export type GetPostsQuery = { __typename?: 'Query', posts: { __typename?: 'PostConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null, summaryLimited?: string | null, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null, author: { __typename?: 'User', id: string, name?: string | null, username: string, bio?: string | null, avatar?: string | null } } }> | null } };
 
 export type GetRepositoriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -898,7 +898,7 @@ export type GetRepositoriesQueryVariables = Exact<{
 }>;
 
 
-export type GetRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } };
+export type GetRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null } }> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } };
 
 export type GetRepositoryQueryVariables = Exact<{
   owner: Scalars['String'];
@@ -910,7 +910,7 @@ export type GetRepositoryQueryVariables = Exact<{
 }>;
 
 
-export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', id: string, fullName: string, name: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null | undefined, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null | undefined, openGraphImageUrl?: string | null | undefined, relatedRepos: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } }, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null | undefined, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined } | null | undefined };
+export type GetRepositoryQuery = { __typename?: 'Query', repositoryByPlatform?: { __typename?: 'Repository', id: string, fullName: string, name: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, archived: boolean, isTemplate: boolean, defaultBranch: string, homePage?: string | null, stargazersCount: number, forksCount: number, openIssuesCount: number, readmeHtml?: string | null, openGraphImageUrl?: string | null, relatedRepos: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null } }> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } }, pushedAt: { __typename?: 'DateObject', difference: string }, createdAt: { __typename?: 'DateObject', formatted: string }, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null, license?: { __typename?: 'License', name: string, key: string, spdxId: string } | null, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null } | null };
 
 export type GetSearchedRepositoriesQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -918,7 +918,7 @@ export type GetSearchedRepositoriesQueryVariables = Exact<{
 }>;
 
 
-export type GetSearchedRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null | undefined, platform: PlatformType, descriptionLimited?: string | null | undefined, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null | undefined, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null | undefined } | null | undefined } }> | null | undefined } };
+export type GetSearchedRepositoriesQuery = { __typename?: 'Query', repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, owner?: { __typename?: 'Owner', type: OwnerType, login: string, platformId: string } | null, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null } }> | null } };
 
 export type GetTagQueryVariables = Exact<{
   name: Scalars['String'];
@@ -929,7 +929,7 @@ export type GetTagQueryVariables = Exact<{
 }>;
 
 
-export type GetTagQuery = { __typename?: 'Query', tag?: { __typename?: 'PostTag', name: string, posts: { __typename?: 'PostConnection', edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null | undefined, summaryLimited?: string | null | undefined, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null | undefined, author: { __typename?: 'User', id: string, name?: string | null | undefined, username: string, bio?: string | null | undefined, avatar?: string | null | undefined } } }> | null | undefined, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null | undefined } } } | null | undefined };
+export type GetTagQuery = { __typename?: 'Query', tag?: { __typename?: 'PostTag', name: string, posts: { __typename?: 'PostConnection', edges?: Array<{ __typename?: 'PostEdge', node: { __typename?: 'Post', id: string, slug: string, title: string, image?: string | null, summaryLimited?: string | null, tags: Array<{ __typename?: 'PostTag', name: string }>, publishedAt?: { __typename?: 'DateObject', formatted: string, difference: string } | null, author: { __typename?: 'User', id: string, name?: string | null, username: string, bio?: string | null, avatar?: string | null } } }> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } } | null };
 
 export type MetadataQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1224,7 +1224,7 @@ export type GetCollectionsQueryHookResult = ReturnType<typeof useGetCollectionsQ
 export type GetCollectionsLazyQueryHookResult = ReturnType<typeof useGetCollectionsLazyQuery>;
 export type GetCollectionsQueryResult = Apollo.QueryResult<GetCollectionsQuery, GetCollectionsQueryVariables>;
 export const GetGithubOwnersDocument = gql`
-    query GetGithubOwners($first: Int = 20, $after: String, $order: OwnerOrder = PUBLIC_CONTRIBUTIONS_DESC) {
+    query GetGithubOwners($first: Int, $after: String, $order: OwnerOrder = PUBLIC_CONTRIBUTIONS_DESC) {
   owners(
     first: $first
     type: User
