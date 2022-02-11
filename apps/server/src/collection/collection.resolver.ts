@@ -25,7 +25,7 @@ import { CollectionSlugArgs } from './args/collection-slug.args';
 export class CollectionResolver {
   constructor(private readonly prisma: PrismaService) {}
 
-  @CacheControl({ maxAge: 1800 })
+  @CacheControl({ maxAge: 60 })
   @Query(() => CollectionConnection)
   collections(@Args() pagination: PaginationArgs) {
     return findManyCursorConnection(

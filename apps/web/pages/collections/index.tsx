@@ -1,59 +1,41 @@
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
-import { useRouter } from 'next/router';
 import { CollectionPreview } from '../../components/Collection/CollectionPreview';
 import { MainLayout } from '../../components/Layout/MainLayout';
 import { PageHeader } from '../../components/Layout/PageHeader';
-import { CollectionPreviewSkeletonLoader } from '../../components/SkeletonLoader/CollectionPreviewSkeletonLoader';
-import { useGetCollectionsQuery } from '../../lib/graphql-types';
+import { initializeApollo } from '../../lib/apollo';
+import {
+  GetCollectionsDocument,
+  GetCollectionsQueryResult,
+  GetCollectionsQueryVariables,
+} from '../../lib/graphql-types';
 import nextI18nextConfig from '../../next-i18next.config';
 import { localeToEnum } from '../../utils/locale';
 
-const CollectionsPage: NextPage = () => {
-  const { t } = useTranslation('collections');
-  const { locale } = useRouter();
-  const { data, fetchMore, loading } = useGetCollectionsQuery({
-    variables: { locale: localeToEnum(locale) },
-  });
-  //   const collectionsLoadMoreHandler = () => {
-  //     if (!collections.pageInfo.hasNextPage) return;
+export interface CollectionsPageProps {
+  collections: GetCollectionsQueryResult['data']['collections'];
+}
 
-  //     fetchMore({
-  //       variables: {
-  //         reposAfter: collections.pageInfo.endCursor,
-  //       },
-  //     });
-  //   };
+const CollectionsPage: NextPage<CollectionsPageProps> = ({ collections }) => {
+  const { t } = useTranslation('collections');
+
   let template;
-  if (!loading && !data)
+  if (collections.edges.length === 0)
     template = <p className="text-center font-bold">{t('no-result-found')}</p>;
   else
     template = (
       <div className="mb-12 grid gap-10 md:grid-cols-12">
-        {loading ? (
-          <>
-            {Array.from(Array(16).keys()).map((i) => (
-              <CollectionPreviewSkeletonLoader
-                bgColor="standout"
-                className="md:col-span-4 lg:col-span-3"
-                key={i}
-                border="none"
-              />
-            ))}
-          </>
-        ) : (
-          data.collections.edges.map(({ node }, index) => (
-            <CollectionPreview
-              bgColor="standout"
-              className="md:col-span-4 lg:col-span-3"
-              key={node.id}
-              collection={node}
-              border="none"
-            />
-          ))
-        )}
+        {collections.edges.map(({ node }, index) => (
+          <CollectionPreview
+            bgColor="standout"
+            className="md:col-span-4 lg:col-span-3"
+            key={node.id}
+            collection={node}
+            border="none"
+          />
+        ))}
       </div>
     );
   return (
@@ -67,9 +49,27 @@ const CollectionsPage: NextPage = () => {
 
 export default CollectionsPage;
 
-export async function getStaticProps({ locale }) {
+export const getStaticProps: GetStaticProps<CollectionsPageProps> = async ({
+  locale,
+}) => {
+  const apolloClient = initializeApollo();
+
+  const {
+    data: { collections },
+  } = await apolloClient.query<
+    GetCollectionsQueryResult['data'],
+    GetCollectionsQueryVariables
+  >({
+    query: GetCollectionsDocument,
+    variables: {
+      locale: localeToEnum(locale),
+    },
+  });
+
   return {
+    revalidate: 60 * 60 * 12, // 12H
     props: {
+      collections,
       ...(await serverSideTranslations(
         locale,
         ['common', 'collections'],
@@ -77,4 +77,4 @@ export async function getStaticProps({ locale }) {
       )),
     },
   };
-}
+};
