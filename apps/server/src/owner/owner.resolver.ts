@@ -55,6 +55,24 @@ export class OwnerResolver extends ReportableResolver(Owner) {
               publicContributionsCount: 'desc' as const,
             },
             [OwnerOrder.FOLLOWERS_DESC]: { followersCount: 'desc' as const },
+            [OwnerOrder.OPEN_ISSUES_COUNT_DESC]: {
+              openIssuesCount: 'desc' as const,
+            },
+            [OwnerOrder.CLOSED_ISSUES_COUNT_DESC]: {
+              closedIssuesCount: 'desc' as const,
+            },
+            [OwnerOrder.PULL_REQUESTS_COUNT_DESC]: {
+              pullRequestsCount: 'desc' as const,
+            },
+            [OwnerOrder.REPOSITORIES_CONTRIBUTED_TO_COUNT_DESC]: {
+              repositoriesContributedToCount: 'desc' as const,
+            },
+            [OwnerOrder.REPOSITORIES_COUNT_DESC]: {
+              repositoriesCount: 'desc' as const,
+            },
+            [OwnerOrder.TOTAL_STARS_COUNT_DESC]: {
+              totalStarsCount: 'desc' as const,
+            },
           }[order],
           ...args,
         }),
