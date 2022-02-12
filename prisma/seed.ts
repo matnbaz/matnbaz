@@ -25,6 +25,15 @@ const main = async () => {
     },
   });
   console.log('Moderator1 created.');
+
+  const dummyOwner = await prisma.owner.create({
+    data: {
+      login: 'a',
+      platform: 'GitHub',
+      platformId: '1',
+      type: 'User',
+    },
+  });
 };
 
 main();
