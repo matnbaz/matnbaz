@@ -24,6 +24,18 @@ query ($id: ID!) {
       following(first: 0) {
         totalCount
       }
+      repositoriesContributedTo(first: 1, contributionTypes: [COMMIT, ISSUE, PULL_REQUEST, REPOSITORY]) {
+        totalCount
+      }
+      pullRequests(first: 1) {
+        totalCount
+      }
+      openIssues: issues(states: OPEN) {
+        totalCount
+      }
+      closedIssues: issues(states: CLOSED) {
+        totalCount
+      }
       databaseId
       name
       twitterUsername
@@ -41,6 +53,7 @@ query ($id: ID!) {
       id
       login
       repositories(first: 100, orderBy: {field: STARGAZERS, direction: DESC}, ownerAffiliations: OWNER) {
+        totalCount
         edges {
           node {
             id
@@ -357,6 +370,11 @@ export class GithubExtractorService {
     login,
     databaseId,
     contributionsCollection,
+    closedIssues,
+    openIssues,
+    pullRequests,
+    repositories,
+    repositoriesContributedTo,
     followers,
     twitterUsername,
     websiteUrl,
@@ -374,6 +392,26 @@ export class GithubExtractorService {
       };
       restrictedContributionsCount: number;
     };
+    repositoriesContributedTo?: {
+      totalCount: number;
+    };
+    pullRequests: {
+      totalCount: number;
+    };
+    openIssues: {
+      totalCount: number;
+    };
+    closedIssues: {
+      totalCount: number;
+    };
+    repositories: {
+      totalCount: number;
+      edges: {
+        node: {
+          stargazerCount: number;
+        };
+      }[];
+    };
     twitterUsername?: string;
     websiteUrl?: string;
     company?: string;
@@ -381,16 +419,32 @@ export class GithubExtractorService {
     followers?: { totalCount: number };
     __typename: 'Organization' | 'User';
   }) {
-    const allContributions =
-      __typename === 'User'
-        ? contributionsCollection?.contributionCalendar?.totalContributions
-        : 0;
+    const repositoriesCount = repositories?.totalCount;
+    const repositoriesContributedToCount =
+      repositoriesContributedTo?.totalCount;
 
-    const publicContributions =
-      __typename === 'User'
-        ? allContributions -
-          contributionsCollection.restrictedContributionsCount
-        : 0;
+    let closedIssuesCount = null;
+    let openIssuesCount = null;
+    let pullRequestsCount = null;
+    let totalStarsCount = null;
+    let followersCount = null;
+    let contributionsCount = null;
+    let publicContributionsCount = null;
+    if (__typename === 'User') {
+      closedIssuesCount = closedIssues?.totalCount;
+      openIssuesCount = openIssues?.totalCount;
+      pullRequestsCount = pullRequests?.totalCount;
+      totalStarsCount = repositories?.edges.reduce(
+        (prev, repo) => prev + repo.node.stargazerCount,
+        0
+      );
+      followersCount = followers?.totalCount;
+      contributionsCount =
+        contributionsCollection?.contributionCalendar?.totalContributions;
+      publicContributionsCount =
+        contributionsCount -
+        contributionsCollection.restrictedContributionsCount;
+    }
 
     const owner = await this.prisma.owner.upsert({
       where: {
@@ -424,9 +478,15 @@ export class GithubExtractorService {
         websiteUrl,
         type: __typename,
         latestExtractionAt: new Date(),
-        contributionsCount: allContributions,
-        publicContributionsCount: publicContributions,
-        followersCount: followers?.totalCount,
+        contributionsCount,
+        publicContributionsCount,
+        followersCount,
+        closedIssuesCount,
+        openIssuesCount,
+        pullRequestsCount,
+        repositoriesContributedToCount,
+        repositoriesCount,
+        totalStarsCount,
       },
     });
 
@@ -442,9 +502,15 @@ export class GithubExtractorService {
               },
             },
           },
-          contributionsCount: allContributions,
-          publicContributionsCount: publicContributions,
-          followersCount: followers.totalCount,
+          contributionsCount,
+          publicContributionsCount,
+          followersCount,
+          closedIssuesCount,
+          openIssuesCount,
+          pullRequestsCount,
+          repositoriesContributedToCount,
+          repositoriesCount,
+          totalStarsCount,
         },
       });
 
