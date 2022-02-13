@@ -82,7 +82,19 @@ export class OwnerResolver extends ReportableResolver(Owner) {
             blockedAt: null,
             type,
             platform,
+            contributionsCount: withStatistics ? { not: null } : undefined,
+            publicContributionsCount: withStatistics
+              ? { not: null }
+              : undefined,
             followersCount: withStatistics ? { not: null } : undefined,
+            openIssuesCount: withStatistics ? { not: null } : undefined,
+            closedIssuesCount: withStatistics ? { not: null } : undefined,
+            pullRequestsCount: withStatistics ? { not: null } : undefined,
+            repositoriesContributedToCount: withStatistics
+              ? { not: null }
+              : undefined,
+            repositoriesCount: withStatistics ? { not: null } : undefined,
+            totalStarsCount: withStatistics ? { not: null } : undefined,
           },
         }),
       pagination
