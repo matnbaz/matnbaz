@@ -63,6 +63,7 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
         width: 256,
         Cell: (props) => {
           const login = props.data[props.cell.row.index].login;
+          const platformId = props.data[props.cell.row.index].platformId;
           return (
             <div className="whitespace-nowrap px-6 py-4">
               <div className="flex items-center">
@@ -71,7 +72,7 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
                     <a target="_blank">
                       <img
                         className="h-10 w-10 rounded-full"
-                        src={`https://github.com/${login}.png`}
+                        src={`https://avatars.githubusercontent.com/u/${platformId}?v=4`}
                         alt={`عکس ${props.value || login}`}
                       />
                     </a>

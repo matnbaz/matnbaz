@@ -1,7 +1,7 @@
 query GetGithubOwners(
   $first: Int
   $after: String
-  $order: OwnerOrder = PUBLIC_CONTRIBUTIONS_DESC
+  $order: OwnerOrder = TOTAL_STARS_COUNT_DESC
 ) {
   owners(
     first: $first
@@ -18,6 +18,7 @@ query GetGithubOwners(
       node {
         name
         login
+        platformId
         twitterUsername
         websiteUrl
         ... on OwnerUser {

@@ -915,7 +915,7 @@ export type GetGithubOwnersQueryVariables = Exact<{
 }>;
 
 
-export type GetGithubOwnersQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'OwnerOrganization', name?: string | null, login: string, twitterUsername?: string | null, websiteUrl?: string | null } | { __typename?: 'OwnerUser', contributionsCount?: number | null, publicContributionsCount?: number | null, followersCount?: number | null, pullRequestsCount?: number | null, openIssuesCount?: number | null, closedIssuesCount?: number | null, repositoriesContributedToCount?: number | null, repositoriesCount?: number | null, totalStarsCount?: number | null, company?: string | null, name?: string | null, login: string, twitterUsername?: string | null, websiteUrl?: string | null } }> | null } };
+export type GetGithubOwnersQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'OwnerOrganization', name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null } | { __typename?: 'OwnerUser', contributionsCount?: number | null, publicContributionsCount?: number | null, followersCount?: number | null, pullRequestsCount?: number | null, openIssuesCount?: number | null, closedIssuesCount?: number | null, repositoriesContributedToCount?: number | null, repositoriesCount?: number | null, totalStarsCount?: number | null, company?: string | null, name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null } }> | null } };
 
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1288,7 +1288,7 @@ export type GetCollectionsQueryHookResult = ReturnType<typeof useGetCollectionsQ
 export type GetCollectionsLazyQueryHookResult = ReturnType<typeof useGetCollectionsLazyQuery>;
 export type GetCollectionsQueryResult = Apollo.QueryResult<GetCollectionsQuery, GetCollectionsQueryVariables>;
 export const GetGithubOwnersDocument = gql`
-    query GetGithubOwners($first: Int, $after: String, $order: OwnerOrder = PUBLIC_CONTRIBUTIONS_DESC) {
+    query GetGithubOwners($first: Int, $after: String, $order: OwnerOrder = TOTAL_STARS_COUNT_DESC) {
   owners(
     first: $first
     type: User
@@ -1304,6 +1304,7 @@ export const GetGithubOwnersDocument = gql`
       node {
         name
         login
+        platformId
         twitterUsername
         websiteUrl
         ... on OwnerUser {
