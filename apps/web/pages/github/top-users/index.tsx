@@ -164,7 +164,10 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
     [t, locale]
   );
 
-  // const scrollBarSize = useMemo(() => scrollbarWidth(), []);
+  const scrollBarSize = useMemo(() => {
+    if (typeof window === 'undefined') return 10;
+    return scrollbarWidth();
+  }, []);
 
   const defaultColumn = useMemo(
     () => ({
@@ -258,7 +261,7 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
             height={1000}
             itemCount={rows.length}
             itemSize={100}
-            width={totalColumnsWidth}
+            width={totalColumnsWidth + scrollBarSize}
           >
             {RenderRow}
           </FixedSizeList>
