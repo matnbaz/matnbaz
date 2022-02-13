@@ -107,7 +107,7 @@ import { AppService } from './app.service';
       discord: {
         webhookUrl: process.env.DISCORD_WEBHOOK_URL,
         botImage:
-          'https://raw.githubusercontent.com/matnbaz/visual/main/social.jpg',
+          'https://raw.githubusercontent.com/matnbaz/graphics/main/social.jpg',
         botName: 'Matnbaz',
       },
       telegram: {

@@ -1,4 +1,4 @@
-![Matnbaz Logo](https://raw.githubusercontent.com/matnbaz/visual/main/readme-logo.png)
+![Matnbaz Logo](https://raw.githubusercontent.com/matnbaz/graphics/main/readme-logo.png)
 
 [![Discord](https://img.shields.io/discord/912032955956871188?label=Discord%20Server&logo=discord)](https://discord.com/invite/SNHSYWsKYQ)
 [![Telegram](https://img.shields.io/badge/Telegram%20Channel-Join-26A5E4?logo=telegram)](https://t.me/matnbaz_net)
@@ -15,7 +15,7 @@
 - [درباره متن‌باز](https://matnbaz.net/about)
 - [حمایت از متن‌باز](https://matnbaz.net/support)
 - [پرسش‌های متداول](https://matnbaz.net/faq)
-- [مخزن فایل‌های گرافیکی](https://github.com/matnbaz/visual)
+- [مخزن فایل‌های گرافیکی](https://github.com/matnbaz/graphics)
 - [مخزن برنامه موبایل](https://github.com/matnbaz/matnbaz-mobile)
 
 # Matnbaz: The Iranian Open-Source Community
@@ -26,5 +26,5 @@ Matnbaz ("open-source" in Persian, pronounced |matn baaz|) is created to detect,
 - [About Matnbaz](https://matnbaz.net/en/about)
 - [Supporting Matnbaz](https://matnbaz.net/en/support)
 - [Frequently Asked Questions](https://matnbaz.net/en/faq)
-- [Graphical Files Repository](https://github.com/matnbaz/visual)
+- [Graphical Files Repository](https://github.com/matnbaz/graphics)
 - [Mobile App Repository](https://matnbaz.net/en/matnbaz-mobile)

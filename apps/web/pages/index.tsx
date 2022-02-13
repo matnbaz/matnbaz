@@ -83,7 +83,7 @@ const HomePage: NextPage = () => {
       />
 
       <LogoJsonLd
-        logo="https://github.com/matnbaz/visual/blob/main/readme-logo.png"
+        logo="https://github.com/matnbaz/graphics/blob/main/readme-logo.png"
         url="https://matnbaz.net"
       />
 

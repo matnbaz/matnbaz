@@ -33,7 +33,7 @@ function CustomApp({ Component, pageProps, router: { locale } }: AppProps) {
           title: t('site-name'),
           images: [
             {
-              url: `https://raw.githubusercontent.com/matnbaz/visual/main/banner${
+              url: `https://raw.githubusercontent.com/matnbaz/graphics/main/banner${
                 locale === 'fa' ? '' : `-${locale}`
               }.jpg`,
               width: 1280,
