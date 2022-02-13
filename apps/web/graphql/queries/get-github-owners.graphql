@@ -18,12 +18,20 @@ query GetGithubOwners(
       node {
         name
         login
-        contributionsCount
-        publicContributionsCount
-        followersCount
         twitterUsername
         websiteUrl
-        company
+        ... on OwnerUser {
+          contributionsCount
+          publicContributionsCount
+          followersCount
+          pullRequestsCount
+          openIssuesCount
+          closedIssuesCount
+          repositoriesContributedToCount
+          repositoriesCount
+          totalStarsCount
+          company
+        }
       }
     }
   }

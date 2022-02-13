@@ -6,5 +6,7 @@
   "company": "Company",
   "twitter": "Twitter",
   "followers": "Followers",
+  "total-stars": "Total Stars",
+  "repositories-count": "Repositories Count",
   "public-contributions": "Public Contributions"
 }
