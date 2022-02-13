@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from 'react';
 import { CheckboxInput } from './CheckboxInput';
 import { RadioInput } from './RadioInput';
 import { TextareaInput } from './TextareaInput';
-import { TextInputProps, TextInput } from './TextInput';
+import { TextInput, TextInputProps } from './TextInput';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;

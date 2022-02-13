@@ -6,13 +6,23 @@ import { InputProps } from './Input';
 export interface TextInputProps extends InputProps {
   icon?: IconType;
   noBorder?: boolean;
+  wrapperClassName?: string;
 }
 
 export const TextInput = forwardRef<HTMLInputElement>(
-  ({ className, icon, noBorder = false, ...props }: TextInputProps, ref) => {
+  (
+    {
+      className,
+      wrapperClassName,
+      icon,
+      noBorder = false,
+      ...props
+    }: TextInputProps,
+    ref
+  ) => {
     const IconComponent = icon;
     return (
-      <div className="relative w-full inline-block">
+      <div className={classNames('relative inline-block', wrapperClassName)}>
         <input
           {...props}
           ref={ref}

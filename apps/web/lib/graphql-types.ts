@@ -908,14 +908,10 @@ export type GetCollectionsQueryVariables = Exact<{
 
 export type GetCollectionsQuery = { __typename?: 'Query', collections: { __typename?: 'CollectionConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'CollectionEdge', node: { __typename?: 'Collection', id: string, name: string, slug: string, description?: string | null, repositoriesCount: number, image?: string | null, color?: { __typename?: 'Color', hexString: string } | null } }> | null } };
 
-export type GetGithubOwnersQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['Int']>;
-  after?: InputMaybe<Scalars['String']>;
-  order?: InputMaybe<OwnerOrder>;
-}>;
+export type GetGithubChartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetGithubOwnersQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'OwnerOrganization', name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null } | { __typename?: 'OwnerUser', contributionsCount?: number | null, publicContributionsCount?: number | null, followersCount?: number | null, pullRequestsCount?: number | null, openIssuesCount?: number | null, closedIssuesCount?: number | null, repositoriesContributedToCount?: number | null, repositoriesCount?: number | null, totalStarsCount?: number | null, company?: string | null, name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null } }> | null } };
+export type GetGithubChartQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'OwnerOrganization', name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null } | { __typename?: 'OwnerUser', contributionsCount?: number | null, publicContributionsCount?: number | null, followersCount?: number | null, pullRequestsCount?: number | null, openIssuesCount?: number | null, closedIssuesCount?: number | null, repositoriesContributedToCount?: number | null, repositoriesCount?: number | null, totalStarsCount?: number | null, company?: string | null, name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null } }> | null } };
 
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1287,15 +1283,9 @@ export function useGetCollectionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetCollectionsQueryHookResult = ReturnType<typeof useGetCollectionsQuery>;
 export type GetCollectionsLazyQueryHookResult = ReturnType<typeof useGetCollectionsLazyQuery>;
 export type GetCollectionsQueryResult = Apollo.QueryResult<GetCollectionsQuery, GetCollectionsQueryVariables>;
-export const GetGithubOwnersDocument = gql`
-    query GetGithubOwners($first: Int, $after: String, $order: OwnerOrder = TOTAL_STARS_COUNT_DESC) {
-  owners(
-    first: $first
-    type: User
-    after: $after
-    order: $order
-    withStatistics: true
-  ) {
+export const GetGithubChartDocument = gql`
+    query GetGithubChart {
+  owners(type: User, withStatistics: true) {
     pageInfo {
       hasNextPage
       endCursor
@@ -1326,34 +1316,31 @@ export const GetGithubOwnersDocument = gql`
     `;
 
 /**
- * __useGetGithubOwnersQuery__
+ * __useGetGithubChartQuery__
  *
- * To run a query within a React component, call `useGetGithubOwnersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetGithubOwnersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetGithubChartQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetGithubChartQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetGithubOwnersQuery({
+ * const { data, loading, error } = useGetGithubChartQuery({
  *   variables: {
- *      first: // value for 'first'
- *      after: // value for 'after'
- *      order: // value for 'order'
  *   },
  * });
  */
-export function useGetGithubOwnersQuery(baseOptions?: Apollo.QueryHookOptions<GetGithubOwnersQuery, GetGithubOwnersQueryVariables>) {
+export function useGetGithubChartQuery(baseOptions?: Apollo.QueryHookOptions<GetGithubChartQuery, GetGithubChartQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetGithubOwnersQuery, GetGithubOwnersQueryVariables>(GetGithubOwnersDocument, options);
+        return Apollo.useQuery<GetGithubChartQuery, GetGithubChartQueryVariables>(GetGithubChartDocument, options);
       }
-export function useGetGithubOwnersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetGithubOwnersQuery, GetGithubOwnersQueryVariables>) {
+export function useGetGithubChartLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetGithubChartQuery, GetGithubChartQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetGithubOwnersQuery, GetGithubOwnersQueryVariables>(GetGithubOwnersDocument, options);
+          return Apollo.useLazyQuery<GetGithubChartQuery, GetGithubChartQueryVariables>(GetGithubChartDocument, options);
         }
-export type GetGithubOwnersQueryHookResult = ReturnType<typeof useGetGithubOwnersQuery>;
-export type GetGithubOwnersLazyQueryHookResult = ReturnType<typeof useGetGithubOwnersLazyQuery>;
-export type GetGithubOwnersQueryResult = Apollo.QueryResult<GetGithubOwnersQuery, GetGithubOwnersQueryVariables>;
+export type GetGithubChartQueryHookResult = ReturnType<typeof useGetGithubChartQuery>;
+export type GetGithubChartLazyQueryHookResult = ReturnType<typeof useGetGithubChartLazyQuery>;
+export type GetGithubChartQueryResult = Apollo.QueryResult<GetGithubChartQuery, GetGithubChartQueryVariables>;
 export const GetLanguagesDocument = gql`
     query GetLanguages {
   languages {

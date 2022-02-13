@@ -19,9 +19,10 @@ export const SearchFilterItem = ({
 
   return (
     <Collapsible title={t(`search.title`)} open={open}>
-      <Input
+      <Input.Text
         placeholder={t(`search.placeholder`)}
         icon={AiOutlineSearch}
+        wrapperClassName="w-full"
         className="w-full"
         value={value}
         onChange={(event) => {

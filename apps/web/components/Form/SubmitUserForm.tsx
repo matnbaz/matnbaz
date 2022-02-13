@@ -53,6 +53,7 @@ export const SubmitUserForm = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             dir="ltr"
+            wrapperClassName="w-full"
             className="w-full"
             placeholder="GitHub username"
           />

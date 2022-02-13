@@ -21,7 +21,7 @@ export const LocaleSelector = () => {
   return (
     <Listbox value={locale} onChange={(value) => changeLanguage(value)}>
       <div className="relative">
-        <Listbox.Button className="relative w-full py-2 ltr:pr-3 ltr:pl-10 rtl:pl-3 rtl:pr-10 ltr:text-left rtl:text-right rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+        <Listbox.Button className="relative w-full py-2 ltr:pr-3 ltr:pl-10 rtl:pl-3 rtl:pr-10 ltr:text-left rtl:text-right rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 md:text-sm">
           <span className="block truncate">{t(`locale.${locale}`)}</span>
           <span className="absolute inset-y-0 ltr:left-0 rtl:right-0 flex items-center ltr:pl-2 rtl:pr-2 pointer-events-none">
             <IoLanguage className="w-6 h-6" aria-hidden="true" />

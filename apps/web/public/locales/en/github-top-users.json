@@ -2,6 +2,8 @@
   "page-title": "Top GitHub Users",
   "page-description": "This is the chart for the most active Iranian users on GitHub. you can sort them based on different attributes.",
   "toggle-sort": "Toggle Sort-by",
+  "search-placeholder": "Start searching...",
+
   "rank": "Rank",
   "user": "User",
   "company": "Company",

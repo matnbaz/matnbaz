@@ -1,15 +1,5 @@
-query GetGithubOwners(
-  $first: Int
-  $after: String
-  $order: OwnerOrder = TOTAL_STARS_COUNT_DESC
-) {
-  owners(
-    first: $first
-    type: User
-    after: $after
-    order: $order
-    withStatistics: true
-  ) {
+query GetGithubChart {
+  owners(type: User, withStatistics: true) {
     pageInfo {
       hasNextPage
       endCursor
