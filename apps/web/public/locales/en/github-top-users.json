@@ -1,12 +1,14 @@
 {
   "page-title": "Top GitHub Users",
   "page-description": "This is the chart for the most active Iranian users based on their public contributions count.",
+  "toggle-sort": "Toggle Sort-by",
   "rank": "Rank",
   "user": "User",
   "company": "Company",
   "twitter": "Twitter",
   "followers": "Followers",
   "total-stars": "Total Stars",
-  "repositories-count": "Repositories Count",
+  "repositories-count": "Repos Count",
+  "repositories-contributed-to-count": "Repos Contributed To",
   "public-contributions": "Public Contributions"
 }

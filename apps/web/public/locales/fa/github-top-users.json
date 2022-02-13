@@ -1,6 +1,7 @@
 {
   "page-title": "کاربران برتر گیت‌هاب",
   "page-description": "در این صفحه کاربران ایرانی گیت‌هاب بر اساس مشارکت‌های عمومی آن‌ها به مخزن‌های اپن‌سورس لیست شده‌اند.",
+  "toggle-sort": "تغییر مرتب‌سازی",
   "rank": "رتبه",
   "user": "کاربر",
   "company": "شرکت",
@@ -8,5 +9,6 @@
   "followers": "دنبال‌کنندگان",
   "total-stars": "مجموع ستاره‌ها",
   "repositories-count": "تعداد مخزن‌ها",
+  "repositories-contributed-to-count": "مخزن‌های مشارکت‌شده",
   "public-contributions": "مشارکت‌های عمومی"
 }

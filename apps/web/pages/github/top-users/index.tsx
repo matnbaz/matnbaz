@@ -5,9 +5,10 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { GoArrowDown, GoArrowUp } from 'react-icons/go';
-import { useSortBy, useTable } from 'react-table';
+import { useFlexLayout, useSortBy, useTable } from 'react-table';
+import { FixedSizeList } from 'react-window';
 import { MainLayout } from '../../../components/Layout/MainLayout';
 import { PageHeader } from '../../../components/Layout/PageHeader';
 import { initializeApollo } from '../../../lib/apollo';
@@ -18,6 +19,18 @@ import {
 } from '../../../lib/graphql-types';
 import nextI18nextConfig from '../../../next-i18next.config';
 
+const scrollbarWidth = () => {
+  // thanks too https://davidwalsh.name/detect-scrollbar-width
+  const scrollDiv = document.createElement('div');
+  scrollDiv.setAttribute(
+    'style',
+    'width: 100px; height: 100px; overflow: scroll; position:absolute; top:-9999px;'
+  );
+  document.body.appendChild(scrollDiv);
+  const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+  document.body.removeChild(scrollDiv);
+  return scrollbarWidth;
+};
 export interface GithubTopUsersPageProps {
   owners: GetGithubOwnersQueryResult['data']['owners'];
 }
@@ -47,6 +60,7 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
       {
         Header: t('user'),
         accessor: 'name',
+        width: 256,
         Cell: (props) => {
           const login = props.data[props.cell.row.index].login;
           return (
@@ -81,7 +95,25 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
         },
       },
       // { Header: t('company'), accessor: 'company' },
-      { Header: t('twitter'), accessor: 'twitterUsername' },
+      // {
+      //   Header: t('twitter'),
+      //   accessor: 'twitterUsername',
+      //   width: 200,
+      //   Cell: (props) => (
+      //     <div className="whitespace-nowrap px-6 py-4 text-center font-bold">
+      //       {props.value && (
+      //         <a
+      //           href={`https://twitter.com/${props.value}`}
+      //           target="_blank"
+      //           rel="noreferrer"
+      //           className="text-sm underline"
+      //         >
+      //           @{props.value}
+      //         </a>
+      //       )}
+      //     </div>
+      //   ),
+      // },
       {
         Header: t('followers'),
         accessor: 'followersCount',
@@ -118,82 +150,123 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
           </div>
         ),
       },
+      {
+        Header: t('repositories-contributed-to-count'),
+        accessor: 'repositoriesContributedToCount',
+        Cell: (props) => (
+          <div className="whitespace-nowrap px-6 py-4 text-center font-bold">
+            {localize(props.value || 0, locale)}
+          </div>
+        ),
+      },
     ],
     [t, locale]
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns,
-        data,
-      },
-      useSortBy
-    );
+  // const scrollBarSize = useMemo(() => scrollbarWidth(), []);
+
+  const defaultColumn = useMemo(
+    () => ({
+      width: 150,
+    }),
+    []
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    totalColumnsWidth,
+    prepareRow,
+  } = useTable(
+    {
+      columns,
+      data,
+      defaultColumn,
+    },
+    useSortBy,
+    useFlexLayout
+  );
+
+  const RenderRow = useCallback(
+    ({ index, style }) => {
+      const row = rows[index];
+      prepareRow(row);
+
+      return (
+        <div className="tr" {...row.getRowProps({ style })} key={index}>
+          {row.cells.map((cell, cellIdx) => {
+            return (
+              <div className="td" {...cell.getCellProps()} key={cellIdx}>
+                {cell.render('Cell')}
+              </div>
+            );
+          })}
+        </div>
+      );
+    },
+    [prepareRow, rows]
+  );
 
   return (
     <MainLayout>
       <NextSeo title={t('page-title')} description={t('page-description')} />
       <PageHeader title={t('page-title')} description={t('page-description')} />
 
-      <div dir="ltr" className="flex flex-col">
+      {/* <div dir="ltr" className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-            <div className="overflow-hidden shadow-md sm:rounded-lg">
-              <table className="min-w-full" {...getTableProps()}>
-                <thead className="bg-gray-50 dark:bg-gray-700">
-                  {headerGroups.map((headerGroup, headerGroupIdx) => (
-                    <tr
-                      {...headerGroup.getHeaderGroupProps()}
-                      key={headerGroupIdx}
-                    >
-                      {headerGroup.headers.map((column, columnIdx) => (
-                        <th
-                          scope="col"
-                          className="text-secondary px-6 py-3 text-center text-xs font-medium tracking-wider"
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                          key={columnIdx}
-                        >
-                          {column.render('Header')}
-                          <span className="inline ml-2">
-                            {column.isSorted ? (
-                              column.isSortedDesc ? (
-                                <GoArrowDown className="w-4 h-4 inline" />
-                              ) : (
-                                <GoArrowUp className="w-4 h-4 inline" />
-                              )
-                            ) : (
-                              ''
-                            )}
-                          </span>
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                  {rows.map((row, rowIdx) => {
-                    prepareRow(row);
-                    return (
-                      <tr {...row.getRowProps()} key={rowIdx}>
-                        {row.cells.map((cell, cellIdx) => {
-                          return (
-                            <td {...cell.getCellProps()} key={cellIdx}>
-                              {cell.render('Cell')}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+            <div className="overflow-hidden shadow-md sm:rounded-lg"> */}
+
+      <div dir="ltr" className="table mx-auto" {...getTableProps()}>
+        <div className="thead bg-gray-50 dark:bg-gray-700 rounded-t-lg">
+          {headerGroups.map((headerGroup, headerGroupIdx) => (
+            <div
+              className="tr"
+              {...headerGroup.getHeaderGroupProps()}
+              key={headerGroupIdx}
+            >
+              {headerGroup.headers.map((column, columnIdx) => (
+                <div
+                  scope="col"
+                  className="th text-secondary px-6 py-3 text-center text-xs font-medium"
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  title={t('toggle-sort')}
+                  key={columnIdx}
+                >
+                  {column.render('Header')}
+                  <span className="inline ml-2">
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <GoArrowDown className="w-4 h-4 inline" />
+                      ) : (
+                        <GoArrowUp className="w-4 h-4 inline" />
+                      )
+                    ) : (
+                      ''
+                    )}
+                  </span>
+                </div>
+              ))}
             </div>
-          </div>
+          ))}
+        </div>
+        <div className="tbody" {...getTableBodyProps()}>
+          <FixedSizeList
+            height={1000}
+            itemCount={rows.length}
+            itemSize={100}
+            width={totalColumnsWidth}
+          >
+            {RenderRow}
+          </FixedSizeList>
         </div>
       </div>
+      {/* </div>
+          </div>
+        </div>
+      </div> */}
     </MainLayout>
   );
 
