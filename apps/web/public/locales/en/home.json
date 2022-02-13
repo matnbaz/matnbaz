@@ -61,7 +61,7 @@
     },
     "top-users": {
       "title": "Top Users Chart",
-      "description": "Meet the most active Iranian developers in GitHub based on their contributions count.",
+      "description": "Meet the most active Iranian developers in GitHub based on their contributions to the open-source.",
       "cta": "Show Users Chart"
     }
   },
