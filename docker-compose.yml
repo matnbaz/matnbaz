@@ -39,12 +39,12 @@ services:
       - postgres
       
   redis:
-    image: redis:5
+    image: redis:6
     networks:
       - webnet
 
   postgres:
-    image: postgres:12
+    image: postgres:14
     restart: always
     networks:
       - webnet
