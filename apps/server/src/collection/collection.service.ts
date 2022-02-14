@@ -25,7 +25,7 @@ export class CollectionService {
         this.logger.log(
           `Thumbnail generation requested, generating thumbnail for ${slug} collection`
         );
-        await this.puppeteerService.retrieveCollectionThumbnail(slug, true);
+        await this.puppeteerService.retrieveCollectionThumbnail(slug, false);
       }
     }
 
