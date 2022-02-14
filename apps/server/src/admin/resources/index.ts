@@ -10,6 +10,7 @@ import { repositoryResource } from './repository.resource';
 import { ResourceContext } from './resource-type';
 import { submissionResource } from './submission.resource';
 import { topicResource } from './topic.resource';
+import { translatedFieldResource } from './translated-field.resource';
 import { userResource } from './user.resource';
 
 const resources = [
@@ -25,6 +26,7 @@ const resources = [
   userResource,
   postResource,
   postTagResource,
+  translatedFieldResource,
 ];
 
 export const getResources = (context: ResourceContext) =>
