@@ -99,7 +99,7 @@
     "@nrwl/tao": "13.8.1",
     "@nrwl/web": "13.8.1",
     "@nrwl/workspace": "13.8.1",
-    "@tailwindcss/typography": "0.5.1",
+    "@tailwindcss/typography": "0.5.2",
     "@testing-library/react": "12.1.2",
     "@testing-library/react-hooks": "7.0.2",
     "@types/bcrypt": "5.0.0",
