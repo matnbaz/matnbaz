@@ -1,4 +1,4 @@
-FROM node:12 AS builder
+FROM node:17 AS builder
 
 # Production use node instead of root
 # USER node
