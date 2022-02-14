@@ -9,7 +9,9 @@ import {
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { Response } from 'express';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { PrismaService } from 'nestjs-prisma';
+import { join } from 'path';
 import { CollectionPuppeteerService } from './collection-puppeteer.service';
 
 @Controller('/collections')
@@ -26,32 +28,40 @@ export class CollectionController {
     @Param('format') format: string,
     @Res() response: Response
   ) {
-    if (!['jpg', 'jpeg'].includes(format))
-      throw new NotFoundException('We do not serve this image extension');
+    let buffer;
+    const filePath = join(
+      __dirname,
+      `../../../storage/server/collection-${collectionSlug}.jpg`
+    );
+    const fileExists = existsSync(filePath);
 
-    const collection = await this.prisma.collection.findUnique({
-      where: { slug: collectionSlug },
-      include: { Collects: { select: { id: true } } },
-    });
+    if (fileExists) {
+      const existingFile = readFileSync(filePath);
+      buffer = existingFile;
+      buffer = Buffer.from(existingFile.toString(), 'base64');
+    } else {
+      if (!['jpg', 'jpeg'].includes(format))
+        throw new NotFoundException('We do not serve this image extension');
 
-    if (!collection)
-      throw new NotFoundException('The requested collection does not exist.');
+      const collection = await this.prisma.collection.findUnique({
+        where: { slug: collectionSlug },
+        include: { Collects: { select: { id: true } } },
+      });
+
+      if (!collection)
+        throw new NotFoundException('The requested collection does not exist.');
+
+      const image =
+        await this.collectionPuppeteerService.generateCollectionThumbnail(
+          collection,
+          collection.Collects.length
+        );
+
+      writeFileSync(filePath, image);
+      buffer = Buffer.from(image.toString(), 'base64');
+    }
 
     response.setHeader('Content-Type', 'image/jpeg');
-    const image = await this.cacheManager.wrap<string>(
-      `collectionImage-${collection.slug}`,
-      async () => {
-        const buffer =
-          await this.collectionPuppeteerService.generateCollectionThumbnail(
-            collection,
-            collection.Collects.length
-          );
-        return buffer.toString('base64');
-      },
-      { ttl: 86400 } // 24H
-    );
-
-    const buffer = Buffer.from(image, 'base64');
     response.send(buffer);
   }
 }
