@@ -187,7 +187,7 @@ export class GithubExtractorService {
         this.octokit
           .graphql<any>(EXTRACTION_QUERY, {
             id: nodeId,
-            request: { timeout: 5000 },
+            request: { timeout: 20000 },
           })
           .then((response) => {
             if (!response.node) {
