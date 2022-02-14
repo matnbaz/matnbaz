@@ -245,6 +245,28 @@ export const ownerResource: Resource = ({
           };
         },
       },
+
+      updateRank: {
+        name: 'updateRank',
+        isVisible: true,
+        actionType: 'record',
+        icon: 'Checkmark',
+        component: false,
+        variant: 'success',
+        handler: async (request, response, data) => {
+          try {
+            await githubQueue.add(GITHUB_PROCESSES.UPDATE_RANK);
+          } catch (error) {
+            console.error(error);
+          }
+          return {
+            notice: {
+              message: 'Added to the queue.',
+              type: 'success',
+            },
+          };
+        },
+      },
     },
   },
 });

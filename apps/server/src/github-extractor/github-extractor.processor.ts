@@ -10,9 +10,23 @@ export class GithubExtractorProcessor {
   private logger = new Logger(GithubExtractorProcessor.name);
 
   @Process(GITHUB_PROCESSES.EXTRACT)
-  async extractProcess(job: Job<{ forceAll: boolean }>) {
+  async extractProcess(
+    job: Job<{ forceAll: boolean; withoutRankUpdate: boolean }>
+  ) {
     this.logger.log('Starting the extraction of repositories...');
 
     await this.extractorService.fullExtract(job.data.forceAll || false);
+
+    if (!job.data.withoutRankUpdate) {
+      this.logger.log('Now starting updating the ranks of owners...');
+      await this.extractorService.updateOwnerRanks();
+    }
+  }
+
+  @Process(GITHUB_PROCESSES.UPDATE_RANK)
+  async updateRank(job: Job) {
+    this.logger.log('Starting updating the ranks of owners...');
+
+    await this.extractorService.updateOwnerRanks();
   }
 }

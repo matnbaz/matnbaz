@@ -381,44 +381,7 @@ export class GithubExtractorService {
     company,
     location,
     __typename,
-  }: {
-    id: string;
-    name?: string;
-    login: string;
-    databaseId: number;
-    contributionsCollection?: {
-      contributionCalendar: {
-        totalContributions: number;
-      };
-      restrictedContributionsCount: number;
-    };
-    repositoriesContributedTo?: {
-      totalCount: number;
-    };
-    pullRequests: {
-      totalCount: number;
-    };
-    openIssues: {
-      totalCount: number;
-    };
-    closedIssues: {
-      totalCount: number;
-    };
-    repositories: {
-      totalCount: number;
-      edges: {
-        node: {
-          stargazerCount: number;
-        };
-      }[];
-    };
-    twitterUsername?: string;
-    websiteUrl?: string;
-    company?: string;
-    location?: string;
-    followers?: { totalCount: number };
-    __typename: 'Organization' | 'User';
-  }) {
+  }: OwnerToPopulate) {
     const repositoriesCount = repositories?.totalCount;
     const repositoriesContributedToCount =
       repositoriesContributedTo?.totalCount;
@@ -446,6 +409,29 @@ export class GithubExtractorService {
         contributionsCollection.restrictedContributionsCount;
     }
 
+    const data: Parameters<PrismaService['owner']['upsert']>['0']['create'] = {
+      nodeId: id,
+      name,
+      login,
+      platform: 'GitHub',
+      platformId: databaseId.toString(),
+      twitterUsername,
+      company,
+      location,
+      websiteUrl,
+      type: __typename,
+      latestExtractionAt: new Date(),
+      contributionsCount,
+      publicContributionsCount,
+      followersCount,
+      closedIssuesCount,
+      openIssuesCount,
+      pullRequestsCount,
+      repositoriesContributedToCount,
+      repositoriesCount,
+      totalStarsCount,
+    };
+
     const owner = await this.prisma.owner.upsert({
       where: {
         platform_platformId: {
@@ -453,41 +439,8 @@ export class GithubExtractorService {
           platformId: databaseId.toString(),
         },
       },
-      create: {
-        nodeId: id,
-        name,
-        login,
-        platform: 'GitHub',
-        platformId: databaseId.toString(),
-        twitterUsername,
-        company,
-        location,
-        websiteUrl,
-        type: __typename,
-        latestExtractionAt: new Date(),
-      },
-      update: {
-        nodeId: id,
-        name,
-        login,
-        platform: 'GitHub',
-        platformId: databaseId.toString(),
-        twitterUsername,
-        company,
-        location,
-        websiteUrl,
-        type: __typename,
-        latestExtractionAt: new Date(),
-        contributionsCount,
-        publicContributionsCount,
-        followersCount,
-        closedIssuesCount,
-        openIssuesCount,
-        pullRequestsCount,
-        repositoriesContributedToCount,
-        repositoriesCount,
-        totalStarsCount,
-      },
+      create: data,
+      update: data,
     });
 
     // Saving statistics
@@ -574,4 +527,90 @@ export class GithubExtractorService {
 
     return response.data.node_id;
   }
+
+  async updateOwnerRanks() {
+    const byTotalStarsRank = await this.prisma.owner.findMany({
+      orderBy: { totalStarsCount: 'desc' },
+      select: { id: true, login: true },
+    });
+
+    const byContributionsRank = await this.prisma.owner.findMany({
+      orderBy: { contributionsCount: 'desc' },
+      select: { id: true, login: true },
+    });
+
+    const byPublicContributionsRank = await this.prisma.owner.findMany({
+      orderBy: { publicContributionsCount: 'desc' },
+      select: { id: true, login: true },
+    });
+
+    const byRepositoriesContributedToRank = await this.prisma.owner.findMany({
+      orderBy: { repositoriesContributedToCount: 'desc' },
+      select: { id: true, login: true },
+    });
+
+    for (const { id } of byTotalStarsRank) {
+      const totalStarsRank =
+        byTotalStarsRank.findIndex((owner) => owner.id === id) + 1;
+      const contributionsRank =
+        byContributionsRank.findIndex((owner) => owner.id === id) + 1;
+      const publicContributionsRank =
+        byPublicContributionsRank.findIndex((owner) => owner.id === id) + 1;
+      const repositoriesContributedToRank =
+        byRepositoriesContributedToRank.findIndex((owner) => owner.id === id) +
+        1;
+
+      await this.prisma.owner.update({
+        where: { id },
+        data: {
+          totalStarsRank,
+          contributionsRank,
+          publicContributionsRank,
+          repositoriesContributedToRank,
+        },
+      });
+    }
+  }
+}
+
+interface OwnerToPopulate {
+  /**
+   * nodeId
+   */
+  id: string;
+  name?: string;
+  login: string;
+  databaseId: number;
+  contributionsCollection?: {
+    contributionCalendar: {
+      totalContributions: number;
+    };
+    restrictedContributionsCount: number;
+  };
+  repositoriesContributedTo?: {
+    totalCount: number;
+  };
+  pullRequests: {
+    totalCount: number;
+  };
+  openIssues: {
+    totalCount: number;
+  };
+  closedIssues: {
+    totalCount: number;
+  };
+  repositories: {
+    totalCount: number;
+    edges: {
+      node: {
+        stargazerCount: number;
+      };
+    }[];
+  };
+  twitterUsername?: string;
+  websiteUrl?: string;
+  company?: string;
+  location?: string;
+  followers?: { totalCount: number };
+  __typename: 'Organization' | 'User';
 }

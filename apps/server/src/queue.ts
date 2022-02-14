@@ -25,6 +25,8 @@ export enum GITHUB_PROCESSES {
 
   EXTRACT = 'EXTRACT',
 
+  UPDATE_RANK = 'UPDATE_RANK',
+
   ADD_OWNER = 'ADD_OWNER',
 }
 // TODO: make these class based instead of enums?

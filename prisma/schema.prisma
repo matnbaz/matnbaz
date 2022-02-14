@@ -113,14 +113,18 @@ model Owner {
   blockedAt                      DateTime?
   latestExtractionAt             DateTime?
   contributionsCount             Int?
+  contributionsRank              Int?
   publicContributionsCount       Int?
+  publicContributionsRank        Int?
   followersCount                 Int?
   pullRequestsCount              Int?
   openIssuesCount                Int?
   closedIssuesCount              Int?
   repositoriesContributedToCount Int?
+  repositoriesContributedToRank  Int?
   repositoriesCount              Int?
   totalStarsCount                Int?
+  totalStarsRank                 Int?
   twitterUsername                String?
   websiteUrl                     String?
   company                        String?
