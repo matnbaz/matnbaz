@@ -2,19 +2,27 @@ import { nullToUndefined } from '@matnbaz/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
+import { CollectionPuppeteerService } from './collection-puppeteer.service';
 
 @Injectable()
 export class CollectionService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly puppeteerService: CollectionPuppeteerService
+  ) {}
 
   logger = new Logger(CollectionService.name);
 
-  async collectAllCollections() {
+  async collectAllCollections(generateThumbnails = true) {
     const collections = await this.prisma.collection.findMany({
-      select: { id: true },
+      select: { id: true, slug: true },
     });
 
-    for (const { id } of collections) await this.collect(id);
+    for (const { id, slug } of collections) {
+      await this.collect(id);
+      if (generateThumbnails)
+        await this.puppeteerService.retrieveCollectionThumbnail(slug, true);
+    }
 
     this.logger.log(
       'Finished collecting repositories for all the collections.'

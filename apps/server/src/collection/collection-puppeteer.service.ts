@@ -1,10 +1,42 @@
 import { persianNumbers } from '@matnbaz/common';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Collection } from '@prisma/client';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { PrismaService } from 'nestjs-prisma';
+import { join } from 'path';
 import * as puppeteer from 'puppeteer';
 
 @Injectable()
 export class CollectionPuppeteerService {
+  constructor(private readonly prisma: PrismaService) {}
+
+  async retrieveCollectionThumbnail(collectionSlug: string, cache = true) {
+    const filePath = join(
+      __dirname,
+      `../../../storage/server/collection-${collectionSlug}.jpg`
+    );
+    const fileExists = existsSync(filePath);
+
+    if (!fileExists || !cache) {
+      const collection = await this.prisma.collection.findUnique({
+        where: { slug: collectionSlug },
+        include: { Collects: { select: { id: true } } },
+      });
+
+      if (!collection)
+        throw new NotFoundException('The requested collection does not exist.');
+
+      const image = await this.generateCollectionThumbnail(
+        collection,
+        collection.Collects.length
+      );
+      writeFileSync(filePath, image);
+    }
+
+    const existingFile = readFileSync(filePath);
+    return Buffer.from(existingFile);
+  }
+
   async generateCollectionThumbnail(
     { color, name, slug, image }: Collection,
     reposCount: number
