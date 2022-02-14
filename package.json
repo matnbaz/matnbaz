@@ -36,7 +36,7 @@
     "apollo-server-plugin-response-cache": "3.5.1",
     "axios": "0.26.0",
     "bcrypt": "5.0.1",
-    "bull": "4.5.1",
+    "bull": "4.5.2",
     "cache-manager": "3.6.0",
     "cache-manager-redis-store": "2.0.0",
     "classnames": "2.3.1",
