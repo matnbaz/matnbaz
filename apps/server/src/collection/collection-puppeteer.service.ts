@@ -45,11 +45,11 @@ export class CollectionPuppeteerService {
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
       defaultViewport: { width: 1280, height: 640 },
-      timeout: 200000,
     });
     const page = await browser.newPage();
 
-    await page.setContent(`
+    await page.setContent(
+      `
     <!DOCTYPE html>
 <html dir="rtl">
   <head>
@@ -134,7 +134,11 @@ export class CollectionPuppeteerService {
     </div>
   </body>
 </html>
-`);
+`,
+      {
+        timeout: 200000,
+      }
+    );
     const screenshot = await page.screenshot({
       omitBackground: true,
       type: 'jpeg',
