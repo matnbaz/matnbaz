@@ -58,14 +58,9 @@ const Explore: NextPage = () => {
             <div className="md:self-start md:overflow-y-auto md:max-h-[80vh] md:pl-2 w-full">
               <RepositoryFilters
                 onDebouncedFiltersUpdate={(filters) => {
-                  console.log(filters.order);
-                  setTimeout(
-                    () =>
-                      called
-                        ? refetch(filters)
-                        : getRepositories({ variables: filters }),
-                    1000
-                  );
+                  called
+                    ? refetch(filters)
+                    : getRepositories({ variables: filters });
                 }}
               />
             </div>
