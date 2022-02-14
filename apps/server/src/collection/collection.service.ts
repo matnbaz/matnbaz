@@ -19,9 +19,14 @@ export class CollectionService {
     });
 
     for (const { id, slug } of collections) {
+      this.logger.log(`Starting collecting for ${slug} collection`);
       await this.collect(id);
-      if (generateThumbnails)
+      if (generateThumbnails) {
+        this.logger.log(
+          `Thumbnail generation requested, generating thumbnail for ${slug} collection`
+        );
         await this.puppeteerService.retrieveCollectionThumbnail(slug, true);
+      }
     }
 
     this.logger.log(

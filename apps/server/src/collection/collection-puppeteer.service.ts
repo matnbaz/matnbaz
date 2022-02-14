@@ -45,6 +45,7 @@ export class CollectionPuppeteerService {
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
       defaultViewport: { width: 1280, height: 640 },
+      timeout: 200000,
     });
     const page = await browser.newPage();
 
