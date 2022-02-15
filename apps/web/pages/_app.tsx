@@ -46,7 +46,7 @@ function CustomApp({ Component, pageProps, router: { locale } }: AppProps) {
         titleTemplate={`%s – ${t('site-name')}`}
         twitter={{
           handle: '@alitnk_',
-          site: '@matnbaz_net',
+          site: '@matnbaz',
           cardType: 'summary_large_image',
         }}
       />

@@ -75,11 +75,7 @@ const HomePage: NextPage = () => {
         type="Organization"
         name="متن‌باز"
         url="http://matnbaz.net"
-        sameAs={[
-          'http://twitter.com/matnbaz_net',
-          'http://instagram.com/matnbaz_net',
-          'http://t.me/matnbaz_net',
-        ]}
+        sameAs={[links.twitter, links.instagram, links.telegram]}
       />
 
       <LogoJsonLd

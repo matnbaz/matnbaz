@@ -3,9 +3,8 @@
 [![Discord](https://img.shields.io/discord/912032955956871188?label=Discord%20Server&logo=discord)](https://discord.com/invite/SNHSYWsKYQ)
 [![Telegram](https://img.shields.io/badge/Telegram%20Channel-Join-26A5E4?logo=telegram)](https://t.me/matnbaz_net)
 [![Instagram](https://img.shields.io/badge/Instagram%20Page-Follow-E4405F?logo=instagram)](https://www.instagram.com/matnbaz_net)
-[![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fmatnbaz.net&label=Tweet)](https://twitter.com/intent/tweet?text=%D8%A8%D9%87%20%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2%20%DB%8C%DA%A9%20%D8%B3%D8%B1%DB%8C%20%D8%A8%D8%B2%D9%86%DB%8C%D8%AF.%20%0A&url=matnbaz.net&via=matnbaz_net)
-
-<!-- [![Twitter](![Twitter](https://img.shields.io/twitter/follow/matnbaz_net?label=Twitter)](https://twitter.com/matnbaz_net) -->
+[![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fmatnbaz.net&label=Tweet)](https://twitter.com/intent/tweet?text=%D8%A8%D9%87%20%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2%20%DB%8C%DA%A9%20%D8%B3%D8%B1%DB%8C%20%D8%A8%D8%B2%D9%86%DB%8C%D8%AF.%20%0A&url=matnbaz.net&via=matnbaz)
+[![Twitter](https://img.shields.io/twitter/follow/matnbaz?label=Twitter)](https://twitter.com/matnbaz)
 
 # متن‌باز: جامعه اپن‌سورس ایرانی
 
