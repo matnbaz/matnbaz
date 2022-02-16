@@ -130,7 +130,7 @@ model Owner {
   websiteUrl                     String?
   company                        String?
   location                       String?
-  User                           User?            @relation(fields: [userId], references: [id])
+  User                           User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId                         String?
   Repositories                   Repository[]
   Collections                    Collection[]     @relation("owners")
@@ -145,19 +145,23 @@ model Owner {
 model RepositoryLanguage {
   id           String     @id @default(cuid())
   size         Int
-  Repository   Repository @relation(fields: [repositoryId], references: [id])
+  Repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
   repositoryId String
-  Language     Language   @relation(fields: [languageId], references: [id])
+  Language     Language   @relation(fields: [languageId], references: [id], onDelete: Cascade)
   languageId   String
+
+  @@unique([repositoryId, languageId])
 }
 
 model OwnerLanguage {
   id         String   @id @default(cuid())
   size       Int
-  Owner      Owner    @relation(fields: [ownerId], references: [id])
+  Owner      Owner    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId    String
-  Language   Language @relation(fields: [languageId], references: [id])
+  Language   Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
   languageId String
+
+  @@unique([ownerId, languageId])
 }
 
 model Submission {
