@@ -50,6 +50,13 @@ query ($id: ID!) {
       twitterUsername
       websiteUrl
       description
+      membersWithRole(first: 100) {
+        edges {
+          node {
+            databaseId
+          }
+        }
+      }
     }
     ... on RepositoryOwner {
       id
@@ -485,8 +492,8 @@ export class GithubExtractorService {
       update: data,
     });
 
-    // Saving statistics
-    if (__typename === 'User')
+    if (__typename === 'User') {
+      // Saving statistics
       await this.prisma.ownerStatistic.create({
         data: {
           Owner: {
@@ -508,6 +515,41 @@ export class GithubExtractorService {
           totalStarsCount,
         },
       });
+    }
+
+    if (__typename === 'Organization') {
+      await this.prisma.organizationMembership.deleteMany({
+        where: { Organization: { id: owner.id } },
+      });
+
+      for (const member of ownerFromGql.membersWithRole.edges) {
+        const memberFromDb = await this.prisma.owner.findUnique({
+          where: {
+            platform_platformId: {
+              platform: 'GitHub',
+              platformId: member.node.databaseId.toString(),
+            },
+          },
+        });
+        if (memberFromDb) {
+          await this.prisma.organizationMembership.create({
+            data: {
+              Organization: {
+                connect: { id: owner.id },
+              },
+              Member: {
+                connect: {
+                  platform_platformId: {
+                    platform: 'GitHub',
+                    platformId: member.node.databaseId.toString(),
+                  },
+                },
+              },
+            },
+          });
+        }
+      }
+    }
 
     return owner;
   }
@@ -700,5 +742,6 @@ interface OwnerToPopulate {
   followers?: { totalCount: number };
   bio?: string;
   description?: string;
+  membersWithRole: { edges: { node: { databaseId: number } }[] };
   __typename: 'Organization' | 'User';
 }

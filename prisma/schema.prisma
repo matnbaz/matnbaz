@@ -101,17 +101,17 @@ model Topic {
 }
 
 model Owner {
-  id                             String           @id @default(cuid())
+  id                             String                   @id @default(cuid())
   platform                       PlatformType
   platformId                     String
-  nodeId                         String?          @unique
+  nodeId                         String?                  @unique
   name                           String?
   about                          String?
   login                          String
   type                           OwnerType
   reason                         String?
-  extractedAt                    DateTime         @default(now()) // TODO: recordCreatedAt
-  recordUpdatedAt                DateTime         @updatedAt
+  extractedAt                    DateTime                 @default(now()) // TODO: recordCreatedAt
+  recordUpdatedAt                DateTime                 @updatedAt
   blockedAt                      DateTime?
   latestExtractionAt             DateTime?
   contributionsCount             Int?
@@ -131,16 +131,26 @@ model Owner {
   websiteUrl                     String?
   company                        String?
   location                       String?
-  User                           User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  User                           User?                    @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId                         String?
   Repositories                   Repository[]
-  Collections                    Collection[]     @relation("owners")
-  CollectionsExcluded            Collection[]     @relation("owners_excluded")
+  Collections                    Collection[]             @relation("owners")
+  CollectionsExcluded            Collection[]             @relation("owners_excluded")
   Statistics                     OwnerStatistic[]
   Languages                      OwnerLanguage[]
+  Organizations                  OrganizationMembership[] @relation("organizations")
+  Members                        OrganizationMembership[] @relation("members")
 
   @@unique([platform, login])
   @@unique([platform, platformId])
+}
+
+model OrganizationMembership {
+  id             String @id @default(cuid())
+  Organization   Owner  @relation("organizations", fields: [organizationId], references: [id], onDelete: Cascade)
+  Member         Owner  @relation("members", fields: [memberId], references: [id], onDelete: Cascade)
+  organizationId String
+  memberId       String
 }
 
 model RepositoryLanguage {
