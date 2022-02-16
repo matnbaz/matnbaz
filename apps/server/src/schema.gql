@@ -197,7 +197,11 @@ interface Node {
 }
 
 interface Owner implements Node {
+  collectedRepositoriesCount: Int!
   id: ID!
+
+  """Owner's most used languages sorted by usage"""
+  languages: [OwnerLanguage!]!
   location: String
   login: String!
   name: String
@@ -226,6 +230,16 @@ type OwnerEdge {
 
   """The item at the end of OwnerEdge."""
   node: Owner!
+}
+
+type OwnerLanguage {
+  language: Language!
+
+  """
+  As `OwnerLanguage` is always retrieved in a context of an owner, the percentage is relative to other used languages from the same owner.
+  """
+  percentage: Float!
+  size: Int!
 }
 
 """You can order repositories with one of these options."""
@@ -267,7 +281,11 @@ enum OwnerOrder {
 }
 
 type OwnerOrganization implements Node & Owner {
+  collectedRepositoriesCount: Int!
   id: ID!
+
+  """Owner's most used languages sorted by usage"""
+  languages: [OwnerLanguage!]!
   location: String
   login: String!
   name: String
@@ -292,10 +310,14 @@ enum OwnerType {
 
 type OwnerUser implements Node & Owner {
   closedIssuesCount: Int
+  collectedRepositoriesCount: Int!
   company: String
   contributionsCount: Int
   followersCount: Int
   id: ID!
+
+  """Owner's most used languages sorted by usage"""
+  languages: [OwnerLanguage!]!
   location: String
   login: String!
   name: String
@@ -509,7 +531,10 @@ type Repository implements Node {
   isFork: Boolean!
   isNew: Boolean!
   isTemplate: Boolean!
-  language: Language
+  language: Language @deprecated(reason: "use `primaryLanguage` instead.")
+
+  """Repository's most used languages sorted by usage"""
+  languages: [RepositoryLanguage!]!
   license: License
   name: String!
   openGraphImageUrl: String
@@ -518,6 +543,7 @@ type Repository implements Node {
   platform: PlatformType!
   platformId: ID!
   platformUrl: String
+  primaryLanguage: Language
   pushedAt: DateObject!
   readme: String
   readmeHtml: String
@@ -544,6 +570,16 @@ type RepositoryEdge {
 
   """The item at the end of RepositoryEdge."""
   node: Repository!
+}
+
+type RepositoryLanguage {
+  language: Language!
+
+  """
+  As `RepositoryLanguage` is always retrieved in a context of a repository, the percentage is relative to other languages from the same repository.
+  """
+  percentage: Float!
+  size: Int!
 }
 
 """A repository owner could any of these types."""

@@ -14,6 +14,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { PlatformByIdArgs } from '../models/args/platform-by-id.args';
 import { OwnerConnection } from '../models/connections/owner.connection';
 import { RepositoryConnection } from '../models/connections/repository.connection';
+import { OwnerLanguage } from '../models/owner-language.model';
 import { Owner } from '../models/owner.model';
 import { paginationComplexity } from '../plugins/pagination-complexity';
 import { ReportableResolver } from '../report/reportable.resolver';
@@ -154,11 +155,30 @@ export class OwnerResolver extends ReportableResolver(Owner) {
   }
 
   @ResolveField(() => Int)
-  async repositoriesCount(@Parent() { id }: P.Owner) {
+  async collectedRepositoriesCount(@Parent() { id }: P.Owner) {
     return (
       await this.prisma.owner
         .findUnique({ where: { id } })
         .Repositories({ where: { blockedAt: null }, select: { id: true } })
     ).length;
+  }
+
+  @ResolveField(() => [OwnerLanguage], {
+    description: `Owner's most used languages sorted by usage`,
+  })
+  async languages(@Parent() { id }: P.Owner): Promise<OwnerLanguage[]> {
+    const repoLanguages = await this.prisma.owner
+      .findUnique({ where: { id } })
+      .Languages({ include: { Language: true } });
+
+    const sumSize = repoLanguages.reduce(
+      (previous, current) => previous + current.size,
+      0
+    );
+    return repoLanguages.map(({ Language: language, size }) => ({
+      percentage: (size / sumSize) * 100,
+      size,
+      language,
+    }));
   }
 }

@@ -21,6 +21,7 @@ import { ScriptDirection } from '../models/enums/script-direction.enum';
 import { Language } from '../models/language.model';
 import { License } from '../models/license.model';
 import { Owner } from '../models/owner.model';
+import { RepositoryLanguage } from '../models/repository-language.model';
 import { Repository } from '../models/repository.model';
 import { Topic } from '../models/topic.model';
 import { paginationComplexity } from '../plugins/pagination-complexity';
@@ -228,10 +229,41 @@ export class RepositoryResolver extends ReportableResolver(Repository) {
   }
 
   @CacheControl({ inheritMaxAge: true })
-  @ResolveField(() => Language, { nullable: true })
+  @ResolveField(() => Language, {
+    nullable: true,
+    deprecationReason: 'use `primaryLanguage` instead.',
+  })
   language(@Parent() { languageId }: P.Repository) {
     if (!languageId) return null;
     return this.prisma.language.findUnique({ where: { id: languageId } });
+  }
+
+  @CacheControl({ inheritMaxAge: true })
+  @ResolveField(() => Language, { nullable: true })
+  primaryLanguage(@Parent() { languageId }: P.Repository) {
+    if (!languageId) return null;
+    return this.prisma.language.findUnique({ where: { id: languageId } });
+  }
+
+  @ResolveField(() => [RepositoryLanguage], {
+    description: `Repository's most used languages sorted by usage`,
+  })
+  async languages(
+    @Parent() { id }: P.Repository
+  ): Promise<RepositoryLanguage[]> {
+    const repoLanguages = await this.prisma.repository
+      .findUnique({ where: { id } })
+      .Languages({ include: { Language: true } });
+
+    const sumSize = repoLanguages.reduce(
+      (previous, current) => previous + current.size,
+      0
+    );
+    return repoLanguages.map(({ Language: language, size }) => ({
+      percentage: (size / sumSize) * 100,
+      size,
+      language,
+    }));
   }
 
   @CacheControl({ inheritMaxAge: true })
