@@ -3069,10 +3069,10 @@
   resolved "https://registry.yarnpkg.com/@n8tb1t/use-scroll-position/-/use-scroll-position-2.0.3.tgz#207c54d584285cac0954d556964f83cf5774940b"
   integrity sha512-6GO4FHVJTMI4jbRHborzemuL6B319qh2cVLOLj8DApJhjyT71eLgANbQ4bNKSZ51zBm3uJ3WmqnyNF17eSsDyw==
 
-"@nestjs/bull@0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/bull/-/bull-0.4.2.tgz#d6b76eaff626f5a3c34048bdc75b597753df059f"
-  integrity sha512-HYRMbgqoUIpGplXN8kaZ23E/yHn6TRrQ297ILRqaHTxBp4vO+XNLfL1qUmJ4Z6weufsNKGg0xcX4dSC5AhXV9g==
+"@nestjs/bull@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/bull/-/bull-0.5.0.tgz#7b723f0a92a6ec929a0213663d7bc52eb09c8c1b"
+  integrity sha512-rQl8qkA3Y4s7/zbxar7aut1uv32vTmSmzjxlcFerV5iBDYvgWYF/ydBY6sIpExYXunnHb13oUwqtmKtP72URBw==
 
 "@nestjs/common@8.3.1":
   version "8.3.1"
