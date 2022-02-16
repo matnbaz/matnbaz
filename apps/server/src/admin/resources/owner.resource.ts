@@ -188,12 +188,15 @@ export const ownerResource: Resource = ({
         component: false,
         variant: 'success',
         handler: async (request, response, data) => {
+          const { record, currentAdmin } = data;
+
           try {
             await githubQueue.add(GITHUB_PROCESSES.DISCOVER);
           } catch (error) {
             console.error(error);
           }
           return {
+            record: record.toJSON(currentAdmin),
             notice: {
               message: 'Added to the queue.',
               type: 'success',
@@ -210,12 +213,15 @@ export const ownerResource: Resource = ({
         component: false,
         variant: 'success',
         handler: async (request, response, data) => {
+          const { record, currentAdmin } = data;
+
           try {
             await githubQueue.add(GITHUB_PROCESSES.EXTRACT);
           } catch (error) {
             console.error(error);
           }
           return {
+            record: record.toJSON(currentAdmin),
             notice: {
               message: 'Added to the queue.',
               type: 'success',
@@ -232,12 +238,15 @@ export const ownerResource: Resource = ({
         component: false,
         variant: 'success',
         handler: async (request, response, data) => {
+          const { record, currentAdmin } = data;
+
           try {
             await githubQueue.add(GITHUB_PROCESSES.EXTRACT, { forceAll: true });
           } catch (error) {
             console.error(error);
           }
           return {
+            record: record.toJSON(currentAdmin),
             notice: {
               message: 'Added to the queue.',
               type: 'success',
@@ -254,12 +263,15 @@ export const ownerResource: Resource = ({
         component: false,
         variant: 'success',
         handler: async (request, response, data) => {
+          const { record, currentAdmin } = data;
+
           try {
             await githubQueue.add(GITHUB_PROCESSES.UPDATE_RANK);
           } catch (error) {
             console.error(error);
           }
           return {
+            record: record.toJSON(currentAdmin),
             notice: {
               message: 'Added to the queue.',
               type: 'success',

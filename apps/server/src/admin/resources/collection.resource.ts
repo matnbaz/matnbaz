@@ -20,12 +20,15 @@ export const collectionResource: Resource = ({
         component: false,
         variant: 'success',
         handler: async (request, response, data) => {
+          const { record, currentAdmin } = data;
+
           try {
             await mainQueue.add(MAIN_PROCESSES.COLLECT_COLLECTIONS);
           } catch (error) {
             console.error(error);
           }
           return {
+            record: record.toJSON(currentAdmin),
             notice: {
               message: 'Added to the queue.',
               type: 'success',
