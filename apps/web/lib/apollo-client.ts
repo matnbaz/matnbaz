@@ -26,7 +26,13 @@ export function createApolloClient() {
             collects: relayStylePagination(),
           },
         },
-        Owner: {
+        // can't do it for Owner since it's now an interface. gotta do one for each model that implements Owner.
+        OwnerUser: {
+          fields: {
+            repositories: relayStylePagination(),
+          },
+        },
+        OwnerOrganization: {
           fields: {
             repositories: relayStylePagination(),
           },
