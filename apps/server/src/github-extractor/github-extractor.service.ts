@@ -93,6 +93,16 @@ query ($id: ID!) {
               id
               color
             }
+            languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+              edges {
+                size
+                node {
+                  name
+                  id
+                  color
+                }
+              }
+            }
             licenseInfo {
               name
               spdxId
@@ -225,7 +235,11 @@ export class GithubExtractorService {
                       })
                   )
                 )
-                  .then(() => resolve())
+                  .then(() =>
+                    this.updateOwnerLanguages(owner.id)
+                      .then(() => resolve())
+                      .catch(() => resolve())
+                  )
                   .catch((e) => resolve());
               })
               .catch((e) => {
@@ -349,6 +363,26 @@ export class GithubExtractorService {
       update: repoData,
     });
 
+    // Language data
+    await this.prisma.repositoryLanguage.deleteMany({
+      where: { Repository: { Owner: { id: repoInDb.id } } },
+    });
+
+    for (const { size, node } of repo.languages.edges) {
+      await this.prisma.repositoryLanguage.create({
+        data: {
+          size: size,
+          Repository: { connect: { id: repoInDb.id } },
+          Language: {
+            connectOrCreate: {
+              where: { slug: slugifyLanguage(node.name) },
+              create: { slug: slugifyLanguage(node.name), name: node.name },
+            },
+          },
+        },
+      });
+    }
+
     // Saving statistics
     await this.prisma.repositoryStatistic.create({
       data: {
@@ -364,24 +398,25 @@ export class GithubExtractorService {
     return repoInDb;
   }
 
-  async populateOwner({
-    id, // nodeId
-    name,
-    login,
-    databaseId,
-    contributionsCollection,
-    closedIssues,
-    openIssues,
-    pullRequests,
-    repositories,
-    repositoriesContributedTo,
-    followers,
-    twitterUsername,
-    websiteUrl,
-    company,
-    location,
-    __typename,
-  }: OwnerToPopulate) {
+  async populateOwner(ownerFromGql: OwnerToPopulate) {
+    const {
+      id, // nodeId
+      name,
+      login,
+      databaseId,
+      contributionsCollection,
+      closedIssues,
+      openIssues,
+      pullRequests,
+      repositories,
+      repositoriesContributedTo,
+      followers,
+      twitterUsername,
+      websiteUrl,
+      company,
+      location,
+      __typename,
+    } = ownerFromGql;
     const repositoriesCount = repositories?.totalCount;
     const repositoriesContributedToCount =
       repositoriesContributedTo?.totalCount;
@@ -468,6 +503,50 @@ export class GithubExtractorService {
       });
 
     return owner;
+  }
+
+  async updateOwnerLanguages(ownerId: string) {
+    // Language data
+    await this.prisma.ownerLanguage.deleteMany({
+      where: { Owner: { id: ownerId } },
+    });
+
+    const repos = await this.prisma.repository.findMany({
+      where: { Owner: { id: ownerId }, isFork: false },
+      select: { name: true, Languages: { include: { Language: true } } },
+    });
+
+    const languages: Record<string, { name: string; size: number }> = {};
+
+    for (const repo of repos) {
+      for (const lang of repo.Languages) {
+        if (typeof languages[lang.Language.slug] === 'undefined') {
+          languages[lang.Language.slug] = {
+            size: 0,
+            name: lang.Language.name,
+          };
+          languages[lang.Language.slug].size += lang.size;
+        }
+      }
+    }
+
+    for (const langSlug of Object.keys(languages)) {
+      await this.prisma.ownerLanguage.create({
+        data: {
+          Owner: { connect: { id: ownerId } },
+          size: languages[langSlug].size,
+          Language: {
+            connectOrCreate: {
+              where: { slug: langSlug },
+              create: {
+                slug: slugifyLanguage(langSlug),
+                name: languages[langSlug].name,
+              },
+            },
+          },
+        },
+      });
+    }
   }
 
   private async calculateOwnerTrendIndicator(

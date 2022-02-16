@@ -50,6 +50,7 @@ model Repository {
   CollectionWhitelists  CollectionWhitelist[]
   Statistics            RepositoryStatistic[]
   Topics                Topic[]
+  Languages             RepositoryLanguage[]
 
   @@unique([platform, platformId])
 }
@@ -135,9 +136,28 @@ model Owner {
   Collections                    Collection[]     @relation("owners")
   CollectionsExcluded            Collection[]     @relation("owners_excluded")
   Statistics                     OwnerStatistic[]
+  Languages                      OwnerLanguage[]
 
   @@unique([platform, login])
   @@unique([platform, platformId])
+}
+
+model RepositoryLanguage {
+  id           String     @id @default(cuid())
+  size         Int
+  Repository   Repository @relation(fields: [repositoryId], references: [id])
+  repositoryId String
+  Language     Language   @relation(fields: [languageId], references: [id])
+  languageId   String
+}
+
+model OwnerLanguage {
+  id         String   @id @default(cuid())
+  size       Int
+  Owner      Owner    @relation(fields: [ownerId], references: [id])
+  ownerId    String
+  Language   Language @relation(fields: [languageId], references: [id])
+  languageId String
 }
 
 model Submission {
@@ -160,13 +180,15 @@ model Report {
 }
 
 model Language {
-  id                  String       @id @default(cuid())
+  id                  String               @id @default(cuid())
   name                String
-  slug                String       @unique
+  slug                String               @unique
   description         String?
   Repositories        Repository[]
-  Collections         Collection[] @relation("collections")
-  CollectionsExcluded Collection[] @relation("collections_excluded")
+  Collections         Collection[]         @relation("collections")
+  CollectionsExcluded Collection[]         @relation("collections_excluded")
+  RepositoryLanguages RepositoryLanguage[]
+  OwnerLanguages      OwnerLanguage[]
 }
 
 model User {
