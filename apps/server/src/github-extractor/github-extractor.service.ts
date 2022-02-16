@@ -42,12 +42,14 @@ query ($id: ID!) {
       websiteUrl
       company
       location
+      bio
     }
     ... on Organization {
       databaseId
       name
       twitterUsername
       websiteUrl
+      description
     }
     ... on RepositoryOwner {
       id
@@ -428,7 +430,9 @@ export class GithubExtractorService {
     let followersCount = null;
     let contributionsCount = null;
     let publicContributionsCount = null;
+    let about = null;
     if (__typename === 'User') {
+      about = ownerFromGql.bio;
       closedIssuesCount = closedIssues?.totalCount;
       openIssuesCount = openIssues?.totalCount;
       pullRequestsCount = pullRequests?.totalCount;
@@ -442,6 +446,8 @@ export class GithubExtractorService {
       publicContributionsCount =
         contributionsCount -
         contributionsCollection.restrictedContributionsCount;
+    } else if (__typename === 'Organization') {
+      about = ownerFromGql.description;
     }
 
     const data: Parameters<PrismaService['owner']['upsert']>['0']['create'] = {
@@ -465,6 +471,7 @@ export class GithubExtractorService {
       repositoriesContributedToCount,
       repositoriesCount,
       totalStarsCount,
+      about,
     };
 
     const owner = await this.prisma.owner.upsert({
@@ -691,5 +698,7 @@ interface OwnerToPopulate {
   company?: string;
   location?: string;
   followers?: { totalCount: number };
+  bio?: string;
+  description?: string;
   __typename: 'Organization' | 'User';
 }

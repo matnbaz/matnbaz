@@ -106,6 +106,7 @@ model Owner {
   platformId                     String
   nodeId                         String?          @unique
   name                           String?
+  about                          String?
   login                          String
   type                           OwnerType
   reason                         String?

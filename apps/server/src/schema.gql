@@ -197,6 +197,7 @@ interface Node {
 }
 
 interface Owner implements Node {
+  about: String
   collectedRepositoriesCount: Int!
   id: ID!
 
@@ -281,6 +282,7 @@ enum OwnerOrder {
 }
 
 type OwnerOrganization implements Node & Owner {
+  about: String
   collectedRepositoriesCount: Int!
   id: ID!
 
@@ -309,6 +311,7 @@ enum OwnerType {
 }
 
 type OwnerUser implements Node & Owner {
+  about: String
   closedIssuesCount: Int
   collectedRepositoriesCount: Int!
   company: String
