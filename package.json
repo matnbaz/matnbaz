@@ -17,7 +17,7 @@
     "@exonest/graphql-cache-control": "0.1.0",
     "@exonest/graphql-connections": "0.1.0",
     "@graphql-codegen/fragment-matcher": "3.2.1",
-    "@headlessui/react": "1.4.3",
+    "@headlessui/react": "1.5.0",
     "@n8tb1t/use-scroll-position": "2.0.3",
     "@nestjs/bull": "0.5.0",
     "@nestjs/common": "8.3.1",
