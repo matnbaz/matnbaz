@@ -15,6 +15,7 @@ import {
   HiHeart,
   HiLightningBolt,
   HiMap,
+  HiOfficeBuilding,
   HiQuestionMarkCircle,
   HiSearch,
   HiSparkles,
@@ -241,6 +242,86 @@ const HomePage: NextPage = () => {
               </div>
             </div>
 
+            <NextSectionChevron id="developers-network" />
+          </div>
+
+          <div id="developers-network" className="mt-40 sm:mt-96">
+            <FeatureCategory
+              title={
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: `<span>${t('developers-network.title', {
+                      interpolation: { escapeValue: false },
+                      accent: `<span class="text-transparent bg-clip-text bg-gradient-to-l from-primary-400 to-primary-500"> ${t(
+                        'developers-network.title-accent'
+                      )}</span>`,
+                    })}
+              `,
+                  }}
+                />
+              }
+              description={t('developers-network.description')}
+            />
+            <div className="mt-12 lg:mt-28">
+              <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-24 sm:grid-flow-row-dense">
+                  <div
+                    id="discord-community"
+                    className="md:col-span-2 lg:col-span-1"
+                  >
+                    <Feature
+                      centered
+                      external
+                      title={t('developers-network.discord-community.title')}
+                      description={t(
+                        'developers-network.discord-community.description'
+                      )}
+                      iconWrapperClassName="bg-gradient-to-bl from-[#5865F2] to-[#7E88F5]"
+                      icon={SiDiscord}
+                      cta={t('developers-network.discord-community.cta')}
+                      href={links.discord}
+                      badge={
+                        discordPresenceCount !== null && (
+                          <span className="flex justify-center items-center">
+                            <HiStatusOnline className="ltr:mr-1 rtl:ml-1 w-4 h-4" />
+                            {localize(discordPresenceCount.toString(), locale)}
+                          </span>
+                        )
+                      }
+                    />
+                  </div>
+                  <div id="top-users">
+                    <Feature
+                      centered
+                      title={t('developers-network.top-users.title')}
+                      description={t(
+                        'developers-network.top-users.description'
+                      )}
+                      iconWrapperClassName="bg-gradient-to-bl from-teal-500 to-teal-400"
+                      icon={HiUsers}
+                      cta={t('developers-network.top-users.cta')}
+                      href={`/github/users`}
+                      badge={t('new')}
+                    />
+                  </div>
+                  <div id="top-organizations">
+                    <Feature
+                      centered
+                      title={t('developers-network.top-organizations.title')}
+                      description={t(
+                        'developers-network.top-organizations.description'
+                      )}
+                      iconWrapperClassName="bg-gradient-to-bl from-orange-500 to-orange-400"
+                      icon={HiOfficeBuilding}
+                      cta={t('developers-network.top-organizations.cta')}
+                      href={`/github/organizations`}
+                      badge={t('new')}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <NextSectionChevron id="promote-open-source" />
           </div>
 
@@ -308,69 +389,6 @@ const HomePage: NextPage = () => {
                           </span>
                         )
                       }
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <NextSectionChevron id="developers-network" />
-          </div>
-
-          <div id="developers-network" className="mt-40 sm:mt-96">
-            <FeatureCategory
-              title={
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: `<span>${t('developers-network.title', {
-                      interpolation: { escapeValue: false },
-                      accent: `<span class="text-transparent bg-clip-text bg-gradient-to-l from-primary-400 to-primary-500"> ${t(
-                        'developers-network.title-accent'
-                      )}</span>`,
-                    })}
-              `,
-                  }}
-                />
-              }
-              description={t('developers-network.description')}
-            />
-            <div className="mt-12 lg:mt-28">
-              <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
-                <div className="grid sm:grid-cols-2 gap-24 sm:grid-flow-row-dense">
-                  <div id="discord-community">
-                    <Feature
-                      centered
-                      external
-                      title={t('developers-network.discord-community.title')}
-                      description={t(
-                        'developers-network.discord-community.description'
-                      )}
-                      iconWrapperClassName="bg-gradient-to-bl from-[#5865F2] to-[#7E88F5]"
-                      icon={SiDiscord}
-                      cta={t('developers-network.discord-community.cta')}
-                      href={links.discord}
-                      badge={
-                        discordPresenceCount !== null && (
-                          <span className="flex justify-center items-center">
-                            <HiStatusOnline className="ltr:mr-1 rtl:ml-1 w-4 h-4" />
-                            {localize(discordPresenceCount.toString(), locale)}
-                          </span>
-                        )
-                      }
-                    />
-                  </div>
-                  <div id="top-users">
-                    <Feature
-                      centered
-                      title={t('developers-network.top-users.title')}
-                      description={t(
-                        'developers-network.top-users.description'
-                      )}
-                      iconWrapperClassName="bg-gradient-to-bl from-teal-500 to-teal-400"
-                      icon={HiUsers}
-                      cta={t('developers-network.top-users.cta')}
-                      href={`/github/top-users`}
-                      badge={t('new')}
                     />
                   </div>
                 </div>

@@ -1,0 +1,16 @@
+{
+  "page-title": "Top GitHub Organizations",
+  "page-description": "This is the chart for the most active Iranian organizations on GitHub. you can sort them based on different attributes.",
+  "toggle-sort": "Toggle Sort-by",
+  "search-placeholder": "Start searching...",
+
+  "rank": "Rank",
+  "user": "User",
+  "company": "Company",
+  "twitter": "Twitter",
+  "followers": "Followers",
+  "total-stars": "Total Stars",
+  "repositories-count": "Repos Count",
+  "repositories-contributed-to-count": "Repos Contributed To",
+  "public-contributions": "Public Contributions"
+}

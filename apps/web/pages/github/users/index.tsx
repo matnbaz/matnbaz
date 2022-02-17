@@ -20,26 +20,15 @@ import { PageHeader } from '../../../components/Layout/PageHeader';
 import { Input } from '../../../components/UI/Input/Input';
 import { initializeApollo } from '../../../lib/apollo';
 import {
-  GetGithubChartDocument,
-  GetGithubChartQueryResult,
-  GetGithubChartQueryVariables,
+  GetGithubUsersChartDocument,
+  GetGithubUsersChartQueryResult,
+  GetGithubUsersChartQueryVariables,
 } from '../../../lib/graphql-types';
 import nextI18nextConfig from '../../../next-i18next.config';
+import { scrollbarWidth } from '../../../utils/scrollbar-width';
 
-const scrollbarWidth = () => {
-  // thanks too https://davidwalsh.name/detect-scrollbar-width
-  const scrollDiv = document.createElement('div');
-  scrollDiv.setAttribute(
-    'style',
-    'width: 100px; height: 100px; overflow: scroll; position:absolute; top:-9999px;'
-  );
-  document.body.appendChild(scrollDiv);
-  const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-  document.body.removeChild(scrollDiv);
-  return scrollbarWidth;
-};
 export interface GithubTopUsersPageProps {
-  owners: GetGithubChartQueryResult['data']['owners'];
+  owners: GetGithubUsersChartQueryResult['data']['owners'];
 }
 
 const ITEM_HEIGHT = 74;
@@ -93,6 +82,8 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
           if (props.state.sortBy[0]) {
             if (props.state.sortBy[0].id === 'login') {
               rank = '-';
+            } else if (!props.state.sortBy[0].desc) {
+              rank = props.data.length + 1 - rank;
             }
           }
 
@@ -364,7 +355,7 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
                 </div>
                 <div id="tbody" className="tbody" {...getTableBodyProps()}>
                   <FixedSizeList
-                    height={750}
+                    height={700}
                     itemCount={rows.length}
                     itemSize={ITEM_HEIGHT}
                     width={totalColumnsWidth + scrollBarSize}
@@ -391,10 +382,10 @@ export const getStaticProps: GetStaticProps<GithubTopUsersPageProps> = async ({
   const {
     data: { owners },
   } = await apolloClient.query<
-    GetGithubChartQueryResult['data'],
-    GetGithubChartQueryVariables
+    GetGithubUsersChartQueryResult['data'],
+    GetGithubUsersChartQueryVariables
   >({
-    query: GetGithubChartDocument,
+    query: GetGithubUsersChartDocument,
     variables: {},
   });
 

@@ -109,6 +109,16 @@ export const Navbar = ({ className }: NavbarProps) => {
           links: [
             {
               type: 'link',
+              name: t('navbar.github-users'),
+              href: '/github/users',
+            },
+            {
+              type: 'link',
+              name: t('navbar.github-organizations'),
+              href: '/github/organizations',
+            },
+            {
+              type: 'link',
               name: t('navbar.about'),
               href: '/about',
             },
@@ -116,11 +126,6 @@ export const Navbar = ({ className }: NavbarProps) => {
               type: 'link',
               name: t('navbar.faq'),
               href: '/faq',
-            },
-            {
-              type: 'link',
-              name: t('navbar.github-top-users'),
-              href: '/github/top-users',
             },
             {
               type: 'link',

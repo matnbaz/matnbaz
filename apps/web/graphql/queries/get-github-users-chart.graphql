@@ -1,4 +1,4 @@
-query GetGithubChart {
+query GetGithubUsersChart {
   owners(type: User, withStatistics: true) {
     pageInfo {
       hasNextPage
@@ -11,17 +11,18 @@ query GetGithubChart {
         platformId
         twitterUsername
         websiteUrl
+        repositoriesCount
+        totalStarsCount
+        totalStarsRank
         ... on OwnerUser {
           contributionsCount
           publicContributionsCount
           followersCount
-          pullRequestsCount
-          openIssuesCount
-          closedIssuesCount
           repositoriesContributedToCount
-          repositoriesCount
-          totalStarsCount
           company
+          contributionsRank
+          publicContributionsRank
+          repositoriesContributedToRank
         }
       }
     }

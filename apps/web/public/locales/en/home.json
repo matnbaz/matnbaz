@@ -63,6 +63,11 @@
       "title": "Top Users Chart",
       "description": "Meet the most active Iranian developers in GitHub based on their contributions to the open-source.",
       "cta": "Show Users Chart"
+    },
+    "top-organizations": {
+      "title": "Top Organizations Chart",
+      "description": "Meet the most active Iranian organizations in GitHub based on their contributions to the open-source.",
+      "cta": "Show Organizations Chart"
     }
   },
   "support": {

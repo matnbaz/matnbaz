@@ -21,6 +21,26 @@ module.exports = {
   async redirects() {
     return [
       {
+        source: "/github/top-users",
+        destination: "/github/users",
+        permanent: false
+      },
+      {
+        source: "/github/top-orgs",
+        destination: "/github/organizations",
+        permanent: false
+      },
+      {
+        source: "/github/top-organizations",
+        destination: "/github/organizations",
+        permanent: false
+      },
+      {
+        source: "/github/orgs",
+        destination: "/github/organizations",
+        permanent: false
+      },
+      {
         source: "/explorer/:path*",
         destination: "/explore/:path*",
         permanent: false,
