@@ -429,11 +429,13 @@ export class GithubExtractorService {
     const repositoriesCount = repositories?.totalCount;
     const repositoriesContributedToCount =
       repositoriesContributedTo?.totalCount;
-
+    const totalStarsCount = repositories?.edges.reduce(
+      (prev, repo) => prev + repo.node.stargazerCount,
+      0
+    );
     let closedIssuesCount = null;
     let openIssuesCount = null;
     let pullRequestsCount = null;
-    let totalStarsCount = null;
     let followersCount = null;
     let contributionsCount = null;
     let publicContributionsCount = null;
@@ -443,10 +445,6 @@ export class GithubExtractorService {
       closedIssuesCount = closedIssues?.totalCount;
       openIssuesCount = openIssues?.totalCount;
       pullRequestsCount = pullRequests?.totalCount;
-      totalStarsCount = repositories?.edges.reduce(
-        (prev, repo) => prev + repo.node.stargazerCount,
-        0
-      );
       followersCount = followers?.totalCount;
       contributionsCount =
         contributionsCollection?.contributionCalendar?.totalContributions;
