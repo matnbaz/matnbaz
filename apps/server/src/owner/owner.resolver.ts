@@ -46,7 +46,7 @@ export class OwnerResolver extends ReportableResolver(Owner) {
             blockedAt: null,
             type,
             platform,
-            followersCount: withStatistics ? { not: null } : undefined,
+            totalStarsCount: withStatistics ? { not: null } : undefined,
           },
           orderBy: {
             [OwnerOrder.CONTRIBUTIONS_DESC]: {
