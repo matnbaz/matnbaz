@@ -656,21 +656,25 @@ export class GithubExtractorService {
 
   async updateOwnerRanks() {
     const byTotalStarsRank = await this.prisma.owner.findMany({
+      where: { totalStarsCount: { not: null } },
       orderBy: { totalStarsCount: 'desc' },
       select: { id: true, login: true },
     });
 
     const byContributionsRank = await this.prisma.owner.findMany({
+      where: { contributionsCount: { not: null } },
       orderBy: { contributionsCount: 'desc' },
       select: { id: true, login: true },
     });
 
     const byPublicContributionsRank = await this.prisma.owner.findMany({
+      where: { publicContributionsCount: { not: null } },
       orderBy: { publicContributionsCount: 'desc' },
       select: { id: true, login: true },
     });
 
     const byRepositoriesContributedToRank = await this.prisma.owner.findMany({
+      where: { repositoriesContributedToCount: { not: null } },
       orderBy: { repositoriesContributedToCount: 'desc' },
       select: { id: true, login: true },
     });
