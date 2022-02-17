@@ -138,8 +138,8 @@ model Owner {
   CollectionsExcluded            Collection[]             @relation("owners_excluded")
   Statistics                     OwnerStatistic[]
   Languages                      OwnerLanguage[]
-  Organizations                  OrganizationMembership[] @relation("organizations")
-  Members                        OrganizationMembership[] @relation("members")
+  Members                        OrganizationMembership[] @relation("organization_membership")
+  Organizations                  OrganizationMembership[] @relation("member_membership")
 
   @@unique([platform, login])
   @@unique([platform, platformId])
@@ -147,8 +147,8 @@ model Owner {
 
 model OrganizationMembership {
   id             String @id @default(cuid())
-  Organization   Owner  @relation("organizations", fields: [organizationId], references: [id], onDelete: Cascade)
-  Member         Owner  @relation("members", fields: [memberId], references: [id], onDelete: Cascade)
+  Organization   Owner  @relation("organization_membership", fields: [organizationId], references: [id], onDelete: Cascade)
+  Member         Owner  @relation("member_membership", fields: [memberId], references: [id], onDelete: Cascade)
   organizationId String
   memberId       String
 }

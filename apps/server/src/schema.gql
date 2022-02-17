@@ -290,6 +290,7 @@ type OwnerOrganization implements Node & Owner {
   languages: [OwnerLanguage!]!
   location: String
   login: String!
+  members(after: String, before: String, first: Int, last: Int): OwnerUserConnection!
   name: String
   platform: PlatformType!
   platformId: ID!
@@ -299,6 +300,15 @@ type OwnerOrganization implements Node & Owner {
   twitterUsername: String
   type: OwnerType!
   websiteUrl: String
+}
+
+"""A OwnerOrganization edge."""
+type OwnerOrganizationEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of OwnerOrganizationEdge."""
+  node: OwnerOrganization!
 }
 
 """A repository owner could any of these types."""
@@ -325,6 +335,7 @@ type OwnerUser implements Node & Owner {
   login: String!
   name: String
   openIssuesCount: Int
+  organizations(after: String, before: String, first: Int, last: Int): OwnerUserConnection!
   platform: PlatformType!
   platformId: ID!
   publicContributionsCount: Int
@@ -336,6 +347,23 @@ type OwnerUser implements Node & Owner {
   twitterUsername: String
   type: OwnerType!
   websiteUrl: String
+}
+
+type OwnerUserConnection {
+  """A list of edges"""
+  edges: [OwnerUserEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""A OwnerUser edge."""
+type OwnerUserEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of OwnerUserEdge."""
+  node: OwnerUser!
 }
 
 """Information about pagination in a connection."""
