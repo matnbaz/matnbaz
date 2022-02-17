@@ -1,7 +1,7 @@
 query GetOwner(
   $owner: String!
   $platform: PlatformType!
-  $reposCount: Int = 12
+  $reposCount: Int = 20
   $reposAfter: String
 ) {
   ownerByPlatform(owner: $owner, platform: $platform) {
@@ -19,10 +19,47 @@ query GetOwner(
     }
     id
     repositoriesCount
-    type
+    totalStarsCount
+    totalStarsRank
     name
+    location
     login
     platformId
     platform
+    about
+    twitterUsername
+    websiteUrl
+    ... on OwnerUser {
+      company
+      contributionsCount
+      followersCount
+      publicContributionsCount
+      repositoriesContributedToCount
+      contributionsRank
+      publicContributionsRank
+      repositoriesContributedToRank
+      organizations {
+        edges {
+          node {
+            name
+            login
+            platform
+            platformId
+          }
+        }
+      }
+    }
+    ... on OwnerOrganization {
+      members {
+        edges {
+          node {
+            name
+            login
+            platform
+            platformId
+          }
+        }
+      }
+    }
   }
 }

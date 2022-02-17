@@ -1,13 +1,16 @@
 import { useTranslation } from 'next-i18next';
-import React from 'react';
 import { ReportableType } from '../../lib/graphql-types';
-import { Reason, Report } from './Report';
+import { Reason, Report, ReportProps } from './Report';
 
-export interface OwnerReportProps {
+export interface OwnerReportProps
+  extends Omit<
+    ReportProps,
+    'subject' | 'subjectId' | 'modalTitle' | 'modalDescription' | 'reasons'
+  > {
   owner: { name?: string; login: string; id: string };
 }
 
-export const OwnerReport = ({ owner }: OwnerReportProps) => {
+export const OwnerReport = ({ owner, ...props }: OwnerReportProps) => {
   const { t } = useTranslation('report');
 
   const reasons: Reason[] = [
@@ -30,11 +33,12 @@ export const OwnerReport = ({ owner }: OwnerReportProps) => {
     <Report
       subject={ReportableType.Owner}
       subjectId={owner.id}
-      modalTitle={t('report-repository.title')}
-      modalDescription={t('report-repository.description', {
+      modalTitle={t('report-owner.title')}
+      modalDescription={t('report-owner.description', {
         name: owner.name || owner.login,
       })}
       reasons={reasons}
+      {...props}
     />
   );
 };

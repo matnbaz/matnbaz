@@ -1,13 +1,19 @@
 import { useTranslation } from 'next-i18next';
-import React from 'react';
 import { ReportableType } from '../../lib/graphql-types';
-import { Reason, Report } from './Report';
+import { Reason, Report, ReportProps } from './Report';
 
-export interface RepositoryReportProps {
+export interface RepositoryReportProps
+  extends Omit<
+    ReportProps,
+    'subject' | 'subjectId' | 'modalTitle' | 'modalDescription' | 'reasons'
+  > {
   repository: { fullName: string; id: string };
 }
 
-export const RepositoryReport = ({ repository }: RepositoryReportProps) => {
+export const RepositoryReport = ({
+  repository,
+  ...props
+}: RepositoryReportProps) => {
   const { t } = useTranslation('report');
 
   const reasons: Reason[] = [
@@ -35,6 +41,7 @@ export const RepositoryReport = ({ repository }: RepositoryReportProps) => {
         name: repository.fullName,
       })}
       reasons={reasons}
+      {...props}
     />
   );
 };

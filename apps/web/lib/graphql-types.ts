@@ -278,7 +278,11 @@ export type Node = {
 };
 
 export type Owner = {
+  about?: Maybe<Scalars['String']>;
+  collectedRepositoriesCount: Scalars['Int'];
   id: Scalars['ID'];
+  /** Owner's most used languages sorted by usage */
+  languages: Array<OwnerLanguage>;
   location?: Maybe<Scalars['String']>;
   login: Scalars['String'];
   name?: Maybe<Scalars['String']>;
@@ -287,6 +291,7 @@ export type Owner = {
   repositories: RepositoryConnection;
   repositoriesCount?: Maybe<Scalars['Int']>;
   totalStarsCount?: Maybe<Scalars['Int']>;
+  totalStarsRank?: Maybe<Scalars['Int']>;
   twitterUsername?: Maybe<Scalars['String']>;
   type: OwnerType;
   websiteUrl?: Maybe<Scalars['String']>;
@@ -317,6 +322,14 @@ export type OwnerEdge = {
   node: Owner;
 };
 
+export type OwnerLanguage = {
+  __typename?: 'OwnerLanguage';
+  language: Language;
+  /** As `OwnerLanguage` is always retrieved in a context of an owner, the percentage is relative to other used languages from the same owner. */
+  percentage: Scalars['Float'];
+  size: Scalars['Int'];
+};
+
 /** You can order repositories with one of these options. */
 export enum OwnerOrder {
   /** Order by the number of closed issues in descending order. (applicable only for users) */
@@ -341,18 +354,32 @@ export enum OwnerOrder {
 
 export type OwnerOrganization = Node & Owner & {
   __typename?: 'OwnerOrganization';
+  about?: Maybe<Scalars['String']>;
+  collectedRepositoriesCount: Scalars['Int'];
   id: Scalars['ID'];
+  /** Owner's most used languages sorted by usage */
+  languages: Array<OwnerLanguage>;
   location?: Maybe<Scalars['String']>;
   login: Scalars['String'];
+  members: OwnerUserConnection;
   name?: Maybe<Scalars['String']>;
   platform: PlatformType;
   platformId: Scalars['ID'];
   repositories: RepositoryConnection;
   repositoriesCount?: Maybe<Scalars['Int']>;
   totalStarsCount?: Maybe<Scalars['Int']>;
+  totalStarsRank?: Maybe<Scalars['Int']>;
   twitterUsername?: Maybe<Scalars['String']>;
   type: OwnerType;
   websiteUrl?: Maybe<Scalars['String']>;
+};
+
+
+export type OwnerOrganizationMembersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -361,6 +388,23 @@ export type OwnerOrganizationRepositoriesArgs = {
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+};
+
+export type OwnerOrganizationConnection = {
+  __typename?: 'OwnerOrganizationConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<OwnerOrganizationEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A OwnerOrganization edge. */
+export type OwnerOrganizationEdge = {
+  __typename?: 'OwnerOrganizationEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of OwnerOrganizationEdge. */
+  node: OwnerOrganization;
 };
 
 /** A repository owner could any of these types. */
@@ -373,26 +417,43 @@ export enum OwnerType {
 
 export type OwnerUser = Node & Owner & {
   __typename?: 'OwnerUser';
+  about?: Maybe<Scalars['String']>;
   closedIssuesCount?: Maybe<Scalars['Int']>;
+  collectedRepositoriesCount: Scalars['Int'];
   company?: Maybe<Scalars['String']>;
   contributionsCount?: Maybe<Scalars['Int']>;
+  contributionsRank?: Maybe<Scalars['Int']>;
   followersCount?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
+  /** Owner's most used languages sorted by usage */
+  languages: Array<OwnerLanguage>;
   location?: Maybe<Scalars['String']>;
   login: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   openIssuesCount?: Maybe<Scalars['Int']>;
+  organizations: OwnerOrganizationConnection;
   platform: PlatformType;
   platformId: Scalars['ID'];
   publicContributionsCount?: Maybe<Scalars['Int']>;
+  publicContributionsRank?: Maybe<Scalars['Int']>;
   pullRequestsCount?: Maybe<Scalars['Int']>;
   repositories: RepositoryConnection;
   repositoriesContributedToCount?: Maybe<Scalars['Int']>;
+  repositoriesContributedToRank?: Maybe<Scalars['Int']>;
   repositoriesCount?: Maybe<Scalars['Int']>;
   totalStarsCount?: Maybe<Scalars['Int']>;
+  totalStarsRank?: Maybe<Scalars['Int']>;
   twitterUsername?: Maybe<Scalars['String']>;
   type: OwnerType;
   websiteUrl?: Maybe<Scalars['String']>;
+};
+
+
+export type OwnerUserOrganizationsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -401,6 +462,23 @@ export type OwnerUserRepositoriesArgs = {
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+};
+
+export type OwnerUserConnection = {
+  __typename?: 'OwnerUserConnection';
+  /** A list of edges */
+  edges?: Maybe<Array<OwnerUserEdge>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** A OwnerUser edge. */
+export type OwnerUserEdge = {
+  __typename?: 'OwnerUserEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of OwnerUserEdge. */
+  node: OwnerUser;
 };
 
 /** Information about pagination in a connection. */
@@ -713,7 +791,10 @@ export type Repository = Node & {
   isFork: Scalars['Boolean'];
   isNew: Scalars['Boolean'];
   isTemplate: Scalars['Boolean'];
+  /** @deprecated use `primaryLanguage` instead. */
   language?: Maybe<Language>;
+  /** Repository's most used languages sorted by usage */
+  languages: Array<RepositoryLanguage>;
   license?: Maybe<License>;
   name: Scalars['String'];
   openGraphImageUrl?: Maybe<Scalars['String']>;
@@ -722,6 +803,7 @@ export type Repository = Node & {
   platform: PlatformType;
   platformId: Scalars['ID'];
   platformUrl?: Maybe<Scalars['String']>;
+  primaryLanguage?: Maybe<Language>;
   pushedAt: DateObject;
   readme?: Maybe<Scalars['String']>;
   readmeHtml?: Maybe<Scalars['String']>;
@@ -756,6 +838,14 @@ export type RepositoryEdge = {
   cursor: Scalars['String'];
   /** The item at the end of RepositoryEdge. */
   node: Repository;
+};
+
+export type RepositoryLanguage = {
+  __typename?: 'RepositoryLanguage';
+  language: Language;
+  /** As `RepositoryLanguage` is always retrieved in a context of a repository, the percentage is relative to other languages from the same repository. */
+  percentage: Scalars['Float'];
+  size: Scalars['Int'];
 };
 
 /** A repository owner could any of these types. */
@@ -926,7 +1016,7 @@ export type GetOwnerQueryVariables = Exact<{
 }>;
 
 
-export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'OwnerOrganization', id: string, repositoriesCount?: number | null, type: OwnerType, name?: string | null, login: string, platformId: string, platform: PlatformType, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null } }> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } } | { __typename?: 'OwnerUser', id: string, repositoriesCount?: number | null, type: OwnerType, name?: string | null, login: string, platformId: string, platform: PlatformType, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null } }> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } } | null };
+export type GetOwnerQuery = { __typename?: 'Query', ownerByPlatform?: { __typename?: 'OwnerOrganization', id: string, repositoriesCount?: number | null, totalStarsCount?: number | null, totalStarsRank?: number | null, name?: string | null, location?: string | null, login: string, platformId: string, platform: PlatformType, about?: string | null, twitterUsername?: string | null, websiteUrl?: string | null, members: { __typename?: 'OwnerUserConnection', edges?: Array<{ __typename?: 'OwnerUserEdge', node: { __typename?: 'OwnerUser', name?: string | null, login: string, platform: PlatformType, platformId: string } }> | null }, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null } }> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } } | { __typename?: 'OwnerUser', company?: string | null, contributionsCount?: number | null, followersCount?: number | null, publicContributionsCount?: number | null, repositoriesContributedToCount?: number | null, contributionsRank?: number | null, publicContributionsRank?: number | null, repositoriesContributedToRank?: number | null, id: string, repositoriesCount?: number | null, totalStarsCount?: number | null, totalStarsRank?: number | null, name?: string | null, location?: string | null, login: string, platformId: string, platform: PlatformType, about?: string | null, twitterUsername?: string | null, websiteUrl?: string | null, organizations: { __typename?: 'OwnerOrganizationConnection', edges?: Array<{ __typename?: 'OwnerOrganizationEdge', node: { __typename?: 'OwnerOrganization', name?: string | null, login: string, platform: PlatformType, platformId: string } }> | null }, repositories: { __typename?: 'RepositoryConnection', edges?: Array<{ __typename?: 'RepositoryEdge', cursor: string, node: { __typename?: 'Repository', id: string, fullName: string, platformUrl?: string | null, platform: PlatformType, descriptionLimited?: string | null, descriptionDirection: ScriptDirection, stargazersCount: number, forksCount: number, openIssuesCount: number, isNew: boolean, language?: { __typename?: 'Language', name: string, color?: { __typename?: 'Color', hexString: string } | null } | null } }> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } } | null };
 
 export type GetPostQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -1383,7 +1473,7 @@ export type GetLanguagesQueryHookResult = ReturnType<typeof useGetLanguagesQuery
 export type GetLanguagesLazyQueryHookResult = ReturnType<typeof useGetLanguagesLazyQuery>;
 export type GetLanguagesQueryResult = Apollo.QueryResult<GetLanguagesQuery, GetLanguagesQueryVariables>;
 export const GetOwnerDocument = gql`
-    query GetOwner($owner: String!, $platform: PlatformType!, $reposCount: Int = 12, $reposAfter: String) {
+    query GetOwner($owner: String!, $platform: PlatformType!, $reposCount: Int = 20, $reposAfter: String) {
   ownerByPlatform(owner: $owner, platform: $platform) {
     repositories(first: $reposCount, after: $reposAfter) {
       edges {
@@ -1399,11 +1489,48 @@ export const GetOwnerDocument = gql`
     }
     id
     repositoriesCount
-    type
+    totalStarsCount
+    totalStarsRank
     name
+    location
     login
     platformId
     platform
+    about
+    twitterUsername
+    websiteUrl
+    ... on OwnerUser {
+      company
+      contributionsCount
+      followersCount
+      publicContributionsCount
+      repositoriesContributedToCount
+      contributionsRank
+      publicContributionsRank
+      repositoriesContributedToRank
+      organizations {
+        edges {
+          node {
+            name
+            login
+            platform
+            platformId
+          }
+        }
+      }
+    }
+    ... on OwnerOrganization {
+      members {
+        edges {
+          node {
+            name
+            login
+            platform
+            platformId
+          }
+        }
+      }
+    }
   }
 }
     ${RepoPreviewWithoutOwnerFragmentDoc}`;

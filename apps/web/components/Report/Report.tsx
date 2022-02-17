@@ -1,18 +1,19 @@
 import { useTranslation } from 'next-i18next';
-import React, { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ReportableType, useReportMutation } from '../../lib/graphql-types';
 import { Button } from '../UI/Button/Button';
 import { Input } from '../UI/Input/Input';
 import { Modal } from '../UI/Modal';
 import { RadioList } from '../UI/RadioList';
 
-interface ReportProps {
+export interface ReportProps {
   subject: ReportableType;
   subjectId: string;
   reasons: Reason[];
   modalTitle?: string;
   modalDescription?: string;
   buttonTitle?: string;
+  button?: ({ onClick: any, children: string }) => JSX.Element;
 }
 
 export interface Reason {
@@ -28,6 +29,7 @@ export const Report = ({
   modalTitle,
   modalDescription,
   buttonTitle,
+  button,
 }: ReportProps) => {
   const { t } = useTranslation('report');
 
@@ -48,6 +50,12 @@ export const Report = ({
   );
 
   useEffect(() => setShowReportModal(false), [data]);
+
+  const onButtonClick = useCallback(() => {
+    setReportReason('');
+    setSelectedReportReason(reasons[0]);
+    setShowReportModal(true);
+  }, [reasons]);
 
   return (
     <>
@@ -99,15 +107,17 @@ export const Report = ({
           </Button.Primary>
         </div>
       </Modal>
-      <Button.Ghost
-        onClick={() => {
-          setReportReason('');
-          setSelectedReportReason(reasons[0]);
-          setShowReportModal(true);
-        }}
-      >
-        {t('report-button')}
-      </Button.Ghost>
+      {button ? (
+        button({ children: t('report-button'), onClick: onButtonClick })
+      ) : (
+        <Button.Ghost
+          onClick={() => {
+            onButtonClick();
+          }}
+        >
+          {t('report-button')}
+        </Button.Ghost>
+      )}
     </>
   );
 };

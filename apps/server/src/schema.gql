@@ -211,6 +211,7 @@ interface Owner implements Node {
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int
   totalStarsCount: Int
+  totalStarsRank: Int
   twitterUsername: String
   type: OwnerType!
   websiteUrl: String
@@ -297,9 +298,18 @@ type OwnerOrganization implements Node & Owner {
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesCount: Int
   totalStarsCount: Int
+  totalStarsRank: Int
   twitterUsername: String
   type: OwnerType!
   websiteUrl: String
+}
+
+type OwnerOrganizationConnection {
+  """A list of edges"""
+  edges: [OwnerOrganizationEdge!]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
 }
 
 """A OwnerOrganization edge."""
@@ -326,6 +336,7 @@ type OwnerUser implements Node & Owner {
   collectedRepositoriesCount: Int!
   company: String
   contributionsCount: Int
+  contributionsRank: Int
   followersCount: Int
   id: ID!
 
@@ -335,15 +346,18 @@ type OwnerUser implements Node & Owner {
   login: String!
   name: String
   openIssuesCount: Int
-  organizations(after: String, before: String, first: Int, last: Int): OwnerUserConnection!
+  organizations(after: String, before: String, first: Int, last: Int): OwnerOrganizationConnection!
   platform: PlatformType!
   platformId: ID!
   publicContributionsCount: Int
+  publicContributionsRank: Int
   pullRequestsCount: Int
   repositories(after: String, before: String, first: Int, last: Int): RepositoryConnection!
   repositoriesContributedToCount: Int
+  repositoriesContributedToRank: Int
   repositoriesCount: Int
   totalStarsCount: Int
+  totalStarsRank: Int
   twitterUsername: String
   type: OwnerType!
   websiteUrl: String

@@ -33,6 +33,8 @@ export class Owner {
   repositoriesCount?: number;
   @Field(() => Int)
   totalStarsCount?: number;
+  @Field(() => Int)
+  totalStarsRank?: number;
 }
 
 @ObjectType({ implements: [Node, Owner] })
@@ -52,6 +54,12 @@ export class OwnerUser extends Owner {
   @Field(() => Int)
   repositoriesContributedToCount?: number;
   company?: string;
+  @Field(() => Int)
+  contributionsRank?: number;
+  @Field(() => Int)
+  publicContributionsRank?: number;
+  @Field(() => Int)
+  repositoriesContributedToRank?: number;
 }
 
 @ObjectType({ implements: [Node, Owner] })

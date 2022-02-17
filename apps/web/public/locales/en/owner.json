@@ -1,5 +1,19 @@
 {
   "page-description": "{{name}}'s open-source contributions",
   "platform-url": "GitHub Page",
-  "repos-count": "{{reposCount}} Project(s)"
+  "repos-count": "{{reposCount}} Project(s)",
+  "rank": "Rank",
+  "organizations": "Organizations",
+  "members": "Members",
+  "total-stars-count": "Total Stars Count",
+  "repositories-count": "Repositories Count",
+  "closed-issues-count": "Closed Issues Count",
+  "collected-repositories-count": "Collected Repositories Count",
+  "contributions-count": "Contributions Count",
+  "followers-count": "Followers Count",
+  "open-issues-count": "Open Issues Count",
+  "public-contributions-count": "Public Contributions Count",
+  "pull-requests-count": "Pull Requests Count",
+  "repositories-contributed-to-count": "Repositories Contributed To",
+  "hint": "Hint: Matnbaz only collects the repositories with at least {{minStars}} stars. If you want to see all the repos for this user, check out their GitHub page."
 }

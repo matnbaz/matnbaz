@@ -2,7 +2,13 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useMemo } from 'react';
 interface OwnerImageProps {
-  owner: { platformId: string; login: string; type?: string };
+  owner: {
+    platformId: string;
+    login?: string;
+    name?: string;
+    type?: string;
+    __typename?: string;
+  };
   className?: string;
   width?: number;
   height?: number;
@@ -23,9 +29,12 @@ export const OwnerImage = ({
         width={width || 100}
         height={height || 100}
         src={`https://avatars.githubusercontent.com/u/${owner.platformId}?v=4`}
-        alt={`عکس ${owner.login}`}
+        alt={`عکس ${owner.name || owner.login || `کاربر ${owner.platformId}`}`}
+        title={owner.name || owner.login || `کاربر ${owner.platformId}`}
         className={classNames(
-          owner?.type === 'User' ? 'rounded-full' : 'rounded-lg',
+          owner?.type === 'User' || owner.__typename === 'OwnerUser'
+            ? 'rounded-full'
+            : 'rounded-lg',
           className
         )}
       />

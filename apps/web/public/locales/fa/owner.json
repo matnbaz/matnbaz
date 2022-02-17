@@ -1,5 +1,19 @@
 {
   "page-description": "مشارکت‌های اپن‌سورس {{name}}",
   "platform-url": "صفحه گیت‌هاب",
-  "repos-count": "{{reposCount}} پروژه"
+  "repos-count": "{{reposCount}} پروژه",
+  "rank": "رتبه",
+  "organizations": "سازمان‌ها",
+  "members": "عضو‌ها",
+  "total-stars-count": "تعداد ستاره‌های کل",
+  "repositories-count": "تعداد مخزن‌های کل",
+  "closed-issues-count": "موضوع‌های بسته‌شده",
+  "collected-repositories-count": "مخزن‌های تایید‌شده",
+  "contributions-count": "مشارکت‌های کل",
+  "followers-count": "دنبال‌کنندگان",
+  "open-issues-count": "موضوع‌های باز",
+  "public-contributions-count": "مشارکت‌های عمومی",
+  "pull-requests-count": "تعداد Pull Request",
+  "repositories-contributed-to-count": "مخزن‌های مشارکت‌شده",
+  "hint": "نکته: فقط مخزن‌هایی که حداقل {{minStars}} ستاره دارند توسط متن‌باز جمع‌آوری می‌شوند. برای دیدن تمام مخزن‌ها به صفحه گیت‌هاب این کاربر مراجعه کنید."
 }

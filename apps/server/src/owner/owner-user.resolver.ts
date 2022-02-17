@@ -3,14 +3,14 @@ import { PaginationArgs } from '@exonest/graphql-connections';
 import { Args, Parent, ResolveField, Resolver } from '@nestjs/graphql';
 import * as P from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { OwnerUserConnection } from '../models/connections/owner.connection';
+import { OwnerOrganizationConnection } from '../models/connections/owner.connection';
 import { OwnerUser } from '../models/owner.model';
 
 @Resolver(() => OwnerUser)
 export class OwnerUserResolver {
   constructor(private readonly prisma: PrismaService) {}
 
-  @ResolveField(() => OwnerUserConnection)
+  @ResolveField(() => OwnerOrganizationConnection)
   async organizations(
     @Args() pagination: PaginationArgs,
     @Parent() { id }: P.Owner
