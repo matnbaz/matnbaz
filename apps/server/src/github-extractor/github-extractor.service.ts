@@ -245,7 +245,7 @@ export class GithubExtractorService {
                   )
                 )
                   .then(() =>
-                    this.updateOwnerLanguages(owner.id)
+                    this.updateOwnerLanguages(ownerFromDb.id)
                       .then(() => resolve())
                       .catch(() => resolve())
                   )
@@ -576,7 +576,6 @@ export class GithubExtractorService {
         }
       }
     }
-
     for (const langSlug of Object.keys(languages)) {
       await this.prisma.ownerLanguage.create({
         data: {
