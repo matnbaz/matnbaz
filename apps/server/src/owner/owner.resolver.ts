@@ -169,7 +169,7 @@ export class OwnerResolver extends ReportableResolver(Owner) {
   async languages(@Parent() { id }: P.Owner): Promise<OwnerLanguage[]> {
     const repoLanguages = await this.prisma.owner
       .findUnique({ where: { id } })
-      .Languages({ include: { Language: true } });
+      .Languages({ include: { Language: true }, orderBy: { size: 'desc' } });
 
     const sumSize = repoLanguages.reduce(
       (previous, current) => previous + current.size,
