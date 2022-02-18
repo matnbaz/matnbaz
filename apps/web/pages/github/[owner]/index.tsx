@@ -306,7 +306,7 @@ const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
               />
             </div>
             <p className="py-5 text-secondary text-sm text-center">
-              {t('hint', { minStars: localize(MINIMUM_STARS, locale) })}
+              {t('tip', { minStars: localize(MINIMUM_STARS, locale) })}
             </p>
           </div>
         </div>

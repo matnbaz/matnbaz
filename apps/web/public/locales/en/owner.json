@@ -17,5 +17,5 @@
   "public-contributions-count": "Public Contributions Count",
   "pull-requests-count": "Pull Requests Count",
   "repositories-contributed-to-count": "Repositories Contributed To",
-  "hint": "Hint: Matnbaz only collects the repositories with at least {{minStars}} stars. If you want to see all the repos for this user, check out their GitHub page."
+  "tip": "Tip: Matnbaz only collects the repositories with at least {{minStars}} stars."
 }
