@@ -1,5 +1,4 @@
 import { localize, MINIMUM_STARS } from '@matnbaz/common';
-import classNames from 'classnames';
 import { GetServerSideProps, NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -196,77 +195,105 @@ const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
 
         <div className="grid sm:grid-cols-4 gap-8 pb-6 max-w-4xl mx-auto sm:grid-flow-row-dense">
           <div className="sm:col-start-4">
-            <div
-              className={classNames('grid grid-cols-2 sm:grid-cols-1 gap-6')}
-            >
-              {typeof owner.totalStarsCount === 'number' && (
-                <Statistic
-                  value={localize(owner.totalStarsCount, locale)}
-                  subValue={
-                    owner.totalStarsRank &&
-                    ` (${t('rank')} ${localize(owner.totalStarsRank, locale)})`
-                  }
-                  icon={HiStar}
-                  label={t('total-stars-count')}
-                />
-              )}
-              {owner.__typename === 'OwnerUser' && (
-                <Statistic
-                  label={t('public-contributions-count')}
-                  value={localize(owner.publicContributionsCount, locale)}
-                  subValue={
-                    owner.publicContributionsRank &&
-                    ` (${t('rank')} ${localize(
-                      owner.publicContributionsRank,
+            <div>
+              <h3 className="text-lg font-extrabold">{t('statistics')}</h3>
+              <div className="mt-2 grid grid-cols-2 sm:grid-cols-1 gap-6">
+                {typeof owner.totalStarsCount === 'number' && (
+                  <Statistic
+                    value={localize(owner.totalStarsCount, locale)}
+                    subValue={
+                      owner.totalStarsRank &&
+                      ` (${t('rank')} ${localize(
+                        owner.totalStarsRank,
+                        locale
+                      )})`
+                    }
+                    icon={HiStar}
+                    label={t('total-stars-count')}
+                  />
+                )}
+                {owner.__typename === 'OwnerUser' && (
+                  <Statistic
+                    label={t('public-contributions-count')}
+                    value={localize(owner.publicContributionsCount, locale)}
+                    subValue={
+                      owner.publicContributionsRank &&
+                      ` (${t('rank')} ${localize(
+                        owner.publicContributionsRank,
+                        locale
+                      )})`
+                    }
+                    icon={HiPuzzle}
+                  />
+                )}
+                {owner.__typename === 'OwnerUser' && (
+                  <Statistic
+                    label={t('contributions-count')}
+                    value={localize(owner.contributionsCount, locale)}
+                    subValue={
+                      owner.contributionsRank &&
+                      ` (${t('rank')} ${localize(
+                        owner.contributionsRank,
+                        locale
+                      )})`
+                    }
+                    icon={HiPuzzle}
+                  />
+                )}
+                {owner.__typename === 'OwnerUser' && (
+                  <Statistic
+                    label={t('repositories-contributed-to-count')}
+                    value={localize(
+                      owner.repositoriesContributedToCount,
                       locale
-                    )})`
-                  }
-                  icon={HiPuzzle}
-                />
-              )}
-              {owner.__typename === 'OwnerUser' && (
-                <Statistic
-                  label={t('contributions-count')}
-                  value={localize(owner.contributionsCount, locale)}
-                  subValue={
-                    owner.contributionsRank &&
-                    ` (${t('rank')} ${localize(
-                      owner.contributionsRank,
-                      locale
-                    )})`
-                  }
-                  icon={HiPuzzle}
-                />
-              )}
-              {owner.__typename === 'OwnerUser' && (
-                <Statistic
-                  label={t('repositories-contributed-to-count')}
-                  value={localize(owner.repositoriesContributedToCount, locale)}
-                  subValue={
-                    owner.repositoriesContributedToRank &&
-                    ` (${t('rank')} ${localize(
-                      owner.repositoriesContributedToRank,
-                      locale
-                    )})`
-                  }
-                  icon={HiCollection}
-                />
-              )}
-              {owner.__typename === 'OwnerUser' && (
-                <Statistic
-                  label={t('followers-count')}
-                  value={localize(owner.followersCount, locale)}
-                  icon={HiUsers}
-                />
-              )}
-              {typeof owner.repositoriesCount === 'number' && (
-                <Statistic
-                  value={localize(owner.repositoriesCount, locale)}
-                  icon={HiCollection}
-                  label={t('repositories-count')}
-                />
-              )}
+                    )}
+                    subValue={
+                      owner.repositoriesContributedToRank &&
+                      ` (${t('rank')} ${localize(
+                        owner.repositoriesContributedToRank,
+                        locale
+                      )})`
+                    }
+                    icon={HiCollection}
+                  />
+                )}
+                {owner.__typename === 'OwnerUser' && (
+                  <Statistic
+                    label={t('followers-count')}
+                    value={localize(owner.followersCount, locale)}
+                    icon={HiUsers}
+                  />
+                )}
+                {typeof owner.repositoriesCount === 'number' && (
+                  <Statistic
+                    value={localize(owner.repositoriesCount, locale)}
+                    icon={HiCollection}
+                    label={t('repositories-count')}
+                  />
+                )}
+              </div>
             </div>
+
+            {owner.languages.length > 0 && (
+              <div className="mt-8">
+                <h3 className="text-lg font-extrabold">{t('languages')}</h3>
+                <div className="mt-4 grid grid-cols-3 sm:grid-cols-1 gap-2">
+                  {owner.languages.map(({ language, percentage }) => (
+                    <div className="flex items-center" key={language.slug}>
+                      <div
+                        className="rounded-full w-2 h-2"
+                        style={{
+                          backgroundColor: language.color?.hexString,
+                        }}
+                      />
+                      <span dir="ltr" className="ltr:pl-1.5 rtl:pr-1.5 text-sm">
+                        {language.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
           <div className="sm:col-start-1 sm:col-span-3">
             <div className="grid gap-6">

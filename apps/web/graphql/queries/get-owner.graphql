@@ -29,6 +29,17 @@ query GetOwner(
     about
     twitterUsername
     websiteUrl
+    languages {
+      language {
+        name
+        slug
+        color {
+          hexString
+        }
+      }
+      percentage
+      size
+    }
     ... on OwnerUser {
       company
       contributionsCount
