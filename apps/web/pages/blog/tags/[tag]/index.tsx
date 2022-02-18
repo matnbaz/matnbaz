@@ -1,4 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -20,6 +21,7 @@ export interface TagPageProps {
 }
 
 const TagPage: NextPage<TagPageProps> = ({ tagName }) => {
+  const { t } = useTranslation('post-tag');
   const { locale } = useRouter();
   const { data, called, loading, networkStatus, fetchMore } = useGetTagQuery({
     variables: {
@@ -41,10 +43,10 @@ const TagPage: NextPage<TagPageProps> = ({ tagName }) => {
   return (
     <MainLayout withFooterPromo>
       <NextSeo
-        title={data?.tag.name}
-        description={`تمام پست‌ها با برچسب "${data?.tag.name}"`}
+        title={data?.tag.name || t('title-placeholder')}
+        description={t('page-description', { tagName: data?.tag.name || '' })}
       />
-      <PageHeader title={`#${data?.tag.name}`} />
+      <PageHeader title={data?.tag.name ? `#${data?.tag.name}` : ''} />
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         <PostPreviewList
@@ -91,7 +93,11 @@ export const getServerSideProps: GetServerSideProps<TagPageProps> = async ({
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),
-      ...(await serverSideTranslations(locale, ['common'], nextI18nextConfig)),
+      ...(await serverSideTranslations(
+        locale,
+        ['common', 'post-tag'],
+        nextI18nextConfig
+      )),
       tagName: tag,
     },
   };
