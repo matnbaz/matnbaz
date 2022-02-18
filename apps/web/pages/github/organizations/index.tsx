@@ -96,7 +96,7 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
       },
 
       {
-        Header: t('user'),
+        Header: t('organization'),
         accessor: 'login',
         width: 256,
         Cell: (props) => {

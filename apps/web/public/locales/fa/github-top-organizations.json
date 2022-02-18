@@ -5,13 +5,9 @@
   "search-placeholder": "جست‌و‌جوی سازمان‌ها...",
 
   "rank": "رتبه",
-  "user": "کاربر",
-  "company": "شرکت",
+  "organization": "سازمان",
   "twitter": "توییتر",
-  "followers": "دنبال‌کنندگان",
   "total-stars": "مجموع ستاره‌ها",
   "repositories-count": "تعداد مخزن‌ها",
-  "repositories-contributed-to-count": "مخزن‌های مشارکت‌شده",
-  "public-contributions": "مشارکت‌های عمومی",
   "languages": "زبان‌های برنامه‌نویسی"
 }

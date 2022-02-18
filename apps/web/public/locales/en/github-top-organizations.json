@@ -5,13 +5,9 @@
   "search-placeholder": "Start searching...",
 
   "rank": "Rank",
-  "user": "User",
-  "company": "Company",
+  "organization": "Organization",
   "twitter": "Twitter",
-  "followers": "Followers",
   "total-stars": "Total Stars",
   "repositories-count": "Repos Count",
-  "repositories-contributed-to-count": "Repos Contributed To",
-  "public-contributions": "Public Contributions",
   "languages": "Programming Languages"
 }
