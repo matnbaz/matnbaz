@@ -197,7 +197,7 @@ const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
           <div className="sm:col-start-4">
             <div>
               <h3 className="text-lg font-extrabold">{t('statistics')}</h3>
-              <div className="mt-2 grid grid-cols-2 sm:grid-cols-1 gap-6">
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-1 gap-y-8 sm:gap-y-2">
                 {typeof owner.totalStarsCount === 'number' && (
                   <Statistic
                     value={localize(owner.totalStarsCount, locale)}
