@@ -184,6 +184,30 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
           </div>
         ),
       },
+      {
+        Header: t('languages'),
+        Cell: (props) => {
+          return (
+            <div className="whitespace-nowrap px-6 py-4">
+              <div className="flex flex-col items-start">
+                {props.row.original.languages
+                  .slice(0, 3)
+                  .map(({ percentage, language }, index) => (
+                    <div className="flex items-center" key={index} dir="ltr">
+                      <div
+                        className="rounded-full w-2 h-2"
+                        style={{
+                          backgroundColor: language.color?.hexString,
+                        }}
+                      />
+                      <span className="pl-1.5  text-xs">{language.name}</span>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          );
+        },
+      },
     ],
     [t, locale]
   );

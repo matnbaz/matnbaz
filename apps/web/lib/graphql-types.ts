@@ -1001,12 +1001,12 @@ export type GetCollectionsQuery = { __typename?: 'Query', collections: { __typen
 export type GetGithubOrgsChartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetGithubOrgsChartQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'OwnerOrganization', name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null, repositoriesCount?: number | null, totalStarsCount?: number | null, totalStarsRank?: number | null } | { __typename?: 'OwnerUser', name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null, repositoriesCount?: number | null, totalStarsCount?: number | null, totalStarsRank?: number | null } }> | null } };
+export type GetGithubOrgsChartQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'OwnerOrganization', name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null, repositoriesCount?: number | null, totalStarsCount?: number | null, totalStarsRank?: number | null, languages: Array<{ __typename?: 'OwnerLanguage', percentage: number, language: { __typename?: 'Language', name: string, slug: string, color?: { __typename?: 'Color', hexString: string } | null } }> } | { __typename?: 'OwnerUser', name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null, repositoriesCount?: number | null, totalStarsCount?: number | null, totalStarsRank?: number | null, languages: Array<{ __typename?: 'OwnerLanguage', percentage: number, language: { __typename?: 'Language', name: string, slug: string, color?: { __typename?: 'Color', hexString: string } | null } }> } }> | null } };
 
 export type GetGithubUsersChartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetGithubUsersChartQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'OwnerOrganization', name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null, repositoriesCount?: number | null, totalStarsCount?: number | null, totalStarsRank?: number | null } | { __typename?: 'OwnerUser', contributionsCount?: number | null, publicContributionsCount?: number | null, followersCount?: number | null, repositoriesContributedToCount?: number | null, company?: string | null, contributionsRank?: number | null, publicContributionsRank?: number | null, repositoriesContributedToRank?: number | null, name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null, repositoriesCount?: number | null, totalStarsCount?: number | null, totalStarsRank?: number | null } }> | null } };
+export type GetGithubUsersChartQuery = { __typename?: 'Query', owners: { __typename?: 'OwnerConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null }, edges?: Array<{ __typename?: 'OwnerEdge', node: { __typename?: 'OwnerOrganization', name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null, repositoriesCount?: number | null, totalStarsCount?: number | null, totalStarsRank?: number | null, languages: Array<{ __typename?: 'OwnerLanguage', percentage: number, language: { __typename?: 'Language', name: string, slug: string, color?: { __typename?: 'Color', hexString: string } | null } }> } | { __typename?: 'OwnerUser', contributionsCount?: number | null, publicContributionsCount?: number | null, followersCount?: number | null, repositoriesContributedToCount?: number | null, company?: string | null, contributionsRank?: number | null, publicContributionsRank?: number | null, repositoriesContributedToRank?: number | null, name?: string | null, login: string, platformId: string, twitterUsername?: string | null, websiteUrl?: string | null, repositoriesCount?: number | null, totalStarsCount?: number | null, totalStarsRank?: number | null, languages: Array<{ __typename?: 'OwnerLanguage', percentage: number, language: { __typename?: 'Language', name: string, slug: string, color?: { __typename?: 'Color', hexString: string } | null } }> } }> | null } };
 
 export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1395,6 +1395,16 @@ export const GetGithubOrgsChartDocument = gql`
         repositoriesCount
         totalStarsCount
         totalStarsRank
+        languages {
+          percentage
+          language {
+            color {
+              hexString
+            }
+            name
+            slug
+          }
+        }
       }
     }
   }
@@ -1444,6 +1454,16 @@ export const GetGithubUsersChartDocument = gql`
         repositoriesCount
         totalStarsCount
         totalStarsRank
+        languages {
+          percentage
+          language {
+            color {
+              hexString
+            }
+            name
+            slug
+          }
+        }
         ... on OwnerUser {
           contributionsCount
           publicContributionsCount

@@ -18,6 +18,16 @@ query GetGithubOrgsChart {
         repositoriesCount
         totalStarsCount
         totalStarsRank
+        languages {
+          percentage
+          language {
+            color {
+              hexString
+            }
+            name
+            slug
+          }
+        }
       }
     }
   }
