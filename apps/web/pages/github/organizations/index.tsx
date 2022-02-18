@@ -17,6 +17,7 @@ import { useFlexLayout, useSortBy, useTable } from 'react-table';
 import { FixedSizeList } from 'react-window';
 import { MainLayout } from '../../../components/Layout/MainLayout';
 import { PageHeader } from '../../../components/Layout/PageHeader';
+import { OwnerImage } from '../../../components/Owner/OwnerImage';
 import { Input } from '../../../components/UI/Input/Input';
 import { initializeApollo } from '../../../lib/apollo';
 import {
@@ -109,11 +110,7 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
                 <div className="h-10 w-10 flex-shrink-0">
                   <Link href={`/github/${login}`}>
                     <a target="_blank">
-                      <img
-                        className="h-10 w-10 rounded-full"
-                        src={`https://avatars.githubusercontent.com/u/${platformId}?v=4`}
-                        alt={`عکس ${props.value || login}`}
-                      />
+                      <OwnerImage owner={props.row.original} />
                     </a>
                   </Link>
                 </div>
