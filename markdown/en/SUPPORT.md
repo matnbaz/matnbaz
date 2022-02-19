@@ -1,10 +1,8 @@
 # Supporting Matnbaz
 
-We love working on Matnbaz but since it isn't a commercial project and the core maintainers of Matnbaz are students, we can't continue to work on it if we don't get financial support. Your support is crucial for the development of Matnbaz to continue.
+We love working on Matnbaz but since it isn't a commercial project and takes a lot of time to maintain, we can't continue to work on it without your support.
 
-Ever since [Nov 17, 2021](https://github.com/matnbaz/matnbaz/commit/501a75d79fa4ee66dbece238046daec838f4b356), The day we started Matnbaz, it has been under active development, requiring at least one dedicated developer to be working on it full-time.
-
-You can learn more about Matnbaz in the [about page](https://matnbaz.net/en/about).
+You can learn more about Matnbaz and its mission in the [about page](https://matnbaz.net/en/about).
 
 ## Supporting As Companies
 

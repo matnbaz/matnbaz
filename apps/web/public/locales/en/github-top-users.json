@@ -13,5 +13,8 @@
   "repositories-count": "Repos Count",
   "repositories-contributed-to-count": "Repos Contributed To",
   "public-contributions": "Public Contributions",
-  "languages": "Programming Languages"
+  "languages": "Programming Languages",
+  "tip-start": "Tip: If you know a user that isn't added to the site, you can add them using the ",
+  "tip-link": "Submit Page",
+  "tip-end": "."
 }

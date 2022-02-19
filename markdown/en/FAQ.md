@@ -14,7 +14,11 @@ There are several ways we do that, including:
 
 For repositories to be added to the site, they need to meet certain criteria. For instance, they need to have a certain amount of stars and that might be the reason it's not added to the site.
 
-If that's not the case, your user is probably not discovered yet. You could manually add it [here](https://matnbaz.net/en/submit-user)
+If that's not the case, your user is probably not discovered yet. You could manually add it using the [Submit Page](https://matnbaz.net/en/submit-user).
+
+# I know an organization that isn't in the site, what do I do?
+
+Adding organizations is like adding users, submit them using the [Submit Page](https://matnbaz.net/submit-user).
 
 <!-- question-separator -->
 

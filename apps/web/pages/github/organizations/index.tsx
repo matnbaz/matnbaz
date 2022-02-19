@@ -359,6 +359,11 @@ const GithubTopUsersPage: NextPage<GithubTopUsersPageProps> = ({ owners }) => {
           </div>
         </div>
       </div>
+      <p className="mt-4 text-secondary text-center">
+        {t('tip-start')}
+        <Link href="/submit-user">{t('tip-link')}</Link>
+        {t('tip-end')}
+      </p>
     </MainLayout>
   );
 };

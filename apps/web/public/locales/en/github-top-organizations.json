@@ -9,5 +9,8 @@
   "twitter": "Twitter",
   "total-stars": "Total Stars",
   "repositories-count": "Repos Count",
-  "languages": "Programming Languages"
+  "languages": "Programming Languages",
+  "tip-start": "Tip: If you know an organization that isn't added to the site, you can add them using the ",
+  "tip-link": "Submit Page",
+  "tip-end": "."
 }

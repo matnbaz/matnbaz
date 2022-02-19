@@ -13,7 +13,7 @@
 - [سایت متن‌باز](https://matnbaz.net)
 - [درباره متن‌باز](https://matnbaz.net/about)
 - [حمایت از متن‌باز](https://matnbaz.net/support)
-- [پرسش‌های متداول](https://matnbaz.net/faq)
+- [پرسش‌های پر‌تکرار](https://matnbaz.net/faq)
 - [مخزن فایل‌های گرافیکی](https://github.com/matnbaz/graphics)
 - [مخزن برنامه موبایل](https://github.com/matnbaz/matnbaz-mobile)
 

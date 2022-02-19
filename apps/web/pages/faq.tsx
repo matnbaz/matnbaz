@@ -24,7 +24,7 @@ const FaqPage: NextPage<FaqPageProps> = ({ faq, faqHtml }) => {
       <FAQPageJsonLd mainEntity={faq} />
 
       <div
-        className="prose dark:prose-invert prose-h1:mt-10 max-w-4xl mx-auto mb-5"
+        className="prose dark:prose-invert prose-h1:mt-10 prose-h1:text-3xl max-w-4xl mx-auto mb-5"
         dangerouslySetInnerHTML={{ __html: faqHtml }}
       />
     </MainLayout>

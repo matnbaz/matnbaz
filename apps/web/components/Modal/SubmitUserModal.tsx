@@ -8,10 +8,7 @@ export interface SubmitUserModalProps {
   className?: string;
 }
 
-export const SubmitUserModal = ({
-  title = 'ثبت کاربر',
-  className,
-}: SubmitUserModalProps) => {
+export const SubmitUserModal = ({ title, className }: SubmitUserModalProps) => {
   const [show, setShow] = useState(false);
   return (
     <>
@@ -24,7 +21,7 @@ export const SubmitUserModal = ({
         {title}
       </button>
       <Modal
-        title="ثبت کاربر"
+        title={title}
         show={show}
         onClose={() => {
           setShow((previousState) => !previousState);
