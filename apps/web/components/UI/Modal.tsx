@@ -1,7 +1,6 @@
-import { Transition } from '@headlessui/react';
+import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import { ClientOnlyPortal } from '../Feature/ClientOnlyPortal';
 import { Divider } from './Divider';
 
 export interface Props {
@@ -17,8 +16,8 @@ export const Modal = ({ children, show, title, onClose }: Props) => {
   };
 
   return (
-    <ClientOnlyPortal selector="#modal">
-      <Transition appear show={show} as={Fragment}>
+    <Transition appear show={show} as={Fragment}>
+      <Dialog onClose={onClose} open={show}>
         <div
           className="fixed z-50 inset-0 overflow-y-auto"
           aria-labelledby="modal-title"
@@ -75,7 +74,7 @@ export const Modal = ({ children, show, title, onClose }: Props) => {
             </Transition.Child>
           </div>
         </div>
-      </Transition>
-    </ClientOnlyPortal>
+      </Dialog>
+    </Transition>
   );
 };
