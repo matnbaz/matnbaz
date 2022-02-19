@@ -10,7 +10,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { CgClose } from 'react-icons/cg';
-import { HiChevronDown } from 'react-icons/hi';
+import { HiChevronDown, HiOfficeBuilding, HiUsers } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
 import { MatnbazLogo } from '../Icons/MatnbazLogo';
 import { IconButton } from './IconButton';
@@ -103,20 +103,33 @@ export const Navbar = ({ className }: NavbarProps) => {
       },
       {
         type: 'flyout',
-        name: t('navbar.more'),
-        size: 'small',
+        name: t('navbar.charts'),
+        size: 'normal',
         flyout: {
           links: [
             {
               type: 'link',
+              icon: HiUsers,
               name: t('navbar.github-users'),
+              description: t('navbar.github-users-description'),
               href: '/github/users',
             },
             {
               type: 'link',
+              icon: HiOfficeBuilding,
               name: t('navbar.github-organizations'),
+              description: t('navbar.github-organizations-description'),
               href: '/github/organizations',
             },
+          ],
+        },
+      },
+      {
+        type: 'flyout',
+        name: t('navbar.more'),
+        size: 'small',
+        flyout: {
+          links: [
             {
               type: 'link',
               name: t('navbar.about'),
