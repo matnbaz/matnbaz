@@ -192,7 +192,7 @@ export const Navbar = ({ className }: NavbarProps) => {
           }
         : link
     );
-  }, [locale]);
+  }, [locale, t]);
 
   return (
     <div
@@ -204,10 +204,10 @@ export const Navbar = ({ className }: NavbarProps) => {
       )}
     >
       <div className="flex flex-col w-full max-w-full md:max-w-[92rem] mx-auto py-3 md:py-6 px-2 md:px-8 space-y-6">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-8 rtl:space-x-reverse ltr:mr-4 ltr:md:mr-0 rtl:ml-4 rtl:md:ml-0">
+        <div className="flex justify-between items-start">
+          <div className="flex space-x-8 rtl:space-x-reverse ltr:mr-4 ltr:md:mr-0 rtl:ml-4 rtl:md:ml-0">
             <Link href="/">
-              <a className="flex space-x-3 rtl:space-x-reverse items-center">
+              <a className="flex space-x-3 rtl:space-x-reverse">
                 <MatnbazLogo className="w-10 h-10 dark:text-white text-gray-900" />
 
                 <h2 className="hidden md:block text-3xl font-extrabold ltr:mt-0.5 ltr:-mb-0.5">
@@ -368,8 +368,8 @@ export const Navbar = ({ className }: NavbarProps) => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4 rtl:space-x-reverse md:w-auto">
-            <div className="flex space-x-2 rtl:space-x-reverse items-center">
+          <div className="flex space-x-4 rtl:space-x-reverse md:w-auto">
+            <div className="flex space-x-2 rtl:space-x-reverse">
               <LocaleSelector />
               {mounted && (
                 <>
