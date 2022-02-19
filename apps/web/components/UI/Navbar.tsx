@@ -91,19 +91,8 @@ export const Navbar = ({ className }: NavbarProps) => {
         href: '/collections',
       },
       {
-        type: 'link',
-        name: t('navbar.blog'),
-        href: '/blog',
-      },
-      {
-        type: 'link',
-        name: t('navbar.support'),
-        href: '/support',
-        pinging: true,
-      },
-      {
         type: 'flyout',
-        name: t('navbar.charts'),
+        name: t('navbar.statistics'),
         size: 'normal',
         flyout: {
           links: [
@@ -123,6 +112,17 @@ export const Navbar = ({ className }: NavbarProps) => {
             },
           ],
         },
+      },
+      {
+        type: 'link',
+        name: t('navbar.blog'),
+        href: '/blog',
+      },
+      {
+        type: 'link',
+        name: t('navbar.support'),
+        href: '/support',
+        pinging: true,
       },
       {
         type: 'flyout',
