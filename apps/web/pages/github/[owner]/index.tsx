@@ -108,7 +108,11 @@ const OwnerPage: NextPage<OwnerPageProps> = ({ ownerSlug }) => {
               )}
               {owner.websiteUrl && (
                 <a
-                  href={owner.websiteUrl}
+                  href={
+                    owner.websiteUrl.match(/^https?:\/\//)
+                      ? owner.websiteUrl
+                      : `http://${owner.websiteUrl}`
+                  }
                   target="_blank"
                   rel="noreferrer"
                   className="flex-shrink-0 flex text-sm text-secondary items-center gap-2 max-w-xs overflow-hidden"
