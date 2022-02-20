@@ -35,7 +35,7 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     color: '#777BB4',
     Description: {
       create: {
-        fa: 'پی‌اچ‌پی یک زبان برنامه‌نویسی همه منظوره است که برای توسعه وب طراحی شده است و می‌تواند با HTML ادغام شود.',
+        fa: 'پی‌اچ‌پی یک زبان برنامه‌نویسی همه‌منظوره است که برای توسعه وب طراحی شده است و می‌تواند با HTML ادغام شود.',
         en: 'PHP is a general-purpose scripting language geared towards web development, mostly used alongside HTML.',
       },
     },
@@ -240,6 +240,46 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     },
     Languages: { connect: { slug: 'zig' } },
   },
+  {
+    name: 'Haskell',
+    slug: 'haskell',
+    color: '#5D4F85',
+    image: 'https://simpleicons.org/icons/haskell.svg',
+    Description: {
+      create: {
+        fa: 'هِسکِل یک زبان برنامه‌نویسی همه‌منظوره، تایپ ایستا و فانکشنال با استنتاج تایپ و ارزیابی تنبل است.',
+        en: 'Haskell is a general-purpose, statically-typed, purely functional programming language with type inference and lazy evaluation.',
+      },
+    },
+    Languages: { connect: { slug: 'haskell' } },
+  },
+  {
+    name: 'Scala',
+    slug: 'scala',
+    color: '#DC322F',
+    image: 'https://simpleicons.org/icons/scala.svg',
+    Description: {
+      create: {
+        fa: 'اسکالا یک زبان برنامه‌نویسی همه‌منظوره با تایپ استاتیک قوی است که هم از برنامه‌نویسی شی گرا و هم از برنامه‌نویسی تابعی پشتیبانی می کند.',
+        en: 'Scala is a strong statically typed general-purpose programming language which supports both object-oriented programming and functional programming.',
+      },
+    },
+    Languages: { connect: { slug: 'scala' } },
+  },
+  // Commented out because there is no icon for F# in simpleicons.org
+  // {
+  //   name: 'F#',
+  //   slug: 'fsharp',
+  //   color: '#5D4F85',
+  //   image: 'https://simpleicons.org/icons/fsharp.svg',
+  //   Description: {
+  //     create: {
+  //       fa: 'F# یک زبان برنامه‌نویسی همه‌منظوره قوی تایپ شده و چند پارادایم است که شامل روش‌های برنامه‌نویسی تابعی، امری و شی‌گرا می باشد.',
+  //       en: 'F# is a functional-first, general purpose, strongly typed, multi-paradigm programming language that encompasses functional, imperative, and object-oriented programming methods.',
+  //     },
+  //   },
+  //   Languages: { connect: { slug: 'fsharp' } },
+  // },
   {
     name: 'Laravel',
     slug: 'laravel',
