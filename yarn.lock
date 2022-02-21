@@ -16,10 +16,10 @@
     react-datepicker "^3.1.3"
     styled-system "^5.1.5"
 
-"@adminjs/express@4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@adminjs/express/-/express-4.0.2.tgz#e5e03bf3a89e99ee2ecb377525e86417b2bf27d9"
-  integrity sha512-2k1d/wJQlemM4P0XmrF/cMPiMhI7Fvz1zMgpWMWc646SbhiT7OsJt7bJqbxH/hQ8Zxf8E0IED7W2DX5j6OZPSg==
+"@adminjs/express@4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@adminjs/express/-/express-4.0.3.tgz#002e6db840f0ef2daf8b293b4b0d93eb7f359809"
+  integrity sha512-myr0ofdRROC3PRXvqHYZM/7mpVQ5znWuapZWhQizI/sk0tPLeTqqnCTOvJDMbWS3AM5A3PcX9hY5dTZGb4C/Ig==
   dependencies:
     path-to-regexp "^6.2.0"
 
