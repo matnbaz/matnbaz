@@ -6807,15 +6807,15 @@ builtin-modules@^3.1.0:
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-3.2.0.tgz#45d5db99e7ee5e6bc4f362e008bf917ab5049887"
   integrity sha512-lGzLKcioL90C7wMczpkY0n/oART3MbBa8R9OFGE1rJxoVI86u4WAGfEk8Wjv10eKSyTHVGkSo3bvBylCEtk7LA==
 
-bull@4.5.6:
-  version "4.5.6"
-  resolved "https://registry.yarnpkg.com/bull/-/bull-4.5.6.tgz#58908fcebf2d469e72f8f3c96e4ed839a390decc"
-  integrity sha512-npt8nIpMVKxauuipo7bpeiw4zsJtmA+DFzzQ2ESIPv9sHuF01CzGJ2GcVlmKHhXQxymRggDBu3hl+WaJyZQdOg==
+bull@4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/bull/-/bull-4.6.1.tgz#9d387a30414cfc7fa64b4aa16ef9d4971cb6563a"
+  integrity sha512-LjTBDy3Mua7Tz9xYn2kl/HJvwd5qj6XTLiTCXtPyPxP4HtRrixkm7YytKRFwQbOwcfK++1sBrnIp0nb0ePusgw==
   dependencies:
     cron-parser "^4.2.1"
     debuglog "^1.0.0"
     get-port "^5.1.1"
-    ioredis "^4.27.0"
+    ioredis "^4.28.5"
     lodash "^4.17.21"
     msgpackr "^1.5.2"
     p-timeout "^3.2.0"
@@ -10477,7 +10477,7 @@ invariant@^2.2.4:
   dependencies:
     loose-envify "^1.0.0"
 
-ioredis@4.28.5:
+ioredis@4.28.5, ioredis@^4.28.5:
   version "4.28.5"
   resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.28.5.tgz#5c149e6a8d76a7f8fa8a504ffc85b7d5b6797f9f"
   integrity sha512-3GYo0GJtLqgNXj4YhrisLaNNvWSNwSS2wS4OELGfGxH8I69+XfNdnmV1AyN+ZqMh0i7eX+SWjrwFKDBDgfBC1A==
@@ -10498,23 +10498,6 @@ ioredis@^4.17.3:
   version "4.28.2"
   resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.28.2.tgz#493ccd5d869fd0ec86c96498192718171f6c9203"
   integrity sha512-kQ+Iv7+c6HsDdPP2XUHaMv8DhnSeAeKEwMbaoqsXYbO+03dItXt7+5jGQDRyjdRUV2rFJbzg7P4Qt1iX2tqkOg==
-  dependencies:
-    cluster-key-slot "^1.1.0"
-    debug "^4.3.1"
-    denque "^1.1.0"
-    lodash.defaults "^4.2.0"
-    lodash.flatten "^4.4.0"
-    lodash.isarguments "^3.1.0"
-    p-map "^2.1.0"
-    redis-commands "1.7.0"
-    redis-errors "^1.2.0"
-    redis-parser "^3.0.0"
-    standard-as-callback "^2.1.0"
-
-ioredis@^4.27.0:
-  version "4.28.0"
-  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.28.0.tgz#5a2be3f37ff2075e2332f280eaeb02ab4d9ff0d3"
-  integrity sha512-I+zkeeWp3XFgPT2CtJKxvaF5FjGBGt4yGYljRjQecdQKteThuAsKqffeF1lgHVlYnuNeozRbPOCDNZ7tDWPeig==
   dependencies:
     cluster-key-slot "^1.1.0"
     debug "^4.3.1"
