@@ -247,7 +247,7 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     image: 'https://simpleicons.org/icons/haskell.svg',
     Description: {
       create: {
-        fa: 'هِسکِل یک زبان برنامه‌نویسی همه‌منظوره، تایپ ایستا و فانکشنال با استنتاج تایپ و ارزیابی تنبل است.',
+        fa: 'هسکل یک زبان برنامه‌نویسی همه‌منظوره، تایپ ایستا و فانکشنال با استنتاج تایپ و ارزیابی تنبل است.',
         en: 'Haskell is a general-purpose, statically-typed, purely functional programming language with type inference and lazy evaluation.',
       },
     },
@@ -435,7 +435,7 @@ const data: Parameters<PrismaClient['collection']['upsert']>[0]['create'][] = [
     color: '#FF3E00',
     Description: {
       create: {
-        fa: 'سولت یک کامپایلر فرانت‌اند آزاد و متن‌باز است و بیلد نهایی آن شامل کد فریم‌ورک نمی‌شود.',
+        fa: 'سولت یک کامپایلر فرانت‌اند آزاد و متن‌باز است که بیلد نهایی آن شامل کد فریم‌ورک نمی‌شود.',
         en: 'Svelte is a free and open-source frontend compiler. Svelte apps do not include a framework script.',
       },
     },
