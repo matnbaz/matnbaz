@@ -5646,10 +5646,10 @@ add-subtract-date@^1.0.0:
   resolved "https://registry.yarnpkg.com/add-subtract-date/-/add-subtract-date-1.0.15.tgz#dd81b9236795b3ed113131dc1a325833c856c8bc"
   integrity sha512-MiL4wnMyM999meyCrSA3LME9uZ/b5ptSd0ACDVUoTfutFwvkMyIN7nG7gjrU56WEk5RlFLBghabcgdYwY8s+nQ==
 
-adminjs@5.7.0:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/adminjs/-/adminjs-5.7.0.tgz#b760f3b5f80952c8f7e6566011bfa082406c8c7f"
-  integrity sha512-9yzURUv585yB4zN6cUqS/7j8mqBfMN6MMQlnSQtBN7grL07WDpMZ255SC72YBxsfErUAvhrEV9r68RFKrALiWQ==
+adminjs@5.7.1:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/adminjs/-/adminjs-5.7.1.tgz#3b256b0d3f7b779775901d98f9936c898c29da43"
+  integrity sha512-PNMFADqHOC2dWIhKWWKDSQih6RSi0P7zhMq4MYV3ZUERJXv58NJ42YE6LI4O59J6lYfse7lsDGATUBNP+BnEzg==
   dependencies:
     "@adminjs/design-system" "^2.1.0"
     "@babel/core" "^7.10.2"
@@ -5676,9 +5676,9 @@ adminjs@5.7.0:
     ora "^5.4.1"
     prop-types "^15.7.2"
     punycode "^2.1.1"
-    react "17.0.2"
+    react "^16.13.1"
     react-beautiful-dnd "^13.0.0"
-    react-dom "17.0.2"
+    react-dom "^16.13.1"
     react-i18next "^11.14.3"
     react-is "=16.13.1"
     react-redux "=7.2.0"
@@ -14442,6 +14442,16 @@ react-dom@17.0.2:
     object-assign "^4.1.1"
     scheduler "^0.20.2"
 
+react-dom@^16.13.1:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
+  integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.19.1"
+
 react-error-boundary@^3.1.0:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-3.1.4.tgz#255db92b23197108757a888b01e5b729919abde0"
@@ -14625,6 +14635,15 @@ react@17.0.2:
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
+
+react@^16.13.1:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
+  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
 
 read-cache@^1.0.0:
   version "1.0.0"
@@ -15241,6 +15260,14 @@ saxes@^5.0.1:
   integrity sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==
   dependencies:
     xmlchars "^2.2.0"
+
+scheduler@^0.19.1:
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
+  integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 scheduler@^0.20.2:
   version "0.20.2"
