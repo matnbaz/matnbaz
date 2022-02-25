@@ -29,7 +29,7 @@
     "@nrwl/next": "13.8.3",
     "@octokit/plugin-throttling": "3.5.2",
     "@prisma/client": "3.10.0",
-    "adminjs": "5.7.1",
+    "adminjs": "5.7.2",
     "apollo-server-cache-redis": "3.3.1",
     "apollo-server-core": "3.6.3",
     "apollo-server-express": "3.6.3",
