@@ -4755,10 +4755,10 @@
     "@types/ioredis" "*"
     "@types/redis" "^2.8.0"
 
-"@types/cache-manager@3.4.2":
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/@types/cache-manager/-/cache-manager-3.4.2.tgz#d57e7e5e6374d1037bdce753a05c9703e4483401"
-  integrity sha512-1IwA74t5ID4KWo0Kndal16MhiPSZgMe1fGc+MLT6j5r+Ab7jku36PFTl4PP6MiWw0BJscM9QpZEo00qixNQoRg==
+"@types/cache-manager@3.4.3":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@types/cache-manager/-/cache-manager-3.4.3.tgz#eba99bf795b997ad0c309658101398c34d7faecb"
+  integrity sha512-71aBXoFYXZW4TnDHHH8gExw2lS28BZaWeKefgsiJI7QYZeJfUEbMKw6CQtzGjlYQcGIWwB76hcCrkVA3YHSvsw==
 
 "@types/cacheable-request@^6.0.1":
   version "6.0.2"
