@@ -27,7 +27,7 @@
     "@nestjs/schedule": "1.0.2",
     "@nestjs/throttler": "2.0.0",
     "@nrwl/next": "13.8.4",
-    "@octokit/plugin-throttling": "3.5.2",
+    "@octokit/plugin-throttling": "3.6.1",
     "@prisma/client": "3.10.0",
     "adminjs": "5.7.3",
     "apollo-server-cache-redis": "3.3.1",
