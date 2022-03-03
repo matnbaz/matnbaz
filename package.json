@@ -112,7 +112,7 @@
     "@types/node": "17.0.17",
     "@types/node-emoji": "1.8.1",
     "@types/react": "17.0.39",
-    "@types/react-dom": "17.0.12",
+    "@types/react-dom": "17.0.13",
     "@types/sharp": "0.29.5",
     "@typescript-eslint/eslint-plugin": "5.13.0",
     "@typescript-eslint/parser": "5.13.0",
