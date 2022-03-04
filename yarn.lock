@@ -23,10 +23,10 @@
   dependencies:
     path-to-regexp "^6.2.0"
 
-"@adminjs/nestjs@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@adminjs/nestjs/-/nestjs-4.0.0.tgz#8926f21014407c004200f85d509f36d3a4a1a5a1"
-  integrity sha512-g5YKOZ2kkgYHfy6lu4rlZL2RoTMHp0lOxjdXuQwspkjhSNmXJRbWid5D73gdw+fUcUSw0tjyVqnWvayLKGvGrg==
+"@adminjs/nestjs@4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@adminjs/nestjs/-/nestjs-4.0.1.tgz#95ffdf139c11dfc89217658cafb8df08ae81aac9"
+  integrity sha512-FIQrTB6iY3Fjxwj/oilmfw05QrRtzA7h+pmf2yvuBrkLHJwnaGHuc+ibdIdXFatilFxDL1QJZ0FxjHngFiL6VA==
   dependencies:
     "@types/express-session" "^1.17.0"
     reflect-metadata "^0.1.13"
