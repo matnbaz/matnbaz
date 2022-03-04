@@ -10,7 +10,7 @@
   "private": true,
   "dependencies": {
     "@adminjs/express": "4.1.0",
-    "@adminjs/nestjs": "4.0.0",
+    "@adminjs/nestjs": "4.0.1",
     "@adminjs/prisma": "1.0.3",
     "@apollo/client": "3.5.10",
     "@devoxa/prisma-relay-cursor-connection": "2.1.0",
