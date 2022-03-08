@@ -86,7 +86,7 @@
     "@graphql-codegen/typescript": "2.4.5",
     "@graphql-codegen/typescript-operations": "2.3.2",
     "@graphql-codegen/typescript-react-apollo": "3.2.8",
-    "@nestjs/schematics": "8.0.7",
+    "@nestjs/schematics": "8.0.8",
     "@nestjs/testing": "8.4.0",
     "@nrwl/cli": "13.8.4",
     "@nrwl/cypress": "13.8.4",
