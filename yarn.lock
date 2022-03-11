@@ -3385,26 +3385,26 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nrwl/cli@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-13.8.5.tgz#df9ca6f8841965195296e1642126ebcd77e204af"
-  integrity sha512-vxDZUCl1u2ZGZATyxBCAzMlR1cLnNwZMzl8yAW2ghnzWun5QynYeOg6GfcoE232E2rIov9YDbEeh2ZusMJeYuw==
+"@nrwl/cli@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-13.8.8.tgz#0c9ac4ae16f9e1f45f59db6670e2841ad7a4920c"
+  integrity sha512-PeC9n9gDE/KLA1jqhMF8bU8Q+VyPzS1t1Yk7K6yq5NvCdyupv2JQO49JMqgUtZ/00mY6buP5/Dpy0LHoNEceuw==
   dependencies:
-    "@nrwl/tao" "13.8.5"
+    "@nrwl/tao" "13.8.8"
     chalk "4.1.0"
     enquirer "~2.3.6"
     v8-compile-cache "2.3.0"
     yargs-parser "20.0.0"
 
-"@nrwl/cypress@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-13.8.5.tgz#ced128ede06ce1496aef1b0a2fbcf795606e18fd"
-  integrity sha512-D57S5EeUzW6ZmW+LSaRj47+uyKOwC0PQAYL5CP1SXkUDgUu+jh1o3glASPXbtfqFMXjlWk1Mo9eDEPxw9p814g==
+"@nrwl/cypress@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-13.8.8.tgz#51d1108347132dff57af1afaf0b30457ed9052f6"
+  integrity sha512-7Oo5qQ5eCQap0AIEXSocMY412rovxu5FjgCuAv/HWsd+gq0QYCpFf+u8JP+30fu3SiTJVfx15tC10hrgEAZnjQ==
   dependencies:
     "@cypress/webpack-preprocessor" "^5.9.1"
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/linter" "13.8.5"
-    "@nrwl/workspace" "13.8.5"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/linter" "13.8.8"
+    "@nrwl/workspace" "13.8.8"
     chalk "4.1.0"
     enhanced-resolve "^5.8.3"
     fork-ts-checker-webpack-plugin "6.2.10"
@@ -3415,37 +3415,37 @@
     tslib "^2.3.0"
     webpack-node-externals "^3.0.0"
 
-"@nrwl/devkit@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-13.8.5.tgz#f5cc8de7a66778b1763412b07ca3cf6e4039de3a"
-  integrity sha512-WSxK3sSVCU4+BIgARfe5dJvNn1xkLyjuIPilpOz7TTQffF3GZ1okGIik+sVHuumgbYodK7gVWihCyt/7+t4xig==
+"@nrwl/devkit@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-13.8.8.tgz#ba8ca561f5924e46d53112a3e565b2f5c8968a38"
+  integrity sha512-J1jQThtDjILtFwkY8Udn1L5OFMrhYjx03VcirbVraa/QTv3seIPqdO6+3kf+3qL/FbjGfnRuW6cuDtZEIcKJ2g==
   dependencies:
-    "@nrwl/tao" "13.8.5"
+    "@nrwl/tao" "13.8.8"
     ejs "^3.1.5"
     ignore "^5.0.4"
     rxjs "^6.5.4"
     semver "7.3.4"
     tslib "^2.3.0"
 
-"@nrwl/eslint-plugin-nx@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-13.8.5.tgz#a9eaaa7f3db49319e5ef6fb25b3c37f051a0b03d"
-  integrity sha512-M/UvJIxyGW/e6Yj3pKrjT6GSibJXasBMy9YbwuvlmWXMHUfm3wUULPeyglxELvMhwNmE8pJAhh8a8bedDQeTfQ==
+"@nrwl/eslint-plugin-nx@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-13.8.8.tgz#90605e84515d4abfacb2abc3c988f66ef1ecf9c3"
+  integrity sha512-c5DcBy8SSXb65jeUqySHO6/Hf9srpgDO+habnyg/dXUTJrGLgWIjc76D6wfzz6fWDHO9yAfn7DOkUlqh8IvGBQ==
   dependencies:
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/workspace" "13.8.5"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/workspace" "13.8.8"
     "@typescript-eslint/experimental-utils" "~5.10.0"
     chalk "4.1.0"
     confusing-browser-globals "^1.0.9"
 
-"@nrwl/jest@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-13.8.5.tgz#9d6645d6efc2c64fd67110fb7485d79cd043ec08"
-  integrity sha512-yb4tThYusdBByFlrXp9DAy/Z6f+V9OnEB0CIRK/j8hFipFqQyMPIDP2DeMQw/F17DKB1FdaEX3vMEA6xP+V2eg==
+"@nrwl/jest@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-13.8.8.tgz#aabad30aa2422b7b149a6ce8cdb0210b5ed79a08"
+  integrity sha512-o+rWNY5R5DPKmal4rZORpI5wnM8jvc8PfiwoOt1DgqBPwr3iAMTO07as9tJ6Qz79MLBMy8H52LYNUUPRf0zMtg==
   dependencies:
     "@jest/reporters" "27.2.2"
     "@jest/test-result" "27.2.2"
-    "@nrwl/devkit" "13.8.5"
+    "@nrwl/devkit" "13.8.8"
     chalk "4.1.0"
     identity-obj-proxy "3.0.0"
     jest-config "27.2.2"
@@ -3455,15 +3455,15 @@
     rxjs "^6.5.4"
     tslib "^2.3.0"
 
-"@nrwl/js@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/js/-/js-13.8.5.tgz#9527668f267f29f7410fd326e7b77eaab5650ea4"
-  integrity sha512-qSHmB0pbTbmWwHJRVqr1kWm2nnPgFUCXsTyvkAQiRyUGCRo1jdUM2rRyhwPjgH6JMnhr1HM1L4balfr2hURn7g==
+"@nrwl/js@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/js/-/js-13.8.8.tgz#7f9b3dd7f2b7d0ab684c2a0436ad60479d969a0a"
+  integrity sha512-XtWZ4UhfHC6+8d20HCzoAhB0ak6OAH10f98mTUQM6OjVx62ryxf7Bh6jgUeq1tA0NvsBqmjDmZ+/T0SGuoEmJw==
   dependencies:
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/jest" "13.8.5"
-    "@nrwl/linter" "13.8.5"
-    "@nrwl/workspace" "13.8.5"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/jest" "13.8.8"
+    "@nrwl/linter" "13.8.8"
+    "@nrwl/workspace" "13.8.8"
     "@parcel/watcher" "2.0.4"
     chalk "4.1.0"
     fast-glob "^3.2.7"
@@ -3474,42 +3474,42 @@
     source-map-support "0.5.19"
     tree-kill "1.2.2"
 
-"@nrwl/linter@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/linter/-/linter-13.8.5.tgz#526539abfe3393c62f6c5f6103a4e6af74571bf7"
-  integrity sha512-9R5yG35liLk8Q8ZtFSF7MKV8cktcG1lAQ2T5JVn4WxELfkrdAHYl/QfQ+R3AYSsdMiGh580sJBZ8875qcOwrYw==
+"@nrwl/linter@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/linter/-/linter-13.8.8.tgz#300ffecc6c652254256fab384d36814b7ea2f6d8"
+  integrity sha512-lYJisb2sjsA6rGc/fKydJo4uZpa1kRaQ0FbKFqs5kiJ3d3DFJGF/IlwCFB/reR6rbcM6DKbFz3hteRp+tUdqAw==
   dependencies:
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/jest" "13.8.5"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/jest" "13.8.8"
     "@phenomnomnominal/tsquery" "4.1.1"
     tmp "~0.2.1"
     tslib "^2.3.0"
 
-"@nrwl/nest@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/nest/-/nest-13.8.5.tgz#8ba6e4929ab88192c3697a2849effac4960b5901"
-  integrity sha512-N3xUYxJRPHK/jJIusrh+ryqqqCqQI9xtEobqE838ztjyVGGoXOHBkIU6u4kBQFkVyg5efCLoL7nUBp1CrhkBnA==
+"@nrwl/nest@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/nest/-/nest-13.8.8.tgz#742a342c342775f7fbd73d82c0b7277226b75800"
+  integrity sha512-tY6EUJIGK24U2qpAIhBjl4tQg09coGL6fP8KNuRP8Q5e8Qt4NYM8WYizmnMouTGwLrmkAU10Yl9ziCQ4arZ2FQ==
   dependencies:
     "@nestjs/schematics" "^8.0.0"
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/jest" "13.8.5"
-    "@nrwl/js" "13.8.5"
-    "@nrwl/linter" "13.8.5"
-    "@nrwl/node" "13.8.5"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/jest" "13.8.8"
+    "@nrwl/js" "13.8.8"
+    "@nrwl/linter" "13.8.8"
+    "@nrwl/node" "13.8.8"
 
-"@nrwl/next@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/next/-/next-13.8.5.tgz#f63e5f604bac2344abdeec7af41f8c33ce857b94"
-  integrity sha512-PVG8KIAU4cqKE6bENBzA5V652TmCY9p+6ydBHIDfCeJikbrCZpH10mo6xtkNqq1QGQ2f0fOXzvbDIe/tL/1x3g==
+"@nrwl/next@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/next/-/next-13.8.8.tgz#59e215a4e7b6a0bf41d5df800292621948dd536c"
+  integrity sha512-kBa9dsA4DtIXK4XbFjhkd4pTw79RsyoZuPK6XbJInBBlGpLZNHLdLaamFia2eHejUvXfvlUmqTk4B353AviS5A==
   dependencies:
     "@babel/plugin-proposal-decorators" "^7.14.5"
-    "@nrwl/cypress" "13.8.5"
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/jest" "13.8.5"
-    "@nrwl/linter" "13.8.5"
-    "@nrwl/react" "13.8.5"
-    "@nrwl/web" "13.8.5"
-    "@nrwl/workspace" "13.8.5"
+    "@nrwl/cypress" "13.8.8"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/jest" "13.8.8"
+    "@nrwl/linter" "13.8.8"
+    "@nrwl/react" "13.8.8"
+    "@nrwl/web" "13.8.8"
+    "@nrwl/workspace" "13.8.8"
     "@svgr/webpack" "^6.1.2"
     chalk "4.1.0"
     eslint-config-next "^12.1.0"
@@ -3519,23 +3519,23 @@
     url-loader "^4.1.1"
     webpack-merge "^5.8.0"
 
-"@nrwl/node@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/node/-/node-13.8.5.tgz#435a8d42de4eb2577ac48fa8299ac6aaffa7e02a"
-  integrity sha512-W+Sf+pbfSJzvlIs8xNZ5dRjnYBC9UGNEnDPTuLQi+LIVo40c+3pPD1zXWK6YCpMLqakzKlil0xNJqGbEVRlttA==
+"@nrwl/node@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/node/-/node-13.8.8.tgz#aa4263bbaf8258b0df3e0a9eaaaf61e3f40004b1"
+  integrity sha512-IfcRvFX9ZRBW56BIZnr1TX1sY/Ejo6rcdKAeGJfOdeGwM3t0SUp1f0ffYbhhlP2EZNCOarUucXzuScJqnYJzMQ==
   dependencies:
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/jest" "13.8.5"
-    "@nrwl/js" "13.8.5"
-    "@nrwl/linter" "13.8.5"
-    "@nrwl/workspace" "13.8.5"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/jest" "13.8.8"
+    "@nrwl/js" "13.8.8"
+    "@nrwl/linter" "13.8.8"
+    "@nrwl/workspace" "13.8.8"
     chalk "4.1.0"
     copy-webpack-plugin "^9.0.1"
     enhanced-resolve "^5.8.3"
     fork-ts-checker-webpack-plugin "6.2.10"
     fs-extra "^9.1.0"
     glob "7.1.4"
-    license-webpack-plugin "4.0.0"
+    license-webpack-plugin "^4.0.2"
     rxjs "^6.5.4"
     rxjs-for-await "0.0.2"
     source-map-support "0.5.19"
@@ -3550,21 +3550,21 @@
     webpack-merge "^5.8.0"
     webpack-node-externals "^3.0.0"
 
-"@nrwl/react@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/react/-/react-13.8.5.tgz#29b9f6d78ec56fb3dce375dad5c69f3476bbc0c0"
-  integrity sha512-cP82kQ9DcqPPrropneM0nvScvdX4ViIp0CYg5yHKwzaMaPuP1+LOJMVK8KYCUinZBUXcxc8Ua8XgWIQg449nlA==
+"@nrwl/react@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/react/-/react-13.8.8.tgz#be48c3f536afffdb829635477f32bbdef529d42e"
+  integrity sha512-ODuV0n6SdA9wl7zFACKl+4lJoelapy9ErlecYThBRJIwMwc0ioOc/uejPEjK4SLp4fbh/P0WjwlrFsWRfHR2iA==
   dependencies:
     "@babel/core" "^7.15.0"
     "@babel/preset-react" "^7.14.5"
-    "@nrwl/cypress" "13.8.5"
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/jest" "13.8.5"
-    "@nrwl/js" "13.8.5"
-    "@nrwl/linter" "13.8.5"
-    "@nrwl/storybook" "13.8.5"
-    "@nrwl/web" "13.8.5"
-    "@nrwl/workspace" "13.8.5"
+    "@nrwl/cypress" "13.8.8"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/jest" "13.8.8"
+    "@nrwl/js" "13.8.8"
+    "@nrwl/linter" "13.8.8"
+    "@nrwl/storybook" "13.8.8"
+    "@nrwl/web" "13.8.8"
+    "@nrwl/workspace" "13.8.8"
     "@pmmmwh/react-refresh-webpack-plugin" "^0.5.1"
     "@storybook/node-logger" "6.1.20"
     "@svgr/webpack" "^6.1.2"
@@ -3579,24 +3579,24 @@
     webpack "^5.58.1"
     webpack-merge "^5.8.0"
 
-"@nrwl/storybook@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/storybook/-/storybook-13.8.5.tgz#81915a707619b9eab36d17fe29f922a209d25a74"
-  integrity sha512-XAiNSxaRo7ZDM6sZx5wD0eBxWD7oikMxGUqLTC6sEhTdYoWOouepRDbVgOf5qHHZD7TSV9rdIU0vYVIhEbW66g==
+"@nrwl/storybook@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/storybook/-/storybook-13.8.8.tgz#c7c74b71637952c33b6da9719f6c509a6721eb55"
+  integrity sha512-birvtdX/jD7ignXDeZa/uolHtIL3fqlm24fiyv4y+824Sr8aiFR7YXsZCh1L5mjNep4JOKVIa1xcROISQEy/eA==
   dependencies:
-    "@nrwl/cypress" "13.8.5"
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/linter" "13.8.5"
-    "@nrwl/workspace" "13.8.5"
+    "@nrwl/cypress" "13.8.8"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/linter" "13.8.8"
+    "@nrwl/workspace" "13.8.8"
     core-js "^3.6.5"
     semver "7.3.4"
     ts-loader "^9.2.6"
     tsconfig-paths-webpack-plugin "3.5.2"
 
-"@nrwl/tao@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-13.8.5.tgz#223e93dbfe11b47c4c13a66cc9086c2f2572b1ae"
-  integrity sha512-ENT6wpxjSWBYKeLT0YueVFehlN1K2lJzgVOJTk4cQ0LbTw0fJCwcTe4ludiW4hPPTF7P5zzi0PmB9a4ss46tQg==
+"@nrwl/tao@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-13.8.8.tgz#c2a03cf146cc03e1343310cfb5d4f6a814d95c7c"
+  integrity sha512-xhOAuy4s5UpiseWjfKi5CHTH2GwNooK+iCvBo1USn9BuwrbjPwfCl3pLy0+d5eCa3X4DsghskzwfcaWCUyQm7Q==
   dependencies:
     "@swc-node/register" "^1.4.2"
     "@swc/core" "^1.2.146"
@@ -3606,7 +3606,7 @@
     fs-extra "^9.1.0"
     ignore "^5.0.4"
     jsonc-parser "3.0.0"
-    nx "13.8.5"
+    nx "13.8.8"
     rxjs "^6.5.4"
     rxjs-for-await "0.0.2"
     semver "7.3.4"
@@ -3615,10 +3615,10 @@
     tslib "^2.3.0"
     yargs-parser "20.0.0"
 
-"@nrwl/web@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/web/-/web-13.8.5.tgz#7dd4e42196ea92e406947897f3ff8bc6a0629c53"
-  integrity sha512-MUQY3KDPCycWLxpEvQzkMBx2QNRVEwCz9p8qlF/h2gaLGBlMTR+6/cAHZvayl1VkGGTlG9SsroYxbCXa4dal3g==
+"@nrwl/web@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/web/-/web-13.8.8.tgz#b0ca96febe8bec8e8a529dadadc8d7a7ba1e1a46"
+  integrity sha512-/a2uVqTAI3zydoI0O2HoP/HE8R0Smx64kguTKn/MUbvLbEug2wGc92hf0rXkLxX0Z11qud1x3qp7csmoQNvmhw==
   dependencies:
     "@babel/core" "^7.15.0"
     "@babel/plugin-proposal-class-properties" "^7.14.5"
@@ -3628,12 +3628,12 @@
     "@babel/preset-env" "^7.15.0"
     "@babel/preset-typescript" "^7.15.0"
     "@babel/runtime" "^7.14.8"
-    "@nrwl/cypress" "13.8.5"
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/jest" "13.8.5"
-    "@nrwl/js" "13.8.5"
-    "@nrwl/linter" "13.8.5"
-    "@nrwl/workspace" "13.8.5"
+    "@nrwl/cypress" "13.8.8"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/jest" "13.8.8"
+    "@nrwl/js" "13.8.8"
+    "@nrwl/linter" "13.8.8"
+    "@nrwl/workspace" "13.8.8"
     "@pmmmwh/react-refresh-webpack-plugin" "^0.5.1"
     "@rollup/plugin-babel" "^5.3.0"
     "@rollup/plugin-commonjs" "^20.0.0"
@@ -3664,7 +3664,7 @@
     ignore "^5.0.4"
     less "3.12.2"
     less-loader "^10.1.0"
-    license-webpack-plugin "4.0.0"
+    license-webpack-plugin "^4.0.2"
     loader-utils "1.2.3"
     mini-css-extract-plugin "~2.4.7"
     parse5 "4.0.0"
@@ -3701,15 +3701,15 @@
     webpack-sources "^3.0.2"
     webpack-subresource-integrity "^5.1.0"
 
-"@nrwl/workspace@13.8.5":
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/workspace/-/workspace-13.8.5.tgz#424a4967ef84be908920a30b83ac5d3a49323347"
-  integrity sha512-uc2IICiSu5hTE1OkVPjBuBlwMl/6zzNL5HnrTCul7dDxRMn0wQsqifTed1QPdgp8Bct6d1uYCc/19fO+wCw1RA==
+"@nrwl/workspace@13.8.8":
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/workspace/-/workspace-13.8.8.tgz#3aabf8bee0c519a4fed7a4f19398baf3f20c934b"
+  integrity sha512-Al9Q1EHr9ZSh3la1gojVyyw7msN+6pOjwjEOLQrFmBgVdI7THb8y6wxy3K8+oUKtqyP+MgFGRqZbY0Tj7xbRFw==
   dependencies:
-    "@nrwl/cli" "13.8.5"
-    "@nrwl/devkit" "13.8.5"
-    "@nrwl/jest" "13.8.5"
-    "@nrwl/linter" "13.8.5"
+    "@nrwl/cli" "13.8.8"
+    "@nrwl/devkit" "13.8.8"
+    "@nrwl/jest" "13.8.8"
+    "@nrwl/linter" "13.8.8"
     "@parcel/watcher" "2.0.4"
     chalk "4.1.0"
     chokidar "^3.5.1"
@@ -12271,10 +12271,10 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-license-webpack-plugin@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/license-webpack-plugin/-/license-webpack-plugin-4.0.0.tgz#11cf6ac96559f4a987cf55d3d2a33f295ae8f13b"
-  integrity sha512-b9iMrROrw2fTOJBZ57h0xJfT5/1Cxg4ucYbtpWoukv4Awb2TFPfDDFVHNM8w6SYQpVfB13a5tQJxgGamqwrsyw==
+license-webpack-plugin@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/license-webpack-plugin/-/license-webpack-plugin-4.0.2.tgz#1e18442ed20b754b82f1adeff42249b81d11aec6"
+  integrity sha512-771TFWFD70G1wLTC4oU2Cw4qvtmNrIw+wRvBtn+okgHl7slJVi7zfNcdmqDL72BojM30VNJ2UHylr1o77U37Jw==
   dependencies:
     webpack-sources "^3.0.0"
 
@@ -13233,12 +13233,12 @@ nwsapi@^2.2.0:
   resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.2.0.tgz#204879a9e3d068ff2a55139c2c772780681a38b7"
   integrity sha512-h2AatdwYH+JHiZpv7pt/gSX1XoRGb7L/qSIeuqA6GwYoF9w1vP1cw42TO0aI2pNyshRK5893hNSl+1//vHK7hQ==
 
-nx@13.8.5:
-  version "13.8.5"
-  resolved "https://registry.yarnpkg.com/nx/-/nx-13.8.5.tgz#4553170a7fd1c587677a4ce76cfb1f2c7c363493"
-  integrity sha512-s8Cyk6IwptpchPJ1JWYWzy9098BuC+tf24a7O3P6idRjX/C2/GLr+5vifgySk7wji5wwK4LNUmr1SV5H+3bLNw==
+nx@13.8.8:
+  version "13.8.8"
+  resolved "https://registry.yarnpkg.com/nx/-/nx-13.8.8.tgz#1ecff47645bc1c59030d4a1c8b7e36b5d2124597"
+  integrity sha512-v+DwRzZlxMdsCk3WzUBymKg2b4qxiNdjok+XMGaTTRAOPdLcNKXAG/UVjHu5j8wdiKcXbA64AiglupFBIAH8YA==
   dependencies:
-    "@nrwl/cli" "13.8.5"
+    "@nrwl/cli" "13.8.8"
 
 oauth-sign@~0.9.0:
   version "0.9.0"
