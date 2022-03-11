@@ -83,9 +83,9 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.6.2",
-    "@graphql-codegen/typescript": "2.4.5",
-    "@graphql-codegen/typescript-operations": "2.3.2",
-    "@graphql-codegen/typescript-react-apollo": "3.2.8",
+    "@graphql-codegen/typescript": "2.4.7",
+    "@graphql-codegen/typescript-operations": "2.3.4",
+    "@graphql-codegen/typescript-react-apollo": "3.2.10",
     "@nestjs/schematics": "8.0.8",
     "@nestjs/testing": "8.4.0",
     "@nrwl/cli": "13.8.5",
