@@ -3092,17 +3092,20 @@
   resolved "https://registry.yarnpkg.com/@n8tb1t/use-scroll-position/-/use-scroll-position-2.0.3.tgz#207c54d584285cac0954d556964f83cf5774940b"
   integrity sha512-6GO4FHVJTMI4jbRHborzemuL6B319qh2cVLOLj8DApJhjyT71eLgANbQ4bNKSZ51zBm3uJ3WmqnyNF17eSsDyw==
 
-"@nestjs/bull-shared@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/bull-shared/-/bull-shared-0.0.2.tgz#c64ed290168009ce1e8db2944ce268d3b1da8aad"
-  integrity sha512-OvFMUfmD11W/L4Q5UxiBrLU3rFe8HAF2IPy6lCo65VY2mdUC9MstZoCxo/EP9GDY7ByRS4in7m3DAiNdg7BMbQ==
-
-"@nestjs/bull@0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/bull/-/bull-0.5.2.tgz#3488aed0748d0e48def70dcb2d824b84ae4eb370"
-  integrity sha512-fq20kyD1YwhTwmsabRV4lavAL6JtNVODLuTZu27aQu7sTEvJD+koFSogX4jQPhqaZPE0N+Ih/xN7J+xpaggZDg==
+"@nestjs/bull-shared@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/bull-shared/-/bull-shared-0.0.3.tgz#ada50cea05eafa401d1a1f9d8d44c54dbe023bc5"
+  integrity sha512-uriCkarw6Q9HCEN8By98BFyixWH28Dnkyyab0q7d3I+EvTuvCOhUu5Zvzs4Egxkj1lRp5d0VMw5sz71/HQxssQ==
   dependencies:
-    "@nestjs/bull-shared" "^0.0.2"
+    tslib "2.3.1"
+
+"@nestjs/bull@0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/bull/-/bull-0.5.3.tgz#5a98c9ffc22b071c190b28f05b7ab7b4c0e63933"
+  integrity sha512-nqvDgpmn+T0YUNJUUisnREmxVd2HwkeCIpL/RvyN0kdrTPsmCeI1OF4qXLXFHMOfhvuZ84EFj6FpQgpghDOTBw==
+  dependencies:
+    "@nestjs/bull-shared" "^0.0.3"
+    tslib "2.3.1"
 
 "@nestjs/common@8.4.0":
   version "8.4.0"
