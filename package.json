@@ -113,7 +113,7 @@
     "@types/node-emoji": "1.8.1",
     "@types/react": "17.0.40",
     "@types/react-dom": "17.0.13",
-    "@types/sharp": "0.29.5",
+    "@types/sharp": "0.30.0",
     "@typescript-eslint/eslint-plugin": "5.14.0",
     "@typescript-eslint/parser": "5.14.0",
     "autoprefixer": "10.4.2",
