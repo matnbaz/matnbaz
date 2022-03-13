@@ -118,12 +118,12 @@ export const Navbar = ({ className }: NavbarProps) => {
         name: t('navbar.blog'),
         href: '/blog',
       },
-      {
-        type: 'link',
-        name: t('navbar.support'),
-        href: '/support',
-        pinging: true,
-      },
+      // {
+      //   type: 'link',
+      //   name: t('navbar.support'),
+      //   href: '/support',
+      //   pinging: true,
+      // },
       {
         type: 'flyout',
         name: t('navbar.more'),

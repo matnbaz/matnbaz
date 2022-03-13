@@ -4,7 +4,6 @@ import { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { LogoJsonLd, NextSeo, SocialProfileJsonLd } from 'next-seo';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { CSSProperties, useEffect, useState } from 'react';
 import { GoPencil, GoRepo } from 'react-icons/go';
@@ -12,7 +11,6 @@ import {
   HiBookOpen,
   HiChevronDown,
   HiCollection,
-  HiHeart,
   HiLightningBolt,
   HiMap,
   HiOfficeBuilding,
@@ -395,10 +393,10 @@ const HomePage: NextPage = () => {
               </div>
             </div>
 
-            <NextSectionChevron id="support" />
+            <NextSectionChevron id="links" />
           </div>
 
-          <div id="support" className="mt-20 sm:mt-40">
+          {/* <div id="support" className="mt-20 sm:mt-40">
             <div className="bg-gradient-to-bl from-red-600 to-rose-600">
               <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
                 <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
@@ -417,12 +415,12 @@ const HomePage: NextPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div
             id="links"
-            // className="mt-40 sm:mt-96"
-            className="mt-20 sm:mt-40"
+            className="mt-40 sm:mt-96"
+            // className="mt-20 sm:mt-40"
           >
             <div className="m-auto max-w-7xl px-6">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-24 sm:grid-flow-row-dense">
