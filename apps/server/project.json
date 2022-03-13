@@ -4,7 +4,7 @@
   "projectType": "application",
   "targets": {
     "build-cli": {
-      "executor": "@nrwl/node:build",
+      "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "webpackConfig": "apps/server/webpack.config.js",
@@ -28,7 +28,7 @@
       }
     },
     "build": {
-      "executor": "@nrwl/node:build",
+      "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "webpackConfig": "apps/server/webpack.config.js",
@@ -52,7 +52,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:execute",
+      "executor": "@nrwl/node:node",
       "options": {
         "buildTarget": "server:build"
       }
