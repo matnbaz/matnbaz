@@ -3107,12 +3107,12 @@
     "@nestjs/bull-shared" "^0.0.3"
     tslib "2.3.1"
 
-"@nestjs/common@8.4.0":
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-8.4.0.tgz#b8649836cfe74bc0700eb8a1c2a4d4d7997c66f8"
-  integrity sha512-uvm1Ccw0qRka/Gd5Mo5A2MQo9ItwewPes1fE2SBboennPojoiJ4A3iKirtlPuxsL+HQ4oD5eO02OsDyLYL2z6w==
+"@nestjs/common@8.4.1":
+  version "8.4.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-8.4.1.tgz#2a0d166d29beb5bf740dfdddc62c7bd04c39c53f"
+  integrity sha512-g6beLHvJ2cCIdlW8Uui8rQh3+oxLOBLzDIk3yWH4ocp2HEgOJwF0iUv/pk33tFuwbXESIGMK8K165cpZUjNoxA==
   dependencies:
-    axios "0.26.0"
+    axios "0.26.1"
     iterare "1.2.1"
     tslib "2.3.1"
     uuid "8.3.2"
@@ -3147,10 +3147,10 @@
     tslib "2.3.1"
     uuid "8.3.2"
 
-"@nestjs/core@8.4.0":
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-8.4.0.tgz#f4c1840b9b233e3985407f496b7c1e78e0169c70"
-  integrity sha512-aur62kcyQz81D0GvM038t2JFelxPm9ABt11o5qO5ovTJ5mismZheckwyPA3WHg9wec6skr9v8kBVdZUbjFQJQQ==
+"@nestjs/core@8.4.1":
+  version "8.4.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-8.4.1.tgz#df10f9c58407065d6bdf2528500fa6932d1356e6"
+  integrity sha512-JUV2cy/5z8MS2SRwszLmyOCclMMlyumxIbC1YFFlnSInhu7ODhrHLIMztyGmyAIuaehbOnyXPtHkjl01rHxc5w==
   dependencies:
     "@nuxtjs/opencollective" "0.3.2"
     fast-safe-stringify "2.1.1"
@@ -3244,10 +3244,10 @@
   resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-1.0.0.tgz#52a0441795f6da8144a35970d3ebc19281f31cfd"
   integrity sha512-26AW5jHadLXtvHs+M+Agd9KZ92dDlBrmD0rORlBlvn2KvsWs4JRaKl2mUsrW7YsdZeAu3Hc4ukqyYyDdyCmMWQ==
 
-"@nestjs/platform-express@8.4.0":
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-8.4.0.tgz#a0d47257bceff4e9d2eee35ae251da66d14b733b"
-  integrity sha512-vuMKBsjkqNjXPWI79r+509o2HARZwr8oTcu8pmOFRc21TI5M1DC6roK3Wk5gxSxF0V/bgtrjqe26ARZtlWBaAQ==
+"@nestjs/platform-express@8.4.1":
+  version "8.4.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-8.4.1.tgz#4720c95eaea642237761018ee33b7569bb5ebb7c"
+  integrity sha512-c18zuhoegJsS1vZueGaNyvU8mLyFtS+6FJ2WAzDOXNpchpq0okrEPdKBifIisWuxgffQYKIufoK73vEfXSfDLg==
   dependencies:
     body-parser "1.19.2"
     cors "2.8.5"
@@ -3285,10 +3285,10 @@
     jsonc-parser "3.0.0"
     pluralize "8.0.0"
 
-"@nestjs/testing@8.4.0":
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-8.4.0.tgz#c727fc427d753f106d1c9b11383858a24518170d"
-  integrity sha512-Gk9OW4RpiIGDOROHS7O271uJEpIddQP94zlkPOVOu3HPUxntfKbmDU4cDaCqC0PQ9Jtj71C0H1j9RS8ituYLAw==
+"@nestjs/testing@8.4.1":
+  version "8.4.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-8.4.1.tgz#b1cad0b0e2f779b6bbd5ef1bb5a16cf59951fb4e"
+  integrity sha512-LOvsLuNh2eRwAtyeoIZWmUZ08wt7QrPrKQujWuRyv+vBYtC+FLHjqreWLpwG2yulNEoQs9Qlr2ubPvFGT1953g==
   dependencies:
     optional "0.1.4"
     tslib "2.3.1"
@@ -6417,13 +6417,6 @@ axios@0.24.0, axios@^0.24.0:
   integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
   dependencies:
     follow-redirects "^1.14.4"
-
-axios@0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.0.tgz#9a318f1c69ec108f8cd5f3c3d390366635e13928"
-  integrity sha512-lKoGLMYtHvFrPVt3r+RBMp9nh34N0M8zEfCWqdWZx6phynIEhQqAdydpyBAAG211zlhX9Rgu08cOamy6XjE5Og==
-  dependencies:
-    follow-redirects "^1.14.8"
 
 axios@0.26.1:
   version "0.26.1"
