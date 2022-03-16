@@ -25,7 +25,7 @@
     "@nestjs/graphql": "9.1.2",
     "@nestjs/platform-express": "8.4.1",
     "@nestjs/schedule": "1.0.2",
-    "@nestjs/throttler": "2.0.0",
+    "@nestjs/throttler": "2.0.1",
     "@nrwl/next": "13.8.8",
     "@octokit/plugin-throttling": "3.6.1",
     "@prisma/client": "3.11.0",
