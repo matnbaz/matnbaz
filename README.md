@@ -27,3 +27,7 @@ Matnbaz ("open-source" in Persian, pronounced |matn baaz|) is created to detect,
 - [Frequently Asked Questions](https://matnbaz.net/en/faq)
 - [Graphical Files Repository](https://github.com/matnbaz/graphics)
 - [Mobile App Repository](https://matnbaz.net/en/matnbaz-mobile)
+
+-----
+
+Matnbaz is created by [@alitnk](https://github.com/alitnk), [@kasraghoreyshi](https://github.com/kasraghoreyshi) and the community. ❤️
