@@ -74,7 +74,7 @@
     "reflect-metadata": "0.1.13",
     "regenerator-runtime": "0.13.9",
     "rxjs": "7.5.5",
-    "sharp": "0.30.2",
+    "sharp": "0.30.3",
     "slugify": "1.6.5",
     "telegraf": "4.7.0",
     "tough-cookie-filestore2": "1.0.0",
