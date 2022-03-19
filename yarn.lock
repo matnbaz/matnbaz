@@ -6926,10 +6926,10 @@ builtin-modules@^3.1.0:
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-3.2.0.tgz#45d5db99e7ee5e6bc4f362e008bf917ab5049887"
   integrity sha512-lGzLKcioL90C7wMczpkY0n/oART3MbBa8R9OFGE1rJxoVI86u4WAGfEk8Wjv10eKSyTHVGkSo3bvBylCEtk7LA==
 
-bull@4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/bull/-/bull-4.7.0.tgz#89442d4676117edd9f9a1359bb0edfb489595e70"
-  integrity sha512-rnJIsuXrDjDlz3HMHz6xobiRZAWe3o4MJBkzx7FdUjO+K2nSYrhR2KpcL+ZCNUMPKtONxL4DqmRjat5SBHFlAw==
+bull@4.8.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/bull/-/bull-4.8.0.tgz#e04582efa4ae6c574e049d0427c4ff2c5608fd3b"
+  integrity sha512-XQ/wH9KOhapoQ1HZ2ZIxZFBWdaZD+cQNQtQDS6UTFjQDAcDcqByHT1MxTWW008ePgD4AXmLKEkU4wubS3NgQig==
   dependencies:
     cron-parser "^4.2.1"
     debuglog "^1.0.0"
