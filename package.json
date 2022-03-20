@@ -106,7 +106,7 @@
     "@types/bull": "3.15.8",
     "@types/cache-manager": "3.4.3",
     "@types/cron": "1.7.3",
-    "@types/ioredis": "4.28.9",
+    "@types/ioredis": "4.28.10",
     "@types/jest": "27.4.1",
     "@types/marked": "4.0.2",
     "@types/node": "17.0.17",
