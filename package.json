@@ -108,7 +108,7 @@
     "@types/cron": "1.7.3",
     "@types/ioredis": "4.28.10",
     "@types/jest": "27.4.1",
-    "@types/marked": "4.0.2",
+    "@types/marked": "4.0.3",
     "@types/node": "17.0.17",
     "@types/node-emoji": "1.8.1",
     "@types/react": "17.0.41",
