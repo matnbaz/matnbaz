@@ -5734,10 +5734,10 @@ add-subtract-date@^1.0.0:
   resolved "https://registry.yarnpkg.com/add-subtract-date/-/add-subtract-date-1.0.15.tgz#dd81b9236795b3ed113131dc1a325833c856c8bc"
   integrity sha512-MiL4wnMyM999meyCrSA3LME9uZ/b5ptSd0ACDVUoTfutFwvkMyIN7nG7gjrU56WEk5RlFLBghabcgdYwY8s+nQ==
 
-adminjs@5.7.3:
-  version "5.7.3"
-  resolved "https://registry.yarnpkg.com/adminjs/-/adminjs-5.7.3.tgz#e5a42f7efb2d1772d340ffb66f14cf19a829d6e7"
-  integrity sha512-2fNfTDucKCK6FdLmNUbIrkidPA+9LUxX/XO1locoBS1UqlZNLArt+6XB0LqxtObbbENSAtSMJ7I10fg0rBxVYA==
+adminjs@5.7.4:
+  version "5.7.4"
+  resolved "https://registry.yarnpkg.com/adminjs/-/adminjs-5.7.4.tgz#f08249991d34ac982595ee441cffa31a406e3bf5"
+  integrity sha512-HRmZT+ZjcaXivxyip1sh2twuAW6EuxV+rJSz8wUqSg9MrEXLtdSuz6Zx2EsEdu2ASPdVsVrsnek7BlW9vBCBqA==
   dependencies:
     "@adminjs/design-system" "^2.1.0"
     "@babel/core" "^7.10.2"
