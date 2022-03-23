@@ -19,7 +19,7 @@
     "@graphql-codegen/fragment-matcher": "3.2.1",
     "@headlessui/react": "1.5.0",
     "@n8tb1t/use-scroll-position": "2.0.3",
-    "@nestjs/bull": "0.5.3",
+    "@nestjs/bull": "0.5.4",
     "@nestjs/common": "8.4.1",
     "@nestjs/core": "8.4.1",
     "@nestjs/graphql": "9.1.2",
