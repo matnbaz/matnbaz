@@ -128,7 +128,7 @@
     "eslint-plugin-react": "7.29.4",
     "eslint-plugin-react-hooks": "4.4.0",
     "jest": "27.5.1",
-    "jest-mock-extended": "2.0.4",
+    "jest-mock-extended": "2.0.5",
     "next-sitemap": "2.5.17",
     "postcss": "8.4.12",
     "prettier": "2.6.2",
