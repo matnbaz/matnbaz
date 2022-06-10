@@ -1,7 +1,7 @@
 export const links = {
   instagram: 'https://instagram.com/matnbaz_net',
   discord: 'https://discord.link/matnbaz',
-  telegram: 'https://t.me/matnbaz_net',
+  telegram: 'https://t.me/matnbaz',
   github: 'https://github.com/matnbaz',
   githubRepo: 'https://github.com/matnbaz/matnbaz',
   githubRoadmap: 'https://github.com/orgs/matnbaz/projects/1/',
