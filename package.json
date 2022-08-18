@@ -31,7 +31,7 @@
     "@prisma/client": "3.11.1",
     "adminjs": "5.7.5",
     "apollo-server-cache-redis": "3.3.1",
-    "apollo-server-core": "3.6.7",
+    "apollo-server-core": "3.10.1",
     "apollo-server-express": "3.6.7",
     "apollo-server-plugin-response-cache": "3.5.2",
     "axios": "0.26.1",
