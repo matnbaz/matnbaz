@@ -53,7 +53,7 @@
     "gray-matter": "4.0.3",
     "hbs": "4.2.0",
     "instagram-web-api": "2.2.2",
-    "ioredis": "4.28.5",
+    "ioredis": "5.2.3",
     "marked": "4.0.12",
     "nest-commander": "2.4.0",
     "nestjs-octokit": "0.1.2",
