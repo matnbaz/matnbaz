@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adminjs/design-system@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@adminjs/design-system/-/design-system-2.2.1.tgz#a7b2730de0bfd11502a2d1e77a1e9fe700d7e042"
-  integrity sha512-tY7SDG99E8IO18DySlncLGxf0h06JL51EByAh238sn0cDYM0Bg2J1GJWAQOrwPLkCsvvL7CvW3/p8BRPKetKHw==
+"@adminjs/design-system@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@adminjs/design-system/-/design-system-2.2.4.tgz#d8907ecf88f4288c5205e0e68f3b3d574244fb71"
+  integrity sha512-C0I0lWJvithwVGPri2PY8Msq/hoaKFvsfV5173d6O2q2FIP20LxB4ZgdFIJ4QbFOht6kLI3L/4TRMC4xAwkFAA==
   dependencies:
     "@carbon/icons-react" "^10.49.0"
     date-fns "2.15.0"
@@ -5740,12 +5740,12 @@ add-subtract-date@^1.0.0:
   resolved "https://registry.yarnpkg.com/add-subtract-date/-/add-subtract-date-1.0.15.tgz#dd81b9236795b3ed113131dc1a325833c856c8bc"
   integrity sha512-MiL4wnMyM999meyCrSA3LME9uZ/b5ptSd0ACDVUoTfutFwvkMyIN7nG7gjrU56WEk5RlFLBghabcgdYwY8s+nQ==
 
-adminjs@5.7.5:
-  version "5.7.5"
-  resolved "https://registry.yarnpkg.com/adminjs/-/adminjs-5.7.5.tgz#312afcd2b2c9098e1128f86d1b50b462fd5f674d"
-  integrity sha512-rIiknZC/TEPoGbHd0YPRXXHfk1Apm0XQUU81iX1zBtuCYZl8pwxaIM9yFqfJRrJ+4AJT/cv8t/Rjl/WVxVNoyA==
+adminjs@5.11.0:
+  version "5.11.0"
+  resolved "https://registry.yarnpkg.com/adminjs/-/adminjs-5.11.0.tgz#2947a5a7b0f3efd5ff34e4cbac4fa3b50640fea0"
+  integrity sha512-sqGKskqwRTqZUXMWKNbpV+1HQT+oCamgISe3Kok+uvphCF2ARYuAz7tX1Vpq2jvuIVRuJoBmWnIx6+a4iK0fJw==
   dependencies:
-    "@adminjs/design-system" "^2.2.1"
+    "@adminjs/design-system" "^2.2.4"
     "@babel/core" "^7.10.2"
     "@babel/parser" "^7.10.2"
     "@babel/plugin-transform-runtime" "^7.10.1"
