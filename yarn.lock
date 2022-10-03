@@ -3986,17 +3986,17 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@prisma/client@3.11.1":
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-3.11.1.tgz#bde6dec71ae133d04ce1c6658e3d76627a3c6dc7"
-  integrity sha512-B3C7zQG4HbjJzUr2Zg9UVkBJutbqq9/uqkl1S138+keZCubJrwizx3RuIvGwI+s+pm3qbsyNqXiZgL3Ir0fSng==
+"@prisma/client@3.15.2":
+  version "3.15.2"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-3.15.2.tgz#2181398147afc79bfe0d83c03a88dc45b49bd365"
+  integrity sha512-ErqtwhX12ubPhU4d++30uFY/rPcyvjk+mdifaZO5SeM21zS3t4jQrscy8+6IyB0GIYshl5ldTq6JSBo1d63i8w==
   dependencies:
-    "@prisma/engines-version" "3.11.1-1.1a2506facaf1a4727b7c26850735e88ec779dee9"
+    "@prisma/engines-version" "3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e"
 
-"@prisma/engines-version@3.11.1-1.1a2506facaf1a4727b7c26850735e88ec779dee9":
-  version "3.11.1-1.1a2506facaf1a4727b7c26850735e88ec779dee9"
-  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-3.11.1-1.1a2506facaf1a4727b7c26850735e88ec779dee9.tgz#81a1835b495ad287ad7824dbd62f74e9eee90fb9"
-  integrity sha512-HkcsDniA4iNb/gi0iuyOJNAM7nD/LwQ0uJm15v360O5dee3TM4lWdSQiTYBMK6FF68ACUItmzSur7oYuUZ2zkQ==
+"@prisma/engines-version@3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e":
+  version "3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e.tgz#bf5e2373ca68ce7556b967cb4965a7095e93fe53"
+  integrity sha512-e3k2Vd606efd1ZYy2NQKkT4C/pn31nehyLhVug6To/q8JT8FpiMrDy7zmm3KLF0L98NOQQcutaVtAPhzKhzn9w==
 
 "@prisma/engines@3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e":
   version "3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e"
