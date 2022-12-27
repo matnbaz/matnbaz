@@ -1,10 +1,14 @@
 ![Matnbaz Logo](https://raw.githubusercontent.com/matnbaz/graphics/main/readme-logo.png)
 
-[![Discord](https://img.shields.io/discord/912032955956871188?label=Discord&logo=discord)](https://discord.com/invite/SNHSYWsKYQ)
-[![Telegram](https://img.shields.io/badge/Telegram-Join-26A5E4?logo=telegram)](https://t.me/matnbaz)
-[![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?logo=instagram)](https://www.instagram.com/matnbaz_net)
-[![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fmatnbaz.net&label=Tweet)](https://twitter.com/intent/tweet?text=%D8%A8%D9%87%20%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2%20%DB%8C%DA%A9%20%D8%B3%D8%B1%DB%8C%20%D8%A8%D8%B2%D9%86%DB%8C%D8%AF.%20%0A&url=matnbaz.net&via=matnbaz)
-[![Twitter](https://img.shields.io/twitter/follow/matnbaz?label=Twitter)](https://twitter.com/matnbaz)
+
+<p align="end">
+   <a aria-label="Discord" href="https://discord.com/invite/SNHSYWsKYQ"><img alt="Discord" src="https://persian-badge.vercel.app/api/discord/912032955956871188?label=دیسکورد&logo=discord"></a>
+   <a aria-label="Telegram" href="https://t.me/matnbaz"><img alt="Telegram" src="https://persian-badge.vercel.app/api/badge/تلگرام-عضو شوید-0088CC?logo=telegram"></a>
+   <a aria-label="Instagram" href="https://www.instagram.com/matnbaz_net"><img alt="Instagram" src="https://persian-badge.vercel.app/api/badge/اینستاگرام-فالو کنید-E4405F?logo=instagram"></a>
+   <a aria-label="Tweet" href="https://twitter.com/intent/tweet?text=%D8%A8%D9%87%20%D9%85%D8%AA%D9%86%E2%80%8C%D8%A8%D8%A7%D8%B2%20%DB%8C%DA%A9%20%D8%B3%D8%B1%DB%8C%20%D8%A8%D8%B2%D9%86%DB%8C%D8%AF.%20%0A&url=matnbaz.net&via=matnbaz"><img alt="Tweet" src="https://persian-badge.vercel.app/api/badge/توییت کنید-0096d1?logo=twitter&logoColor=white"></a>
+   <a aria-label="Twitter" href="https://twitter.com/matnbaz"><img alt="Twitter" src="https://persian-badge.vercel.app/api/twitter/follow/matnbaz?label=توییتر&logo=twitter&color=00ACEE"></a>
+</p>
+  
 
 # متن‌باز: جامعه اپن‌سورس ایرانی
 
@@ -31,3 +35,5 @@ Matnbaz ("open-source" in Persian, pronounced |matn baaz|) is created to detect,
 -----
 
 Matnbaz is created by [@alitnk](https://github.com/alitnk), [@kasraghoreyshi](https://github.com/kasraghoreyshi) and the community. ❤️
+
+##### نشان ها (Badge) با استفاده از https://persian-badge.vercel.app ساخته شده اند.
