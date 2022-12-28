@@ -18,7 +18,7 @@
 - [درباره متن‌باز](https://matnbaz.net/about)
 - [حمایت از متن‌باز](https://matnbaz.net/support)
 - [پرسش‌های پر‌تکرار](https://matnbaz.net/faq)
-- [مخزن فایل‌های گرافیکی](https://github.com/matnbaz/graphics)
+- [مخزن فایل‌های دیزاین](https://github.com/matnbaz/graphics)
 - [مخزن برنامه موبایل](https://github.com/matnbaz/matnbaz-mobile)
 
 # Matnbaz: The Iranian Open-Source Community
@@ -29,7 +29,7 @@ Matnbaz ("open-source" in Persian, pronounced |matn baaz|) is created to detect,
 - [About Matnbaz](https://matnbaz.net/en/about)
 - [Supporting Matnbaz](https://matnbaz.net/en/support)
 - [Frequently Asked Questions](https://matnbaz.net/en/faq)
-- [Graphical Files Repository](https://github.com/matnbaz/graphics)
+- [Design Files](https://github.com/matnbaz/graphics)
 - [Mobile App Repository](https://github.com/matnbaz/matnbaz-mobile)
 
 -----
