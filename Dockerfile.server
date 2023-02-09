@@ -9,6 +9,6 @@ RUN yarn build server
 FROM node:alpine
 
 WORKDIR /app
-COPY --from=builder /app/dist/apps/server ./
+COPY --from=builder /app/dist/apps/server/ ./
 
 CMD [ "node", "main.js" ]
