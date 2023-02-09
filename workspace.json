@@ -7,7 +7,6 @@
     "monomedia": "libs/monomedia",
     "server": "apps/server",
     "telegraf": "libs/telegraf",
-    "web": "apps/web",
-    "web-e2e": "apps/web-e2e"
+    "web": "apps/web"
   }
 }
