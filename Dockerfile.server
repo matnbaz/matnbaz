@@ -1,8 +1,10 @@
 FROM node:alpine AS builder
 
 WORKDIR /app
-RUN yarn install
-RUN yarn build server --prod
+COPY . .
+RUN yarn install --production
+RUN ls -a
+RUN yarn build server
 
 FROM node:alpine
 
