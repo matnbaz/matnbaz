@@ -130,6 +130,7 @@
     "jest": "27.5.1",
     "jest-mock-extended": "2.0.5",
     "next-sitemap": "2.5.17",
+    "nx": "15.6.3",
     "postcss": "8.4.12",
     "prettier": "2.6.2",
     "prisma": "3.15.2",
@@ -142,5 +143,8 @@
   "prisma": {
     "seed": "ts-node prisma/seed.ts",
     "schema": "./prisma/schema.prisma"
+  },
+  "nx": {
+    "targets": {}
   }
 }

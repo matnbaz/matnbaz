@@ -55,7 +55,9 @@ import { AppService } from './app.service';
       autoSchemaFile: join(process.cwd(), 'apps/server/src/schema.gql'),
       sortSchema: true,
       cache: new BaseRedisCache({
-        client: new Redis(),
+        client: new Redis(parseInt(process.env.REDIS_PORT), process.env.REDIS_HOST, {
+          password: process.env.REDIS_PASSWORD,
+        }),
       }),
       plugins: [
         ApolloServerPluginCacheControl({ defaultMaxAge: 5 }),
@@ -73,8 +75,9 @@ import { AppService } from './app.service';
     ScheduleModule.forRoot(),
     BullModule.forRoot({
       redis: {
-        host: 'localhost',
-        port: 6379,
+        host: process.env.REDIS_HOST,
+        password: process.env.REDIS_PASSWORD,
+        port: parseInt(process.env.REDIS_PORT),
       },
     }),
     OctokitModule.forRootAsync({

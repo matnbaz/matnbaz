@@ -7,8 +7,9 @@ import * as redisStore from 'cache-manager-redis-store';
       isGlobal: true,
       store: redisStore,
       // Store-specific configuration:
-      host: 'localhost',
-      port: 6379,
+      host: process.env.REDIS_HOST,
+      password: process.env.REDIS_PASSWORD,
+      port: parseInt(process.env.REDIS_PORT),
     }),
   ],
   exports: [NestCacheModule],

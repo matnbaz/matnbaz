@@ -1,12 +1,12 @@
-FROM matnbaz:base AS builder
+FROM node:alpine AS builder
 
-WORKDIR /app/builder
-COPY . .
+WORKDIR /app
+RUN yarn install
 RUN yarn build server --prod
 
-FROM matnbaz:base
+FROM node:alpine
 
-WORKDIR /app/server
-COPY --from=builder /app/builder ./
+WORKDIR /app
+COPY --from=builder /app/dist/apps/server ./
 
-CMD [ "node", "dist/apps/server/main.js" ]
+CMD [ "node", "main.js" ]
