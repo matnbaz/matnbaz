@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "postinstall": "yarn prisma generate",
     "build": "nx build",
     "test": "nx test"
   },
