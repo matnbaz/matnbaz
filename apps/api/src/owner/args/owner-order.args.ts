@@ -3,6 +3,6 @@ import { OwnerOrder } from '../enums/owner-order.enum';
 
 @ArgsType()
 export class OwnerOrderArgs {
-  @Field(() => OwnerOrder)
+  @Field(() => OwnerOrder, { nullable: true })
   order?: OwnerOrder;
 }

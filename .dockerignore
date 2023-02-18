@@ -2,3 +2,6 @@
 **/.next
 **/dist
 **/.turbo
+npm-debug.log
+**/build
+**/out

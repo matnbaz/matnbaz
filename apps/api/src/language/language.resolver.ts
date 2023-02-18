@@ -10,7 +10,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import * as P from '@prisma/client';
-import * as GithubColors from 'github-colors';
+import GithubColors from 'github-colors';
 import { PrismaService } from '../persistence/prisma/prisma.service';
 import { createColorObject } from '../color/utils';
 import { Color } from '../models/color.model';

@@ -7,18 +7,18 @@ export class OwnerFilterArgs {
   /**
    * Type of the owner
    */
-  @Field(() => OwnerType)
+  @Field(() => OwnerType, { nullable: true })
   type?: OwnerType;
 
   /**
    * Retrieves only the records that have `followersCount` and `contributionsCount`
    */
-  @Field(() => Boolean, {nullable: true})
+  @Field(() => Boolean, { nullable: true })
   withStatistics?: boolean;
 
   /**
    * The platform owner belongs to
    */
-  @Field(() => PlatformType)
+  @Field(() => PlatformType, { nullable: true })
   platform?: PlatformType;
 }

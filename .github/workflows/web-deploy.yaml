@@ -16,4 +16,4 @@ jobs:
           LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
         run: |
           npm i -g @liara/cli@3
-          liara deploy --app="matnbaz" --port=3333 --platform="docker" --api-token="$LIARA_TOKEN" --detach
+          liara deploy --app="matnbaz-web-prod" --port=3000 --platform="docker" --dockerfile="apps/web/Dockerfile" --api-token="$LIARA_TOKEN" --detach

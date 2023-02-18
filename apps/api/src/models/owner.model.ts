@@ -35,37 +35,37 @@ export class Owner {
   location?: string;
   @Field(() => String, { nullable: true })
   websiteUrl?: string;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   repositoriesCount?: number;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   totalStarsCount?: number;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   totalStarsRank?: number;
 }
 
 @ObjectType({ implements: [Node, Owner] })
 export class OwnerUser extends Owner {
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   contributionsCount?: number;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   publicContributionsCount?: number;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   followersCount?: number;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   pullRequestsCount?: number;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   openIssuesCount?: number;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   closedIssuesCount?: number;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   repositoriesContributedToCount?: number;
   @Field(() => String, { nullable: true })
   company?: string;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   contributionsRank?: number;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   publicContributionsRank?: number;
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   repositoriesContributedToRank?: number;
 }
 
