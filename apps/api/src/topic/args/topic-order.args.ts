@@ -3,6 +3,6 @@ import { TopicOrder } from '../enums/topics-order.enum';
 
 @ArgsType()
 export class TopicOrderArgs {
-  @Field(() => TopicOrder)
+  @Field(() => TopicOrder, { nullable: true })
   order?: TopicOrder;
 }

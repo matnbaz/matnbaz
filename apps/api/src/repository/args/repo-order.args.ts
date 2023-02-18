@@ -3,6 +3,6 @@ import { RepoOrder } from '../enums/repos-order.enum';
 
 @ArgsType()
 export class RepoOrderArgs {
-  @Field(() => RepoOrder)
+  @Field(() => RepoOrder, { nullable: true })
   order?: RepoOrder;
 }

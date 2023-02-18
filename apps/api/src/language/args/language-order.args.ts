@@ -3,6 +3,6 @@ import { LanguageOrder } from '../enums/language-order.enum';
 
 @ArgsType()
 export class LanguageOrderArgs {
-  @Field(() => LanguageOrder)
+  @Field(() => LanguageOrder, { nullable: true })
   order?: LanguageOrder;
 }

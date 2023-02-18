@@ -3,6 +3,6 @@ import { Locale } from '../enums/locale.enum';
 
 @ArgsType()
 export class LocaleArgs {
-  @Field(() => Locale)
+  @Field(() => Locale, { nullable: true })
   locale?: Locale = Locale.Fa;
 }

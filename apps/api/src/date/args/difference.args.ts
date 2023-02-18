@@ -4,9 +4,9 @@ import { Calendar } from '../enums/calendar.enum';
 
 @ArgsType()
 export class DifferenceArgs {
-  @Field(() => Calendar)
+  @Field(() => Calendar, { nullable: true })
   calendar?: Calendar = Calendar.Persian;
 
-  @Field(() => Locale)
+  @Field(() => Locale, { nullable: true })
   locale?: Locale = Locale.Fa;
 }

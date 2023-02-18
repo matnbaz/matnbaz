@@ -8,21 +8,21 @@ export class RepoFilterArgs {
   /**
    * Language slugs
    */
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   languages?: string[];
 
   /**
    * License keys
    */
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   licenses?: string[];
 
-  @Field(() => TemplateStatusType)
+  @Field(() => TemplateStatusType, { nullable: true })
   templateStatus?: TemplateStatusType;
 
-  @Field(() => ForkStatusType)
+  @Field(() => ForkStatusType, { nullable: true })
   forkStatus?: ForkStatusType;
 
-  @Field(() => ArchiveStatusType)
+  @Field(() => ArchiveStatusType, { nullable: true })
   archiveStatus?: ArchiveStatusType;
 }

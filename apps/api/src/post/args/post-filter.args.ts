@@ -5,6 +5,6 @@ export class PostFilterArgs {
   /**
    * Tags
    */
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   tags?: string[];
 }

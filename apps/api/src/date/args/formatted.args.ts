@@ -7,9 +7,9 @@ export class FormattedArgs {
   @Field(() => String)
   format: string = 'd MMMM yyyy';
 
-  @Field(() => Calendar)
+  @Field(() => Calendar, { nullable: true })
   calendar?: Calendar = Calendar.Persian;
 
-  @Field(() => Locale)
+  @Field(() => Locale, { nullable: true })
   locale?: Locale = Locale.Fa;
 }
