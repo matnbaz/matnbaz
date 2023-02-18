@@ -1,4 +1,4 @@
-import { getDirectionality } from '@matnbaz/common';
+import { getDirectionality } from 'common';
 import Document, {
   DocumentContext,
   Head,

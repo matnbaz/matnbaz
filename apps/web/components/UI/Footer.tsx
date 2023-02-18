@@ -1,4 +1,4 @@
-import { links } from '@matnbaz/common';
+import { links } from 'common';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import {

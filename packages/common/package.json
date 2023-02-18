@@ -1,0 +1,20 @@
+{
+  "name": "common",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf .turbo node_modules",
+    "test": "jest",
+    "test:ci": "jest --ci"
+  },
+  "dependencies": {
+    "date-fns-jalali": "2.28.0-0",
+    "slugify": "1.6.5"
+  },
+  "devDependencies": {
+    "typescript": "4.6.3"
+  }
+}

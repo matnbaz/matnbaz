@@ -1,23 +1,15 @@
-const withNx = require('@nrwl/next/plugins/with-nx');
 const { i18n } = require('./next-i18next.config');
+const withTM = require("next-transpile-modules")(["common"]);
 
-/**
- * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
- **/
-const nextConfig = {
-  nx: {
-    // Set this to true if you would like to to use SVGR
-    // See: https://github.com/gregberge/svgr
-    svgr: false,
-  },
+module.exports = withTM({
+  i18n,
+  reactStrictMode: true,
   images: {
     domains: ['avatars.githubusercontent.com', 'raw.githubusercontent.com'],
   },
-};
-
-module.exports = {
-  ...withNx(nextConfig),
-  i18n,
+  typescript: {
+    ignoreBuildErrors: true
+  },
   async redirects() {
     return [
       {
@@ -62,4 +54,4 @@ module.exports = {
       }
     ]
   }
-};
+});

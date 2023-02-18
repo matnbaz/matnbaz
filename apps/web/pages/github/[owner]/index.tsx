@@ -1,4 +1,4 @@
-import { localize, MINIMUM_STARS } from '@matnbaz/common';
+import { localize, MINIMUM_STARS } from 'common';
 import { GetServerSideProps, NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';

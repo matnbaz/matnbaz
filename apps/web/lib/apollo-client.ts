@@ -1,12 +1,15 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { relayStylePagination } from '@apollo/client/utilities';
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { relayStylePagination } from "@apollo/client/utilities";
+
+const isSsr = typeof window === "undefined";
+const uri = isSsr
+  ? process.env.SSR_GRAPHQL_ENDPOINT ?? process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT
+  : process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT;
 
 export function createApolloClient() {
   return new ApolloClient({
-    uri:
-      process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT ||
-      'http://localhost:3333/graphql',
-    ssrMode: typeof window === 'undefined',
+    uri: uri ?? "http://localhost:3001/graphql",
+    ssrMode: isSsr,
     cache: new InMemoryCache({
       typePolicies: {
         Query: {

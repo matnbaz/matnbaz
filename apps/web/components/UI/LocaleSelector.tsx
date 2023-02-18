@@ -1,5 +1,5 @@
 import { Listbox, Transition } from '@headlessui/react';
-import { setBodyDirection } from '@matnbaz/common';
+import { setBodyDirection } from 'common';
 import classNames from 'classnames';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';

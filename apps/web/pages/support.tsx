@@ -1,23 +1,23 @@
-import { readFileSync } from 'fs';
-import { marked, Renderer } from 'marked';
-import { GetStaticProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { NextSeo } from 'next-seo';
-import { join } from 'path';
-import { MainLayout } from '../components/Layout/MainLayout';
-import nextI18nextConfig from '../next-i18next.config';
+import { readFileSync } from "fs";
+import { marked, Renderer } from "marked";
+import { GetStaticProps, NextPage } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NextSeo } from "next-seo";
+import { join } from "path";
+import { MainLayout } from "../components/Layout/MainLayout";
+import nextI18nextConfig from "../next-i18next.config";
 
 export interface SupportPageProps {
   supportText: string;
 }
 
 const SupportPage: NextPage<SupportPageProps> = ({ supportText }) => {
-  const { t } = useTranslation('support');
+  const { t } = useTranslation("support");
 
   return (
     <MainLayout>
-      <NextSeo title={t('page-title')} description={t('page-description')} />
+      <NextSeo title={t("page-title")} description={t("page-description")} />
       <div
         className="prose dark:prose-invert prose-h1:mt-10 max-w-4xl mx-auto mb-5"
         dangerouslySetInnerHTML={{ __html: supportText }}
@@ -40,7 +40,10 @@ export const getStaticProps: GetStaticProps<SupportPageProps> = async ({
     );
 
   const supportMarkdown = readFileSync(
-    join(process.cwd(), `markdown/${locale}/SUPPORT.md`)
+    join(
+      process.cwd().replace(/apps(\/|\\)web/, ""),
+      `/markdown/${locale}/SUPPORT.md`
+    )
   );
   const renderedMarkdown = marked.parse(supportMarkdown.toString(), {
     renderer,
@@ -51,7 +54,7 @@ export const getStaticProps: GetStaticProps<SupportPageProps> = async ({
       supportText: renderedMarkdown,
       ...(await serverSideTranslations(
         locale,
-        ['common', 'support'],
+        ["common", "support"],
         nextI18nextConfig
       )),
     },

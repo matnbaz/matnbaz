@@ -1,4 +1,4 @@
-import { localize, MINIMUM_STARS } from '@matnbaz/common';
+import { localize, MINIMUM_STARS } from 'common';
 import classNames from 'classnames';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';

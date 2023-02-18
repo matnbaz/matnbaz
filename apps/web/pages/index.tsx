@@ -1,4 +1,4 @@
-import { links, localize } from '@matnbaz/common';
+import { links, localize } from 'common';
 import classNames from 'classnames';
 import { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';

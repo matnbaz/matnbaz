@@ -1,5 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
-import { links as matnbazLinks } from '@matnbaz/common';
+import { links as matnbazLinks } from 'common';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import classNames from 'classnames';
 import { useTranslation } from 'next-i18next';

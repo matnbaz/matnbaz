@@ -1,4 +1,7 @@
-dist
-node_modules
-tmp
-.vscode
+**/node_modules
+**/.next
+**/dist
+**/.turbo
+npm-debug.log
+**/build
+**/out
