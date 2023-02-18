@@ -1,2 +1,0 @@
-export const TELEGRAF = 'TELEGRAF';
-export const TELEGRAF_OPTIONS = 'TELEGRAF_OPTIONS';

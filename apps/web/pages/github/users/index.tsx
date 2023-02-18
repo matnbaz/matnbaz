@@ -1,4 +1,4 @@
-import { localize } from '@matnbaz/common';
+import { localize } from 'common';
 import classNames from 'classnames';
 import { GetStaticProps, NextPage } from 'next';
 import { useTranslation } from 'next-i18next';

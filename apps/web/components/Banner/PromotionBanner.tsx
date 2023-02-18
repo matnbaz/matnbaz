@@ -1,4 +1,4 @@
-import { links, randomBetween } from '@matnbaz/common';
+import { links, randomBetween } from 'common';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useMemo, useState } from 'react';
 import {

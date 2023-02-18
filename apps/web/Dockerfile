@@ -1,24 +1,32 @@
-FROM node:16 AS pruner
+FROM node:16-alpine AS builder
+RUN apk add --update --no-cache libc6-compat openssl1.1-compat openssl openssl-dev
+# Set working directory
 WORKDIR /app
+RUN yarn global add turbo
 COPY . .
-RUN npm i -g nx
-RUN npx turbo prune --scope="@denja/web" --docker
+# Only Take packages that are needed to compile this app
+RUN turbo prune --scope=web --docker
 
-FROM node:16 AS installer
-RUN npm i -g pnpm
-
+# Add lockfile and package.json's of isolated subworkspace
+FROM node:16-alpine AS installer
+RUN apk add --update --no-cache libc6-compat openssl1.1-compat openssl openssl-dev
 WORKDIR /app
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/yarn.lock ./yarn.lock
+COPY --from=builder /app/turbo.json ./turbo.json
+RUN yarn install --frozen-lockfile
+
+FROM node:16-alpine AS sourcer
+RUN apk add --update --no-cache libc6-compat openssl1.1-compat openssl openssl-dev
+WORKDIR /app
+COPY --from=installer /app/ .
+COPY --from=builder /app/out/full/ .
 COPY .gitignore .gitignore
-COPY .yarnrc .yarnrc
-COPY --from=pruner ./app/out/json/ ./
-COPY --from=pruner ./app/out/pnpm-*.yaml ./
-COPY turbo.json turbo.json
-RUN pnpm install
+RUN yarn turbo run build --scope=web --include-dependencies --no-deps
 
-COPY tsconfig.json tsconfig.json
-COPY --from=pruner ./app/out/full/ ./
-RUN pnpm run postinstall
-RUN pnpm run build
-
-EXPOSE 3000
-CMD cd apps/web && npm run start
+FROM node:16-alpine as runner
+RUN apk add --update --no-cache libc6-compat openssl1.1-compat openssl openssl-dev
+WORKDIR /app
+COPY --from=sourcer /app/ .
+WORKDIR /app/apps/web/
+CMD [ "npm", "start" ]

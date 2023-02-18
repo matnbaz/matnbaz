@@ -1,5 +1,4 @@
-dist
-node_modules
-tmp
-.vscode
-.yarn
+**/node_modules
+**/.next
+**/dist
+**/.turbo

@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps<AboutProps> = async ({
   locale,
 }) => {
   const aboutMarkdown = readFileSync(
-    join(process.cwd(), `markdown/${locale}/ABOUT.md`)
+    join(process.cwd(), `../../markdown/${locale}/ABOUT.md`)
   );
   const renderedMarkdown = marked.parse(aboutMarkdown.toString());
 

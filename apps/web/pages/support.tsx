@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps<SupportPageProps> = async ({
     );
 
   const supportMarkdown = readFileSync(
-    join(process.cwd(), `markdown/${locale}/SUPPORT.md`)
+    join(process.cwd(), `../../markdown/${locale}/SUPPORT.md`)
   );
   const renderedMarkdown = marked.parse(supportMarkdown.toString(), {
     renderer,

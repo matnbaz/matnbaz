@@ -1,0 +1,19 @@
+name: CD-Liara
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "16"
+      - name: update-liara
+        env:
+          LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+        run: |
+          npm i -g @liara/cli@3
+          liara deploy --app="matnbaz" --port=3333 --platform="docker" --api-token="$LIARA_TOKEN" --detach
