@@ -14,6 +14,8 @@ jobs:
       - name: update-liara
         env:
           LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+          SSR_GRAPHQL_ENDPOINT: https://api.matnbaz.net/graphql
+          NEXT_PUBLIC_GRAPHQL_ENDPOINT: https://api.matnbaz.net/graphql
         run: |
           npm i -g @liara/cli@3
-          SSR_GRAPHQL_ENDPOINT=https://api.matnbaz.net/graphql liara deploy --app="matnbaz-web-prod" --port=3000 --platform="docker" --dockerfile="apps/web/Dockerfile" --api-token="$LIARA_TOKEN" --detach
+          liara deploy --app="matnbaz-web-prod" --port=3000 --platform="docker" --dockerfile="apps/web/Dockerfile" --api-token="$LIARA_TOKEN" --detach
