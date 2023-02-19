@@ -5,10 +5,10 @@ const isSsr = typeof window === "undefined";
 const uri = isSsr
   ? process.env.SSR_GRAPHQL_ENDPOINT ?? process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT
   : process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT;
-
+console.log(uri)
 export function createApolloClient() {
   return new ApolloClient({
-    uri: uri ?? "http://localhost:3001/graphql",
+    uri: uri ?? "https://api.matnbaz.net/graphql",
     ssrMode: isSsr,
     cache: new InMemoryCache({
       typePolicies: {

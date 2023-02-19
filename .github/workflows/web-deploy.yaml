@@ -18,4 +18,4 @@ jobs:
           NEXT_PUBLIC_GRAPHQL_ENDPOINT: https://api.matnbaz.net/graphql
         run: |
           npm i -g @liara/cli@3
-          liara deploy --app="matnbaz-web-prod" --port=3000 --platform="docker" --dockerfile="apps/web/Dockerfile" --api-token="$LIARA_TOKEN" --no-cache --detach
+          liara deploy --app="matnbaz-web-prod" --port=3000 --platform="docker" --dockerfile="apps/web/Dockerfile" --api-token="$LIARA_TOKEN" --detach
