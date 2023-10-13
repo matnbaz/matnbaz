@@ -1,22 +1,22 @@
 {
-  "page-title": "The Iranian open-source community",
-  "page-description": "Matnbaz is created to detect, collect and showcase Iranian open-source projects, promote open-source, connect developers and create financial solutions for Iranian open-source maintainers.",
+  "page-title": "The Persian open-source scene",
+  "page-description": "Matnbaz is created to detect, collect and showcase Persian/Iranian open-source projects.",
   "new": "New",
   "in-future": "In Future",
   "hero": {
     "title-h1": "Matnbaz",
-    "title-h2": "The {{accent}} open-source community",
-    "title-h2-accent": "Iranian",
-    "description": "Matnbaz (\"open-source\" in Persian, pronounced |matn baaz|) is created to detect, collect and showcase Iranian open-source projects, promote open-source, connect developers and create financial solutions for Iranian maintainers (soon).",
+    "title-h2": "The {{accent}} open-source scene",
+    "title-h2-accent": "Persian",
+    "description": "Matnbaz (\"open-source\" in Persian, pronounced \"matn-baaz\") is created to detect, collect and showcase Persian/Iranian open-source projects.",
     "more-info": "More Info"
   },
   "ease-discovery": {
     "title": "Collecting {{accent}}",
-    "title-accent": "Iranian Projects",
-    "description": "Matnbaz tries to detect and collect all existing Iranian open-source maintainers and their repositories.",
+    "title-accent": "Persian Projects",
+    "description": "Matnbaz tries to detect and collect all existing Persian open-source maintainers and their repositories.",
     "explorer": {
       "title": "Explorer",
-      "description": "Find Iranian open-source packages, libraries and projects using different filters.",
+      "description": "Find Persian open-source packages, libraries and projects using different filters.",
       "cta": "See Explorer"
     },
     "collections": {
@@ -53,7 +53,7 @@
   "developers-network": {
     "title": "Connecting {{accent}}",
     "title-accent": "Developers",
-    "description": "Matnbaz tries to connect Iranian open-source enthusiasts.",
+    "description": "Matnbaz tries to connect Persian open-source enthusiasts.",
     "discord-community": {
       "title": "Discord Community",
       "description": "You can meet other developers and find your future teammates in our Discord community.",
@@ -61,12 +61,12 @@
     },
     "top-users": {
       "title": "Top Users Chart",
-      "description": "Meet the most active Iranian developers in GitHub based on their contributions to the open-source.",
+      "description": "Meet the most active Persian developers in GitHub based on their contributions to the open-source.",
       "cta": "Show Users Chart"
     },
     "top-organizations": {
       "title": "Top Organizations Chart",
-      "description": "Meet the most active Iranian organizations in GitHub based on their contributions to the open-source.",
+      "description": "Meet the most active Persian organizations in GitHub based on their contributions to the open-source.",
       "cta": "Show Organizations Chart"
     }
   },

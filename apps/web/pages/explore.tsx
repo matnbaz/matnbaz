@@ -89,7 +89,7 @@ const Explore: NextPage = () => {
                 repositories && repositories.map((edge) => edge.node)
               }
               onLoadMore={repositoriesLoadMoreHandler}
-              adsFrequency={10}
+              adsFrequency={15}
               adsTemplate={() => (
                 <PromotionBanner className="rounded-xl overflow-hidden" />
               )}

@@ -46,13 +46,13 @@ export const Footer = (props: FooterProps) => {
                 </Link>
               </div>
 
-              <div>
+              {/* <div>
                 <Link href="/support">
                   <a className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
                     {t('footer.support')}
                   </a>
                 </Link>
-              </div>
+              </div> */}
 
               <div>
                 <Link href="/faq">
@@ -79,7 +79,7 @@ export const Footer = (props: FooterProps) => {
             <IconButton href={links.github} target="_blank" rel="noreferrer">
               <SiGithub className="w-4 h-4" />
             </IconButton>
-            <IconButton href={links.telegram} target="_blank" rel="noreferrer">
+            {/* <IconButton href={links.telegram} target="_blank" rel="noreferrer">
               <SiTelegram className="w-4 h-4" />
             </IconButton>
             <IconButton href={links.discord} target="_blank" rel="noreferrer">
@@ -90,7 +90,7 @@ export const Footer = (props: FooterProps) => {
             </IconButton>
             <IconButton href={links.instagram} target="_blank" rel="noreferrer">
               <SiInstagram className="w-4 h-4" />
-            </IconButton>
+            </IconButton> */}
           </div>
         </div>
       </div>

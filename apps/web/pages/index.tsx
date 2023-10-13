@@ -262,8 +262,8 @@ const HomePage: NextPage = () => {
             />
             <div className="mt-12 lg:mt-28">
               <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-24 sm:grid-flow-row-dense">
-                  <div
+                <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-24 sm:grid-flow-row-dense">
+                  {/* <div
                     id="discord-community"
                     className="md:col-span-2 lg:col-span-1"
                   >
@@ -287,7 +287,7 @@ const HomePage: NextPage = () => {
                         )
                       }
                     />
-                  </div>
+                  </div> */}
                   <div id="top-users">
                     <Feature
                       centered
@@ -342,7 +342,7 @@ const HomePage: NextPage = () => {
             />
             <div className="mt-12 lg:mt-28">
               <div className="m-auto max-w-7xl mt-16 sm:mt-28 px-6 space-y-36">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-24 sm:grid-flow-row-dense">
+                <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-24 sm:grid-flow-row-dense">
                   <div id="education" className="md:col-span-2 lg:col-span-1">
                     <Feature
                       centered
@@ -356,7 +356,7 @@ const HomePage: NextPage = () => {
                       href={`/blog`}
                     />
                   </div>
-                  <div id="events">
+                  {/* <div id="events">
                     <Feature
                       centered
                       title={t('promote-open-source.events.title')}
@@ -366,7 +366,7 @@ const HomePage: NextPage = () => {
                       disabled
                       cta={t('in-future')}
                     />
-                  </div>
+                  </div> */}
                   <div id="source-code">
                     <Feature
                       centered
@@ -423,8 +423,8 @@ const HomePage: NextPage = () => {
             // className="mt-20 sm:mt-40"
           >
             <div className="m-auto max-w-7xl px-6">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-24 sm:grid-flow-row-dense">
-                <div id="roadmap" className="md:col-span-2 lg:col-span-1">
+              <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-24 sm:grid-flow-row-dense">
+                {/* <div id="roadmap" className="md:col-span-2 lg:col-span-1">
                   <Feature
                     centered
                     title={t('links.roadmap.title')}
@@ -435,7 +435,7 @@ const HomePage: NextPage = () => {
                     icon={HiMap}
                     iconWrapperClassName="bg-gradient-to-bl from-green-500 to-green-400"
                   />
-                </div>
+                </div> */}
 
                 <div id="faq">
                   <Feature

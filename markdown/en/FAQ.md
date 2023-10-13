@@ -1,10 +1,10 @@
-# How does Matnbaz detect Iranian users?
+# How does Matnbaz detect Persian users?
 
 There are several ways we do that, including:
 
 - Having your GitHub location set to Iran
 - Having a repository related to Iran or Persian language
-- Being a member of an Iranian organization
+- Being a member of an Persian organization
 - Having a Persian name
 - Being submitted manually from the [User Submit Page](https://matnbaz.net/en/submit-user)
 

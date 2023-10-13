@@ -24,43 +24,43 @@ export interface PromotionBannerProps extends Partial<BannerProps> {
 
 export const PromotionBanner = ({ type, ...props }: PromotionBannerProps) => {
   const { t } = useTranslation();
-  const bannerProps = useMemo<Record<PromotionBannerType, BannerProps>>(() => {
+  const bannerProps = useMemo(() => {
     return {
-      telegram: {
-        text: t('promotion.telegram.text'),
-        mobile: t('promotion.telegram.mobile'),
-        icon: SiTelegram,
-        url: links.telegram,
-        cta: t('promotion.telegram.cta'),
-        theme: 'primary',
-      },
+      // telegram: {
+      //   text: t('promotion.telegram.text'),
+      //   mobile: t('promotion.telegram.mobile'),
+      //   icon: SiTelegram,
+      //   url: links.telegram,
+      //   cta: t('promotion.telegram.cta'),
+      //   theme: 'primary',
+      // },
 
-      instagram: {
-        text: t('promotion.instagram.text'),
-        mobile: t('promotion.instagram.mobile'),
-        icon: SiInstagram,
-        url: links.instagram,
-        cta: t('promotion.instagram.cta'),
-        theme: 'instagram',
-      },
+      // instagram: {
+      //   text: t('promotion.instagram.text'),
+      //   mobile: t('promotion.instagram.mobile'),
+      //   icon: SiInstagram,
+      //   url: links.instagram,
+      //   cta: t('promotion.instagram.cta'),
+      //   theme: 'instagram',
+      // },
 
-      twitter: {
-        text: t('promotion.twitter.text'),
-        mobile: t('promotion.twitter.mobile'),
-        icon: SiTwitter,
-        url: links.twitter,
-        cta: t('promotion.twitter.cta'),
-        theme: 'twitter',
-      },
+      // twitter: {
+      //   text: t('promotion.twitter.text'),
+      //   mobile: t('promotion.twitter.mobile'),
+      //   icon: SiTwitter,
+      //   url: links.twitter,
+      //   cta: t('promotion.twitter.cta'),
+      //   theme: 'twitter',
+      // },
 
-      twitterTweet: {
-        text: t('promotion.twitterTweet.text'),
-        mobile: t('promotion.twitterTweet.mobile'),
-        icon: SiTwitter,
-        url: links.twitterTweet,
-        cta: t('promotion.twitterTweet.cta'),
-        theme: 'twitter',
-      },
+      // twitterTweet: {
+      //   text: t('promotion.twitterTweet.text'),
+      //   mobile: t('promotion.twitterTweet.mobile'),
+      //   icon: SiTwitter,
+      //   url: links.twitterTweet,
+      //   cta: t('promotion.twitterTweet.cta'),
+      //   theme: 'twitter',
+      // },
 
       github: {
         text: t('promotion.github.text'),
@@ -71,15 +71,15 @@ export const PromotionBanner = ({ type, ...props }: PromotionBannerProps) => {
         theme: 'github',
       },
 
-      discord: {
-        text: t('promotion.discord.text'),
-        mobile: t('promotion.discord.mobile'),
-        icon: SiDiscord,
-        url: links.discord,
-        cta: t('promotion.discord.cta'),
-        theme: 'discord',
-      },
-    };
+      // discord: {
+      //   text: t('promotion.discord.text'),
+      //   mobile: t('promotion.discord.mobile'),
+      //   icon: SiDiscord,
+      //   url: links.discord,
+      //   cta: t('promotion.discord.cta'),
+      //   theme: 'discord',
+      // },
+    } as const;
   }, [t]);
   const [promoBanner, setPromoBanner] = useState<BannerProps | null>(
     bannerProps[type] || null
