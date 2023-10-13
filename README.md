@@ -22,8 +22,3 @@ Matnbaz ("open-source" in Persian, pronounced "matn-baaz") is created to detect,
 - [About Matnbaz](https://matnbaz.net/en/about)
 - [Frequently Asked Questions](https://matnbaz.net/en/faq)
 
----
-
-Matnbaz is created by [@alitnk](https://github.com/alitnk), [@kasraghoreyshi](https://github.com/kasraghoreyshi) and the community. ❤️
-
-##### نشان ها (Badge) با استفاده از https://persian-badge.vercel.app ساخته شده اند.
