@@ -14,7 +14,7 @@
 - [درباره متن‌باز](https://matnbaz.net/about)
 - [پرسش‌های پر‌تکرار](https://matnbaz.net/faq)
 
-# Matnbaz: The Persian Open-Source Community
+# Matnbaz: The Persian Open-Source Scene
 
 Matnbaz ("open-source" in Persian, pronounced "matn-baaz") is created to detect, collect and showcase Persian/Iranian open-source projects.
 
